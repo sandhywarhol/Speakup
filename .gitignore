@@ -101,3 +101,9 @@ logs
 # Temporary files
 tmp/
 temp/
+
+# Large video files (exceed GitHub 100MB limit)
+ui/assets/video/*.mp4
+ui/assets/video/*.mov
+ui/assets/video/*.avi
+ui/assets/video/*.mkv
