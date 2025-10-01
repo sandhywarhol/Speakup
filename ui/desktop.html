@@ -1,0 +1,1560 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>SpeakUp! — Desktop Version</title>
+  <link rel="stylesheet" href="assets/css/style.css" />
+  <style>
+    /* Lock to light/bright theme for desktop page */
+    :root {
+      --bg: #ffffff; /* putih penuh */
+      --panel: #ffffff;
+      --text: #374151;
+      --muted: #64748b;
+      --accent: #38bdf8;
+      --border: #e5e7eb;
+    }
+
+    /* Force logo to light variant on desktop page */
+    .logo img[data-theme="light"] { display: block !important; }
+    .logo img[data-theme="dark"] { display: none !important; }
+
+    /* Force white background for all elements - override external CSS */
+    html, body, main, .desktop-container, .desktop-nav, .card, .tabs .tab, .modal .box, .grid, .header, .btn, .badge, .pill {
+      background: #ffffff !important;
+    }
+    
+    /* Override specific CSS rules from style.css */
+    body.desktop-page, 
+    body.desktop-page html, 
+    body.desktop-page body,
+    .desktop-page .desktop-nav,
+    .desktop-page .desktop-nav .nav-item.active,
+    .desktop-page .desktop-nav .nav-item.plus-btn,
+    .desktop-page .btn.primary,
+    .desktop-page .btn.plus-btn {
+      background: #ffffff !important;
+    }
+
+    /* Desktop neutralization: remove blue backgrounds, keep titles blue */
+    .desktop-nav .logo { 
+      color: #111827 !important; 
+      font-weight: 800; 
+      letter-spacing: 0.5px; 
+    }
+    /* Make all text (non-headings) dark grey */
+    body.desktop-page, 
+    body.desktop-page *:not(h1):not(h2):not(h3):not(h4):not(h5):not(h6),
+    .desktop-page p,
+    .desktop-page .content,
+    .desktop-page .feature p,
+    .desktop-page .hero p,
+    .desktop-page .footer,
+    .desktop-page .pill,
+    .desktop-page .meta,
+    .desktop-page .badge,
+    .desktop-page .setting-item .label,
+    .desktop-page .setting-item .pill {
+      color: #374151 !important;
+    }
+    .desktop-nav .nav-item.active { background: #ffffff !important; color: #374151 !important; border: 1px solid #e5e7eb !important; }
+    .desktop-nav .nav-item:hover { background: #ffffff !important; }
+    .desktop-nav .nav-item.plus-btn { background: #ffffff !important; color: #374151 !important; border: 1px solid #e5e7eb !important; }
+    .btn.primary { background: #ffffff !important; color: #374151 !important; border: 1px solid #e5e7eb !important; }
+    .btn { background: #ffffff !important; color: #374151 !important; border-color: #e5e7eb !important; }
+    .badge, .badge.success, .badge.warn, .badge.danger { background: #ffffff !important; color: #374151 !important; border: 1px solid #e5e7eb !important; }
+    .tabs .tab.active { color: #374151 !important; background: #ffffff !important; border-color: #e5e7eb !important; }
+    .card { background: #ffffff !important; }
+    .grid, .header, .bottom-nav, .modal .box { background: #ffffff; }
+
+    /* Desktop layout (tanpa frame ponsel) */
+    body {
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+      background: #ffffff !important; /* putih penuh */
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    }
+
+    /* Matikan komponen simulasi ponsel di versi desktop */
+    .phone-frame,
+    .phone-screen,
+    .status-bar,
+    .notch,
+    .home-indicator {
+      display: none !important;
+    }
+
+    /* Konten utama desktop */
+    .desktop-container {
+      max-width: 100%;
+      margin: 0;
+      padding: 0;
+    }
+
+    /* Tampilkan desktop navigation */
+    .desktop-nav {
+      display: block !important;
+    }
+
+    /* Hero Section */
+    .hero-section {
+      background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+      padding: 80px 0;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 40px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+    }
+
+    .hero-text h1 {
+      font-size: 48px;
+      font-weight: 700;
+      line-height: 1.2;
+      margin: 0 0 24px;
+      color: #1e293b !important;
+    }
+
+    .hero-text p {
+      font-size: 18px;
+      line-height: 1.6;
+      margin: 0 0 32px;
+      color: #64748b !important;
+    }
+
+    .hero-features {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 40px;
+    }
+
+    .hero-features li {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      margin-bottom: 16px;
+      font-size: 16px;
+      color: #374151 !important;
+    }
+
+    .hero-features li::before {
+      content: '✓';
+      color: #10b981;
+      font-weight: bold;
+      font-size: 18px;
+    }
+
+    .hero-features li strong {
+      display: inline-block;
+      min-width: 220px;
+      color: #1e293b !important;
+    }
+
+    .hero-features li span {
+      color: #64748b !important;
+      line-height: 1.6;
+    }
+
+    .hero-buttons {
+      display: flex;
+      gap: 16px;
+    }
+
+    .btn-hero-primary {
+      background: #38bdf8 !important;
+      color: #ffffff !important;
+      padding: 16px 32px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 600;
+      border: none;
+    }
+
+    .btn-hero-secondary {
+      background: #374151 !important;
+      color: #ffffff !important;
+      padding: 16px 32px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 600;
+      border: none;
+    }
+
+    /* Override general btn styles for hero secondary button */
+    .hero-buttons .btn-hero-secondary {
+      color: #ffffff !important;
+    }
+
+    .hero-visual {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+    }
+
+    .device-mockup {
+      width: 400px;
+      height: 300px;
+      background: #ffffff;
+      border-radius: 20px;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      position: relative;
+      overflow: hidden;
+    }
+    .device-mockup img { max-width: 80%; height: auto; display: block; }
+
+    /* Blur background layer inside device-mockup */
+    .device-mockup .mockup-bg {
+      position: absolute;
+      inset: 0;
+      background: url('assets/img/city-bg.jpg') center/cover no-repeat;
+      background-size: cover;
+      background-position: center;
+      filter: none;
+      transform: none;
+      opacity: 1;
+      z-index: 0;
+    }
+
+    .device-mockup .mockup-overlay {
+      position: absolute;
+      inset: 0;
+      background: transparent;
+      z-index: 1;
+    }
+
+    .device-mockup .mockup-content {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+
+
+
+    /* Stats Section */
+    .stats-section {
+      padding: 80px 0;
+      background: #f8fafc;
+    }
+
+    .stats-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 40px;
+    }
+
+    .stats-header {
+      text-align: center;
+      margin-bottom: 60px;
+    }
+
+    .stats-header h2 {
+      font-size: 36px;
+      font-weight: 700;
+      margin: 0 0 16px;
+      color: #1e293b !important;
+    }
+
+    .stats-header p {
+      font-size: 18px;
+      color: #64748b !important;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 30px;
+    }
+
+    .stat-card {
+      background: #ffffff;
+      padding: 40px 30px;
+      border-radius: 12px;
+      text-align: center;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .stat-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+    }
+
+    .stat-number {
+      font-size: 48px;
+      font-weight: 700;
+      color: #38bdf8 !important;
+      margin-bottom: 8px;
+      line-height: 1;
+    }
+
+    .stat-label {
+      font-size: 18px;
+      font-weight: 600;
+      color: #1e293b !important;
+      margin-bottom: 12px;
+    }
+
+    .stat-description {
+      font-size: 14px;
+      color: #64748b !important;
+      line-height: 1.5;
+    }
+
+    /* How It Works Section */
+    .how-it-works-section {
+      padding: 80px 0;
+      background: #ffffff;
+    }
+
+    .how-it-works-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 40px;
+    }
+
+    .how-it-works-header {
+      text-align: center;
+      margin-bottom: 60px;
+    }
+
+    .how-it-works-header h2 {
+      font-size: 36px;
+      font-weight: 700;
+      margin: 0 0 16px;
+      color: #1e293b !important;
+    }
+
+    .how-it-works-header p {
+      font-size: 18px;
+      color: #64748b !important;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .steps-container {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 40px;
+    }
+
+    .step-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 24px;
+      padding: 30px;
+      background: #f8fafc;
+      border-radius: 12px;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .step-item:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+    }
+
+    .step-number {
+      width: 60px;
+      height: 60px;
+      background: #38bdf8;
+      color: #ffffff;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+
+    .step-content h3 {
+      font-size: 20px;
+      font-weight: 600;
+      margin: 0 0 12px;
+      color: #1e293b !important;
+    }
+
+    .step-content p {
+      font-size: 16px;
+      color: #64748b !important;
+      line-height: 1.6;
+      margin: 0;
+    }
+
+    /* Safety & Privacy Section */
+    .safety-section {
+      padding: 80px 0;
+      background: #f8fafc;
+    }
+
+    .safety-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 40px;
+    }
+
+    .safety-header {
+      text-align: center;
+      margin-bottom: 60px;
+    }
+
+    .safety-header h2 {
+      font-size: 36px;
+      font-weight: 700;
+      margin: 0 0 16px;
+      color: #1e293b !important;
+    }
+
+    .safety-header p {
+      font-size: 18px;
+      color: #64748b !important;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .safety-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 30px;
+    }
+
+    .safety-item {
+      background: #ffffff;
+      padding: 40px 30px;
+      border-radius: 12px;
+      text-align: center;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .safety-item:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+    }
+
+    .safety-icon {
+      font-size: 48px;
+      margin-bottom: 20px;
+    }
+
+    .safety-item h3 {
+      font-size: 20px;
+      font-weight: 600;
+      margin: 0 0 16px;
+      color: #1e293b !important;
+    }
+
+    .safety-item p {
+      font-size: 14px;
+      color: #64748b !important;
+      line-height: 1.6;
+      margin: 0;
+    }
+
+    /* Call to Action Section */
+    .cta-section {
+      padding: 80px 0;
+      background: linear-gradient(135deg, #38bdf8 0%, #0ea5e9 100%);
+      color: #ffffff;
+    }
+
+    .cta-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 40px;
+    }
+
+    .cta-content {
+      text-align: center;
+    }
+
+    .cta-content h2 {
+      font-size: 48px;
+      font-weight: 700;
+      margin: 0 0 24px;
+      color: #ffffff !important;
+    }
+
+    .cta-content p {
+      font-size: 20px;
+      line-height: 1.6;
+      margin: 0 0 40px;
+      color: #ffffff !important;
+      max-width: 800px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .cta-buttons {
+      display: flex;
+      gap: 20px;
+      justify-content: center;
+      margin-bottom: 40px;
+    }
+
+    .btn-cta-primary {
+      background: #ffffff !important;
+      color: #38bdf8 !important;
+      padding: 18px 36px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 18px;
+      border: none;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .btn-cta-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(255, 255, 255, 0.3);
+    }
+
+    .btn-cta-secondary {
+      background: #374151 !important; /* samakan dengan btn-hero-secondary */
+      color: #ffffff !important;
+      padding: 18px 36px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 18px;
+      border: none;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    /* Force CTA secondary button text to be white */
+    .cta-section .btn-cta-secondary {
+      color: #ffffff !important;
+    }
+
+    .btn-cta-secondary:hover {
+      background: #4b5563 !important;
+      color: #ffffff !important;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+    }
+
+    .cta-features {
+      display: flex;
+      gap: 40px;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .cta-feature {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 16px;
+      color: #ffffff !important;
+    }
+
+    .cta-icon {
+      color: #10b981;
+      font-weight: bold;
+      font-size: 18px;
+    }
+
+    /* Preview Elements */
+    .preview-hidden {
+      display: none;
+    }
+
+    .preview-video {
+      max-width: 100%;
+      max-height: 240px;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      display: none;
+    }
+
+    /* Form Elements */
+    .form-group-half {
+      flex: 1;
+    }
+
+    /* Post Modal Styling */
+    .post-content {
+      margin-bottom: 20px;
+    }
+
+    .post-content textarea {
+      width: 100%;
+      border: 1px solid #e5e7eb;
+      border-radius: 8px;
+      padding: 16px;
+      font-size: 16px;
+      resize: vertical;
+      min-height: 120px;
+      font-family: inherit;
+    }
+
+    .post-content textarea:focus {
+      outline: none;
+      border-color: #38bdf8;
+      box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.1);
+    }
+
+    .post-actions {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .upload-section {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .upload-btn {
+      background: #f3f4f6;
+      border: 1px solid #d1d5db;
+      border-radius: 8px;
+      padding: 12px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      color: #6b7280;
+    }
+
+    .upload-btn:hover {
+      background: #e5e7eb;
+      color: #374151;
+    }
+
+    .media-preview {
+      position: relative;
+      display: inline-block;
+    }
+
+    .remove-media-btn {
+      position: absolute;
+      top: -8px;
+      right: -8px;
+      background: #ef4444;
+      color: white;
+      border: none;
+      border-radius: 50%;
+      width: 24px;
+      height: 24px;
+      cursor: pointer;
+      font-size: 16px;
+      line-height: 1;
+    }
+
+    .post-btn {
+      background: #38bdf8 !important;
+      color: #ffffff !important;
+      padding: 12px 24px;
+      border-radius: 8px;
+      border: none;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .post-btn:hover {
+      background: #0ea5e9 !important;
+    }
+
+    /* Section Title */
+    .section-title {
+      text-align: center;
+      padding: 80px 40px 40px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .section-title h2 {
+      font-size: 36px;
+      font-weight: 700;
+      margin: 0 0 16px;
+      color: #1e293b !important;
+    }
+
+    .section-title h2 .accent {
+      color: #38bdf8 !important;
+    }
+
+    .section-title p {
+      font-size: 18px;
+      color: #64748b !important;
+      font-style: italic;
+    }
+
+    /* Carousel Section */
+    .carousel-section {
+      padding: 40px 0 80px;
+      background: #f8fafc;
+    }
+
+    .carousel-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 40px;
+      position: relative;
+    }
+
+    .carousel-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 30px;
+    }
+
+    .carousel-item {
+      background: #ffffff;
+      border-radius: 12px;
+      padding: 30px;
+      text-align: center;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    }
+
+    .carousel-item img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      object-position: center;
+      border-radius: 8px;
+      margin-bottom: 20px;
+      display: block;
+    }
+
+    .carousel-item h3 {
+      font-size: 20px;
+      font-weight: 600;
+      margin: 0 0 12px;
+      color: #1e293b !important;
+    }
+
+    .carousel-item p {
+      font-size: 14px;
+      color: #64748b !important;
+      line-height: 1.5;
+    }
+
+    /* Features Section */
+    .features-section {
+      padding: 80px 0;
+      background: #ffffff;
+    }
+
+    .features-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 40px;
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 40px;
+    }
+
+    .feature-item {
+      text-align: center;
+    }
+
+    .feature-icon {
+      width: 80px;
+      height: 80px;
+      background: #38bdf8;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 24px;
+      color: #ffffff;
+      font-size: 32px;
+    }
+
+    .feature-icon svg {
+      width: 32px;
+      height: 32px;
+      fill: currentColor;
+    }
+
+    /* Force monochrome white icons/text where needed */
+    .feature-icon,
+    .feature-icon svg {
+      color: #ffffff !important;
+      fill: #ffffff !important;
+    }
+
+    .step-number {
+      color: #ffffff !important;
+    }
+
+    .hero-buttons .btn-hero-primary {
+      color: #ffffff !important;
+    }
+
+    .author-avatar {
+      color: #ffffff !important;
+    }
+
+    .feature-item h3 {
+      font-size: 20px;
+      font-weight: 600;
+      margin: 0 0 16px;
+      color: #1e293b !important;
+    }
+
+    .feature-item p {
+      font-size: 14px;
+      color: #64748b !important;
+      line-height: 1.5;
+    }
+
+    /* Testimonials Section */
+    .testimonials-section {
+      padding: 80px 0;
+      background: #f8fafc;
+    }
+
+    .testimonials-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 40px;
+    }
+
+    .testimonials-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 40px;
+    }
+
+    .testimonial-item {
+      background: #ffffff;
+      padding: 40px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    }
+
+    .testimonial-text {
+      font-size: 16px;
+      line-height: 1.6;
+      color: #374151 !important;
+      margin-bottom: 24px;
+      font-style: italic;
+    }
+
+    .testimonial-author {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .author-avatar {
+      width: 50px;
+      height: 50px;
+      background: #38bdf8;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #ffffff;
+      font-weight: bold;
+    }
+
+    .author-info h4 {
+      font-size: 16px;
+      font-weight: 600;
+      margin: 0 0 4px;
+      color: #1e293b !important;
+    }
+
+    .author-info p {
+      font-size: 14px;
+      color: #64748b !important;
+      margin: 0;
+    }
+
+    /* Clients Section */
+    .clients-section {
+      padding: 60px 0;
+      background: #ffffff;
+    }
+
+    .clients-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 40px;
+    }
+
+    .clients-grid {
+      display: grid;
+      grid-template-columns: repeat(8, 1fr);
+      gap: 40px;
+      align-items: center;
+    }
+
+    .client-logo {
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #94a3b8;
+      font-weight: bold;
+      font-size: 14px;
+      text-decoration: none;
+      transition: color 0.3s ease, transform 0.3s ease;
+      border-radius: 4px;
+      padding: 8px 12px;
+    }
+
+    .client-logo:hover {
+      color: #38bdf8;
+      transform: translateY(-2px);
+      text-decoration: none;
+    }
+
+    /* Footer */
+    .footer-section {
+      background: #1f2937;
+      color: #ffffff;
+      padding: 80px 0 40px;
+    }
+
+    .footer-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 40px;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 40px;
+      margin-bottom: 40px;
+    }
+
+    .footer-column h3 {
+      font-size: 18px;
+      font-weight: 600;
+      margin: 0 0 24px;
+      color: #ffffff !important;
+    }
+
+    /* Force all footer text to be white */
+    .footer-section .footer-column h3 {
+      color: #ffffff !important;
+    }
+    
+    .footer-section .footer-column p {
+      color: #ffffff !important;
+    }
+    
+    .footer-section .footer-column a {
+      color: #ffffff !important;
+    }
+    
+    .footer-section .newsletter-input {
+      color: #ffffff !important;
+    }
+    
+    .footer-section .newsletter-input::placeholder {
+      color: #ffffff !important;
+    }
+    
+    /* Force footer bottom text to be white */
+    .footer-section .footer-bottom p {
+      color: #ffffff !important;
+    }
+    
+    .footer-section .footer-nav a {
+      color: #ffffff !important;
+    }
+
+    .footer-column p {
+      font-size: 14px;
+      line-height: 1.6;
+      color: #ffffff !important;
+      margin: 0 0 16px;
+    }
+
+    .footer-column a {
+      color: #38bdf8 !important;
+      text-decoration: none;
+    }
+
+    .newsletter-form {
+      display: flex;
+      gap: 8px;
+      margin-top: 16px;
+    }
+
+    .newsletter-input {
+      flex: 1;
+      padding: 12px;
+      border: 1px solid #374151;
+      border-radius: 6px;
+      background: #374151;
+      color: #ffffff;
+    }
+
+    .newsletter-btn {
+      background: #38bdf8 !important;
+      color: #ffffff !important;
+      padding: 12px 24px;
+      border: none;
+      border-radius: 6px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .footer-bottom {
+      border-top: 1px solid #374151;
+      padding-top: 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .footer-bottom p {
+      font-size: 14px;
+      color: #ffffff !important;
+      margin: 0;
+    }
+
+    .footer-nav {
+      display: flex;
+      gap: 24px;
+    }
+
+    .footer-nav a {
+      color: #ffffff !important;
+      text-decoration: none;
+      font-size: 14px;
+    }
+
+    .footer-nav a:hover {
+      color: #ffffff !important;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .hero-content {
+        grid-template-columns: 1fr;
+        gap: 40px;
+        padding: 0 20px;
+      }
+      
+      .hero-text h1 {
+        font-size: 36px;
+      }
+
+      
+      .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .steps-container {
+        grid-template-columns: 1fr;
+      }
+
+      .safety-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      
+      .carousel-grid,
+      .features-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      
+      .testimonials-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .footer-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      
+      .clients-grid {
+        grid-template-columns: repeat(4, 1fr);
+      }
+
+      .cta-buttons {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .cta-features {
+        flex-direction: column;
+        gap: 20px;
+      }
+
+      .cta-content h2 {
+        font-size: 36px;
+      }
+
+      .carousel-item img {
+        height: 150px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .stats-grid,
+      .safety-grid,
+      .carousel-grid,
+      .features-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .clients-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .footer-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body class="desktop-page">
+  <div class="desktop-container">
+          <!-- Desktop Top Navigation -->
+          <nav class="desktop-nav" aria-label="Navigasi desktop">
+    <div class="desktop-nav-inner">
+      <div class="nav-left">
+          <div class="logo">SpeakUp!</div>
+        <a href="./desktop.html" class="nav-item active" title="Home">
+          <svg fill="currentColor" viewBox="0 0 20 20">
+            <path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"/>
+          </svg>
+          <span>Home</span>
+        </a>
+          <button class="nav-item plus-btn" data-open-create title="Speak!">
+            <svg fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clip-rule="evenodd"/>
+            </svg>
+            <span>Speak!</span>
+          </button>
+          <a href="./timeline-desktop.html" class="nav-item" title="Timeline">
+          <svg fill="currentColor" viewBox="0 0 20 20">
+            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clip-rule="evenodd"/>
+          </svg>
+          <span>Timeline</span>
+        </a>
+          <a href="./petitions-desktop.html" class="nav-item" title="Petitions">
+          <svg fill="currentColor" viewBox="0 0 20 20">
+            <path fill-rule="evenodd" d="M3 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clip-rule="evenodd"/>
+          </svg>
+          <span>Petitions</span>
+        </a>
+      </div>
+      <div class="nav-right">
+          <a href="./settings-desktop.html" class="nav-item" title="Settings">
+          <svg fill="currentColor" viewBox="0 0 20 20">
+            <path fill-rule="evenodd" d="M11.49 3.17c-.38-1.56-2.6-1.56-2.98 0a1.532 1.532 0 01-2.286.948c-1.372-.836-2.942.734-2.106 2.106.54.886.061 2.042-.947 2.287-1.561.379-1.561 2.6 0 2.978a1.532 1.532 0 01.947 2.287c-.836 1.372.734 2.942 2.106 2.106a1.532 1.532 0 012.287.947c.379 1.561 2.6 1.561 2.978 0a1.533 1.533 0 012.287-.947c1.372.836 2.942-.734 2.106-2.106a1.533 1.533 0 01.947-2.287c1.561-.379 1.561-2.6 0-2.978a1.532 1.532 0 01-.947-2.287c.836-1.372-.734-2.942-2.106-2.106a1.532 1.532 0 01-2.287-.947zM10 13a3 3 0 100-6 3 3 0 000 6z" clip-rule="evenodd"/>
+          </svg>
+          <span>Settings</span>
+        </a>
+          <a href="./profile-desktop.html" class="nav-item" title="Profile">
+          <svg fill="currentColor" viewBox="0 0 20 20">
+            <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"/>
+          </svg>
+          <span>Profile</span>
+        </a>
+          <a href="./sign-desktop.html" class="nav-item" title="Sign">
+            <svg fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M3 10a1 1 0 011-1h8.586l-3.293-3.293a1 1 0 111.414-1.414l5 5a1 1 0 010 1.414l-5 5a1 1 0 11-1.414-1.414L12.586 11H4a1 1 0 01-1-1z" clip-rule="evenodd"/>
+            </svg>
+            <span>Sign</span>
+          </a>
+      </div>
+    </div>
+  </nav>
+
+  <main>
+      <!-- Hero Section -->
+      <section class="hero-section">
+        <div class="hero-content">
+          <div class="hero-text">
+            <h1>Berani Bersuara, <span class="accent">Aman di Dengar</span></h1>
+            <p>SpeakUp! adalah platform revolusioner yang memberikan ruang aman untuk berbagi pengalaman bullying, kekerasan, atau ketidakadilan. Dapatkan dukungan, solusi, dan kekuatan untuk perubahan tanpa mengorbankan privasi Anda.</p>
+            <ul class="hero-features">
+              <li><strong>Anonimitas Fleksibel</strong><span>Pilih tingkat privasi sesuai kenyamanan Anda</span></li>
+              <li><strong>Moderasi Cerdas</strong><span>Konten aman dan terpantau 24/7</span></li>
+              <li><strong>Komunitas Supportif</strong><span>Dukungan dari sesama pengguna yang memahami</span></li>
+              <li><strong>Aksi Nyata</strong><span>Ubah cerita menjadi petisi dan perubahan positif</span></li>
+            </ul>
+            <div class="hero-buttons">
+              <a href="./sign-desktop.html" class="btn-hero-primary">Bergabung Sekarang - Gratis!</a>
+              <a href="./timeline-desktop.html" class="btn-hero-secondary">Lihat Cerita Inspiratif</a>
+            </div>
+          </div>
+          <div class="hero-visual">
+            <div class="device-mockup">
+              <div class="mockup-bg"></div>
+              <div class="mockup-overlay"></div>
+              <div class="mockup-content">
+                <img src="assets/logo/logo speak up blue.png" alt="SpeakUp!" />
+              </div>
+            </div>
+      </div>
+      </div>
+    </section>
+
+      <!-- Stats Section -->
+      <section class="stats-section">
+        <div class="stats-container">
+          <div class="stats-header">
+            <h2>Dampak Nyata <span class="accent">SpeakUp!</span> di Indonesia</h2>
+            <p>Bersama-sama, kita menciptakan perubahan positif untuk masa depan yang lebih baik</p>
+          </div>
+          <div class="stats-grid">
+            <div class="stat-card">
+              <div class="stat-number">50,000+</div>
+              <div class="stat-label">Pengguna Aktif</div>
+              <div class="stat-description">Komunitas yang terus berkembang di seluruh Indonesia</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-number">10,000+</div>
+              <div class="stat-label">Cerita Dibagikan</div>
+              <div class="stat-description">Pengalaman yang menginspirasi dan memberikan kekuatan</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-number">500+</div>
+              <div class="stat-label">Petisi Berhasil</div>
+              <div class="stat-description">Perubahan nyata yang terwujud melalui aksi kolektif</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-number">95%</div>
+              <div class="stat-label">Tingkat Kepuasan</div>
+              <div class="stat-description">Pengguna merasa aman dan didukung di platform kami</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Section Title -->
+      <section class="section-title">
+        <h2>Mengapa <span class="accent">SpeakUp!</span> Berbeda?</h2>
+        <p>"Setiap suara berharga, setiap cerita adalah langkah menuju perubahan"</p>
+      </section>
+
+      <!-- Carousel Section -->
+      <section class="carousel-section">
+        <div class="carousel-container">
+          <div class="carousel-grid">
+            <div class="carousel-item">
+              <img src="assets/img/community.jpg" alt="Support Community">
+              <h3>Komunitas Supportif</h3>
+              <p>Bergabunglah dengan komunitas yang saling mendukung dan memahami perjalanan Anda.</p>
+            </div>
+            <div class="carousel-item">
+              <img src="assets/img/safe-space.jpg" alt="Safe Space">
+              <h3>Ruang Aman</h3>
+              <p>Berbagi cerita Anda di lingkungan yang aman dan bebas dari judgment.</p>
+        </div>
+            <div class="carousel-item">
+              <img src="assets/img/expert-help.jpg" alt="Expert Help">
+              <h3>Bantuan Ahli</h3>
+              <p>Dapatkan saran dan dukungan dari profesional yang berpengalaman.</p>
+        </div>
+            <div class="carousel-item">
+              <img src="assets/img/take-action.jpg" alt="Take Action">
+              <h3>Ambil Aksi</h3>
+              <p>Ubah cerita Anda menjadi kekuatan untuk perubahan positif.</p>
+        </div>
+        </div>
+      </div>
+    </section>
+
+      <!-- How It Works Section -->
+      <section class="how-it-works-section">
+        <div class="how-it-works-container">
+          <div class="how-it-works-header">
+            <h2>Bagaimana <span class="accent">SpeakUp!</span> Bekerja?</h2>
+            <p>Langkah sederhana untuk membuat perubahan besar</p>
+          </div>
+          <div class="steps-container">
+            <div class="step-item">
+              <div class="step-number">1</div>
+              <div class="step-content">
+                <h3>Bergabung & Pilih Identitas</h3>
+                <p>Daftar gratis dan pilih tingkat anonimitas yang nyaman untuk Anda - mulai dari anonim penuh hingga identitas terverifikasi.</p>
+              </div>
+            </div>
+            <div class="step-item">
+              <div class="step-number">2</div>
+              <div class="step-content">
+                <h3>Bagikan Cerita Anda</h3>
+                <p>Tulis pengalaman Anda dengan aman. Sistem moderasi cerdas kami memastikan konten tetap suportif dan konstruktif.</p>
+              </div>
+            </div>
+            <div class="step-item">
+              <div class="step-number">3</div>
+              <div class="step-content">
+                <h3>Dapatkan Dukungan</h3>
+                <p>Terima dukungan dari komunitas, saran dari ahli, dan koneksi dengan orang-orang yang memahami situasi Anda.</p>
+              </div>
+            </div>
+            <div class="step-item">
+              <div class="step-number">4</div>
+              <div class="step-content">
+                <h3>Ambil Aksi Nyata</h3>
+                <p>Ubah cerita menjadi petisi, kampanye, atau inisiatif yang dapat menciptakan perubahan positif di masyarakat.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Features Section -->
+      <section class="features-section">
+        <div class="features-container">
+          <div class="features-grid">
+            <div class="feature-item">
+              <div class="feature-icon">
+                <svg fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd"/>
+                </svg>
+              </div>
+              <h3>Anonimitas Fleksibel</h3>
+              <p>Pilih anonim default, handle khusus, atau identitas terverifikasi sesuai kebutuhan Anda.</p>
+          </div>
+            <div class="feature-item">
+              <div class="feature-icon">
+                <svg fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M11.3 1.046A1 1 0 0112 2v5h4a1 1 0 01.82 1.573l-7 10A1 1 0 018 18v-5H4a1 1 0 01-.82-1.573l7-10a1 1 0 011.12-.38z" clip-rule="evenodd"/>
+                </svg>
+              </div>
+              <h3>Moderasi Cerdas</h3>
+              <p>Konten diperiksa otomatis dan manual untuk menjaga keamanan dan empati.</p>
+          </div>
+            <div class="feature-item">
+              <div class="feature-icon">
+                <svg fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M4 4a2 2 0 00-2 2v8a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2H4zm0 2h12v8H4V6z" clip-rule="evenodd"/>
+                  <path d="M6 8h8v2H6V8zm0 3h8v1H6v-1z"/>
+                </svg>
+              </div>
+              <h3>Petisi & Aksi</h3>
+              <p>Buat petisi, kumpulkan dukungan, dan kirim ke pihak berwenang saat siap.</p>
+          </div>
+            <div class="feature-item">
+              <div class="feature-icon">
+                <svg fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M2.166 4.999A11.954 11.954 0 0010 1.944 11.954 11.954 0 0017.834 5c.11.65.166 1.32.166 2.001 0 5.225-3.34 9.67-8 11.317C5.34 16.67 2 12.225 2 7c0-.682.057-1.35.166-2.001zm11.541 3.708a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                </svg>
+              </div>
+              <h3>Privasi Dijaga</h3>
+              <p>Hanya menampilkan informasi yang Anda izinkan. Metadata sensitif diminimalkan.</p>
+      </div>
+        </div>
+      </div>
+    </section>
+
+      <!-- Safety & Privacy Section -->
+      <section class="safety-section">
+        <div class="safety-container">
+          <div class="safety-header">
+            <h2>Keamanan & Privasi <span class="accent">Adalah Prioritas Kami</span></h2>
+            <p>Kami menggunakan teknologi terdepan untuk melindungi identitas dan data Anda</p>
+          </div>
+          <div class="safety-grid">
+            <div class="safety-item">
+              <div class="safety-icon">🔐</div>
+              <h3>Enkripsi End-to-End</h3>
+              <p>Semua data pribadi dienkripsi dengan standar militer untuk memastikan keamanan maksimal.</p>
+            </div>
+            <div class="safety-item">
+              <div class="safety-icon">👤</div>
+              <h3>Anonimitas Fleksibel</h3>
+              <p>Pilih tingkat privasi yang sesuai - dari anonim penuh hingga identitas terverifikasi.</p>
+            </div>
+            <div class="safety-item">
+              <div class="safety-icon">🛡️</div>
+              <h3>Moderasi 24/7</h3>
+              <p>Tim moderasi profesional memantau konten secara real-time untuk menjaga keamanan komunitas.</p>
+            </div>
+            <div class="safety-item">
+              <div class="safety-icon">🔍</div>
+              <h3>Audit Keamanan</h3>
+              <p>Platform kami menjalani audit keamanan berkala oleh pihak ketiga yang independen.</p>
+            </div>
+            <div class="safety-item">
+              <div class="safety-icon">📱</div>
+              <h3>Kontrol Data</h3>
+              <p>Anda memiliki kontrol penuh atas data Anda - hapus, edit, atau ekspor kapan saja.</p>
+            </div>
+            <div class="safety-item">
+              <div class="safety-icon">⚖️</div>
+              <h3>Kepatuhan GDPR</h3>
+              <p>Kami mematuhi standar internasional untuk perlindungan data dan privasi pengguna.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Testimonials Section -->
+      <section class="testimonials-section">
+        <div class="testimonials-container">
+          <div class="testimonials-grid">
+            <div class="testimonial-item">
+              <p class="testimonial-text">"SpeakUp! memberikan saya keberanian untuk berbagi cerita yang selama ini saya pendam. Komunitasnya sangat supportif dan tidak menghakimi."</p>
+              <div class="testimonial-author">
+                <div class="author-avatar">A</div>
+                <div class="author-info">
+                  <h4>Anonymous User</h4>
+                  <p>Pengguna SpeakUp!</p>
+      </div>
+    </div>
+  </div>
+            <div class="testimonial-item">
+              <p class="testimonial-text">"Melalui SpeakUp!, saya bisa membantu orang lain yang mengalami hal serupa. Platform ini benar-benar mengubah hidup saya."</p>
+              <div class="testimonial-author">
+                <div class="author-avatar">B</div>
+                <div class="author-info">
+                  <h4>Supportive Member</h4>
+                  <p>Komunitas SpeakUp!</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+      </section>
+
+      <!-- Clients Section -->
+      <section class="clients-section">
+        <div class="clients-container">
+          <div class="clients-grid">
+            <a href="https://www.komnasham.go.id" target="_blank" rel="noopener noreferrer" class="client-logo">KOMNAS HAM</a>
+            <a href="https://www.kpai.go.id" target="_blank" rel="noopener noreferrer" class="client-logo">KPAI</a>
+            <a href="https://www.komnasperempuan.go.id" target="_blank" rel="noopener noreferrer" class="client-logo">KOMNAS PEREMPUAN</a>
+            <a href="https://www.kemenpppa.go.id" target="_blank" rel="noopener noreferrer" class="client-logo">KEMENPPPA</a>
+            <a href="https://www.unicef.org/indonesia" target="_blank" rel="noopener noreferrer" class="client-logo">UNICEF</a>
+            <a href="https://www.savethechildren.or.id" target="_blank" rel="noopener noreferrer" class="client-logo">SAVE THE CHILDREN</a>
+            <a href="https://www.yayasanpulih.org" target="_blank" rel="noopener noreferrer" class="client-logo">YAYASAN PULIH</a>
+            <a href="https://www.rumahaman.org" target="_blank" rel="noopener noreferrer" class="client-logo">RUMAH AMAN</a>
+          </div>
+      </div>
+      </section>
+
+      <!-- Call to Action Section -->
+      <section class="cta-section">
+        <div class="cta-container">
+          <div class="cta-content">
+            <h2>Siap Membuat Perubahan?</h2>
+            <p>Bergabunglah dengan ribuan orang yang telah menemukan kekuatan dalam suara mereka. Mulai perjalanan Anda menuju perubahan positif hari ini.</p>
+            <div class="cta-buttons">
+              <a href="./sign-desktop.html" class="btn-cta-primary">Bergabung Sekarang - Gratis!</a>
+              <a href="./timeline-desktop.html" class="btn-cta-secondary">Lihat Cerita Inspiratif</a>
+            </div>
+            <div class="cta-features">
+              <div class="cta-feature">
+                <span class="cta-icon">✓</span>
+                <span>Gratis selamanya</span>
+              </div>
+              <div class="cta-feature">
+                <span class="cta-icon">✓</span>
+                <span>100% Aman & Privat</span>
+              </div>
+              <div class="cta-feature">
+                <span class="cta-icon">✓</span>
+                <span>Dukungan 24/7</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Footer -->
+      <footer class="footer-section">
+        <div class="footer-container">
+          <div class="footer-grid">
+            <div class="footer-column">
+              <h3>Tentang SpeakUp!</h3>
+              <p>SpeakUp! adalah platform yang memberikan ruang aman untuk berbagi pengalaman dan mendapatkan dukungan dari komunitas yang peduli.</p>
+              <p>Kami berkomitmen untuk menciptakan lingkungan yang aman, suportif, dan bebas dari segala bentuk kekerasan.</p>
+        </div>
+            <div class="footer-column">
+              <h3>Timeline Terbaru</h3>
+              <p>Bergabunglah dengan diskusi terbaru di komunitas SpeakUp! dan dapatkan insight dari pengalaman sesama pengguna.</p>
+              <p>Setiap cerita adalah langkah menuju perubahan yang lebih baik.</p>
+          </div>
+            <div class="footer-column">
+              <h3>Hubungi Kami</h3>
+              <p>📞 +62 21 1234 5678</p>
+              <p>✉️ support@speakup.id</p>
+              <p>📍 Jakarta, Indonesia</p>
+              <p><a href="#help">Butuh Bantuan?</a></p>
+          </div>
+            <div class="footer-column">
+              <h3>Newsletter</h3>
+              <p>Dapatkan update terbaru tentang fitur dan program SpeakUp!</p>
+              <div class="newsletter-form">
+                <input type="email" class="newsletter-input" placeholder="Email Anda">
+                <button class="newsletter-btn">SUBSCRIBE</button>
+          </div>
+        </div>
+      </div>
+          <div class="footer-bottom">
+            <p>Copyright © 2024 SpeakUp!. All rights reserved.</p>
+            <div class="footer-nav">
+              <a href="./desktop.html">Home</a>
+              <a href="./timeline-desktop.html">Timeline</a>
+              <a href="./petitions-desktop.html">Petitions</a>
+              <a href="./settings-desktop.html">Settings</a>
+              <a href="./profile-desktop.html">Profile</a>
+        </div>
+      </div>
+    </div>
+      </footer>
+    </main>
+  </div>
+
+  <script src="assets/js/app.js"></script>
+  
+  <!-- Create Post Modal (Desktop) -->
+  <div id="createModal" class="modal" aria-hidden="true" role="dialog">
+    <div class="box">
+      <div class="head">
+        <strong>Buat Post</strong>
+        <button id="closeCreate" class="btn ghost">×</button>
+      </div>
+      <form id="createForm">
+        <div class="post-content">
+          <textarea name="content" rows="8" maxlength="5000" required placeholder="Apa yang ingin Anda sampaikan?"></textarea>
+        </div>
+        
+        <div class="post-actions">
+          <div class="upload-section">
+            <input type="file" id="mediaUpload" name="media" accept="image/*,video/*" style="display: none;">
+            <button type="button" class="upload-btn" onclick="document.getElementById('mediaUpload').click()">
+              <svg fill="currentColor" viewBox="0 0 20 20" width="20" height="20">
+                <path fill-rule="evenodd" d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z" clip-rule="evenodd"/>
+              </svg>
+            </button>
+            <div id="mediaPreview" class="media-preview" style="display: none;">
+              <img id="previewImg" style="max-width: 200px; max-height: 200px; border-radius: 8px; display: none;" />
+              <video id="previewVideo" style="max-width: 200px; max-height: 200px; border-radius: 8px; display: none;" controls></video>
+              <button type="button" onclick="removeMedia()" class="remove-media-btn">×</button>
+            </div>
+          </div>
+          
+          <button type="submit" class="btn primary post-btn">Post</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</body>
+</html>

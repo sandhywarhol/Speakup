@@ -1,0 +1,479 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>SpeakUp! — Berani Bersuara, Aman Didengar</title>
+  <link rel="stylesheet" href="assets/css/style.css" />
+  <style>
+    /* Phone frame simulation */
+    body {
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    }
+
+    /* Phone frame container */
+    .phone-frame {
+      width: 375px;
+      height: 812px;
+      background: #000;
+      border-radius: 40px;
+      padding: 8px;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(255, 255, 255, 0.1);
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Phone screen */
+    .phone-screen {
+      width: 100%;
+      height: 100%;
+      background: var(--bg);
+      border-radius: 32px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    /* Status bar simulation */
+    .status-bar {
+      height: 44px;
+      background: var(--bg);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 20px;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text);
+      position: relative;
+      z-index: 10;
+    }
+
+    .status-left {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .status-right {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .status-time {
+      font-weight: 600;
+    }
+
+    .status-battery {
+      width: 24px;
+      height: 12px;
+      border: 1px solid var(--text);
+      border-radius: 2px;
+      position: relative;
+    }
+
+    .status-battery::after {
+      content: '';
+      position: absolute;
+      right: -3px;
+      top: 3px;
+      width: 2px;
+      height: 6px;
+      background: var(--text);
+      border-radius: 0 1px 1px 0;
+    }
+
+    .status-battery::before {
+      content: '';
+      position: absolute;
+      left: 2px;
+      top: 2px;
+      width: 18px;
+      height: 8px;
+      background: var(--text);
+      border-radius: 1px;
+    }
+
+    /* Notch simulation */
+    .notch {
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 150px;
+      height: 30px;
+      background: #000;
+      border-radius: 0 0 16px 16px;
+      z-index: 20;
+    }
+
+    /* Mobile container inside phone frame */
+    .mobile-container {
+      width: 100%;
+      height: calc(100% - 44px); /* Subtract status bar height */
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Mobile main content area */
+    .mobile-main {
+      flex: 1;
+      padding: 16px;
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
+      background: var(--bg);
+    }
+
+    /* Home indicator for iPhone-like appearance */
+    .home-indicator {
+      position: absolute;
+      bottom: 8px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 134px;
+      height: 5px;
+      background: rgba(0, 0, 0, 0.3);
+      border-radius: 3px;
+      z-index: 50;
+    }
+
+    [data-theme="dark"] .home-indicator {
+      background: rgba(255, 255, 255, 0.3);
+    }
+
+    /* Logo section styling */
+    .logo-section { padding: 24px 0; text-align: center; }
+    .main-logo { display: flex; justify-content: center; align-items: center; }
+    .logo-image { max-width: 50px; height: auto !important; width: auto !important; }
+    
+    .hero { padding: 24px 0; text-align: center; }
+    .hero h1 { font-size: 28px; line-height: 1.2; margin: 0; color: #38bdf8 !important; }
+    .hero p { color: var(--text) !important; margin: 12px auto 24px; max-width: 100%; padding: 0 8px; font-size: 14px; }
+    .features { display: grid; grid-template-columns: 1fr; gap: 12px; margin: 20px 0; }
+    .feature { padding: 16px; border-radius: 12px; background: var(--panel); border: 1px solid var(--border); }
+    .feature h4 { margin: 0 0 8px; color: #38bdf8 !important; }
+    .feature p { color: var(--text) !important; font-size: 14px; }
+    .cta { display: flex; flex-direction: column; gap: 12px; align-items: center; }
+    .cta .btn { width: 100%; max-width: 280px; padding: 14px 20px; font-size: 16px; min-height: 48px; }
+    .brand { background: linear-gradient(135deg, #3a86ff, #4cc9f0); -webkit-background-clip: text; background-clip: text; color: transparent; }
+    
+    /* Force text colors for all elements */
+    .content { color: var(--text) !important; }
+    .footer { color: var(--muted) !important; }
+    strong { color: var(--text) !important; }
+
+    /* Responsive phone frame */
+    @media (max-width: 480px) {
+      .phone-frame {
+        width: 100vw;
+        height: 100vh;
+        border-radius: 0;
+        padding: 0;
+        box-shadow: none;
+      }
+      
+      .phone-screen {
+        border-radius: 0;
+      }
+      
+      .notch {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="phone-frame">
+    <!-- Notch simulation -->
+    <div class="notch"></div>
+    
+    <!-- Status bar -->
+    <div class="status-bar">
+      <div class="status-left">
+        <span class="status-time">9:41</span>
+      </div>
+      <div class="status-right">
+        <div class="status-battery"></div>
+      </div>
+    </div>
+    
+    <!-- Phone screen content -->
+    <div class="phone-screen">
+      <div class="mobile-container">
+        <main class="mobile-main">
+          <!-- Logo besar di tengah -->
+          <section class="logo-section">
+    <div class="container">
+      <div class="main-logo">
+        <img src="assets/logo/logo speak up blue.png" alt="SpeakUp Logo" class="logo-image" data-theme="light">
+        <img src="assets/logo/logo speak up white.png" alt="SpeakUp Logo" class="logo-image" data-theme="dark">
+      </div>
+    </div>
+  </section>
+
+  <main>
+    <section class="hero container">
+      <h1><span class="brand">Berani Bersuara</span>, Aman Didengar</h1>
+      <p>SpeakUp! adalah ruang aman untuk berbagi pengalaman bullying, kekerasan, atau ketidakadilan. Pilih identitasmu: anonim default, handle anonim, atau terverifikasi. Dapatkan dukungan dan solusi tanpa mengorbankan privasi.</p>
+      <div class="cta">
+        <a class="btn primary" href="./index.html">Lihat Timeline</a>
+        <a class="btn" href="./petitions.html">Lihat Petisi</a>
+      </div>
+    </section>
+
+    <section class="container">
+      <div class="features">
+        <div class="feature">
+          <h4>Anonimitas Fleksibel</h4>
+          <p>Pilih anonim default, handle khusus, atau identitas terverifikasi (profesional/organisasi).</p>
+        </div>
+        <div class="feature">
+          <h4>Moderasi Cerdas</h4>
+          <p>Konten diperiksa otomatis dan manual untuk menjaga keamanan dan empati.</p>
+        </div>
+        <div class="feature">
+          <h4>Petisi & Aksi</h4>
+          <p>Buat petisi, kumpulkan dukungan, dan kirim ke pihak berwenang saat siap.</p>
+        </div>
+        <div class="feature">
+          <h4>Privasi Dijaga</h4>
+          <p>Hanya menampilkan `anon_display`. Metadata sensitif diminimalkan sesuai kebijakan.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="container">
+      <div class="card">
+        <div class="row space">
+          <strong>Mulai sekarang</strong>
+          <a class="btn primary" href="./index.html">Tulis Curhat</a>
+        </div>
+        <p class="content mt-12">Tidak perlu instalasi. Buka timeline, bagikan pengalamanmu, dan pilih identitas yang kamu nyaman.</p>
+      </div>
+      <p class="footer">Prototipe statis. Tidak terhubung API.</p>
+    </section>
+        </main>
+        
+        <!-- Home indicator -->
+        <div class="home-indicator"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Create Post Modal -->
+  <div id="createModal" class="modal" aria-hidden="true" role="dialog">
+    <div class="box">
+      <div class="head">
+        <strong>Speak!</strong>
+        <button id="closeCreate" class="btn ghost">Tutup</button>
+      </div>
+      <form id="createForm">
+        <div class="mt-12">
+          <label>Konten</label>
+          <textarea name="content" rows="6" maxlength="5000" required placeholder="Speak! Bagikan pengalamanmu..."></textarea>
+        </div>
+        <div class="mt-12">
+          <label>Upload Gambar/Foto (Opsional)</label>
+          <div class="file-upload-container">
+            <input type="file" id="imageUpload" name="image" accept="image/*">
+            <button type="button" class="btn ghost upload-btn" onclick="document.getElementById('imageUpload').click()">
+              <svg fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z" clip-rule="evenodd"/>
+              </svg>
+              Klik untuk Upload Gambar
+            </button>
+            <div id="imagePreview" class="image-preview">
+              <img id="previewImg">
+              <button type="button" onclick="removeImage()" class="btn ghost remove-btn">Hapus Gambar</button>
+            </div>
+          </div>
+        </div>
+        <div class="mt-12 row">
+          <div style="flex:1">
+            <label>Kategori</label>
+            <select name="category">
+              <option value="bullying">Bullying</option>
+              <option value="mental_health">Mental Health</option>
+              <option value="workplace">Workplace</option>
+              <option value="petisi">Petisi</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+          <div style="flex:1">
+            <label>Identitas</label>
+            <select name="identity">
+              <option value="anonymous">Anonymous</option>
+              <option value="custom_anon">Custom Handle</option>
+              <option value="verified">Verified</option>
+            </select>
+          </div>
+        </div>
+        <div class="mt-12">
+          <label><input type="checkbox" name="want_solution" value="true" /> Saya ingin solusi</label>
+        </div>
+        <div class="actions-row">
+          <button type="submit" class="btn primary">Kirim</button>
+          <button type="button" id="closeCreate2" class="btn ghost" onclick="document.getElementById('createModal').classList.remove('open')">Batal</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Settings Modal -->
+  <div id="settingsModal" class="modal" aria-hidden="true" role="dialog">
+    <div class="box">
+      <div class="head">
+        <strong>Pengaturan</strong>
+        <button id="closeSettings" class="btn ghost">Tutup</button>
+      </div>
+      <div class="settings-grid">
+        <div class="setting-item">
+          <div>
+            <div class="label">Tema Gelap</div>
+            <div class="pill">Aktifkan untuk mode gelap</div>
+          </div>
+          <label class="switch">
+            <input id="switchTheme" type="checkbox" />
+            <span class="slider"></span>
+          </label>
+        </div>
+        <div class="setting-item">
+          <div>
+            <div class="label">Notifikasi Push</div>
+            <div class="pill">Terima notifikasi untuk dukungan & balasan</div>
+          </div>
+          <label class="switch">
+            <input id="switchNotif" type="checkbox" />
+            <span class="slider"></span>
+          </label>
+        </div>
+        <div class="setting-item">
+          <div>
+            <div class="label">Notifikasi Email</div>
+            <div class="pill">Terima notifikasi melalui email</div>
+          </div>
+          <label class="switch">
+            <input id="switchEmail" type="checkbox" />
+            <span class="slider"></span>
+          </label>
+        </div>
+        <div class="setting-item">
+          <div>
+            <div class="label">Akun & Keamanan</div>
+            <div class="pill">Kelola password, email, dan keamanan</div>
+          </div>
+          <button class="btn">Kelola Akun</button>
+        </div>
+        <div class="setting-item">
+          <div>
+            <div class="label">Privasi</div>
+            <div class="pill">Kelola visibilitas profil dan data</div>
+          </div>
+          <button class="btn">Pengaturan Privasi</button>
+        </div>
+        <div class="setting-item">
+          <div>
+            <div class="label">Bahasa</div>
+            <div class="pill">Pilih bahasa antarmuka</div>
+          </div>
+          <select class="btn" style="min-width: 120px;">
+            <option>Bahasa Indonesia</option>
+            <option>English</option>
+          </select>
+        </div>
+        <div class="setting-item">
+          <div>
+            <div class="label">Keluar</div>
+            <div class="pill">Logout dari akun ini</div>
+          </div>
+          <button class="btn warn">Logout</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Profile Modal -->
+  <div id="profileModal" class="modal" aria-hidden="true" role="dialog">
+    <div class="box">
+      <div class="head">
+        <strong>Profile</strong>
+        <button id="closeProfile" class="btn ghost">Tutup</button>
+      </div>
+      
+      <!-- Profile Header -->
+      <div class="profile-header" style="text-align: center; padding: 20px 0; border-bottom: 1px solid var(--border); margin-bottom: 20px;">
+        <div class="profile-avatar" style="width: 80px; height: 80px; border-radius: 50%; background: var(--accent); margin: 0 auto 12px; display: flex; align-items: center; justify-content: center; color: white; font-size: 32px; font-weight: bold;">
+          A
+        </div>
+        <h3 style="margin: 0 0 8px;">Anonymous User</h3>
+        <p style="color: var(--muted); margin: 0 0 16px;">Speak up for what matters</p>
+        <div class="profile-stats" style="display: flex; justify-content: center; gap: 24px; margin-bottom: 16px;">
+          <div style="text-align: center;">
+            <div style="font-weight: bold; font-size: 18px;">12</div>
+            <div style="font-size: 12px; color: var(--muted);">Posts</div>
+          </div>
+          <div style="text-align: center;">
+            <div style="font-weight: bold; font-size: 18px;">3</div>
+            <div style="font-size: 12px; color: var(--muted);">Petisi</div>
+          </div>
+          <div style="text-align: center;">
+            <div style="font-weight: bold; font-size: 18px;">45</div>
+            <div style="font-size: 12px; color: var(--muted);">Dukungan</div>
+          </div>
+        </div>
+        <button class="btn primary" style="margin-bottom: 16px;">Edit Profile</button>
+      </div>
+
+      <!-- Profile Tabs -->
+      <div class="tabs" style="margin-bottom: 16px;">
+        <button class="tab active">Posts</button>
+        <button class="tab">Petisi</button>
+        <button class="tab">Dukungan</button>
+      </div>
+
+      <!-- Profile Content -->
+      <div class="profile-content">
+        <div class="grid">
+          <article class="card">
+            <div class="meta">
+              <span class="badge">bullying</span>
+              <span class="pill">• 2 hari lalu</span>
+            </div>
+            <p class="content">Saya mengalami bullying di sekolah dan butuh dukungan...</p>
+            <div class="actions-row">
+              <button class="btn ghost">Edit</button>
+              <button class="btn ghost">Hapus</button>
+            </div>
+          </article>
+          
+          <article class="card">
+            <div class="meta">
+              <span class="badge">workplace</span>
+              <span class="pill">• 1 minggu lalu</span>
+            </div>
+            <p class="content">Ada masalah di tempat kerja yang perlu diselesaikan...</p>
+            <div class="actions-row">
+              <button class="btn ghost">Edit</button>
+              <button class="btn ghost">Hapus</button>
+            </div>
+          </article>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="assets/js/app.js"></script>
+
+</body>
+</html>
+
+

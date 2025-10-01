@@ -1,0 +1,1291 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>SpeakUp! — Timeline (Desktop)</title>
+  <link rel="stylesheet" href="assets/css/style.css" />
+  <style>
+    :root { --bg:#ffffff; --panel:#ffffff; --text:#374151; --muted:#64748b; --accent:#38bdf8; --border:#e5e7eb; }
+    .logo img[data-theme="light"]{display:block!important}.logo img[data-theme="dark"]{display:none!important}
+    html,body,main,.desktop-container,.desktop-nav,.card,.tabs .tab,.modal .box{background:#ffffff!important}
+    body{margin:0;padding:0;min-height:100vh;background:#ffffff!important;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif}
+    .desktop-nav{display:block!important}
+    .desktop-container{max-width:1024px;margin:0 auto;padding:24px 32px}
+    .desktop-nav .nav-item.active{background:#ffffff!important;color:#374151!important;border:1px solid #e5e7eb!important}
+    .desktop-nav .nav-item.plus-btn,.btn.primary{background:#ffffff!important;color:#374151!important;border:1px solid #e5e7eb!important}
+    body.desktop-page, body.desktop-page *:not(h1):not(h2):not(h3):not(h4):not(h5):not(h6){color:#374151!important}
+  </style>
+</head>
+<body class="desktop-page">
+  <div class="desktop-container">
+    <nav class="desktop-nav" aria-label="Navigasi desktop">
+      <div class="desktop-nav-inner">
+        <div class="nav-left">
+          <div class="logo">SpeakUp!</div>
+          <button class="nav-item plus-btn" data-open-create title="Speak!">
+            <svg fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clip-rule="evenodd"/>
+            </svg>
+            <span>Speak!</span>
+          </button>
+          <a href="./desktop.html" class="nav-item" title="Home">
+            <svg fill="currentColor" viewBox="0 0 20 20"><path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"/></svg>
+            <span>Home</span>
+          </a>
+          <a href="./timeline-desktop.html" class="nav-item active" title="Timeline">
+            <svg fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clip-rule="evenodd"/></svg>
+            <span>Timeline</span>
+          </a>
+          <a href="./petitions-desktop.html" class="nav-item" title="Petitions">
+            <svg fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M3 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clip-rule="evenodd"/></svg>
+            <span>Petitions</span>
+          </a>
+        </div>
+        <div class="nav-right">
+          <a href="./settings-desktop.html" class="nav-item" title="Settings">
+            <svg fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M11.49 3.17c-.38-1.56-2.6-1.56-2.98 0a1.532 1.532 0 01-2.286.948c-1.372-.836-2.942.734-2.106 2.106.54.886.061 2.042-.947 2.287-1.561.379-1.561 2.6 0 2.978a1.532 1.532 0 01.947 2.287c-.836 1.372.734 2.942 2.106 2.106a1.532 1.532 0 012.287.947c.379 1.561 2.6 1.561 2.978 0a1.533 1.533 0 012.287-.947c1.372.836 2.942-.734 2.106-2.106a1.533 1.533 0 01.947-2.287c1.561-.379 1.561-2.6 0-2.978a1.532 1.532 0 01-.947-2.287c.836-1.372-.734-2.942-2.106-2.106a1.532 1.532 0 01-2.287-.947zM10 13a3 3 0 100-6 3 3 0 000 6z" clip-rule="evenodd"/></svg>
+            <span>Settings</span>
+          </a>
+          <a href="./profile-desktop.html" class="nav-item" title="Profile">
+            <svg fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"/></svg>
+            <span>Profile</span>
+          </a>
+          <a href="./sign-desktop.html" class="nav-item" title="Sign">
+            <svg fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M3 10a1 1 0 011-1h8.586l-3.293-3.293a1 1 0 111.414-1.414l5 5a1 1 0 010 1.414l-5 5a1 1 0 11-1.414-1.414L12.586 11H4a1 1 0 01-1-1z" clip-rule="evenodd"/></svg>
+            <span>Sign</span>
+          </a>
+        </div>
+      </div>
+    </nav>
+
+    <main>
+      <section class="container">
+        <h1>Timeline</h1>
+
+        <style>
+          .post-header { display: flex; align-items: center; gap: 12px; margin-bottom: 8px; }
+          .avatar { width: 40px; height: 40px; border-radius: 999px; background: var(--accent); color: #ffffff; display: flex; align-items: center; justify-content: center; font-weight: 700; }
+          .author { display: flex; flex-direction: column; }
+          .author .name { font-weight: 600; }
+          .author .meta-inline { display: flex; align-items: center; gap: 8px; font-size: 12px; color: var(--muted); }
+          .topic-badges { display: flex; align-items: center; gap: 8px; margin: 8px 0; }
+          .media { margin-top: 10px; display: flex; }
+          .media .media-box { width: 100%; max-width: 640px; margin: 0 auto; position: relative; border-radius: 8px; overflow: hidden; background: #000; }
+          .media .media-box > img,
+          .media .media-box > video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
+          .media .media-box.ratio-16x9 { aspect-ratio: 16 / 9; }
+          .media .media-box.ratio-4x3 { aspect-ratio: 4 / 3; }
+          .media .media-box.ratio-3x4 { aspect-ratio: 3 / 4; }
+          .media .media-box.ratio-1x1 { aspect-ratio: 1 / 1; }
+          .post-actions { display: flex; align-items: center; justify-content: space-between; margin-top: 12px; }
+          .post-actions .actions-left, .post-actions .actions-right { display: flex; gap: 8px; }
+          .btn.icon { width: 36px; height: 36px; padding: 0; display: inline-flex; align-items: center; justify-content: center; }
+          .btn.icon svg { width: 18px; height: 18px; }
+        </style>
+
+        <div class="grid">
+          <!-- Post 1: Butuh Solusi -->
+          <article class="card">
+            <div class="post-header">
+              <div class="avatar" style="background: none; padding: 0;">
+                <img src="assets/img/profil picture/Amelia - Mahasiswi.jpg" alt="Rani" style="width: 40px; height: 40px; border-radius: 50%; object-fit: cover;">
+              </div>
+              <div class="author">
+                <span class="name">Rani</span>
+                <div class="meta-inline">
+                  <span class="pill">2 jam lalu</span>
+                  <span>•</span>
+                  <span class="pill">Jakarta</span>
+                </div>
+              </div>
+            </div>
+            <div class="topic-badges">
+              <span class="badge">Bullying</span>
+              <span class="badge warn">Butuh Solusi</span>
+            </div>
+            <p class="content">Aku mengalami perundungan di sekolah karena aksen saat presentasi. Ada saran bagaimana menghadapi situasi ini dengan aman?</p>
+            <div class="media">
+              <div class="media-box ratio-4x3">
+                <img src="assets/img/timeline/pexels-dimitri-dim-380720-1802175.jpg" alt="Ilustrasi komunitas" />
+              </div>
+            </div>
+            <div class="post-actions" style="display: flex; justify-content: space-between; align-items: center; padding: 12px 0; border-top: 1px solid #e5e7eb;">
+              <div class="actions-left" style="display: flex; gap: 16px;">
+                <button class="btn-icon" onclick="toggleLike(this)" style="background: none; border: none; cursor: pointer; padding: 8px; border-radius: 50%; transition: all 0.2s;" aria-label="Suka">
+                  <svg width="20" height="20" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M2 10.5a1.5 1.5 0 113 0v6a1.5 1.5 0 01-3 0v-6zM6 10.333v5.834a2 2 0 001.106 1.79l.05.025A4 4 0 008.943 18h5.416a2 2 0 001.962-1.608l1.2-6A2 2 0 0015.56 8H12V4a2 2 0 00-2-2 1 1 0 00-1 1v.667a4 4 0 01-.8 2.4L6.8 7.933a4 4 0 00-.8 2.4z"/>
+                  </svg>
+                </button>
+                <button class="btn-icon" onclick="showComments('post1')" style="background: none; border: none; cursor: pointer; padding: 8px; border-radius: 50%; transition: all 0.2s;" aria-label="Komentari">
+                  <svg width="20" height="20" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M18 10c0 3.314-3.582 6-8 6-.87 0-1.706-.108-2.486-.31L3 17l1.31-3.514C3.108 12.706 3 11.87 3 11c0-3.314 3.582-6 8-6s8 2.686 8 6z" clip-rule="evenodd"/>
+                  </svg>
+                </button>
+              </div>
+              <div class="actions-right" style="display: flex; gap: 8px;">
+                <button class="btn-icon" onclick="toggleSave(this)" style="background: none; border: none; cursor: pointer; padding: 8px; border-radius: 50%; transition: all 0.2s;" aria-label="Simpan">
+                  <svg width="20" height="20" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M5 2a2 2 0 00-2 2v14l7-4 7 4V4a2 2 0 00-2-2H5z"/>
+                  </svg>
+                </button>
+                <button class="btn-icon" onclick="sharePost()" style="background: none; border: none; cursor: pointer; padding: 8px; border-radius: 50%; transition: all 0.2s;" aria-label="Bagikan">
+                  <svg width="20" height="20" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M15 8a3 3 0 10-2.83-4H12a3 3 0 00.17 1H8a3 3 0 100 2h4.17A3 3 0 0015 8zM5 12a3 3 0 102.83 4H8a3 3 0 00-.17-1H12a3 3 0 100-2H7.83A3 3 0 005 12z"/>
+                  </svg>
+                </button>
+              </div>
+            </div>
+          </article>
+
+          <!-- Post 2: URGENT (bunuh diri) -->
+          <article class="card">
+            <div class="post-header">
+              <div class="avatar" style="background: none; padding: 0;">
+                <img src="assets/img/profil picture/Bunga - Siswi.jpg" alt="Anonim" style="width: 40px; height: 40px; border-radius: 50%; object-fit: cover;">
+              </div>
+              <div class="author">
+                <span class="name">Anonim</span>
+                <div class="meta-inline">
+                  <span class="pill">30 menit lalu</span>
+                  <span>•</span>
+                  <span class="pill">Bandung</span>
+                </div>
+              </div>
+            </div>
+            <div class="topic-badges">
+              <span class="badge">Kesehatan Mental</span>
+              <span class="badge danger">URGENT</span>
+            </div>
+            <p class="content">Aku sedang merasa sangat tertekan dan terpikir hal-hal yang berbahaya. Butuh bantuan profesional atau tempat untuk bicara segera.</p>
+            <div class="media">
+              <div class="media-box ratio-16x9">
+                <video controls preload="metadata">
+                  <source src="assets/video/2073129-uhd_3840_2160_30fps.mp4" type="video/mp4" />
+                  Browser Anda tidak mendukung video HTML5.
+                </video>
+              </div>
+            </div>
+            <div class="post-actions" style="display: flex; justify-content: space-between; align-items: center; padding: 12px 0; border-top: 1px solid #e5e7eb;">
+              <div class="actions-left" style="display: flex; gap: 16px;">
+                <button class="btn-icon" onclick="toggleLike(this)" style="background: none; border: none; cursor: pointer; padding: 8px; border-radius: 50%; transition: all 0.2s;" aria-label="Suka">
+                  <svg width="20" height="20" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M2 10.5a1.5 1.5 0 113 0v6a1.5 1.5 0 01-3 0v-6zM6 10.333v5.834a2 2 0 001.106 1.79l.05.025A4 4 0 008.943 18h5.416a2 2 0 001.962-1.608l1.2-6A2 2 0 0015.56 8H12V4a2 2 0 00-2-2 1 1 0 00-1 1v.667a4 4 0 01-.8 2.4L6.8 7.933a4 4 0 00-.8 2.4z"/>
+                  </svg>
+                </button>
+                <button class="btn-icon" onclick="showComments('post2')" style="background: none; border: none; cursor: pointer; padding: 8px; border-radius: 50%; transition: all 0.2s;" aria-label="Komentari">
+                  <svg width="20" height="20" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M18 10c0 3.314-3.582 6-8 6-.87 0-1.706-.108-2.486-.31L3 17l1.31-3.514C3.108 12.706 3 11.87 3 11c0-3.314 3.582-6 8-6s8 2.686 8 6z" clip-rule="evenodd"/>
+                  </svg>
+                </button>
+                <button class="btn-icon" onclick="showHelp()" style="background: none; border: none; cursor: pointer; padding: 8px; border-radius: 50%; transition: all 0.2s;" aria-label="Hubungi Bantuan">
+                  <svg width="20" height="20" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M2 5a2 2 0 012-2h3l2 3h7a2 2 0 012 2v2H2V5zM2 10h18v3a2 2 0 01-2 2H8l-2 3H4a2 2 0 01-2-2v-6z"/>
+                  </svg>
+                </button>
+              </div>
+              <div class="actions-right" style="display: flex; gap: 8px;">
+                <button class="btn-icon" onclick="toggleSave(this)" style="background: none; border: none; cursor: pointer; padding: 8px; border-radius: 50%; transition: all 0.2s;" aria-label="Simpan">
+                  <svg width="20" height="20" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M5 2a2 2 0 00-2 2v14l7-4 7 4V4a2 2 0 00-2-2H5z"/>
+                  </svg>
+                </button>
+                <button class="btn-icon" onclick="sharePost()" style="background: none; border: none; cursor: pointer; padding: 8px; border-radius: 50%; transition: all 0.2s;" aria-label="Bagikan">
+                  <svg width="20" height="20" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M15 8a3 3 0 10-2.83-4H12a3 3 0 00.17 1H8a3 3 0 100 2h4.17A3 3 0 0015 8zM5 12a3 3 0 102.83 4H8a3 3 0 00-.17-1H12a3 3 0 100-2H7.83A3 3 0 005 12z"/>
+                  </svg>
+                </button>
+              </div>
+            </div>
+          </article>
+
+          <!-- Post 3: Topik kerja -->
+          <article class="card">
+            <div class="post-header">
+              <div class="avatar" style="background: none; padding: 0;">
+                <img src="assets/img/profil picture/Bima Artha - Psikolog.jpg" alt="Bima" style="width: 40px; height: 40px; border-radius: 50%; object-fit: cover;">
+              </div>
+              <div class="author">
+                <div style="display: flex; align-items: center; gap: 6px;">
+                  <span class="name">Bima</span>
+                  <div style="display: flex; align-items: center; justify-content: center; background: #38bdf8; color: white; width: 18px; height: 18px; border-radius: 50%;">
+                    <svg width="10" height="10" fill="white" viewBox="0 0 20 20">
+                      <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                    </svg>
+                  </div>
+                </div>
+                <div style="font-size: 11px; color: #38bdf8; font-weight: 600; margin-top: 2px;">Psikolog</div>
+                <div class="meta-inline">
+                  <span class="pill">kemarin</span>
+                  <span>•</span>
+                  <span class="pill">Surabaya</span>
+                </div>
+              </div>
+            </div>
+            <div class="topic-badges">
+              <span class="badge">Workplace</span>
+              <span class="badge success">Update</span>
+            </div>
+            <p class="content">Setelah diskusi dengan HR, progresnya mulai terlihat. Terima kasih untuk sarannya semua!</p>
+            <div class="post-actions" style="display: flex; justify-content: space-between; align-items: center; padding: 12px 0; border-top: 1px solid #e5e7eb;">
+              <div class="actions-left" style="display: flex; gap: 16px;">
+                <button class="btn-icon" onclick="toggleLike(this)" style="background: none; border: none; cursor: pointer; padding: 8px; border-radius: 50%; transition: all 0.2s;" aria-label="Suka">
+                  <svg width="20" height="20" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M2 10.5a1.5 1.5 0 113 0v6a1.5 1.5 0 01-3 0v-6zM6 10.333v5.834a2 2 0 001.106 1.79l.05.025A4 4 0 008.943 18h5.416a2 2 0 001.962-1.608l1.2-6A2 2 0 0015.56 8H12V4a2 2 0 00-2-2 1 1 0 00-1 1v.667a4 4 0 01-.8 2.4L6.8 7.933a4 4 0 00-.8 2.4z"/>
+                  </svg>
+                </button>
+                <button class="btn-icon" onclick="showComments('post3')" style="background: none; border: none; cursor: pointer; padding: 8px; border-radius: 50%; transition: all 0.2s;" aria-label="Komentari">
+                  <svg width="20" height="20" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M18 10c0 3.314-3.582 6-8 6-.87 0-1.706-.108-2.486-.31L3 17l1.31-3.514C3.108 12.706 3 11.87 3 11c0-3.314 3.582-6 8-6s8 2.686 8 6z" clip-rule="evenodd"/>
+                  </svg>
+                </button>
+              </div>
+              <div class="actions-right" style="display: flex; gap: 8px;">
+                <button class="btn-icon" onclick="toggleSave(this)" style="background: none; border: none; cursor: pointer; padding: 8px; border-radius: 50%; transition: all 0.2s;" aria-label="Simpan">
+                  <svg width="20" height="20" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M5 2a2 2 0 00-2 2v14l7-4 7 4V4a2 2 0 00-2-2H5z"/>
+                  </svg>
+                </button>
+                <button class="btn-icon" onclick="sharePost()" style="background: none; border: none; cursor: pointer; padding: 8px; border-radius: 50%; transition: all 0.2s;" aria-label="Bagikan">
+                  <svg width="20" height="20" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M15 8a3 3 0 10-2.83-4H12a3 3 0 00.17 1H8a3 3 0 100 2h4.17A3 3 0 0015 8zM5 12a3 3 0 102.83 4H8a3 3 0 00-.17-1H12a3 3 0 100-2H7.83A3 3 0 005 12z"/>
+                  </svg>
+                </button>
+              </div>
+            </div>
+          </article>
+
+          <!-- Post 4: Video Inspiratif -->
+          <article class="card">
+            <div class="post-header">
+              <div class="avatar" style="background: none; padding: 0;">
+                <img src="assets/img/profil picture/Irene - Mahasiswa.jpg" alt="Sarah" style="width: 40px; height: 40px; border-radius: 50%; object-fit: cover;">
+              </div>
+              <div class="author">
+                <span class="name">Sarah</span>
+                <div class="meta-inline">
+                  <span class="pill">3 jam lalu</span>
+                  <span>•</span>
+                  <span class="pill">Yogyakarta</span>
+                </div>
+              </div>
+            </div>
+            <div class="topic-badges">
+              <span class="badge">Inspirasi</span>
+              <span class="badge success">Berbagi Pengalaman</span>
+            </div>
+            <p class="content">Berbagi video tentang perjalanan recovery dari anxiety. Semoga bisa menginspirasi teman-teman yang sedang berjuang. Kita tidak sendirian! 💪</p>
+            <div class="media">
+              <div class="media-box ratio-16x9">
+                <video controls preload="metadata">
+                  <source src="assets/video/3186590-uhd_3840_2160_30fps.mp4" type="video/mp4" />
+                  Browser Anda tidak mendukung video HTML5.
+                </video>
+              </div>
+            </div>
+            <div class="post-actions" style="display: flex; justify-content: space-between; align-items: center; padding: 12px 0; border-top: 1px solid #e5e7eb;">
+              <div class="actions-left" style="display: flex; gap: 16px;">
+                <button class="btn-icon" onclick="toggleLike(this)" style="background: none; border: none; cursor: pointer; padding: 8px; border-radius: 50%; transition: all 0.2s;" aria-label="Suka">
+                  <svg width="20" height="20" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M2 10.5a1.5 1.5 0 113 0v6a1.5 1.5 0 01-3 0v-6zM6 10.333v5.834a2 2 0 001.106 1.79l.05.025A4 4 0 008.943 18h5.416a2 2 0 001.962-1.608l1.2-6A2 2 0 0015.56 8H12V4a2 2 0 00-2-2 1 1 0 00-1 1v.667a4 4 0 01-.8 2.4L6.8 7.933a4 4 0 00-.8 2.4z"/>
+                  </svg>
+                </button>
+                <button class="btn-icon" onclick="showComments('post4')" style="background: none; border: none; cursor: pointer; padding: 8px; border-radius: 50%; transition: all 0.2s;" aria-label="Komentari">
+                  <svg width="20" height="20" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M18 10c0 3.314-3.582 6-8 6-.87 0-1.706-.108-2.486-.31L3 17l1.31-3.514C3.108 12.706 3 11.87 3 11c0-3.314 3.582-6 8-6s8 2.686 8 6z" clip-rule="evenodd"/>
+                  </svg>
+                </button>
+              </div>
+              <div class="actions-right" style="display: flex; gap: 8px;">
+                <button class="btn-icon" onclick="toggleSave(this)" style="background: none; border: none; cursor: pointer; padding: 8px; border-radius: 50%; transition: all 0.2s;" aria-label="Simpan">
+                  <svg width="20" height="20" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M5 2a2 2 0 00-2 2v14l7-4 7 4V4a2 2 0 00-2-2H5z"/>
+                  </svg>
+                </button>
+                <button class="btn-icon" onclick="sharePost()" style="background: none; border: none; cursor: pointer; padding: 8px; border-radius: 50%; transition: all 0.2s;" aria-label="Bagikan">
+                  <svg width="20" height="20" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M15 8a3 3 0 10-2.83-4H12a3 3 0 00.17 1H8a3 3 0 100 2h4.17A3 3 0 0015 8zM5 12a3 3 0 102.83 4H8a3 3 0 00-.17-1H12a3 3 0 100-2H7.83A3 3 0 005 12z"/>
+                  </svg>
+                </button>
+              </div>
+            </div>
+          </article>
+
+          <!-- Post 5: Video Tutorial -->
+          <article class="card">
+            <div class="post-header">
+              <div class="avatar" style="background: none; padding: 0;">
+                <img src="assets/img/profil picture/Crystaline - Psikolog.jpg" alt="Maya" style="width: 40px; height: 40px; border-radius: 50%; object-fit: cover;">
+              </div>
+              <div class="author">
+                <div style="display: flex; align-items: center; gap: 6px;">
+                  <span class="name">Maya</span>
+                  <div style="display: flex; align-items: center; justify-content: center; background: #38bdf8; color: white; width: 18px; height: 18px; border-radius: 50%;">
+                    <svg width="10" height="10" fill="white" viewBox="0 0 20 20">
+                      <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                    </svg>
+                  </div>
+                </div>
+                <div style="font-size: 11px; color: #38bdf8; font-weight: 600; margin-top: 2px;">Psikolog</div>
+                <div class="meta-inline">
+                  <span class="pill">1 hari lalu</span>
+                  <span>•</span>
+                  <span class="pill">Medan</span>
+                </div>
+              </div>
+            </div>
+            <div class="topic-badges">
+              <span class="badge">Edukasi</span>
+              <span class="badge">Tips & Trik</span>
+            </div>
+            <p class="content">Video tutorial tentang teknik breathing untuk mengatasi panic attack. Mudah dipraktikkan dan bisa dilakukan di mana saja. Semoga bermanfaat! 🧘‍♀️</p>
+            <div class="media">
+              <div class="media-box ratio-4x3">
+                <video controls preload="metadata">
+                  <source src="assets/video/3691102-uhd_3840_2160_25fps.mp4" type="video/mp4" />
+                  Browser Anda tidak mendukung video HTML5.
+                </video>
+              </div>
+            </div>
+            <div class="post-actions" style="display: flex; justify-content: space-between; align-items: center; padding: 12px 0; border-top: 1px solid #e5e7eb;">
+              <div class="actions-left" style="display: flex; gap: 16px;">
+                <button class="btn-icon" onclick="toggleLike(this)" style="background: none; border: none; cursor: pointer; padding: 8px; border-radius: 50%; transition: all 0.2s;" aria-label="Suka">
+                  <svg width="20" height="20" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M2 10.5a1.5 1.5 0 113 0v6a1.5 1.5 0 01-3 0v-6zM6 10.333v5.834a2 2 0 001.106 1.79l.05.025A4 4 0 008.943 18h5.416a2 2 0 001.962-1.608l1.2-6A2 2 0 0015.56 8H12V4a2 2 0 00-2-2 1 1 0 00-1 1v.667a4 4 0 01-.8 2.4L6.8 7.933a4 4 0 00-.8 2.4z"/>
+                  </svg>
+                </button>
+                <button class="btn-icon" onclick="showComments('post5')" style="background: none; border: none; cursor: pointer; padding: 8px; border-radius: 50%; transition: all 0.2s;" aria-label="Komentari">
+                  <svg width="20" height="20" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M18 10c0 3.314-3.582 6-8 6-.87 0-1.706-.108-2.486-.31L3 17l1.31-3.514C3.108 12.706 3 11.87 3 11c0-3.314 3.582-6 8-6s8 2.686 8 6z" clip-rule="evenodd"/>
+                  </svg>
+                </button>
+              </div>
+              <div class="actions-right" style="display: flex; gap: 8px;">
+                <button class="btn-icon" onclick="toggleSave(this)" style="background: none; border: none; cursor: pointer; padding: 8px; border-radius: 50%; transition: all 0.2s;" aria-label="Simpan">
+                  <svg width="20" height="20" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M5 2a2 2 0 00-2 2v14l7-4 7 4V4a2 2 0 00-2-2H5z"/>
+                  </svg>
+                </button>
+                <button class="btn-icon" onclick="sharePost()" style="background: none; border: none; cursor: pointer; padding: 8px; border-radius: 50%; transition: all 0.2s;" aria-label="Bagikan">
+                  <svg width="20" height="20" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M15 8a3 3 0 10-2.83-4H12a3 3 0 00.17 1H8a3 3 0 100 2h4.17A3 3 0 0015 8zM5 12a3 3 0 102.83 4H8a3 3 0 00-.17-1H12a3 3 0 100-2H7.83A3 3 0 005 12z"/>
+                  </svg>
+                </button>
+              </div>
+            </div>
+          </article>
+
+
+
+
+
+
+          <!-- Postingan Hakim Sugeng -->
+          <article class="post" style="background: white; border-radius: 12px; padding: 24px; margin-bottom: 24px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+            <div class="post-header">
+              <div class="avatar" style="background: none; padding: 0;">
+                <img src="assets/img/profil picture/Sugeng - Hakim.jpg" alt="Sugeng" style="width: 40px; height: 40px; border-radius: 50%; object-fit: cover;">
+              </div>
+              <div class="author">
+                <div style="display: flex; align-items: center; gap: 6px;">
+                  <span class="name">Sugeng</span>
+                  <div style="display: flex; align-items: center; justify-content: center; background: #38bdf8; color: white; width: 18px; height: 18px; border-radius: 50%;">
+                    <svg width="10" height="10" fill="white" viewBox="0 0 20 20">
+                      <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                    </svg>
+                  </div>
+                </div>
+                <div style="font-size: 11px; color: #38bdf8; font-weight: 600; margin-top: 2px;">Hakim</div>
+                <div class="meta-inline">
+                  <span class="pill">3 hari lalu</span>
+                  <span>•</span>
+                  <span class="pill">Jakarta</span>
+                </div>
+              </div>
+            </div>
+            <div class="content">
+              <p style="margin: 16px 0; line-height: 1.6; color: #374151;">
+                Sebagai hakim, saya sering melihat kasus-kasus yang melibatkan kekerasan dalam rumah tangga. 
+                Penting untuk memahami bahwa hukum melindungi korban dan memberikan sanksi tegas pada pelaku. 
+                Jika Anda mengalami KDRT, jangan ragu untuk melaporkan dan mencari bantuan hukum. 
+                Keadilan akan ditegakkan! ⚖️
+              </p>
+            </div>
+            <div class="post-actions" style="display: flex; justify-content: space-between; align-items: center; padding: 12px 0; border-top: 1px solid #e5e7eb;">
+              <div class="actions-left" style="display: flex; gap: 16px;">
+                <button class="btn-icon" onclick="toggleLike(this)" style="background: none; border: none; cursor: pointer; padding: 8px; border-radius: 50%; transition: all 0.2s;" aria-label="Suka">
+                  <svg width="20" height="20" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M2 10.5a1.5 1.5 0 113 0v6a1.5 1.5 0 01-3 0v-6zM6 10.333v5.834a2 2 0 001.106 1.79l.05.025A4 4 0 008.943 18h5.416a2 2 0 001.962-1.608l1.2-6A2 2 0 0015.56 8H12V4a2 2 0 00-2-2 1 1 0 00-1 1v.667a4 4 0 01-.8 2.4L6.8 7.933a4 4 0 00-.8 2.4z"/>
+                  </svg>
+                </button>
+                <button class="btn-icon" onclick="showComments('post6')" style="background: none; border: none; cursor: pointer; padding: 8px; border-radius: 50%; transition: all 0.2s;" aria-label="Komentari">
+                  <svg width="20" height="20" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M18 10c0 3.314-3.582 6-8 6-.87 0-1.706-.108-2.486-.31L3 17l1.31-3.514C3.108 12.706 3 11.87 3 11c0-3.314 3.582-6 8-6s8 2.686 8 6z" clip-rule="evenodd"/>
+                  </svg>
+                </button>
+              </div>
+              <div class="actions-right" style="display: flex; gap: 8px;">
+                <button class="btn-icon" onclick="toggleSave(this)" style="background: none; border: none; cursor: pointer; padding: 8px; border-radius: 50%; transition: all 0.2s;" aria-label="Simpan">
+                  <svg width="20" height="20" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M5 2a2 2 0 00-2 2v14l7-4 7 4V4a2 2 0 00-2-2H5z"/>
+                  </svg>
+                </button>
+                <button class="btn-icon" onclick="sharePost()" style="background: none; border: none; cursor: pointer; padding: 8px; border-radius: 50%; transition: all 0.2s;" aria-label="Bagikan">
+                  <svg width="20" height="20" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M15 8a3 3 0 10-2.83-4H12a3 3 0 00.17 1H8a3 3 0 100 2h4.17A3 3 0 0015 8zM5 12a3 3 0 102.83 4H8a3 3 0 00-.17-1H12a3 3 0 100-2H7.83A3 3 0 005 12z"/>
+                  </svg>
+                </button>
+              </div>
+            </div>
+          </article>
+
+          <!-- Postingan Lawyer Ignatius -->
+          <article class="post" style="background: white; border-radius: 12px; padding: 24px; margin-bottom: 24px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+            <div class="post-header">
+              <div class="avatar" style="background: none; padding: 0;">
+                <img src="assets/img/profil picture/Ignatius - Lawyer.jpg" alt="Ignatius" style="width: 40px; height: 40px; border-radius: 50%; object-fit: cover;">
+              </div>
+              <div class="author">
+                <div style="display: flex; align-items: center; gap: 6px;">
+                  <span class="name">Ignatius</span>
+                  <div style="display: flex; align-items: center; justify-content: center; background: #38bdf8; color: white; width: 18px; height: 18px; border-radius: 50%;">
+                    <svg width="10" height="10" fill="white" viewBox="0 0 20 20">
+                      <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                    </svg>
+                  </div>
+                </div>
+                <div style="font-size: 11px; color: #38bdf8; font-weight: 600; margin-top: 2px;">Lawyer</div>
+                <div class="meta-inline">
+                  <span class="pill">4 hari lalu</span>
+                  <span>•</span>
+                  <span class="pill">Bandung</span>
+                </div>
+              </div>
+            </div>
+            <div class="content">
+              <p style="margin: 16px 0; line-height: 1.6; color: #374151;">
+                Tips hukum untuk korban bullying: 1) Dokumentasikan semua bukti (screenshot, rekaman, saksi), 
+                2) Laporkan ke pihak berwenang (sekolah, polisi), 3) Konsultasi dengan pengacara untuk perlindungan hukum, 
+                4) Jangan balas dengan kekerasan. Hukum ada untuk melindungi Anda! 
+                Konsultasi gratis untuk korban bullying. 📋⚖️
+              </p>
+            </div>
+            <div class="post-actions" style="display: flex; justify-content: space-between; align-items: center; padding: 12px 0; border-top: 1px solid #e5e7eb;">
+              <div class="actions-left" style="display: flex; gap: 16px;">
+                <button class="btn-icon" onclick="toggleLike(this)" style="background: none; border: none; cursor: pointer; padding: 8px; border-radius: 50%; transition: all 0.2s;" aria-label="Suka">
+                  <svg width="20" height="20" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M2 10.5a1.5 1.5 0 113 0v6a1.5 1.5 0 01-3 0v-6zM6 10.333v5.834a2 2 0 001.106 1.79l.05.025A4 4 0 008.943 18h5.416a2 2 0 001.962-1.608l1.2-6A2 2 0 0015.56 8H12V4a2 2 0 00-2-2 1 1 0 00-1 1v.667a4 4 0 01-.8 2.4L6.8 7.933a4 4 0 00-.8 2.4z"/>
+                  </svg>
+                </button>
+                <button class="btn-icon" onclick="showComments('post7')" style="background: none; border: none; cursor: pointer; padding: 8px; border-radius: 50%; transition: all 0.2s;" aria-label="Komentari">
+                  <svg width="20" height="20" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M18 10c0 3.314-3.582 6-8 6-.87 0-1.706-.108-2.486-.31L3 17l1.31-3.514C3.108 12.706 3 11.87 3 11c0-3.314 3.582-6 8-6s8 2.686 8 6z" clip-rule="evenodd"/>
+                  </svg>
+                </button>
+              </div>
+              <div class="actions-right" style="display: flex; gap: 8px;">
+                <button class="btn-icon" onclick="toggleSave(this)" style="background: none; border: none; cursor: pointer; padding: 8px; border-radius: 50%; transition: all 0.2s;" aria-label="Simpan">
+                  <svg width="20" height="20" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M5 2a2 2 0 00-2 2v14l7-4 7 4V4a2 2 0 00-2-2H5z"/>
+                  </svg>
+                </button>
+                <button class="btn-icon" onclick="sharePost()" style="background: none; border: none; cursor: pointer; padding: 8px; border-radius: 50%; transition: all 0.2s;" aria-label="Bagikan">
+                  <svg width="20" height="20" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M15 8a3 3 0 10-2.83-4H12a3 3 0 00.17 1H8a3 3 0 100 2h4.17A3 3 0 0015 8zM5 12a3 3 0 102.83 4H8a3 3 0 00-.17-1H12a3 3 0 100-2H7.83A3 3 0 005 12z"/>
+                  </svg>
+                </button>
+              </div>
+            </div>
+          </article>
+
+          <!-- Postingan Notaris Agus Supratman -->
+          <article class="post" style="background: white; border-radius: 12px; padding: 24px; margin-bottom: 24px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+            <div class="post-header">
+              <div class="avatar" style="background: none; padding: 0;">
+                <img src="assets/img/profil picture/Agus Supratman - Notaris.jpg" alt="Agus" style="width: 40px; height: 40px; border-radius: 50%; object-fit: cover;">
+              </div>
+              <div class="author">
+                <div style="display: flex; align-items: center; gap: 6px;">
+                  <span class="name">Agus Supratman</span>
+                  <div style="display: flex; align-items: center; justify-content: center; background: #38bdf8; color: white; width: 18px; height: 18px; border-radius: 50%;">
+                    <svg width="10" height="10" fill="white" viewBox="0 0 20 20">
+                      <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                    </svg>
+                  </div>
+                </div>
+                <div style="font-size: 11px; color: #38bdf8; font-weight: 600; margin-top: 2px;">Notaris</div>
+                <div class="meta-inline">
+                  <span class="pill">5 hari lalu</span>
+                  <span>•</span>
+                  <span class="pill">Semarang</span>
+                </div>
+              </div>
+            </div>
+            <div class="content">
+              <p style="margin: 16px 0; line-height: 1.6; color: #374151;">
+                Pentingnya surat wasiat untuk melindungi keluarga. Sebagai notaris, saya sering melihat konflik warisan 
+                yang bisa dihindari dengan perencanaan yang baik. Wasiat tidak hanya untuk orang tua, tapi juga untuk 
+                memastikan aset Anda diwariskan sesuai keinginan. Konsultasi gratis untuk perencanaan waris! 📜✍️
+              </p>
+            </div>
+            <div class="post-actions" style="display: flex; justify-content: space-between; align-items: center; padding: 12px 0; border-top: 1px solid #e5e7eb;">
+              <div class="actions-left" style="display: flex; gap: 16px;">
+                <button class="btn-icon" onclick="toggleLike(this)" style="background: none; border: none; cursor: pointer; padding: 8px; border-radius: 50%; transition: all 0.2s;" aria-label="Suka">
+                  <svg width="20" height="20" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M2 10.5a1.5 1.5 0 113 0v6a1.5 1.5 0 01-3 0v-6zM6 10.333v5.834a2 2 0 001.106 1.79l.05.025A4 4 0 008.943 18h5.416a2 2 0 001.962-1.608l1.2-6A2 2 0 0015.56 8H12V4a2 2 0 00-2-2 1 1 0 00-1 1v.667a4 4 0 01-.8 2.4L6.8 7.933a4 4 0 00-.8 2.4z"/>
+                  </svg>
+                </button>
+                <button class="btn-icon" onclick="showComments('post8')" style="background: none; border: none; cursor: pointer; padding: 8px; border-radius: 50%; transition: all 0.2s;" aria-label="Komentari">
+                  <svg width="20" height="20" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M18 10c0 3.314-3.582 6-8 6-.87 0-1.706-.108-2.486-.31L3 17l1.31-3.514C3.108 12.706 3 11.87 3 11c0-3.314 3.582-6 8-6s8 2.686 8 6z" clip-rule="evenodd"/>
+                  </svg>
+                </button>
+              </div>
+              <div class="actions-right" style="display: flex; gap: 8px;">
+                <button class="btn-icon" onclick="toggleSave(this)" style="background: none; border: none; cursor: pointer; padding: 8px; border-radius: 50%; transition: all 0.2s;" aria-label="Simpan">
+                  <svg width="20" height="20" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M5 2a2 2 0 00-2 2v14l7-4 7 4V4a2 2 0 00-2-2H5z"/>
+                  </svg>
+                </button>
+                <button class="btn-icon" onclick="sharePost()" style="background: none; border: none; cursor: pointer; padding: 8px; border-radius: 50%; transition: all 0.2s;" aria-label="Bagikan">
+                  <svg width="20" height="20" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M15 8a3 3 0 10-2.83-4H12a3 3 0 00.17 1H8a3 3 0 100 2h4.17A3 3 0 0015 8zM5 12a3 3 0 102.83 4H8a3 3 0 00-.17-1H12a3 3 0 100-2H7.83A3 3 0 005 12z"/>
+                  </svg>
+                </button>
+              </div>
+            </div>
+          </article>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <!-- JavaScript untuk interaksi tombol -->
+  <script>
+    // Toggle Like
+    function toggleLike(button) {
+      const svg = button.querySelector('svg');
+      const path = svg.querySelector('path');
+      
+      if (button.classList.contains('liked')) {
+        // Unlike
+        button.classList.remove('liked');
+        path.style.fill = '#6b7280';
+        button.style.backgroundColor = 'transparent';
+        showNotification('Postingan tidak disukai', 'info');
+      } else {
+        // Like
+        button.classList.add('liked');
+        path.style.fill = '#ef4444';
+        button.style.backgroundColor = '#fef2f2';
+        showNotification('Postingan disukai! ❤️', 'success');
+      }
+    }
+
+    // Toggle Save
+    function toggleSave(button) {
+      const svg = button.querySelector('svg');
+      const path = svg.querySelector('path');
+      
+      if (button.classList.contains('saved')) {
+        // Unsave
+        button.classList.remove('saved');
+        path.style.fill = '#6b7280';
+        button.style.backgroundColor = 'transparent';
+        showNotification('Postingan dihapus dari simpan', 'info');
+      } else {
+        // Save
+        button.classList.add('saved');
+        path.style.fill = '#38bdf8';
+        button.style.backgroundColor = '#f0f9ff';
+        showNotification('Postingan disimpan! 💾', 'success');
+      }
+    }
+
+    // Show Comments
+    function showComments(postId = 'default') {
+      showCommentModal(postId);
+    }
+
+    // Comment Modal
+    function showCommentModal(postId = 'default') {
+      // Hapus modal lama jika ada
+      const existingModal = document.querySelector('.comment-modal');
+      if (existingModal) {
+        existingModal.remove();
+      }
+
+      // Data komentar untuk setiap postingan
+      const commentsData = {
+        'post1': {
+          title: 'Komentar - Postingan Rani',
+          comments: [
+            {
+              name: 'Adam',
+              avatar: 'assets/img/profil picture/Adam - Guru.jpg',
+              time: '2 jam lalu',
+              text: 'Saya pernah mengalami hal serupa. Coba laporkan ke dosen wali atau konselor kampus. Mereka biasanya bisa membantu! 💪'
+            },
+            {
+              name: 'Amelia',
+              avatar: 'assets/img/profil picture/Amelia - Mahasiswi.jpg',
+              time: '1 hari lalu',
+              text: 'Jangan takut untuk speak up! Aksen itu unik dan membuatmu berbeda. Bangga dengan identitasmu! ✨'
+            }
+          ]
+        },
+        'post2': {
+          title: 'Komentar - Postingan Anonim',
+          comments: [
+            {
+              name: 'Bima',
+              avatar: 'assets/img/profil picture/Bima Artha - Psikolog.jpg',
+              time: '30 menit lalu',
+              text: 'Silakan hubungi hotline 119 atau 0804-1500-004 untuk bantuan profesional. Kamu tidak sendirian! 🤗'
+            },
+            {
+              name: 'Mawar',
+              avatar: 'assets/img/profil picture/Mawar - Psikiater.jpg',
+              time: '1 jam lalu',
+              text: 'Saya sebagai psikiater siap membantu. Jangan ragu untuk konsultasi gratis! 💙'
+            }
+          ]
+        },
+        'post3': {
+          title: 'Komentar - Postingan Bima',
+          comments: [
+            {
+              name: 'Arya',
+              avatar: 'assets/img/profil picture/Arya - Karyawan Swasta.jpg',
+              time: '2 jam lalu',
+              text: 'Bagus sekali progresnya! HR memang harus jadi jembatan yang baik antara karyawan dan manajemen 👍'
+            },
+            {
+              name: 'Dika',
+              avatar: 'assets/img/profil picture/Dika - Dokter.jpg',
+              time: '3 jam lalu',
+              text: 'Senang mendengar kabar baik! Komunikasi yang terbuka memang kunci sukses di tempat kerja 🎯'
+            }
+          ]
+        },
+        'post4': {
+          title: 'Komentar - Postingan Sarah',
+          comments: [
+            {
+              name: 'Crystaline',
+              avatar: 'assets/img/profil picture/Crystaline - Psikolog.jpg',
+              time: '1 jam lalu',
+              text: 'Terima kasih sudah berbagi pengalaman! Video ini sangat menginspirasi dan memberikan harapan 🌟'
+            },
+            {
+              name: 'Irene',
+              avatar: 'assets/img/profil picture/Irene - Mahasiswa.jpg',
+              time: '2 jam lalu',
+              text: 'Kamu hebat! Recovery journey memang tidak mudah tapi worth it. Keep fighting! 💪✨'
+            }
+          ]
+        },
+        'post5': {
+          title: 'Komentar - Postingan Maya',
+          comments: [
+            {
+              name: 'Bunga',
+              avatar: 'assets/img/profil picture/Bunga - Siswi.jpg',
+              time: '30 menit lalu',
+              text: 'Teknik breathing ini sangat membantu! Saya sudah coba dan rasanya lebih tenang 🧘‍♀️'
+            },
+            {
+              name: 'Satya',
+              avatar: 'assets/img/profil picture/Satya - Mahasiswa.jpg',
+              time: '1 jam lalu',
+              text: 'Terima kasih untuk tipsnya! Sebagai mahasiswa yang sering stress, ini sangat berguna 📚'
+            }
+          ]
+        },
+        'post6': {
+          title: 'Komentar - Postingan Sugeng',
+          comments: [
+            {
+              name: 'Ignatius',
+              avatar: 'assets/img/profil picture/Ignatius - Lawyer.jpg',
+              time: '2 jam lalu',
+              text: 'Sebagai lawyer, saya setuju dengan pendapat Hakim Sugeng. Hukum memang melindungi korban KDRT! ⚖️'
+            },
+            {
+              name: 'Agus Supratman',
+              avatar: 'assets/img/profil picture/Agus Supratman - Notaris.jpg',
+              time: '3 jam lalu',
+              text: 'Penting untuk memahami hak-hak hukum. Konsultasi hukum bisa membantu korban mendapatkan keadilan 📋'
+            }
+          ]
+        },
+        'post7': {
+          title: 'Komentar - Postingan Ignatius',
+          comments: [
+            {
+              name: 'Sugeng',
+              avatar: 'assets/img/profil picture/Sugeng - Hakim.jpg',
+              time: '1 jam lalu',
+              text: 'Tips yang sangat praktis! Dokumentasi bukti memang kunci dalam proses hukum 📸'
+            },
+            {
+              name: 'Rere',
+              avatar: 'assets/img/profil picture/Rere - Model.png',
+              time: '2 jam lalu',
+              text: 'Terima kasih untuk tips hukumnya! Sebagai public figure, ini sangat berguna untuk perlindungan diri 🛡️'
+            }
+          ]
+        },
+        'post8': {
+          title: 'Komentar - Postingan Agus Supratman',
+          comments: [
+            {
+              name: 'Ignatius',
+              avatar: 'assets/img/profil picture/Ignatius - Lawyer.jpg',
+              time: '1 jam lalu',
+              text: 'Setuju! Perencanaan waris yang baik bisa mencegah konflik keluarga di masa depan 🏠'
+            },
+            {
+              name: 'Sugeng',
+              avatar: 'assets/img/profil picture/Sugeng - Hakim.jpg',
+              time: '2 jam lalu',
+              text: 'Sebagai hakim, saya sering melihat kasus warisan yang rumit. Wasiat memang solusi terbaik! ⚖️'
+            }
+          ]
+        },
+        'default': {
+          title: 'Komentar',
+          comments: [
+            {
+              name: 'Adam',
+              avatar: 'assets/img/profil picture/Adam - Guru.jpg',
+              time: '2 jam lalu',
+              text: 'Terima kasih sudah berbagi! Ini sangat membantu 🙏'
+            },
+            {
+              name: 'Amelia',
+              avatar: 'assets/img/profil picture/Amelia - Mahasiswi.jpg',
+              time: '1 hari lalu',
+              text: 'Setuju banget! Semoga kita semua bisa saling mendukung 💪'
+            }
+          ]
+        }
+      };
+
+      const currentPost = commentsData[postId] || commentsData['default'];
+
+      // Buat modal komentar
+      const modal = document.createElement('div');
+      modal.className = 'comment-modal';
+      modal.style.cssText = `
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0,0,0,0.5);
+        z-index: 2000;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        animation: fadeIn 0.3s ease-out;
+      `;
+
+      modal.innerHTML = `
+        <div class="comment-modal-content" style="
+          background: white;
+          border-radius: 12px;
+          width: 90%;
+          max-width: 500px;
+          max-height: 80vh;
+          overflow: hidden;
+          box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1);
+          animation: slideUp 0.3s ease-out;
+        ">
+          <div class="comment-header" style="
+            padding: 20px;
+            border-bottom: 1px solid #e5e7eb;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+          ">
+            <h3 style="margin: 0; font-size: 18px; font-weight: 600; color: #1f2937;">${currentPost.title}</h3>
+            <button onclick="closeCommentModal()" style="
+              background: none;
+              border: none;
+              font-size: 24px;
+              cursor: pointer;
+              color: #6b7280;
+              padding: 4px;
+              border-radius: 4px;
+            ">&times;</button>
+          </div>
+          
+          <div class="comment-list" style="
+            max-height: 300px;
+            overflow-y: auto;
+            padding: 16px 20px;
+          ">
+            ${currentPost.comments.map(comment => `
+              <div class="comment-item" style="
+                display: flex;
+                gap: 12px;
+                margin-bottom: 16px;
+                padding-bottom: 16px;
+                border-bottom: 1px solid #f3f4f6;
+              ">
+                <img src="${comment.avatar}" alt="User" style="
+                  width: 32px;
+                  height: 32px;
+                  border-radius: 50%;
+                  object-fit: cover;
+                ">
+                <div style="flex: 1;">
+                  <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 4px;">
+                    <span style="font-weight: 600; font-size: 14px; color: #1f2937;">${comment.name}</span>
+                    <span style="font-size: 12px; color: #6b7280;">${comment.time}</span>
+                  </div>
+                  <p style="margin: 0; font-size: 14px; color: #374151; line-height: 1.5;">
+                    ${comment.text}
+                  </p>
+                </div>
+              </div>
+            `).join('')}
+          </div>
+          
+          <div class="comment-input" style="
+            padding: 20px;
+            border-top: 1px solid #e5e7eb;
+            position: relative;
+          ">
+            <div style="display: flex; gap: 12px; align-items: flex-end;">
+              <img src="assets/img/profil picture/Satya - Mahasiswa.jpg" alt="You" style="
+                width: 32px;
+                height: 32px;
+                border-radius: 50%;
+                object-fit: cover;
+              ">
+              <div style="flex: 1; position: relative;">
+                <textarea id="commentText" placeholder="Tulis komentar Anda..." style="
+                  width: 100%;
+                  min-height: 60px;
+                  padding: 12px 40px 12px 12px;
+                  border: 1px solid #d1d5db;
+                  border-radius: 8px;
+                  resize: vertical;
+                  font-family: inherit;
+                  font-size: 14px;
+                  outline: none;
+                  transition: border-color 0.2s;
+                " onfocus="this.style.borderColor='#38bdf8'" onblur="this.style.borderColor='#d1d5db'"></textarea>
+                <button onclick="toggleEmojiPicker()" style="
+                  position: absolute;
+                  right: 8px;
+                  top: 8px;
+                  background: none;
+                  border: none;
+                  font-size: 18px;
+                  cursor: pointer;
+                  padding: 4px;
+                  border-radius: 4px;
+                  transition: background-color 0.2s;
+                " onmouseover="this.style.backgroundColor='#f3f4f6'" onmouseout="this.style.backgroundColor='transparent'" title="Pilih Emoji">
+                  😊
+                </button>
+              </div>
+              <button onclick="submitComment()" style="
+                background: #38bdf8;
+                color: white;
+                border: none;
+                padding: 12px 20px;
+                border-radius: 8px;
+                font-weight: 600;
+                cursor: pointer;
+                transition: background-color 0.2s;
+              " onmouseover="this.style.backgroundColor='#0ea5e9'" onmouseout="this.style.backgroundColor='#38bdf8'">
+                Kirim
+              </button>
+            </div>
+            
+            <!-- Emoji Picker -->
+            <div id="emojiPicker" style="
+              display: none;
+              position: absolute;
+              bottom: 100%;
+              left: 0;
+              right: 0;
+              margin-bottom: 8px;
+              background: white;
+              border: 1px solid #e5e7eb;
+              border-radius: 8px;
+              box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+              padding: 12px;
+              z-index: 1001;
+              max-height: 120px;
+              overflow-y: auto;
+              width: calc(100% - 24px);
+              margin-left: 12px;
+              margin-right: 12px;
+            ">
+              <div style="margin-bottom: 8px;">
+                <h4 style="margin: 0 0 6px; font-size: 12px; color: #6b7280; font-weight: 500;">Pilih Emoji</h4>
+                <div style="display: grid; grid-template-columns: repeat(8, 1fr); gap: 4px;">
+                  <button onclick="insertEmoji('😊')" style="background: none; border: none; font-size: 16px; cursor: pointer; padding: 6px; border-radius: 4px; transition: background-color 0.2s; display: flex; align-items: center; justify-content: center;" onmouseover="this.style.backgroundColor='#f3f4f6'" onmouseout="this.style.backgroundColor='transparent'">😊</button>
+                  <button onclick="insertEmoji('😢')" style="background: none; border: none; font-size: 16px; cursor: pointer; padding: 6px; border-radius: 4px; transition: background-color 0.2s; display: flex; align-items: center; justify-content: center;" onmouseover="this.style.backgroundColor='#f3f4f6'" onmouseout="this.style.backgroundColor='transparent'">😢</button>
+                  <button onclick="insertEmoji('😍')" style="background: none; border: none; font-size: 16px; cursor: pointer; padding: 6px; border-radius: 4px; transition: background-color 0.2s; display: flex; align-items: center; justify-content: center;" onmouseover="this.style.backgroundColor='#f3f4f6'" onmouseout="this.style.backgroundColor='transparent'">😍</button>
+                  <button onclick="insertEmoji('🤗')" style="background: none; border: none; font-size: 16px; cursor: pointer; padding: 6px; border-radius: 4px; transition: background-color 0.2s; display: flex; align-items: center; justify-content: center;" onmouseover="this.style.backgroundColor='#f3f4f6'" onmouseout="this.style.backgroundColor='transparent'">🤗</button>
+                  <button onclick="insertEmoji('💪')" style="background: none; border: none; font-size: 16px; cursor: pointer; padding: 6px; border-radius: 4px; transition: background-color 0.2s; display: flex; align-items: center; justify-content: center;" onmouseover="this.style.backgroundColor='#f3f4f6'" onmouseout="this.style.backgroundColor='transparent'">💪</button>
+                  <button onclick="insertEmoji('✨')" style="background: none; border: none; font-size: 16px; cursor: pointer; padding: 6px; border-radius: 4px; transition: background-color 0.2s; display: flex; align-items: center; justify-content: center;" onmouseover="this.style.backgroundColor='#f3f4f6'" onmouseout="this.style.backgroundColor='transparent'">✨</button>
+                  <button onclick="insertEmoji('🌟')" style="background: none; border: none; font-size: 16px; cursor: pointer; padding: 6px; border-radius: 4px; transition: background-color 0.2s; display: flex; align-items: center; justify-content: center;" onmouseover="this.style.backgroundColor='#f3f4f6'" onmouseout="this.style.backgroundColor='transparent'">🌟</button>
+                  <button onclick="insertEmoji('🙏')" style="background: none; border: none; font-size: 16px; cursor: pointer; padding: 6px; border-radius: 4px; transition: background-color 0.2s; display: flex; align-items: center; justify-content: center;" onmouseover="this.style.backgroundColor='#f3f4f6'" onmouseout="this.style.backgroundColor='transparent'">🙏</button>
+                  <button onclick="insertEmoji('❤️')" style="background: none; border: none; font-size: 16px; cursor: pointer; padding: 6px; border-radius: 4px; transition: background-color 0.2s; display: flex; align-items: center; justify-content: center;" onmouseover="this.style.backgroundColor='#f3f4f6'" onmouseout="this.style.backgroundColor='transparent'">❤️</button>
+                  <button onclick="insertEmoji('👍')" style="background: none; border: none; font-size: 16px; cursor: pointer; padding: 6px; border-radius: 4px; transition: background-color 0.2s; display: flex; align-items: center; justify-content: center;" onmouseover="this.style.backgroundColor='#f3f4f6'" onmouseout="this.style.backgroundColor='transparent'">👍</button>
+                  <button onclick="insertEmoji('👏')" style="background: none; border: none; font-size: 16px; cursor: pointer; padding: 6px; border-radius: 4px; transition: background-color 0.2s; display: flex; align-items: center; justify-content: center;" onmouseover="this.style.backgroundColor='#f3f4f6'" onmouseout="this.style.backgroundColor='transparent'">👏</button>
+                  <button onclick="insertEmoji('🎉')" style="background: none; border: none; font-size: 16px; cursor: pointer; padding: 6px; border-radius: 4px; transition: background-color 0.2s; display: flex; align-items: center; justify-content: center;" onmouseover="this.style.backgroundColor='#f3f4f6'" onmouseout="this.style.backgroundColor='transparent'">🎉</button>
+                  <button onclick="insertEmoji('🔥')" style="background: none; border: none; font-size: 16px; cursor: pointer; padding: 6px; border-radius: 4px; transition: background-color 0.2s; display: flex; align-items: center; justify-content: center;" onmouseover="this.style.backgroundColor='#f3f4f6'" onmouseout="this.style.backgroundColor='transparent'">🔥</button>
+                  <button onclick="insertEmoji('💯')" style="background: none; border: none; font-size: 16px; cursor: pointer; padding: 6px; border-radius: 4px; transition: background-color 0.2s; display: flex; align-items: center; justify-content: center;" onmouseover="this.style.backgroundColor='#f3f4f6'" onmouseout="this.style.backgroundColor='transparent'">💯</button>
+                  <button onclick="insertEmoji('🎯')" style="background: none; border: none; font-size: 16px; cursor: pointer; padding: 6px; border-radius: 4px; transition: background-color 0.2s; display: flex; align-items: center; justify-content: center;" onmouseover="this.style.backgroundColor='#f3f4f6'" onmouseout="this.style.backgroundColor='transparent'">🎯</button>
+                  <button onclick="insertEmoji('📚')" style="background: none; border: none; font-size: 16px; cursor: pointer; padding: 6px; border-radius: 4px; transition: background-color 0.2s; display: flex; align-items: center; justify-content: center;" onmouseover="this.style.backgroundColor='#f3f4f6'" onmouseout="this.style.backgroundColor='transparent'">📚</button>
+                  <button onclick="insertEmoji('🧘‍♀️')" style="background: none; border: none; font-size: 16px; cursor: pointer; padding: 6px; border-radius: 4px; transition: background-color 0.2s; display: flex; align-items: center; justify-content: center;" onmouseover="this.style.backgroundColor='#f3f4f6'" onmouseout="this.style.backgroundColor='transparent'">🧘‍♀️</button>
+                  <button onclick="insertEmoji('⚖️')" style="background: none; border: none; font-size: 16px; cursor: pointer; padding: 6px; border-radius: 4px; transition: background-color 0.2s; display: flex; align-items: center; justify-content: center;" onmouseover="this.style.backgroundColor='#f3f4f6'" onmouseout="this.style.backgroundColor='transparent'">⚖️</button>
+                  <button onclick="insertEmoji('🛡️')" style="background: none; border: none; font-size: 16px; cursor: pointer; padding: 6px; border-radius: 4px; transition: background-color 0.2s; display: flex; align-items: center; justify-content: center;" onmouseover="this.style.backgroundColor='#f3f4f6'" onmouseout="this.style.backgroundColor='transparent'">🛡️</button>
+                  <button onclick="insertEmoji('🏠')" style="background: none; border: none; font-size: 16px; cursor: pointer; padding: 6px; border-radius: 4px; transition: background-color 0.2s; display: flex; align-items: center; justify-content: center;" onmouseover="this.style.backgroundColor='#f3f4f6'" onmouseout="this.style.backgroundColor='transparent'">🏠</button>
+                  <button onclick="insertEmoji('📸')" style="background: none; border: none; font-size: 16px; cursor: pointer; padding: 6px; border-radius: 4px; transition: background-color 0.2s; display: flex; align-items: center; justify-content: center;" onmouseover="this.style.backgroundColor='#f3f4f6'" onmouseout="this.style.backgroundColor='transparent'">📸</button>
+                  <button onclick="insertEmoji('📋')" style="background: none; border: none; font-size: 16px; cursor: pointer; padding: 6px; border-radius: 4px; transition: background-color 0.2s; display: flex; align-items: center; justify-content: center;" onmouseover="this.style.backgroundColor='#f3f4f6'" onmouseout="this.style.backgroundColor='transparent'">📋</button>
+                  <button onclick="insertEmoji('📜')" style="background: none; border: none; font-size: 16px; cursor: pointer; padding: 6px; border-radius: 4px; transition: background-color 0.2s; display: flex; align-items: center; justify-content: center;" onmouseover="this.style.backgroundColor='#f3f4f6'" onmouseout="this.style.backgroundColor='transparent'">📜</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      `;
+
+      document.body.appendChild(modal);
+
+      // Close modal saat klik di luar
+      modal.addEventListener('click', (e) => {
+        if (e.target === modal) {
+          closeCommentModal();
+        }
+      });
+
+      // Close emoji picker saat klik di luar
+      document.addEventListener('click', (e) => {
+        const picker = document.getElementById('emojiPicker');
+        const emojiButton = document.querySelector('button[onclick="toggleEmojiPicker()"]');
+        if (picker && picker.style.display === 'block' && 
+            !picker.contains(e.target) && 
+            !emojiButton.contains(e.target)) {
+          hideEmojiPicker();
+        }
+      });
+
+      // Focus ke textarea
+      setTimeout(() => {
+        const textarea = document.getElementById('commentText');
+        if (textarea) {
+          textarea.focus();
+        }
+      }, 100);
+    }
+
+    // Close Comment Modal
+    function closeCommentModal() {
+      const modal = document.querySelector('.comment-modal');
+      if (modal) {
+        modal.style.animation = 'fadeOut 0.3s ease-in';
+        setTimeout(() => {
+          if (modal.parentNode) {
+            modal.remove();
+          }
+        }, 300);
+      }
+    }
+
+    // Submit Comment
+    function submitComment() {
+      const textarea = document.getElementById('commentText');
+      const commentText = textarea.value.trim();
+      
+      if (!commentText) {
+        showNotification('Silakan tulis komentar terlebih dahulu!', 'error');
+        return;
+      }
+
+      if (commentText.length < 3) {
+        showNotification('Komentar terlalu pendek!', 'error');
+        return;
+      }
+
+      // Tambahkan komentar ke list
+      const commentList = document.querySelector('.comment-list');
+      const newComment = document.createElement('div');
+      newComment.className = 'comment-item';
+      newComment.style.cssText = `
+        display: flex;
+        gap: 12px;
+        margin-bottom: 16px;
+        padding-bottom: 16px;
+        border-bottom: 1px solid #f3f4f6;
+        animation: slideIn 0.3s ease-out;
+      `;
+      
+      newComment.innerHTML = `
+        <img src="assets/img/profil picture/Satya - Mahasiswa.jpg" alt="You" style="
+          width: 32px;
+          height: 32px;
+          border-radius: 50%;
+          object-fit: cover;
+        ">
+        <div style="flex: 1;">
+          <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 4px;">
+            <span style="font-weight: 600; font-size: 14px; color: #1f2937;">Anda</span>
+            <span style="font-size: 12px; color: #6b7280;">baru saja</span>
+          </div>
+          <p style="margin: 0; font-size: 14px; color: #374151; line-height: 1.5;">
+            ${commentText}
+          </p>
+        </div>
+      `;
+
+      // Tambahkan di atas komentar lain
+      commentList.insertBefore(newComment, commentList.firstChild);
+      
+      // Clear textarea
+      textarea.value = '';
+      
+      // Scroll ke komentar baru
+      newComment.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      
+      showNotification('Komentar berhasil dikirim! 💬', 'success');
+    }
+
+    // Toggle Emoji Picker
+    function toggleEmojiPicker() {
+      const picker = document.getElementById('emojiPicker');
+      if (picker.style.display === 'none' || picker.style.display === '') {
+        showEmojiPicker();
+      } else {
+        hideEmojiPicker();
+      }
+    }
+
+    // Show Emoji Picker
+    function showEmojiPicker() {
+      const picker = document.getElementById('emojiPicker');
+      if (picker) {
+        picker.style.display = 'block';
+        picker.style.animation = 'slideUp 0.3s ease-out';
+      }
+    }
+
+    // Hide Emoji Picker
+    function hideEmojiPicker() {
+      const picker = document.getElementById('emojiPicker');
+      if (picker) {
+        picker.style.animation = 'slideDown 0.3s ease-in';
+        setTimeout(() => {
+          if (picker) {
+            picker.style.display = 'none';
+          }
+        }, 300);
+      }
+    }
+
+    // Insert Emoji
+    function insertEmoji(emoji) {
+      const textarea = document.getElementById('commentText');
+      if (textarea) {
+        const cursorPos = textarea.selectionStart;
+        const textBefore = textarea.value.substring(0, cursorPos);
+        const textAfter = textarea.value.substring(textarea.selectionEnd);
+        
+        textarea.value = textBefore + emoji + textAfter;
+        
+        // Set cursor position after emoji
+        const newCursorPos = cursorPos + emoji.length;
+        textarea.setSelectionRange(newCursorPos, newCursorPos);
+        
+        // Focus back to textarea
+        textarea.focus();
+        
+        // Hide emoji picker
+        hideEmojiPicker();
+      }
+    }
+
+    // Show Help
+    function showHelp() {
+      showNotification('Hubungi bantuan: 0804-1500-004 (24/7) 🆘', 'info');
+    }
+
+    // Share Post
+    function sharePost() {
+      if (navigator.share) {
+        navigator.share({
+          title: 'SpeakUp! - Platform Aman untuk Berbagi',
+          text: 'Lihat postingan menarik di SpeakUp!',
+          url: window.location.href
+        });
+      } else {
+        // Fallback untuk browser yang tidak support Web Share API
+        const url = window.location.href;
+        navigator.clipboard.writeText(url).then(() => {
+          showNotification('Link berhasil disalin ke clipboard! 📋', 'success');
+        }).catch(() => {
+          showNotification('Link: ' + url, 'info');
+        });
+      }
+    }
+
+    // Notification System
+    function showNotification(message, type = 'info') {
+      // Hapus notifikasi lama jika ada
+      const existingNotification = document.querySelector('.notification');
+      if (existingNotification) {
+        existingNotification.remove();
+      }
+
+      // Buat notifikasi baru
+      const notification = document.createElement('div');
+      notification.className = 'notification';
+      notification.style.cssText = `
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        background: ${type === 'success' ? '#10b981' : type === 'error' ? '#ef4444' : '#38bdf8'};
+        color: white;
+        padding: 12px 20px;
+        border-radius: 8px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        z-index: 1000;
+        font-size: 14px;
+        font-weight: 500;
+        max-width: 300px;
+        animation: slideIn 0.3s ease-out;
+      `;
+      
+      notification.textContent = message;
+      document.body.appendChild(notification);
+
+      // Auto remove setelah 3 detik
+      setTimeout(() => {
+        if (notification.parentNode) {
+          notification.style.animation = 'slideOut 0.3s ease-in';
+          setTimeout(() => {
+            if (notification.parentNode) {
+              notification.remove();
+            }
+          }, 300);
+        }
+      }, 3000);
+    }
+
+    // CSS untuk animasi
+    const style = document.createElement('style');
+    style.textContent = `
+      @keyframes slideIn {
+        from {
+          transform: translateX(100%);
+          opacity: 0;
+        }
+        to {
+          transform: translateX(0);
+          opacity: 1;
+        }
+      }
+      
+      @keyframes slideOut {
+        from {
+          transform: translateX(0);
+          opacity: 1;
+        }
+        to {
+          transform: translateX(100%);
+          opacity: 0;
+        }
+      }
+      
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+      
+      @keyframes fadeOut {
+        from {
+          opacity: 1;
+        }
+        to {
+          opacity: 0;
+        }
+      }
+      
+      @keyframes slideUp {
+        from {
+          transform: translateY(20px);
+          opacity: 0;
+        }
+        to {
+          transform: translateY(0);
+          opacity: 1;
+        }
+      }
+      
+      .btn-icon:hover {
+        background-color: #f3f4f6 !important;
+        transform: scale(1.1);
+      }
+      
+      .btn-icon.liked:hover {
+        background-color: #fef2f2 !important;
+      }
+      
+      .btn-icon.saved:hover {
+        background-color: #f0f9ff !important;
+      }
+      
+      @keyframes slideUp {
+        from {
+          transform: translateY(20px);
+          opacity: 0;
+        }
+        to {
+          transform: translateY(0);
+          opacity: 1;
+        }
+      }
+      
+      @keyframes slideDown {
+        from {
+          transform: translateY(0);
+          opacity: 1;
+        }
+        to {
+          transform: translateY(20px);
+          opacity: 0;
+        }
+      }
+      
+      .comment-modal-content {
+        animation: slideUp 0.3s ease-out;
+      }
+      
+      .comment-item {
+        animation: slideIn 0.3s ease-out;
+      }
+    `;
+    document.head.appendChild(style);
+  </script>
+</body>
+</html>
+
+
+
+
+
+
+

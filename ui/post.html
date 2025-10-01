@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>SpeakUp! — Detail Post</title>
+  <link rel="stylesheet" href="assets/css/style.css" />
+  <link rel="stylesheet" href="./phone-frame-template.css" />
+</head>
+<body>
+  <div class="phone-frame">
+    <!-- Notch simulation -->
+    <div class="notch"></div>
+    
+    <!-- Status bar -->
+    <div class="status-bar">
+      <div class="status-left">
+        <span class="status-time">9:41</span>
+      </div>
+      <div class="status-right">
+        <div class="status-battery"></div>
+      </div>
+    </div>
+    
+    <!-- Phone screen content -->
+    <div class="phone-screen">
+      <div class="mobile-container">
+        <main class="mobile-main">
+  <header class="header">
+    <div class="inner container">
+      <div class="logo">SpeakUp!</div>
+      <div class="actions">
+        <a class="btn ghost" href="./index.html">Timeline</a>
+        <a class="btn ghost" href="./petitions.html">Petitions</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <article class="card">
+      <div class="meta">
+        <span class="badge">anon_9b2a</span>
+        <span class="pill">• bullying</span>
+        <span class="pill">• 2 jam lalu</span>
+        <span class="badge success">butuh solusi</span>
+      </div>
+      <div class="content">Saya korban bullying di kampus X, siapa yang bisa bantu? Saya butuh saran menghadapi situasi ini dan langkah apa yang bisa saya ambil.</div>
+      <div class="actions-row">
+        <button class="btn ghost">Flag</button>
+        <button class="btn ghost" data-helpful aria-pressed="false">Mark Helpful</button>
+      </div>
+    </article>
+
+    <section class="mt-16">
+      <h3>Balasan</h3>
+      <div class="grid mt-12">
+        <div class="card">
+          <div class="meta">
+            <span class="badge">listener_anon</span>
+            <span class="pill">• 1 jam lalu</span>
+          </div>
+          <div class="content">Tetap kuat. Simpan bukti, pertimbangkan konsultasi ke pihak kampus. Ada komunitas dukungan juga.</div>
+          <div class="actions-row">
+            <button class="btn ghost" data-helpful aria-pressed="false">Mark Helpful</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="mt-16 card">
+      <form id="replyForm">
+        <div class="row space">
+          <strong>Tulis Balasan</strong>
+        </div>
+        <div class="mt-12">
+          <textarea class="input" rows="4" placeholder="Tulis dukungan atau saran..." required></textarea>
+        </div>
+        <div class="row mt-12">
+          <select class="input" style="max-width:220px">
+            <option>Anonymous</option>
+            <option>Custom Handle</option>
+            <option>Verified</option>
+          </select>
+          <button class="btn primary" type="submit">Kirim</button>
+        </div>
+      </form>
+    </section>
+
+    <p class="footer">Prototipe statis. Tidak terhubung API.</p>
+  </main>
+
+  <script src="assets/js/app.js"></script>
+        </main>
+        
+        <!-- Home indicator -->
+        <div class="home-indicator"></div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
+
+

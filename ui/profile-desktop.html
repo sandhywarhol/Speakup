@@ -1,0 +1,702 @@
+image.png<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>SpeakUp! — Profile (Desktop)</title>
+  <link rel="stylesheet" href="assets/css/style.css" />
+  <style>
+    :root { --bg:#ffffff; --panel:#ffffff; --text:#374151; --muted:#64748b; --accent:#38bdf8; --border:#e5e7eb; }
+    .logo img[data-theme="light"]{display:block!important}.logo img[data-theme="dark"]{display:none!important}
+    html,body,main,.desktop-container,.desktop-nav,.card,.tabs .tab,.modal .box{background:#ffffff!important}
+    body{margin:0;padding:0;min-height:100vh;background:#ffffff!important;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif}
+    .desktop-nav{display:block!important}
+    .desktop-container{max-width:1024px;margin:0 auto;padding:24px 32px}
+    .desktop-nav .nav-item.active{background:#ffffff!important;color:#374151!important;border:1px solid #e5e7eb!important}
+    .desktop-nav .nav-item.plus-btn,.btn.primary{background:#ffffff!important;color:#374151!important;border:1px solid #e5e7eb!important}
+    body.desktop-page, body.desktop-page *:not(h1):not(h2):not(h3):not(h4):not(h5):not(h6){color:#374151!important}
+  </style>
+</head>
+<body class="desktop-page">
+  <div class="desktop-container">
+    <nav class="desktop-nav" aria-label="Navigasi desktop">
+      <div class="desktop-nav-inner">
+        <div class="nav-left">
+          <div class="logo">SpeakUp!</div>
+          <button class="nav-item plus-btn" data-open-create title="Speak!">
+            <svg fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clip-rule="evenodd"/>
+            </svg>
+            <span>Speak!</span>
+          </button>
+          <a href="./desktop.html" class="nav-item" title="Home">
+            <svg fill="currentColor" viewBox="0 0 20 20"><path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"/></svg>
+            <span>Home</span>
+          </a>
+          <a href="./timeline-desktop.html" class="nav-item" title="Timeline">
+            <svg fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clip-rule="evenodd"/></svg>
+            <span>Timeline</span>
+          </a>
+          <a href="./petitions-desktop.html" class="nav-item" title="Petitions">
+            <svg fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M3 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clip-rule="evenodd"/></svg>
+            <span>Petitions</span>
+          </a>
+        </div>
+        <div class="nav-right">
+          <a href="./settings-desktop.html" class="nav-item" title="Settings">
+            <svg fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M11.49 3.17c-.38-1.56-2.6-1.56-2.98 0a1.532 1.532 0 01-2.286.948c-1.372-.836-2.942.734-2.106 2.106.54.886.061 2.042-.947 2.287-1.561.379-1.561 2.6 0 2.978a1.532 1.532 0 01.947 2.287c-.836 1.372.734 2.942 2.106 2.106a1.532 1.532 0 012.287.947c.379 1.561 2.6 1.561 2.978 0a1.533 1.533 0 012.287-.947c1.372.836 2.942-.734 2.106-2.106a1.533 1.533 0 01.947-2.287c1.561-.379 1.561-2.6 0-2.978a1.532 1.532 0 01-.947-2.287c.836-1.372-.734-2.942-2.106-2.106a1.532 1.532 0 01-2.287-.947zM10 13a3 3 0 100-6 3 3 0 000 6z" clip-rule="evenodd"/></svg>
+            <span>Settings</span>
+          </a>
+          <a href="./profile-desktop.html" class="nav-item active" title="Profile">
+            <svg fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"/></svg>
+            <span>Profile</span>
+          </a>
+          <a href="./sign-desktop.html" class="nav-item" title="Sign">
+            <svg fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M3 10a1 1 0 011-1h8.586l-3.293-3.293a1 1 0 111.414-1.414l5 5a1 1 0 010 1.414l-5 5a1 1 0 11-1.414-1.414L12.586 11H4a1 1 0 01-1-1z" clip-rule="evenodd"/></svg>
+            <span>Sign</span>
+          </a>
+        </div>
+      </div>
+    </nav>
+
+    <main>
+      <section class="container">
+        <!-- Profile Header -->
+        <div class="profile-header">
+          <div class="profile-cover" style="height: 200px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 12px; margin-bottom: 20px; position: relative;">
+            <div class="profile-avatar-large" style="width: 120px; height: 120px; border-radius: 50%; background: #fff; border: 4px solid #fff; position: absolute; bottom: -60px; left: 32px; display: flex; align-items: center; justify-content: center; font-size: 48px; font-weight: 700; color: #667eea; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
+              <img src="assets/img/profil picture/Dika - Dokter.jpg" alt="Profile Picture" style="width: 100%; height: 100%; border-radius: 50%; object-fit: cover;">
+            </div>
+          </div>
+          
+          <div class="profile-info" style="padding: 100px 32px 32px; background: #fff; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); margin-bottom: 24px;">
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 16px;">
+            <div>
+                <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px;">
+                  <h1 style="margin: 0; font-size: 28px; font-weight: 700; color: #1f2937;">Dr. Dika</h1>
+                  <div style="display: flex; align-items: center; justify-content: center; background: #38bdf8; color: white; width: 24px; height: 24px; border-radius: 50%;">
+                    <svg width="14" height="14" fill="white" viewBox="0 0 20 20">
+                      <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                    </svg>
+                  </div>
+                </div>
+                <p style="margin: 0 0 8px; color: #38bdf8; font-size: 14px; font-weight: 600;">Dokter</p>
+                <p style="margin: 0 0 12px; color: #6b7280; font-size: 16px;">@dika_doctor</p>
+                <p style="margin: 0 0 16px; color: #374151; line-height: 1.6; max-width: 600px;">
+                  Dokter yang peduli dengan kesehatan mental dan kesejahteraan masyarakat. Berbagi pengetahuan medis dan pengalaman untuk membantu sesama. 🩺💙
+                </p>
+                <div style="display: flex; align-items: center; gap: 16px; margin-bottom: 16px;">
+                  <a href="https://dika-medical-blog.com" target="_blank" style="color: #667eea; text-decoration: none; display: flex; align-items: center; gap: 4px;">
+                    <svg width="16" height="16" fill="currentColor" viewBox="0 0 20 20">
+                      <path fill-rule="evenodd" d="M12.586 4.586a2 2 0 112.828 2.828l-3 3a2 2 0 01-2.828 0 1 1 0 00-1.414 1.414 4 4 0 005.656 0l3-3a4 4 0 00-5.656-5.656l-1.5 1.5a1 1 0 101.414 1.414l1.5-1.5zm-5 5a2 2 0 012.828 0 1 1 0 101.414-1.414 4 4 0 00-5.656 0l-3 3a4 4 0 105.656 5.656l1.5-1.5a1 1 0 10-1.414-1.414l-1.5 1.5a2 2 0 11-2.828-2.828l3-3z" clip-rule="evenodd"/>
+                    </svg>
+                    dika-medical-blog.com
+                  </a>
+                  <span style="color: #6b7280; font-size: 14px;">📍 Jakarta, Indonesia</span>
+                </div>
+              </div>
+              <button onclick="openDMModal()" style="background: none; border: none; color: #667eea; cursor: pointer; padding: 8px; border-radius: 50%; transition: all 0.2s; display: flex; align-items: center; justify-content: center;" onmouseover="this.style.backgroundColor='#f3f4f6'" onmouseout="this.style.backgroundColor='transparent'" title="Kirim Pesan">
+                <svg width="24" height="24" fill="currentColor" viewBox="0 0 20 20">
+                  <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"/>
+                  <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"/>
+                </svg>
+              </button>
+            </div>
+            
+            <!-- Profile Stats -->
+            <div style="display: flex; gap: 32px; padding-top: 16px; border-top: 1px solid #e5e7eb;">
+              <div style="text-align: center;">
+                <div style="font-size: 20px; font-weight: 700; color: #1f2937;">1,234</div>
+                <div style="font-size: 14px; color: #6b7280;">Posts</div>
+              </div>
+              <div style="text-align: center;">
+                <div style="font-size: 20px; font-weight: 700; color: #1f2937;">5,678</div>
+                <div style="font-size: 14px; color: #6b7280;">Followers</div>
+              </div>
+              <div style="text-align: center;">
+                <div style="font-size: 20px; font-weight: 700; color: #1f2937;">890</div>
+                <div style="font-size: 14px; color: #6b7280;">Following</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Content Tabs -->
+        <div class="content-tabs" style="margin-bottom: 24px;">
+          <div style="display: flex; gap: 0; border-bottom: 2px solid #e5e7eb;">
+            <button class="tab-btn active" style="padding: 12px 24px; border: none; background: none; color: #667eea; font-weight: 600; border-bottom: 2px solid #667eea; cursor: pointer;">
+              Posts
+            </button>
+            <button class="tab-btn" style="padding: 12px 24px; border: none; background: none; color: #6b7280; font-weight: 600; cursor: pointer;">
+              Reposts
+            </button>
+            <button class="tab-btn" style="padding: 12px 24px; border: none; background: none; color: #6b7280; font-weight: 600; cursor: pointer;">
+              Media
+            </button>
+          </div>
+        </div>
+
+        <!-- Posts Section -->
+        <div class="posts-section">
+          <!-- Post 1 with Image -->
+          <article class="card" style="margin-bottom: 16px; padding: 20px; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+            <div style="display: flex; gap: 12px; margin-bottom: 12px;">
+              <img src="assets/img/profil picture/Dika - Dokter.jpg" alt="Profile" style="width: 40px; height: 40px; border-radius: 50%; object-fit: cover;">
+              <div style="flex: 1;">
+                <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 4px;">
+                  <span style="font-weight: 600; color: #1f2937;">Dr. Dika</span>
+                  <span style="color: #6b7280; font-size: 14px;">@dika_doctor</span>
+                  <span style="color: #6b7280; font-size: 14px;">•</span>
+                  <span style="color: #6b7280; font-size: 14px;">2 jam lalu</span>
+                </div>
+                <div class="meta" style="margin-bottom: 12px;">
+                  <span class="badge" style="background: #fef3c7; color: #92400e; padding: 4px 8px; border-radius: 4px; font-size: 12px; font-weight: 500;">social justice</span>
+                </div>
+              </div>
+            </div>
+            <p style="margin: 0 0 16px; color: #374151; line-height: 1.6;">
+              Hari ini saya berkesempatan mengunjungi komunitas di daerah pinggiran Jakarta. Melihat langsung bagaimana masyarakat saling membantu dalam menghadapi tantangan ekonomi. Ini mengingatkan saya bahwa solidaritas adalah kunci untuk membangun masyarakat yang lebih baik. 💪
+            </p>
+            <div style="margin-bottom: 16px;">
+              <img src="assets/img/timeline/pexels-alfinauzikri-2968077.jpg" alt="Community" style="width: 100%; border-radius: 8px; object-fit: cover;">
+            </div>
+            <div style="display: flex; gap: 24px; color: #6b7280; font-size: 14px;">
+              <button style="display: flex; align-items: center; gap: 4px; border: none; background: none; color: #6b7280; cursor: pointer;">
+                <svg width="16" height="16" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" clip-rule="evenodd"/>
+                </svg>
+                24
+              </button>
+              <button style="display: flex; align-items: center; gap: 4px; border: none; background: none; color: #6b7280; cursor: pointer;">
+                <svg width="16" height="16" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M18 10c0 3.866-3.582 7-8 7a8.841 8.841 0 01-4.083-.98L2 17l1.338-3.123C2.493 12.767 2 11.434 2 10c0-3.866 3.582-7 8-7s8 3.134 8 7zM7 9H5v2h2V9zm8 0h-2v2h2V9zM9 9h2v2H9V9z" clip-rule="evenodd"/>
+                </svg>
+                8
+              </button>
+              <button style="display: flex; align-items: center; gap: 4px; border: none; background: none; color: #6b7280; cursor: pointer;">
+                <svg width="16" height="16" fill="currentColor" viewBox="0 0 20 20">
+                  <path d="M8 9a3 3 0 100-6 3 3 0 000 6zM8 11a6 6 0 016 6H2a6 6 0 016-6zM16 7a1 1 0 10-2 0v1h-1a1 1 0 100 2h1v1a1 1 0 102 0v-1h1a1 1 0 100-2h-1V7z"/>
+                </svg>
+                Share
+              </button>
+            </div>
+          </article>
+
+          <!-- Post 2 with Video -->
+          <article class="card" style="margin-bottom: 16px; padding: 20px; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+            <div style="display: flex; gap: 12px; margin-bottom: 12px;">
+              <img src="assets/img/profil picture/Dika - Dokter.jpg" alt="Profile" style="width: 40px; height: 40px; border-radius: 50%; object-fit: cover;">
+              <div style="flex: 1;">
+                <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 4px;">
+                  <span style="font-weight: 600; color: #1f2937;">Dr. Dika</span>
+                  <span style="color: #6b7280; font-size: 14px;">@dika_doctor</span>
+                  <span style="color: #6b7280; font-size: 14px;">•</span>
+                  <span style="color: #6b7280; font-size: 14px;">1 hari lalu</span>
+                </div>
+                <div class="meta" style="margin-bottom: 12px;">
+                  <span class="badge" style="background: #dbeafe; color: #1e40af; padding: 4px 8px; border-radius: 4px; font-size: 12px; font-weight: 500;">education</span>
+                </div>
+              </div>
+            </div>
+            <p style="margin: 0 0 16px; color: #374151; line-height: 1.6;">
+              Berbagi pengalaman tentang pentingnya pendidikan inklusif. Setiap anak berhak mendapat pendidikan yang berkualitas, terlepas dari latar belakang mereka. Video ini menceritakan kisah inspiratif dari seorang guru yang mengubah hidup murid-muridnya.
+            </p>
+            <div style="margin-bottom: 16px; position: relative;">
+              <video 
+                style="width: 100%; height: 200px; border-radius: 8px; object-fit: cover; background: #1f2937;"
+                controls
+                preload="metadata"
+                poster="assets/img/timeline/pexels-idinarisk-3012422.jpg"
+              >
+                <source src="assets/video/2073129-uhd_3840_2160_30fps.mp4" type="video/mp4">
+                <source src="assets/video/3186590-uhd_3840_2160_30fps.mp4" type="video/mp4">
+                Browser Anda tidak mendukung video HTML5.
+              </video>
+            </div>
+            <div style="display: flex; gap: 24px; color: #6b7280; font-size: 14px;">
+              <button style="display: flex; align-items: center; gap: 4px; border: none; background: none; color: #6b7280; cursor: pointer;">
+                <svg width="16" height="16" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" clip-rule="evenodd"/>
+                </svg>
+                45
+              </button>
+              <button style="display: flex; align-items: center; gap: 4px; border: none; background: none; color: #6b7280; cursor: pointer;">
+                <svg width="16" height="16" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M18 10c0 3.866-3.582 7-8 7a8.841 8.841 0 01-4.083-.98L2 17l1.338-3.123C2.493 12.767 2 11.434 2 10c0-3.866 3.582-7 8-7s8 3.134 8 7zM7 9H5v2h2V9zm8 0h-2v2h2V9zM9 9h2v2H9V9z" clip-rule="evenodd"/>
+                </svg>
+                12
+              </button>
+              <button style="display: flex; align-items: center; gap: 4px; border: none; background: none; color: #6b7280; cursor: pointer;">
+                <svg width="16" height="16" fill="currentColor" viewBox="0 0 20 20">
+                  <path d="M8 9a3 3 0 100-6 3 3 0 000 6zM8 11a6 6 0 016 6H2a6 6 0 016-6zM16 7a1 1 0 10-2 0v1h-1a1 1 0 100 2h1v1a1 1 0 102 0v-1h1a1 1 0 100-2h-1V7z"/>
+                </svg>
+                Share
+              </button>
+            </div>
+          </article>
+
+          <!-- Repost Example -->
+          <article class="card" style="margin-bottom: 16px; padding: 20px; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); border-left: 4px solid #10b981;">
+            <div style="display: flex; gap: 12px; margin-bottom: 12px;">
+              <img src="assets/img/profil picture/Dika - Dokter.jpg" alt="Profile" style="width: 40px; height: 40px; border-radius: 50%; object-fit: cover;">
+              <div style="flex: 1;">
+                <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 4px;">
+                  <span style="font-weight: 600; color: #1f2937;">Dr. Dika</span>
+                  <span style="color: #6b7280; font-size: 14px;">@dika_doctor</span>
+                  <span style="color: #6b7280; font-size: 14px;">•</span>
+                  <span style="color: #6b7280; font-size: 14px;">3 hari lalu</span>
+                  <span style="color: #10b981; font-size: 14px; font-weight: 500;">↻ Reposted</span>
+                </div>
+              </div>
+            </div>
+            <div style="background: #f9fafb; padding: 16px; border-radius: 8px; margin-bottom: 12px; border-left: 3px solid #10b981;">
+              <div style="display: flex; gap: 8px; margin-bottom: 8px;">
+                <img src="https://via.placeholder.com/32x32/10b981/ffffff?text=SM" alt="Original Author" style="width: 32px; height: 32px; border-radius: 50%; object-fit: cover;">
+                <div>
+                  <span style="font-weight: 600; color: #1f2937; font-size: 14px;">Sarah Miller</span>
+                  <span style="color: #6b7280; font-size: 12px;">@sarahm_activist</span>
+                </div>
+              </div>
+              <p style="margin: 0; color: #374151; line-height: 1.5; font-size: 14px;">
+                "Perubahan dimulai dari diri sendiri, tapi dampaknya bisa menyebar ke seluruh dunia. Mari kita mulai dengan hal-hal kecil yang bisa kita lakukan setiap hari." 🌱
+              </p>
+            </div>
+            <p style="margin: 0 0 16px; color: #374151; line-height: 1.6;">
+              Setuju banget dengan kata-kata ini! Perubahan memang dimulai dari hal kecil. Saya sendiri mulai dengan mengurangi penggunaan plastik dan mendukung produk lokal. Apa yang sudah kalian lakukan hari ini? 💚
+            </p>
+            <div style="display: flex; gap: 24px; color: #6b7280; font-size: 14px;">
+              <button style="display: flex; align-items: center; gap: 4px; border: none; background: none; color: #6b7280; cursor: pointer;">
+                <svg width="16" height="16" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" clip-rule="evenodd"/>
+                </svg>
+                67
+              </button>
+              <button style="display: flex; align-items: center; gap: 4px; border: none; background: none; color: #6b7280; cursor: pointer;">
+                <svg width="16" height="16" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M18 10c0 3.866-3.582 7-8 7a8.841 8.841 0 01-4.083-.98L2 17l1.338-3.123C2.493 12.767 2 11.434 2 10c0-3.866 3.582-7 8-7s8 3.134 8 7zM7 9H5v2h2V9zm8 0h-2v2h2V9zM9 9h2v2H9V9z" clip-rule="evenodd"/>
+                </svg>
+                23
+              </button>
+              <button style="display: flex; align-items: center; gap: 4px; border: none; background: none; color: #6b7280; cursor: pointer;">
+                <svg width="16" height="16" fill="currentColor" viewBox="0 0 20 20">
+                  <path d="M8 9a3 3 0 100-6 3 3 0 000 6zM8 11a6 6 0 016 6H2a6 6 0 016-6zM16 7a1 1 0 10-2 0v1h-1a1 1 0 100 2h1v1a1 1 0 102 0v-1h1a1 1 0 100-2h-1V7z"/>
+                </svg>
+                Share
+              </button>
+            </div>
+          </article>
+
+          <!-- Post 3 with Another Video -->
+          <article class="card" style="margin-bottom: 16px; padding: 20px; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+            <div style="display: flex; gap: 12px; margin-bottom: 12px;">
+              <img src="assets/img/profil picture/Dika - Dokter.jpg" alt="Profile" style="width: 40px; height: 40px; border-radius: 50%; object-fit: cover;">
+              <div style="flex: 1;">
+                <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 4px;">
+                  <span style="font-weight: 600; color: #1f2937;">Dr. Dika</span>
+                  <span style="color: #6b7280; font-size: 14px;">@dika_doctor</span>
+                  <span style="color: #6b7280; font-size: 14px;">•</span>
+                  <span style="color: #6b7280; font-size: 14px;">5 hari lalu</span>
+                </div>
+                <div class="meta" style="margin-bottom: 12px;">
+                  <span class="badge" style="background: #fce7f3; color: #be185d; padding: 4px 8px; border-radius: 4px; font-size: 12px; font-weight: 500;">community</span>
+                </div>
+              </div>
+            </div>
+            <p style="margin: 0 0 16px; color: #374151; line-height: 1.6;">
+              Dokumentasi kegiatan komunitas kemarin. Melihat semangat para relawan yang membantu membersihkan pantai dari sampah plastik. Setiap aksi kecil memang penting untuk menjaga lingkungan kita! 🌊♻️
+            </p>
+            <div style="margin-bottom: 16px; position: relative;">
+              <video 
+                style="width: 100%; height: 200px; border-radius: 8px; object-fit: cover; background: #1f2937;"
+                controls
+                preload="metadata"
+                poster="assets/img/timeline/pexels-alfinauzikri-2968077.jpg"
+              >
+                <source src="assets/video/3186590-uhd_3840_2160_30fps.mp4" type="video/mp4">
+                <source src="assets/video/3691102-uhd_3840_2160_25fps.mp4" type="video/mp4">
+                Browser Anda tidak mendukung video HTML5.
+              </video>
+            </div>
+            <div style="display: flex; gap: 24px; color: #6b7280; font-size: 14px;">
+              <button style="display: flex; align-items: center; gap: 4px; border: none; background: none; color: #6b7280; cursor: pointer;">
+                <svg width="16" height="16" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" clip-rule="evenodd"/>
+                </svg>
+                89
+              </button>
+              <button style="display: flex; align-items: center; gap: 4px; border: none; background: none; color: #6b7280; cursor: pointer;">
+                <svg width="16" height="16" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M18 10c0 3.866-3.582 7-8 7a8.841 8.841 0 01-4.083-.98L2 17l1.338-3.123C2.493 12.767 2 11.434 2 10c0-3.866 3.582-7 8-7s8 3.134 8 7zM7 9H5v2h2V9zm8 0h-2v2h2V9zM9 9h2v2H9V9z" clip-rule="evenodd"/>
+                </svg>
+                34
+              </button>
+              <button style="display: flex; align-items: center; gap: 4px; border: none; background: none; color: #6b7280; cursor: pointer;">
+                <svg width="16" height="16" fill="currentColor" viewBox="0 0 20 20">
+                  <path d="M8 9a3 3 0 100-6 3 3 0 000 6zM8 11a6 6 0 016 6H2a6 6 0 016-6zM16 7a1 1 0 10-2 0v1h-1a1 1 0 100 2h1v1a1 1 0 102 0v-1h1a1 1 0 100-2h-1V7z"/>
+                </svg>
+                Share
+              </button>
+            </div>
+          </article>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script>
+    // Tab functionality
+    document.addEventListener('DOMContentLoaded', function() {
+      const tabButtons = document.querySelectorAll('.tab-btn');
+      
+      tabButtons.forEach(button => {
+        button.addEventListener('click', function() {
+          // Remove active class from all tabs
+          tabButtons.forEach(btn => {
+            btn.classList.remove('active');
+            btn.style.color = '#6b7280';
+            btn.style.borderBottom = 'none';
+          });
+          
+          // Add active class to clicked tab
+          this.classList.add('active');
+          this.style.color = '#667eea';
+          this.style.borderBottom = '2px solid #667eea';
+          
+          // Here you would typically show/hide different content sections
+          // For now, we'll just log the tab name
+          console.log('Switched to tab:', this.textContent.trim());
+        });
+      });
+    });
+
+    // DM Modal Function
+    function openDMModal() {
+      // Hapus modal lama jika ada
+      const existingModal = document.querySelector('.dm-modal');
+      if (existingModal) {
+        existingModal.remove();
+      }
+
+      // Buat modal DM
+      const modal = document.createElement('div');
+      modal.className = 'dm-modal';
+      modal.style.cssText = `
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0,0,0,0.5);
+        z-index: 2000;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        animation: fadeIn 0.3s ease-out;
+      `;
+
+      modal.innerHTML = `
+        <div class="dm-modal-content" style="
+          background: white;
+          border-radius: 12px;
+          width: 90%;
+          max-width: 500px;
+          max-height: 80vh;
+          overflow: hidden;
+          box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1);
+          animation: slideUp 0.3s ease-out;
+        ">
+          <div class="dm-header" style="
+            padding: 20px;
+            border-bottom: 1px solid #e5e7eb;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+          ">
+            <div style="display: flex; align-items: center; gap: 12px;">
+              <img src="assets/img/profil picture/Dika - Dokter.jpg" alt="Dr. Dika" style="
+                width: 40px;
+                height: 40px;
+                border-radius: 50%;
+                object-fit: cover;
+              ">
+              <div>
+                <h3 style="margin: 0; font-size: 16px; font-weight: 600; color: #1f2937;">Dr. Dika</h3>
+                <p style="margin: 0; font-size: 12px; color: #6b7280;">Aktif sekarang</p>
+              </div>
+            </div>
+            <button onclick="closeDMModal()" style="
+              background: none;
+              border: none;
+              font-size: 24px;
+              cursor: pointer;
+              color: #6b7280;
+              padding: 4px;
+              border-radius: 4px;
+            ">&times;</button>
+          </div>
+          
+          <div class="dm-messages" style="
+            height: 400px;
+            overflow-y: auto;
+            padding: 20px;
+            background: #f9fafb;
+          ">
+            <div class="message received" style="
+              margin-bottom: 16px;
+              display: flex;
+              gap: 8px;
+            ">
+              <img src="assets/img/profil picture/Dika - Dokter.jpg" alt="Dr. Dika" style="
+                width: 32px;
+                height: 32px;
+                border-radius: 50%;
+                object-fit: cover;
+              ">
+              <div style="
+                background: white;
+                padding: 12px 16px;
+                border-radius: 18px;
+                max-width: 70%;
+                box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+              ">
+                <p style="margin: 0; font-size: 14px; color: #374151; line-height: 1.4;">
+                  Halo! Terima kasih sudah mengunjungi profil saya. Ada yang bisa saya bantu? 😊
+                </p>
+                <span style="font-size: 11px; color: #9ca3af; margin-top: 4px; display: block;">10:30</span>
+              </div>
+            </div>
+          </div>
+          
+          <div class="dm-input" style="
+            padding: 20px;
+            border-top: 1px solid #e5e7eb;
+            background: white;
+          ">
+            <div style="display: flex; gap: 12px; align-items: center;">
+              <img src="assets/img/profil picture/Satya - Mahasiswa.jpg" alt="You" style="
+                width: 32px;
+                height: 32px;
+                border-radius: 50%;
+                object-fit: cover;
+              ">
+              <div style="flex: 1; position: relative;">
+                <input type="text" id="dmMessageInput" placeholder="Ketik pesan..." style="
+                  width: 100%;
+                  padding: 12px 16px;
+                  border: 1px solid #d1d5db;
+                  border-radius: 20px;
+                  font-family: inherit;
+                  font-size: 14px;
+                  outline: none;
+                  transition: border-color 0.2s;
+                " onfocus="this.style.borderColor='#667eea'" onblur="this.style.borderColor='#d1d5db'">
+              </div>
+              <button onclick="sendDMMessage()" style="
+                background: #667eea;
+                color: white;
+                border: none;
+                padding: 12px;
+                border-radius: 50%;
+                cursor: pointer;
+                transition: background-color 0.2s;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+              " onmouseover="this.style.backgroundColor='#5a67d8'" onmouseout="this.style.backgroundColor='#667eea'">
+                <svg width="20" height="20" fill="currentColor" viewBox="0 0 20 20">
+                  <path d="M10.894 2.553a1 1 0 00-1.788 0l-7 14a1 1 0 001.169 1.409l5-1.429A1 1 0 009 15.571V11a1 1 0 112 0v4.571a1 1 0 00.725.962l5 1.428a1 1 0 001.17-1.408l-7-14z"/>
+                </svg>
+              </button>
+            </div>
+          </div>
+        </div>
+      `;
+
+      document.body.appendChild(modal);
+
+      // Close modal saat klik di luar
+      modal.addEventListener('click', (e) => {
+        if (e.target === modal) {
+          closeDMModal();
+        }
+      });
+
+      // Focus ke input
+      setTimeout(() => {
+        const input = document.getElementById('dmMessageInput');
+        if (input) {
+          input.focus();
+        }
+      }, 100);
+    }
+
+    // Close DM Modal
+    function closeDMModal() {
+      const modal = document.querySelector('.dm-modal');
+      if (modal) {
+        modal.style.animation = 'fadeOut 0.3s ease-in';
+        setTimeout(() => {
+          if (modal.parentNode) {
+            modal.remove();
+          }
+        }, 300);
+      }
+    }
+
+    // Send DM Message
+    function sendDMMessage() {
+      const input = document.getElementById('dmMessageInput');
+      const message = input.value.trim();
+      
+      if (!message) {
+        showNotification('Silakan tulis pesan terlebih dahulu!', 'error');
+        return;
+      }
+
+      // Tambahkan pesan ke chat
+      const messagesContainer = document.querySelector('.dm-messages');
+      const newMessage = document.createElement('div');
+      newMessage.className = 'message sent';
+      newMessage.style.cssText = `
+        margin-bottom: 16px;
+        display: flex;
+        gap: 8px;
+        justify-content: flex-end;
+        animation: slideIn 0.3s ease-out;
+      `;
+      
+      newMessage.innerHTML = `
+        <div style="
+          background: #667eea;
+          color: white;
+          padding: 12px 16px;
+          border-radius: 18px;
+          max-width: 70%;
+          box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+        ">
+          <p style="margin: 0; font-size: 14px; line-height: 1.4;">
+            ${message}
+          </p>
+          <span style="font-size: 11px; color: rgba(255,255,255,0.7); margin-top: 4px; display: block;">${new Date().toLocaleTimeString('id-ID', {hour: '2-digit', minute: '2-digit'})}</span>
+        </div>
+        <img src="assets/img/profil picture/Satya - Mahasiswa.jpg" alt="You" style="
+          width: 32px;
+          height: 32px;
+          border-radius: 50%;
+          object-fit: cover;
+        ">
+      `;
+
+      messagesContainer.appendChild(newMessage);
+      
+      // Clear input
+      input.value = '';
+      
+      // Scroll ke pesan baru
+      newMessage.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      
+      showNotification('Pesan berhasil dikirim! 💬', 'success');
+    }
+
+    // Notification System
+    function showNotification(message, type = 'info') {
+      // Hapus notifikasi lama jika ada
+      const existingNotification = document.querySelector('.notification');
+      if (existingNotification) {
+        existingNotification.remove();
+      }
+
+      // Buat notifikasi baru
+      const notification = document.createElement('div');
+      notification.className = 'notification';
+      notification.style.cssText = `
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        background: ${type === 'success' ? '#10b981' : type === 'error' ? '#ef4444' : '#667eea'};
+        color: white;
+        padding: 12px 20px;
+        border-radius: 8px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        z-index: 1000;
+        font-size: 14px;
+        font-weight: 500;
+        max-width: 300px;
+        animation: slideIn 0.3s ease-out;
+      `;
+      
+      notification.textContent = message;
+      document.body.appendChild(notification);
+
+      // Auto remove setelah 3 detik
+      setTimeout(() => {
+        if (notification.parentNode) {
+          notification.style.animation = 'slideOut 0.3s ease-in';
+          setTimeout(() => {
+            if (notification.parentNode) {
+              notification.remove();
+            }
+          }, 300);
+        }
+      }, 3000);
+    }
+
+    // CSS untuk animasi
+    const style = document.createElement('style');
+    style.textContent = `
+      @keyframes slideIn {
+        from {
+          transform: translateX(100%);
+          opacity: 0;
+        }
+        to {
+          transform: translateX(0);
+          opacity: 1;
+        }
+      }
+      
+      @keyframes slideOut {
+        from {
+          transform: translateX(0);
+          opacity: 1;
+        }
+        to {
+          transform: translateX(100%);
+          opacity: 0;
+        }
+      }
+      
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+      
+      @keyframes fadeOut {
+        from {
+          opacity: 1;
+        }
+        to {
+          opacity: 0;
+        }
+      }
+      
+      @keyframes slideUp {
+        from {
+          transform: translateY(20px);
+          opacity: 0;
+        }
+        to {
+          transform: translateY(0);
+          opacity: 1;
+        }
+      }
+    `;
+    document.head.appendChild(style);
+  </script>
+</body>
+</html>
+

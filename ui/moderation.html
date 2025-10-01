@@ -1,0 +1,311 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5, user-scalable=yes, viewport-fit=cover" />
+  <meta name="format-detection" content="telephone=no" />
+  <meta name="theme-color" content="#38bdf8" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <title>SpeakUp! — Moderation Queue</title>
+  <link rel="stylesheet" href="assets/css/style.css" />
+  <link rel="stylesheet" href="./phone-frame-template.css" />
+</head>
+<body>
+  <div class="phone-frame">
+    <!-- Notch simulation -->
+    <div class="notch"></div>
+    
+    <!-- Status bar -->
+    <div class="status-bar">
+      <div class="status-left">
+        <span class="status-time">9:41</span>
+      </div>
+      <div class="status-right">
+        <div class="status-battery"></div>
+      </div>
+    </div>
+    
+    <!-- Phone screen content -->
+    <div class="phone-screen">
+      <div class="mobile-container">
+        <main class="mobile-main">
+  <div class="container" style="padding-top: 20px;">
+    <div class="logo">
+      <img src="assets/logo/logo speak up blue.png" alt="SpeakUp!" data-theme="light" />
+      <img src="assets/logo/logo speak up white.png" alt="SpeakUp!" data-theme="dark" />
+    </div>
+    <h2 style="margin-top: 16px;">Moderation Queue</h2>
+  </div>
+
+  <main class="container">
+    <h3>Antrian Moderasi</h3>
+    <div class="card mt-12">
+      <table>
+        <thead>
+          <tr>
+            <th>Entity</th>
+            <th>Cuplikan</th>
+            <th>Skor</th>
+            <th>Rekomendasi</th>
+            <th>Aksi</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>post: 9b2a</td>
+            <td>"saya korban bullying ..."</td>
+            <td>toxicity 0.12</td>
+            <td><span class="badge success">allow</span></td>
+            <td class="row">
+              <button class="btn">Publish</button>
+              <button class="btn warn">Remove</button>
+              <button class="btn ghost">Escalate</button>
+            </td>
+          </tr>
+          <tr>
+            <td>reply: 1a2b</td>
+            <td>"kamu lemah ..."</td>
+            <td>toxicity 0.82</td>
+            <td><span class="badge danger">block</span></td>
+            <td class="row">
+              <button class="btn">Publish</button>
+              <button class="btn warn">Remove</button>
+              <button class="btn ghost">Escalate</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p class="footer">Prototipe statis. Tidak terhubung API.</p>
+  </main>
+
+  <script src="assets/js/app.js"></script>
+  
+  <!-- Settings Modal -->
+  <div id="settingsModal" class="modal" aria-hidden="true" role="dialog">
+    <div class="box">
+      <div class="head">
+        <strong>Pengaturan</strong>
+        <button id="closeSettings" class="btn ghost">Tutup</button>
+      </div>
+      <div class="settings-grid">
+        <div class="setting-item">
+          <div>
+            <div class="label">Tema Gelap</div>
+            <div class="pill">Aktifkan untuk mode gelap</div>
+          </div>
+          <label class="switch">
+            <input id="switchTheme" type="checkbox" />
+            <span class="slider"></span>
+          </label>
+        </div>
+        <div class="setting-item">
+          <div>
+            <div class="label">Notifikasi Push</div>
+            <div class="pill">Terima notifikasi untuk dukungan & balasan</div>
+          </div>
+          <label class="switch">
+            <input id="switchNotif" type="checkbox" />
+            <span class="slider"></span>
+          </label>
+        </div>
+        <div class="setting-item">
+          <div>
+            <div class="label">Notifikasi Email</div>
+            <div class="pill">Terima notifikasi melalui email</div>
+          </div>
+          <label class="switch">
+            <input id="switchEmail" type="checkbox" />
+            <span class="slider"></span>
+          </label>
+        </div>
+        <div class="setting-item">
+          <div>
+            <div class="label">Akun & Keamanan</div>
+            <div class="pill">Kelola password, email, dan keamanan</div>
+          </div>
+          <button class="btn">Kelola Akun</button>
+        </div>
+        <div class="setting-item">
+          <div>
+            <div class="label">Privasi</div>
+            <div class="pill">Kelola visibilitas profil dan data</div>
+          </div>
+          <button class="btn">Pengaturan Privasi</button>
+        </div>
+        <div class="setting-item">
+          <div>
+            <div class="label">Bahasa</div>
+            <div class="pill">Pilih bahasa antarmuka</div>
+          </div>
+          <select class="btn" style="min-width: 120px;">
+            <option>Bahasa Indonesia</option>
+            <option>English</option>
+          </select>
+        </div>
+        <div class="setting-item">
+          <div>
+            <div class="label">Keluar</div>
+            <div class="pill">Logout dari akun ini</div>
+          </div>
+          <button class="btn warn">Logout</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Profile Modal -->
+  <div id="profileModal" class="modal" aria-hidden="true" role="dialog">
+    <div class="box">
+      <div class="head">
+        <strong>Profile</strong>
+        <button id="closeProfile" class="btn ghost">Tutup</button>
+      </div>
+      
+      <!-- Profile Header -->
+      <div class="profile-header" style="text-align: center; padding: 20px 0; border-bottom: 1px solid var(--border); margin-bottom: 20px;">
+        <div class="profile-avatar" style="width: 80px; height: 80px; border-radius: 50%; background: var(--accent); margin: 0 auto 12px; display: flex; align-items: center; justify-content: center; color: white; font-size: 32px; font-weight: bold;">
+          A
+        </div>
+        <h3 style="margin: 0 0 8px;">Anonymous User</h3>
+        <p style="color: var(--muted); margin: 0 0 16px;">Speak up for what matters</p>
+        <div class="profile-stats" style="display: flex; justify-content: center; gap: 24px; margin-bottom: 16px;">
+          <div style="text-align: center;">
+            <div style="font-weight: bold; font-size: 18px;">12</div>
+            <div style="font-size: 12px; color: var(--muted);">Posts</div>
+          </div>
+          <div style="text-align: center;">
+            <div style="font-weight: bold; font-size: 18px;">3</div>
+            <div style="font-size: 12px; color: var(--muted);">Petisi</div>
+          </div>
+          <div style="text-align: center;">
+            <div style="font-weight: bold; font-size: 18px;">45</div>
+            <div style="font-size: 12px; color: var(--muted);">Dukungan</div>
+          </div>
+        </div>
+        <button class="btn primary" style="margin-bottom: 16px;">Edit Profile</button>
+      </div>
+
+      <!-- Profile Tabs -->
+      <div class="tabs" style="margin-bottom: 16px;">
+        <button class="tab active">Posts</button>
+        <button class="tab">Petisi</button>
+        <button class="tab">Dukungan</button>
+      </div>
+
+      <!-- Profile Content -->
+      <div class="profile-content">
+        <div class="grid">
+          <article class="card">
+            <div class="meta">
+              <span class="badge">bullying</span>
+              <span class="pill">• 2 hari lalu</span>
+            </div>
+            <p class="content">Saya mengalami bullying di sekolah dan butuh dukungan...</p>
+            <div class="actions-row">
+              <button class="btn ghost">Edit</button>
+              <button class="btn ghost">Hapus</button>
+            </div>
+          </article>
+          
+          <article class="card">
+            <div class="meta">
+              <span class="badge">workplace</span>
+              <span class="pill">• 1 minggu lalu</span>
+            </div>
+            <p class="content">Ada masalah di tempat kerja yang perlu diselesaikan...</p>
+            <div class="actions-row">
+              <button class="btn ghost">Edit</button>
+              <button class="btn ghost">Hapus</button>
+            </div>
+          </article>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Create Post Modal -->
+  <div id="createModal" class="modal" aria-hidden="true" role="dialog">
+    <div class="box">
+      <div class="head">
+        <strong>Speak!</strong>
+        <button id="closeCreate" class="btn ghost">Tutup</button>
+      </div>
+      <form id="createForm">
+        <div class="mt-12">
+          <label>Konten</label>
+          <textarea name="content" rows="6" maxlength="5000" required placeholder="Speak! Bagikan pengalamanmu..."></textarea>
+        </div>
+        <div class="mt-12 row">
+          <div style="flex:1">
+            <label>Kategori</label>
+            <select name="category">
+              <option value="bullying">Bullying</option>
+              <option value="mental_health">Mental Health</option>
+              <option value="workplace">Workplace</option>
+              <option value="petisi">Petisi</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+          <div style="flex:1">
+            <label>Identitas</label>
+            <select name="identity">
+              <option value="anonymous">Anonymous</option>
+              <option value="custom_anon">Custom Handle</option>
+              <option value="verified">Verified</option>
+            </select>
+          </div>
+        </div>
+        <div class="mt-12">
+          <label><input type="checkbox" name="want_solution" value="true" /> Saya ingin solusi</label>
+        </div>
+        <div class="actions-row">
+          <button type="submit" class="btn primary">Kirim</button>
+          <button type="button" id="closeCreate2" class="btn ghost" onclick="document.getElementById('createModal').classList.remove('open')">Batal</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <nav class="bottom-nav" aria-label="Navigasi bawah">
+    <div class="inner">
+      <a href="./index.html" title="Home">
+        <svg fill="currentColor" viewBox="0 0 20 20">
+          <path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"/>
+        </svg>
+      </a>
+      <a href="./timeline.html" title="Timeline">
+        <svg fill="currentColor" viewBox="0 0 20 20">
+          <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clip-rule="evenodd"/>
+        </svg>
+      </a>
+      <button class="btn plus-btn" data-open-create title="Speak!">
+        <svg fill="currentColor" viewBox="0 0 20 20">
+          <path fill-rule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clip-rule="evenodd"/>
+        </svg>
+      </button>
+      <a href="./settings.html" title="Settings">
+        <svg fill="currentColor" viewBox="0 0 20 20">
+          <path fill-rule="evenodd" d="M11.49 3.17c-.38-1.56-2.6-1.56-2.98 0a1.532 1.532 0 01-2.286.948c-1.372-.836-2.942.734-2.106 2.106.54.886.061 2.042-.947 2.287-1.561.379-1.561 2.6 0 2.978a1.532 1.532 0 01.947 2.287c-.836 1.372.734 2.942 2.106 2.106a1.532 1.532 0 012.287.947c.379 1.561 2.6 1.561 2.978 0a1.533 1.533 0 012.287-.947c1.372.836 2.942-.734 2.106-2.106a1.533 1.533 0 01.947-2.287c1.561-.379 1.561-2.6 0-2.978a1.532 1.532 0 01-.947-2.287c.836-1.372-.734-2.942-2.106-2.106a1.532 1.532 0 01-2.287-.947zM10 13a3 3 0 100-6 3 3 0 000 6z" clip-rule="evenodd"/>
+        </svg>
+      </a>
+      <a href="./profile.html" title="Profile">
+        <svg fill="currentColor" viewBox="0 0 20 20">
+          <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"/>
+        </svg>
+      </a>
+    </div>
+  </nav>
+        </main>
+        
+        <!-- Home indicator -->
+        <div class="home-indicator"></div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
+
+

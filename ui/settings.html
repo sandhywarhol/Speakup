@@ -1,0 +1,596 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5, user-scalable=yes, viewport-fit=cover" />
+  <meta name="format-detection" content="telephone=no" />
+  <meta name="theme-color" content="#38bdf8" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <title>SpeakUp! — Settings</title>
+  <link rel="stylesheet" href="assets/css/style.css" />
+  <style>
+    /* Phone frame simulation */
+    body {
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    }
+
+    /* Phone frame container */
+    .phone-frame {
+      width: 375px;
+      height: 812px;
+      background: #000;
+      border-radius: 40px;
+      padding: 8px;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(255, 255, 255, 0.1);
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Phone screen */
+    .phone-screen {
+      width: 100%;
+      height: 100%;
+      background: var(--bg);
+      border-radius: 32px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    /* Status bar simulation */
+    .status-bar {
+      height: 44px;
+      background: var(--bg);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 20px;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text);
+      position: relative;
+      z-index: 10;
+    }
+
+    .status-left {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .status-right {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .status-time {
+      font-weight: 600;
+    }
+
+    .status-battery {
+      width: 24px;
+      height: 12px;
+      border: 1px solid var(--text);
+      border-radius: 2px;
+      position: relative;
+    }
+
+    .status-battery::after {
+      content: '';
+      position: absolute;
+      right: -3px;
+      top: 3px;
+      width: 2px;
+      height: 6px;
+      background: var(--text);
+      border-radius: 0 1px 1px 0;
+    }
+
+    .status-battery::before {
+      content: '';
+      position: absolute;
+      left: 2px;
+      top: 2px;
+      width: 18px;
+      height: 8px;
+      background: var(--text);
+      border-radius: 1px;
+    }
+
+    /* Notch simulation */
+    .notch {
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 150px;
+      height: 30px;
+      background: #000;
+      border-radius: 0 0 16px 16px;
+      z-index: 20;
+    }
+
+    /* Mobile container inside phone frame */
+    .mobile-container {
+      width: 100%;
+      height: calc(100% - 44px); /* Subtract status bar height */
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Mobile main content area */
+    .mobile-main {
+      flex: 1;
+      padding: 16px;
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
+      background: var(--bg);
+    }
+
+    /* Home indicator for iPhone-like appearance */
+    .home-indicator {
+      position: absolute;
+      bottom: 8px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 134px;
+      height: 5px;
+      background: rgba(0, 0, 0, 0.3);
+      border-radius: 3px;
+      z-index: 50;
+    }
+
+    [data-theme="dark"] .home-indicator {
+      background: rgba(255, 255, 255, 0.3);
+    }
+
+    /* Responsive phone frame */
+    @media (max-width: 480px) {
+      .phone-frame {
+        width: 100vw;
+        height: 100vh;
+        border-radius: 0;
+        padding: 0;
+        box-shadow: none;
+      }
+      
+      .phone-screen {
+        border-radius: 0;
+      }
+      
+      .notch {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="phone-frame">
+    <!-- Notch simulation -->
+    <div class="notch"></div>
+    
+    <!-- Status bar -->
+    <div class="status-bar">
+      <div class="status-left">
+        <span class="status-time">9:41</span>
+      </div>
+      <div class="status-right">
+        <div class="status-battery"></div>
+      </div>
+    </div>
+    
+    <!-- Phone screen content -->
+    <div class="phone-screen">
+      <div class="mobile-container">
+        <main class="mobile-main">
+  <div class="container" style="padding-top: 20px;">
+    <div class="logo">
+      <img src="assets/logo/logo speak up blue.png" alt="SpeakUp!" data-theme="light" />
+      <img src="assets/logo/logo speak up white.png" alt="SpeakUp!" data-theme="dark" />
+    </div>
+    <h2 style="margin-top: 16px;">Pengaturan</h2>
+  </div>
+
+  <main class="container">
+    <div class="settings-grid">
+      <!-- Appearance Section -->
+      <div class="card">
+        <h3 style="margin: 0 0 16px;">Tampilan</h3>
+        <div class="setting-item">
+          <div>
+            <div class="label">Tema Gelap</div>
+            <div class="pill">Aktifkan untuk mode gelap</div>
+          </div>
+          <label class="switch">
+            <input id="switchTheme" type="checkbox" />
+            <span class="slider"></span>
+          </label>
+        </div>
+        <div class="setting-item">
+          <div>
+            <div class="label">Bahasa</div>
+            <div class="pill">Pilih bahasa antarmuka</div>
+          </div>
+          <select class="btn" style="min-width: 140px;">
+            <option>Bahasa Indonesia</option>
+            <option>English</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Notifications Section -->
+      <div class="card">
+        <h3 style="margin: 0 0 16px;">Notifikasi</h3>
+        <div class="setting-item">
+          <div>
+            <div class="label">Notifikasi Push</div>
+            <div class="pill">Terima notifikasi untuk dukungan & balasan</div>
+          </div>
+          <label class="switch">
+            <input id="switchNotif" type="checkbox" />
+            <span class="slider"></span>
+          </label>
+        </div>
+        <div class="setting-item">
+          <div>
+            <div class="label">Notifikasi Email</div>
+            <div class="pill">Terima notifikasi melalui email</div>
+          </div>
+          <label class="switch">
+            <input id="switchEmail" type="checkbox" />
+            <span class="slider"></span>
+          </label>
+        </div>
+        <div class="setting-item">
+          <div>
+            <div class="label">Notifikasi Petisi</div>
+            <div class="pill">Dapatkan update tentang petisi yang didukung</div>
+          </div>
+          <label class="switch">
+            <input id="switchPetition" type="checkbox" />
+            <span class="slider"></span>
+          </label>
+        </div>
+      </div>
+
+      <!-- Account & Security Section -->
+      <div class="card">
+        <h3 style="margin: 0 0 16px;">Akun & Keamanan</h3>
+        <div class="setting-item">
+          <div>
+            <div class="label">Ubah Password</div>
+            <div class="pill">Perbarui kata sandi akun Anda</div>
+          </div>
+          <button class="btn" onclick="changePassword()">Ubah</button>
+        </div>
+        <div class="setting-item">
+          <div>
+            <div class="label">Email</div>
+            <div class="pill">Kelola alamat email</div>
+          </div>
+          <button class="btn" onclick="changeEmail()">Kelola</button>
+        </div>
+        <div class="setting-item">
+          <div>
+            <div class="label">Two-Factor Authentication</div>
+            <div class="pill">Tingkatkan keamanan akun</div>
+          </div>
+          <label class="switch">
+            <input id="switch2FA" type="checkbox" />
+            <span class="slider"></span>
+          </label>
+        </div>
+      </div>
+
+      <!-- Privacy Section -->
+      <div class="card">
+        <h3 style="margin: 0 0 16px;">Privasi</h3>
+        <div class="setting-item">
+          <div>
+            <div class="label">Profil Publik</div>
+            <div class="pill">Izinkan orang lain melihat profil Anda</div>
+          </div>
+          <label class="switch">
+            <input id="switchPublicProfile" type="checkbox" />
+            <span class="slider"></span>
+          </label>
+        </div>
+        <div class="setting-item">
+          <div>
+            <div class="label">Pencarian</div>
+            <div class="pill">Izinkan profil muncul di hasil pencarian</div>
+          </div>
+          <label class="switch">
+            <input id="switchSearchable" type="checkbox" />
+            <span class="slider"></span>
+          </label>
+        </div>
+        <div class="setting-item">
+          <div>
+            <div class="label">Data Pribadi</div>
+            <div class="pill">Kelola data yang dikumpulkan</div>
+          </div>
+          <button class="btn" onclick="manageData()">Kelola</button>
+        </div>
+      </div>
+
+      <!-- Content & Moderation Section -->
+      <div class="card">
+        <h3 style="margin: 0 0 16px;">Konten & Moderasi</h3>
+        <div class="setting-item">
+          <div>
+            <div class="label">Filter Konten</div>
+            <div class="pill">Saring konten yang tidak pantas</div>
+          </div>
+          <label class="switch">
+            <input id="switchContentFilter" type="checkbox" checked />
+            <span class="slider"></span>
+          </label>
+        </div>
+        <div class="setting-item">
+          <div>
+            <div class="label">Kata Kunci Tersembunyi</div>
+            <div class="pill">Sembunyikan post dengan kata kunci tertentu</div>
+          </div>
+          <button class="btn" onclick="manageKeywords()">Kelola</button>
+        </div>
+        <div class="setting-item">
+          <div>
+            <div class="label">Laporkan Masalah</div>
+            <div class="pill">Kirim laporan bug atau saran</div>
+          </div>
+          <button class="btn" onclick="reportIssue()">Laporkan</button>
+        </div>
+      </div>
+
+      <!-- Account Actions Section -->
+      <div class="card">
+        <h3 style="margin: 0 0 16px;">Aksi Akun</h3>
+        <div class="setting-item">
+          <div>
+            <div class="label">Ekspor Data</div>
+            <div class="pill">Download semua data akun Anda</div>
+          </div>
+          <button class="btn" onclick="exportData()">Ekspor</button>
+        </div>
+        <div class="setting-item">
+          <div>
+            <div class="label">Hapus Akun</div>
+            <div class="pill">Hapus akun dan semua data secara permanen</div>
+          </div>
+          <button class="btn warn" onclick="deleteAccount()">Hapus</button>
+        </div>
+        <div class="setting-item">
+          <div>
+            <div class="label">Keluar</div>
+            <div class="pill">Logout dari akun ini</div>
+          </div>
+          <button class="btn warn" onclick="logout()">Logout</button>
+        </div>
+      </div>
+    </div>
+
+    <p class="footer">Prototipe statis. Tidak terhubung API.</p>
+  </main>
+
+  <script src="assets/js/app.js"></script>
+
+  <!-- Create Post Modal -->
+  <div id="createModal" class="modal" aria-hidden="true" role="dialog">
+    <div class="box">
+      <div class="head">
+        <strong>Speak! Bagikan Pengalamanmu</strong>
+        <button id="closeCreate" class="btn ghost">Tutup</button>
+      </div>
+      <form id="createForm">
+        <div class="mt-12">
+          <label>Kategori</label>
+          <select name="category" required>
+            <option value="">Pilih kategori</option>
+            <option value="bullying">Bullying</option>
+            <option value="workplace">Tempat Kerja</option>
+            <option value="mental_health">Kesehatan Mental</option>
+            <option value="family">Keluarga</option>
+            <option value="education">Pendidikan</option>
+            <option value="other">Lainnya</option>
+          </select>
+        </div>
+        <div class="mt-12">
+          <label>Ceritakan pengalamanmu</label>
+          <textarea name="content" rows="6" placeholder="Speak! Bagikan pengalamanmu..." required></textarea>
+        </div>
+        <div class="mt-12">
+          <label>Anonimitas</label>
+          <select name="anonymity">
+            <option value="anonymous">Tetap Anonim</option>
+            <option value="custom">Custom Handle</option>
+            <option value="verified">Verified Account</option>
+          </select>
+        </div>
+        <div class="actions-row">
+          <button type="submit" class="btn primary">Posting</button>
+          <button type="button" id="closeCreate2" class="btn ghost">Batal</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Change Password Modal -->
+  <div id="changePasswordModal" class="modal" aria-hidden="true" role="dialog">
+    <div class="box">
+      <div class="head">
+        <strong>Ubah Password</strong>
+        <button id="closeChangePassword" class="btn ghost">Tutup</button>
+      </div>
+      <form id="changePasswordForm">
+        <div class="mt-12">
+          <label>Password Lama</label>
+          <input type="password" name="oldPassword" required placeholder="Masukkan password lama" />
+        </div>
+        <div class="mt-12">
+          <label>Password Baru</label>
+          <input type="password" name="newPassword" required placeholder="Masukkan password baru" />
+        </div>
+        <div class="mt-12">
+          <label>Konfirmasi Password</label>
+          <input type="password" name="confirmPassword" required placeholder="Konfirmasi password baru" />
+        </div>
+        <div class="actions-row">
+          <button type="submit" class="btn primary">Ubah Password</button>
+          <button type="button" id="closeChangePassword2" class="btn ghost">Batal</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Change Email Modal -->
+  <div id="changeEmailModal" class="modal" aria-hidden="true" role="dialog">
+    <div class="box">
+      <div class="head">
+        <strong>Ubah Email</strong>
+        <button id="closeChangeEmail" class="btn ghost">Tutup</button>
+      </div>
+      <form id="changeEmailForm">
+        <div class="mt-12">
+          <label>Email Baru</label>
+          <input type="email" name="newEmail" required placeholder="Masukkan email baru" />
+        </div>
+        <div class="mt-12">
+          <label>Password</label>
+          <input type="password" name="password" required placeholder="Konfirmasi dengan password" />
+        </div>
+        <div class="actions-row">
+          <button type="submit" class="btn primary">Ubah Email</button>
+          <button type="button" id="closeChangeEmail2" class="btn ghost">Batal</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <nav class="bottom-nav" aria-label="Navigasi bawah">
+    <div class="inner">
+      <a href="./index.html" title="Home">
+        <svg fill="currentColor" viewBox="0 0 20 20">
+          <path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"/>
+        </svg>
+      </a>
+      <a href="./timeline.html" title="Timeline">
+        <svg fill="currentColor" viewBox="0 0 20 20">
+          <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clip-rule="evenodd"/>
+        </svg>
+      </a>
+      <button class="btn plus-btn" data-open-create title="Speak!">
+        <svg fill="currentColor" viewBox="0 0 20 20">
+          <path fill-rule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clip-rule="evenodd"/>
+        </svg>
+      </button>
+      <a href="./settings.html" class="active" title="Settings">
+        <svg fill="currentColor" viewBox="0 0 20 20">
+          <path fill-rule="evenodd" d="M11.49 3.17c-.38-1.56-2.6-1.56-2.98 0a1.532 1.532 0 01-2.286.948c-1.372-.836-2.942.734-2.106 2.106.54.886.061 2.042-.947 2.287-1.561.379-1.561 2.6 0 2.978a1.532 1.532 0 01.947 2.287c-.836 1.372.734 2.942 2.106 2.106a1.532 1.532 0 012.287.947c.379 1.561 2.6 1.561 2.978 0a1.533 1.533 0 012.287-.947c1.372.836 2.942-.734 2.106-2.106a1.533 1.533 0 01.947-2.287c1.561-.379 1.561-2.6 0-2.978a1.532 1.532 0 01-.947-2.287c.836-1.372-.734-2.942-2.106-2.106a1.532 1.532 0 01-2.287-.947zM10 13a3 3 0 100-6 3 3 0 000 6z" clip-rule="evenodd"/>
+        </svg>
+      </a>
+      <a href="./profile.html" title="Profile">
+        <svg fill="currentColor" viewBox="0 0 20 20">
+          <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"/>
+        </svg>
+      </a>
+    </div>
+        </main>
+        
+        <!-- Home indicator -->
+        <div class="home-indicator"></div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Settings functions
+    function changePassword() {
+      document.getElementById('changePasswordModal').classList.add('open');
+    }
+
+    function changeEmail() {
+      document.getElementById('changeEmailModal').classList.add('open');
+    }
+
+    function manageData() {
+      alert('Fitur manajemen data akan segera tersedia!');
+    }
+
+    function manageKeywords() {
+      alert('Fitur manajemen kata kunci akan segera tersedia!');
+    }
+
+    function reportIssue() {
+      alert('Fitur laporan masalah akan segera tersedia!');
+    }
+
+    function exportData() {
+      alert('Fitur ekspor data akan segera tersedia!');
+    }
+
+    function deleteAccount() {
+      if (confirm('Apakah Anda yakin ingin menghapus akun? Tindakan ini tidak dapat dibatalkan.')) {
+        alert('Fitur hapus akun akan segera tersedia!');
+      }
+    }
+
+    function logout() {
+      if (confirm('Apakah Anda yakin ingin logout?')) {
+        alert('Logout berhasil!');
+        // Redirect to login or home page
+        window.location.href = './index.html';
+      }
+    }
+
+    // Modal handlers
+    const changePasswordModal = document.getElementById('changePasswordModal');
+    const closeChangePassword = document.getElementById('closeChangePassword');
+    const closeChangePassword2 = document.getElementById('closeChangePassword2');
+    const changePasswordForm = document.getElementById('changePasswordForm');
+
+    closeChangePassword && closeChangePassword.addEventListener('click', () => changePasswordModal.classList.remove('open'));
+    closeChangePassword2 && closeChangePassword2.addEventListener('click', () => changePasswordModal.classList.remove('open'));
+    changePasswordModal && changePasswordModal.addEventListener('click', (e) => { if (e.target === changePasswordModal) changePasswordModal.classList.remove('open'); });
+
+    changePasswordForm && changePasswordForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const data = Object.fromEntries(new FormData(changePasswordForm).entries());
+      if (data.newPassword !== data.confirmPassword) {
+        alert('Password baru dan konfirmasi password tidak sama!');
+        return;
+      }
+      alert('Password berhasil diubah!');
+      changePasswordModal.classList.remove('open');
+      changePasswordForm.reset();
+    });
+
+    const changeEmailModal = document.getElementById('changeEmailModal');
+    const closeChangeEmail = document.getElementById('closeChangeEmail');
+    const closeChangeEmail2 = document.getElementById('closeChangeEmail2');
+    const changeEmailForm = document.getElementById('changeEmailForm');
+
+    closeChangeEmail && closeChangeEmail.addEventListener('click', () => changeEmailModal.classList.remove('open'));
+    closeChangeEmail2 && closeChangeEmail2.addEventListener('click', () => changeEmailModal.classList.remove('open'));
+    changeEmailModal && changeEmailModal.addEventListener('click', (e) => { if (e.target === changeEmailModal) changeEmailModal.classList.remove('open'); });
+
+    changeEmailForm && changeEmailForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const data = Object.fromEntries(new FormData(changeEmailForm).entries());
+      alert('Email berhasil diubah!');
+      changeEmailModal.classList.remove('open');
+      changeEmailForm.reset();
+    });
+  </script>
+</body>
+</html>

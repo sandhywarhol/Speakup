@@ -1,0 +1,527 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>SpeakUp! — Petitions (Desktop)</title>
+  <link rel="stylesheet" href="assets/css/style.css" />
+  <style>
+    :root { --bg:#ffffff; --panel:#ffffff; --text:#374151; --muted:#64748b; --accent:#38bdf8; --border:#e5e7eb; }
+    .logo img[data-theme="light"]{display:block!important}.logo img[data-theme="dark"]{display:none!important}
+    html,body,main,.desktop-container,.desktop-nav,.card,.tabs .tab,.modal .box{background:#ffffff!important}
+    body{margin:0;padding:0;min-height:100vh;background:#ffffff!important;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif}
+    .desktop-nav{display:block!important}
+    .desktop-container{max-width:1024px;margin:0 auto;padding:24px 32px}
+    .desktop-nav .nav-item.active{background:#ffffff!important;color:#374151!important;border:1px solid #e5e7eb!important}
+    .desktop-nav .nav-item.plus-btn,.btn.primary{background:#ffffff!important;color:#374151!important;border:1px solid #e5e7eb!important}
+    body.desktop-page, body.desktop-page *:not(h1):not(h2):not(h3):not(h4):not(h5):not(h6){color:#374151!important}
+  </style>
+</head>
+<body class="desktop-page">
+  <div class="desktop-container">
+    <nav class="desktop-nav" aria-label="Navigasi desktop">
+      <div class="desktop-nav-inner">
+        <div class="nav-left">
+          <div class="logo">SpeakUp!</div>
+          <button class="nav-item plus-btn" data-open-create title="Speak!">
+            <svg fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clip-rule="evenodd"/>
+            </svg>
+            <span>Speak!</span>
+          </button>
+          <a href="./desktop.html" class="nav-item" title="Home">
+            <svg fill="currentColor" viewBox="0 0 20 20"><path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"/></svg>
+            <span>Home</span>
+          </a>
+          <a href="./timeline-desktop.html" class="nav-item" title="Timeline">
+            <svg fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clip-rule="evenodd"/></svg>
+            <span>Timeline</span>
+          </a>
+          <a href="./petitions-desktop.html" class="nav-item active" title="Petitions">
+            <svg fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M3 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clip-rule="evenodd"/></svg>
+            <span>Petitions</span>
+          </a>
+        </div>
+        <div class="nav-right">
+          <a href="./settings-desktop.html" class="nav-item" title="Settings">
+            <svg fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M11.49 3.17c-.38-1.56-2.6-1.56-2.98 0a1.532 1.532 0 01-2.286.948c-1.372-.836-2.942.734-2.106 2.106.54.886.061 2.042-.947 2.287-1.561.379-1.561 2.6 0 2.978a1.532 1.532 0 01.947 2.287c-.836 1.372.734 2.942 2.106 2.106a1.532 1.532 0 012.287.947c.379 1.561 2.6 1.561 2.978 0a1.533 1.533 0 012.287-.947c1.372.836 2.942-.734 2.106-2.106a1.533 1.533 0 01.947-2.287c1.561-.379 1.561-2.6 0-2.978a1.532 1.532 0 01-.947-2.287c.836-1.372-.734-2.942-2.106-2.106a1.532 1.532 0 01-2.287-.947zM10 13a3 3 0 100-6 3 3 0 000 6z" clip-rule="evenodd"/></svg>
+            <span>Settings</span>
+          </a>
+          <a href="./profile-desktop.html" class="nav-item" title="Profile">
+            <svg fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"/></svg>
+            <span>Profile</span>
+          </a>
+          <a href="./sign-desktop.html" class="nav-item" title="Sign">
+            <svg fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M3 10a1 1 0 011-1h8.586l-3.293-3.293a1 1 0 111.414-1.414l5 5a1 1 0 010 1.414l-5 5a1 1 0 11-1.414-1.414L12.586 11H4a1 1 0 01-1-1z" clip-rule="evenodd"/></svg>
+            <span>Sign</span>
+          </a>
+        </div>
+      </div>
+    </nav>
+
+    <main>
+      <section class="container">
+        <h1>Petitions</h1>
+        
+        <!-- Filter Topik -->
+        <div class="tabs topic-filter">
+          <button class="tab active" data-topic="all">Semua Topik</button>
+          <button class="tab" data-topic="bullying">Bullying</button>
+          <button class="tab" data-topic="workplace">Workplace</button>
+          <button class="tab" data-topic="education">Pendidikan</button>
+          <button class="tab" data-topic="health">Kesehatan</button>
+          <button class="tab" data-topic="environment">Lingkungan</button>
+        </div>
+
+        <style>
+          .topic-filter { margin-bottom: 24px; }
+          .petition-card { margin-bottom: 20px; }
+          .petition-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 12px; }
+          .petition-title { font-size: 18px; font-weight: 600; margin: 0; }
+          .petition-meta { display: flex; gap: 12px; align-items: center; font-size: 12px; color: var(--muted); margin-bottom: 12px; }
+          .petition-preview { max-height: 120px; overflow: hidden; position: relative; }
+          .petition-preview::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 40px; background: linear-gradient(transparent, var(--bg)); }
+          .petition-full { display: none; }
+          .petition-full.show { display: block; }
+          .petition-letter { background: #f8fafc; border: 1px solid var(--border); border-radius: 8px; padding: 24px; margin: 16px 0; font-family: 'Times New Roman', serif; }
+          .petition-letter .letterhead { text-align: center; margin-bottom: 24px; }
+          .petition-letter .letterhead h3 { margin: 0; font-size: 16px; font-weight: 600; }
+          .petition-letter .letterhead p { margin: 4px 0; font-size: 12px; color: var(--muted); }
+          .petition-letter .recipient { margin-bottom: 16px; }
+          .petition-letter .content { line-height: 1.6; margin-bottom: 24px; }
+          .petition-letter .signatures { margin-top: 24px; padding-top: 16px; border-top: 1px solid var(--border); }
+          .signature-count { display: flex; align-items: center; gap: 8px; font-weight: 600; color: var(--accent); }
+          .petition-actions { display: flex; gap: 8px; margin-top: 16px; }
+          .btn.icon { width: 36px; height: 36px; padding: 0; display: inline-flex; align-items: center; justify-content: center; }
+          .btn.icon svg { width: 18px; height: 18px; }
+        </style>
+
+        <div class="grid">
+          <!-- Petisi 1: Bullying -->
+          <article class="card petition-card" data-topic="bullying">
+            <div class="petition-header">
+              <h4 class="petition-title">Hentikan Perundungan di Sekolah Menengah Atas Jakarta</h4>
+              <span class="badge">Bullying</span>
+            </div>
+            <div class="petition-meta">
+              <span class="pill">2 hari lalu</span>
+              <span>•</span>
+              <span class="pill">Jakarta</span>
+              <span>•</span>
+              <div class="signature-count">
+                <svg viewBox="0 0 20 20" fill="currentColor" width="16" height="16">
+                  <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                </svg>
+                <span>1,247 tanda tangan</span>
+              </div>
+            </div>
+            
+            <div class="petition-preview">
+              <p class="content">Kepada Yth. Kepala Dinas Pendidikan DKI Jakarta, Kami, warga masyarakat yang peduli terhadap pendidikan dan perlindungan anak, dengan ini menyampaikan petisi untuk menghentikan kasus perundungan yang terjadi di beberapa SMA di Jakarta...</p>
+            </div>
+            
+            <div class="petition-full">
+              <div class="petition-letter">
+                <div class="letterhead">
+                  <h3>PETISI MASYARAKAT</h3>
+                  <p>Menghentikan Perundungan di Sekolah Menengah Atas Jakarta</p>
+                  <p>Jakarta, 15 Desember 2024</p>
+                </div>
+                
+                <div class="recipient">
+                  <p><strong>Kepada Yth.</strong><br>
+                  Kepala Dinas Pendidikan DKI Jakarta<br>
+                  Jl. Gatot Subroto No. 1<br>
+                  Jakarta Selatan 12950</p>
+                </div>
+                
+                <div class="content">
+                  <p>Dengan hormat,</p>
+                  
+                  <p>Kami, warga masyarakat yang peduli terhadap pendidikan dan perlindungan anak, dengan ini menyampaikan petisi untuk menghentikan kasus perundungan yang terjadi di beberapa SMA di Jakarta.</p>
+                  
+                  <p><strong>Latar Belakang:</strong><br>
+                  Berdasarkan laporan yang kami terima, terjadi peningkatan kasus perundungan di lingkungan sekolah, termasuk pelecehan verbal, fisik, dan cyberbullying. Hal ini berdampak negatif pada kesehatan mental dan prestasi akademik siswa.</p>
+                  
+                  <p><strong>Tuntutan:</strong><br>
+                  1. Meningkatkan pengawasan dan monitoring di sekolah<br>
+                  2. Melaksanakan program anti-bullying yang komprehensif<br>
+                  3. Menyediakan layanan konseling yang mudah diakses<br>
+                  4. Menindak tegas pelaku perundungan sesuai peraturan yang berlaku</p>
+                  
+                  <p>Demikian petisi ini kami sampaikan dengan harapan dapat ditindaklanjuti segera.</p>
+                  
+                  <p>Hormat kami,<br>
+                  <strong>Komunitas SpeakUp!</strong></p>
+                </div>
+                
+                <div class="signatures">
+                  <div class="signature-count">
+                    <svg viewBox="0 0 20 20" fill="currentColor" width="16" height="16">
+                      <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                    </svg>
+                    <span>1,247 dari 5,000 tanda tangan</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <div class="petition-actions">
+              <button class="btn primary">Tanda Tangan</button>
+              <button class="btn">Dukung</button>
+              <button class="btn icon" aria-label="Ikut Petisi">
+                <svg viewBox="0 0 20 20" fill="currentColor">
+                  <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                </svg>
+              </button>
+              <button class="btn icon" aria-label="Bagikan Petisi">
+                <svg viewBox="0 0 20 20" fill="currentColor">
+                  <path d="M15 8a3 3 0 10-2.83-4H12a3 3 0 00.17 1H8a3 3 0 100 2h4.17A3 3 0 0015 8zM5 12a3 3 0 102.83 4H8a3 3 0 00-.17-1H12a3 3 0 100-2H7.83A3 3 0 005 12z"/>
+                </svg>
+              </button>
+              <button class="btn" onclick="togglePetition(this)">Baca Lengkap</button>
+            </div>
+          </article>
+
+          <!-- Petisi 2: Workplace -->
+          <article class="card petition-card" data-topic="workplace">
+            <div class="petition-header">
+              <h4 class="petition-title">Perkuat Kebijakan Anti-Kekerasan di Tempat Kerja</h4>
+              <span class="badge">Workplace</span>
+            </div>
+            <div class="petition-meta">
+              <span class="pill">5 hari lalu</span>
+              <span>•</span>
+              <span class="pill">Nasional</span>
+              <span>•</span>
+              <div class="signature-count">
+                <svg viewBox="0 0 20 20" fill="currentColor" width="16" height="16">
+                  <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                </svg>
+                <span>3,891 tanda tangan</span>
+              </div>
+            </div>
+            
+            <div class="petition-preview">
+              <p class="content">Kepada Yth. Menteri Ketenagakerjaan Republik Indonesia, Kami, pekerja Indonesia yang peduli terhadap hak-hak pekerja, dengan ini menyampaikan petisi untuk memperkuat kebijakan anti-kekerasan di tempat kerja...</p>
+            </div>
+            
+            <div class="petition-full">
+              <div class="petition-letter">
+                <div class="letterhead">
+                  <h3>PETISI PEKERJA INDONESIA</h3>
+                  <p>Memperkuat Kebijakan Anti-Kekerasan di Tempat Kerja</p>
+                  <p>Jakarta, 10 Desember 2024</p>
+                </div>
+                
+                <div class="recipient">
+                  <p><strong>Kepada Yth.</strong><br>
+                  Menteri Ketenagakerjaan Republik Indonesia<br>
+                  Jl. Gatot Subroto Kav. 51<br>
+                  Jakarta Selatan 12950</p>
+                </div>
+                
+                <div class="content">
+                  <p>Dengan hormat,</p>
+                  
+                  <p>Kami, pekerja Indonesia yang peduli terhadap hak-hak pekerja, dengan ini menyampaikan petisi untuk memperkuat kebijakan anti-kekerasan di tempat kerja di seluruh Indonesia.</p>
+                  
+                  <p><strong>Latar Belakang:</strong><br>
+                  Maraknya kasus kekerasan, pelecehan, dan diskriminasi di tempat kerja yang tidak ditangani dengan serius oleh perusahaan dan pemerintah. Banyak korban yang tidak berani melapor karena takut kehilangan pekerjaan.</p>
+                  
+                  <p><strong>Tuntutan:</strong><br>
+                  1. Mewajibkan semua perusahaan memiliki SOP anti-kekerasan yang jelas<br>
+                  2. Menyediakan hotline khusus untuk laporan kekerasan di tempat kerja<br>
+                  3. Memberikan perlindungan hukum yang lebih kuat untuk whistleblower<br>
+                  4. Mewajibkan pelatihan anti-kekerasan untuk semua level manajemen</p>
+                  
+                  <p>Kami berharap petisi ini dapat menjadi langkah awal menuju tempat kerja yang lebih aman dan adil untuk semua pekerja Indonesia.</p>
+                  
+                  <p>Hormat kami,<br>
+                  <strong>Aliansi Pekerja Indonesia</strong></p>
+                </div>
+                
+                <div class="signatures">
+                  <div class="signature-count">
+                    <svg viewBox="0 0 20 20" fill="currentColor" width="16" height="16">
+                      <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                    </svg>
+                    <span>3,891 dari 10,000 tanda tangan</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <div class="petition-actions">
+              <button class="btn primary">Tanda Tangan</button>
+              <button class="btn">Dukung</button>
+              <button class="btn icon" aria-label="Ikut Petisi">
+                <svg viewBox="0 0 20 20" fill="currentColor">
+                  <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                </svg>
+              </button>
+              <button class="btn icon" aria-label="Bagikan Petisi">
+                <svg viewBox="0 0 20 20" fill="currentColor">
+                  <path d="M15 8a3 3 0 10-2.83-4H12a3 3 0 00.17 1H8a3 3 0 100 2h4.17A3 3 0 0015 8zM5 12a3 3 0 102.83 4H8a3 3 0 00-.17-1H12a3 3 0 100-2H7.83A3 3 0 005 12z"/>
+                </svg>
+              </button>
+              <button class="btn" onclick="togglePetition(this)">Baca Lengkap</button>
+            </div>
+          </article>
+
+          <!-- Petisi 3: Pendidikan -->
+          <article class="card petition-card" data-topic="education">
+            <div class="petition-header">
+              <h4 class="petition-title">Akses Pendidikan Gratis untuk Anak Berkebutuhan Khusus</h4>
+              <span class="badge">Pendidikan</span>
+            </div>
+            <div class="petition-meta">
+              <span class="pill">1 minggu lalu</span>
+              <span>•</span>
+              <span class="pill">Nasional</span>
+              <span>•</span>
+              <div class="signature-count">
+                <svg viewBox="0 0 20 20" fill="currentColor" width="16" height="16">
+                  <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                </svg>
+                <span>892 tanda tangan</span>
+              </div>
+            </div>
+            
+            <div class="petition-preview">
+              <p class="content">Kepada Yth. Menteri Pendidikan, Kebudayaan, Riset, dan Teknologi Republik Indonesia, Kami, orang tua dan pendidik yang peduli terhadap hak pendidikan anak berkebutuhan khusus, dengan ini menyampaikan petisi untuk memastikan akses pendidikan yang inklusif...</p>
+            </div>
+            
+            <div class="petition-full">
+              <div class="petition-letter">
+                <div class="letterhead">
+                  <h3>PETISI PENDIDIKAN INKLUSIF</h3>
+                  <p>Memastikan Akses Pendidikan Gratis untuk Anak Berkebutuhan Khusus</p>
+                  <p>Jakarta, 5 Desember 2024</p>
+                </div>
+                
+                <div class="recipient">
+                  <p><strong>Kepada Yth.</strong><br>
+                  Menteri Pendidikan, Kebudayaan, Riset, dan Teknologi<br>
+                  Republik Indonesia<br>
+                  Jl. Jenderal Sudirman, Senayan<br>
+                  Jakarta Pusat 10270</p>
+                </div>
+                
+                <div class="content">
+                  <p>Dengan hormat,</p>
+                  
+                  <p>Kami, orang tua dan pendidik yang peduli terhadap hak pendidikan anak berkebutuhan khusus, dengan ini menyampaikan petisi untuk memastikan akses pendidikan yang inklusif dan gratis untuk semua anak Indonesia.</p>
+                  
+                  <p><strong>Latar Belakang:</strong><br>
+                  Banyak anak berkebutuhan khusus yang kesulitan mengakses pendidikan berkualitas karena keterbatasan fasilitas, tenaga pendidik khusus, dan biaya yang mahal. Hal ini melanggar hak konstitusional mereka untuk mendapatkan pendidikan.</p>
+                  
+                  <p><strong>Tuntutan:</strong><br>
+                  1. Meningkatkan alokasi anggaran untuk pendidikan inklusif<br>
+                  2. Melatih lebih banyak guru pendamping khusus (GPK)<br>
+                  3. Menyediakan fasilitas dan alat bantu belajar yang memadai<br>
+                  4. Mewajibkan sekolah umum menerima anak berkebutuhan khusus</p>
+                  
+                  <p>Setiap anak berhak mendapatkan pendidikan yang layak, tanpa terkecuali.</p>
+                  
+                  <p>Hormat kami,<br>
+                  <strong>Forum Orang Tua Anak Berkebutuhan Khusus</strong></p>
+                </div>
+                
+                <div class="signatures">
+                  <div class="signature-count">
+                    <svg viewBox="0 0 20 20" fill="currentColor" width="16" height="16">
+                      <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                    </svg>
+                    <span>892 dari 2,000 tanda tangan</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <div class="petition-actions">
+              <button class="btn primary">Tanda Tangan</button>
+              <button class="btn">Dukung</button>
+              <button class="btn icon" aria-label="Ikut Petisi">
+                <svg viewBox="0 0 20 20" fill="currentColor">
+                  <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                </svg>
+              </button>
+              <button class="btn icon" aria-label="Bagikan Petisi">
+                <svg viewBox="0 0 20 20" fill="currentColor">
+                  <path d="M15 8a3 3 0 10-2.83-4H12a3 3 0 00.17 1H8a3 3 0 100 2h4.17A3 3 0 0015 8zM5 12a3 3 0 102.83 4H8a3 3 0 00-.17-1H12a3 3 0 100-2H7.83A3 3 0 005 12z"/>
+                </svg>
+              </button>
+              <button class="btn" onclick="togglePetition(this)">Baca Lengkap</button>
+            </div>
+          </article>
+        </div>
+      </section>
+    </main>
+
+    <script>
+      // Filter topik
+      document.querySelectorAll('.tab').forEach(tab => {
+        tab.addEventListener('click', function() {
+          const topic = this.dataset.topic;
+          
+          // Update active tab
+          document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+          this.classList.add('active');
+          
+          // Filter petisi
+          document.querySelectorAll('.petition-card').forEach(card => {
+            if (topic === 'all' || card.dataset.topic === topic) {
+              card.style.display = 'block';
+            } else {
+              card.style.display = 'none';
+            }
+          });
+        });
+      });
+      
+      // Toggle petisi lengkap
+      function togglePetition(button) {
+        const card = button.closest('.petition-card');
+        const preview = card.querySelector('.petition-preview');
+        const full = card.querySelector('.petition-full');
+        
+        if (full.classList.contains('show')) {
+          full.classList.remove('show');
+          preview.style.display = 'block';
+          button.textContent = 'Baca Lengkap';
+        } else {
+          full.classList.add('show');
+          preview.style.display = 'none';
+          button.textContent = 'Tutup';
+        }
+      }
+
+      // ---------- Dummy interaksi tombol ----------
+      function formatNumberId(num) {
+        try { return new Intl.NumberFormat('id-ID').format(num); } catch (_) { return String(num); }
+      }
+
+      function parseFirstNumber(text) {
+        const m = text.match(/([0-9][0-9\.,]*)/);
+        if (!m) return null;
+        return parseInt(m[1].replace(/[\.,]/g, ''), 10);
+      }
+
+      function parseTwoNumbers(text) {
+        const ms = text.match(/([0-9][0-9\.,]*)/g);
+        if (!ms || ms.length === 0) return { current: null, goal: null };
+        const current = parseInt(ms[0].replace(/[\.,]/g, ''), 10);
+        const goal = ms.length > 1 ? parseInt(ms[1].replace(/[\.,]/g, ''), 10) : null;
+        return { current, goal };
+      }
+
+      function ensureCardId(card) {
+        if (card.id) return card.id;
+        const title = card.querySelector('.petition-title')?.textContent?.trim() || 'petisi';
+        const slug = title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+        card.id = slug || ('petisi-' + Math.random().toString(36).slice(2, 8));
+        return card.id;
+      }
+
+      function updateSignatureCounts(card, delta) {
+        // meta count (ringkas)
+        const metaCountEl = card.querySelector('.petition-meta .signature-count span');
+        if (metaCountEl) {
+          const currentMeta = parseFirstNumber(metaCountEl.textContent) || 0;
+          const nextMeta = Math.max(0, currentMeta + delta);
+          metaCountEl.textContent = `${formatNumberId(nextMeta)} tanda tangan`;
+        }
+        // full count (dengan target)
+        const fullCountEl = card.querySelector('.petition-full .signature-count span');
+        if (fullCountEl) {
+          const { current, goal } = parseTwoNumbers(fullCountEl.textContent);
+          const next = Math.max(0, (current || 0) + delta);
+          if (goal) {
+            fullCountEl.textContent = `${formatNumberId(next)} dari ${formatNumberId(goal)} tanda tangan`;
+          } else {
+            fullCountEl.textContent = `${formatNumberId(next)} tanda tangan`;
+          }
+        }
+      }
+
+      function attachPetitionActions() {
+        document.querySelectorAll('.petition-card').forEach(card => {
+          // Tanda Tangan
+          const signBtn = card.querySelector('.petition-actions .btn.primary');
+          if (signBtn && !signBtn.dataset.bound) {
+            signBtn.dataset.bound = 'true';
+            signBtn.addEventListener('click', () => {
+              const signed = card.dataset.signed === 'true';
+              if (signed) {
+                updateSignatureCounts(card, -1);
+                card.dataset.signed = 'false';
+                signBtn.textContent = 'Tanda Tangan';
+              } else {
+                updateSignatureCounts(card, +1);
+                card.dataset.signed = 'true';
+                signBtn.textContent = 'Batalkan Tanda Tangan';
+              }
+            });
+          }
+
+          // Dukung (toggle)
+          const supportBtn = Array.from(card.querySelectorAll('.petition-actions .btn'))
+            .find(b => b.textContent && b.textContent.trim().toLowerCase() === 'dukung');
+          if (supportBtn && !supportBtn.dataset.bound) {
+            supportBtn.dataset.bound = 'true';
+            supportBtn.addEventListener('click', () => {
+              const active = supportBtn.dataset.active === 'true';
+              supportBtn.dataset.active = active ? 'false' : 'true';
+              supportBtn.textContent = active ? 'Dukung' : 'Didukung';
+              alert(active ? 'Dukungan dibatalkan.' : 'Terima kasih telah mendukung petisi ini.');
+            });
+          }
+
+          // Ikut Petisi (icon)
+          const followBtn = card.querySelector('.petition-actions .btn.icon[aria-label="Ikut Petisi"]');
+          if (followBtn && !followBtn.dataset.bound) {
+            followBtn.dataset.bound = 'true';
+            followBtn.addEventListener('click', () => {
+              const joined = followBtn.dataset.joined === 'true';
+              followBtn.dataset.joined = joined ? 'false' : 'true';
+              alert(joined ? 'Anda berhenti mengikuti petisi.' : 'Anda mengikuti petisi ini.');
+            });
+          }
+
+          // Bagikan Petisi (icon)
+          const shareBtn = card.querySelector('.petition-actions .btn.icon[aria-label="Bagikan Petisi"]');
+          if (shareBtn && !shareBtn.dataset.bound) {
+            shareBtn.dataset.bound = 'true';
+            shareBtn.addEventListener('click', async () => {
+              const id = ensureCardId(card);
+              const url = `${location.origin}${location.pathname}#${id}`;
+              const title = card.querySelector('.petition-title')?.textContent?.trim() || 'Petisi SpeakUp!';
+              try {
+                if (navigator.share) {
+                  await navigator.share({ title, url });
+                } else if (navigator.clipboard && navigator.clipboard.writeText) {
+                  await navigator.clipboard.writeText(url);
+                  alert('Tautan disalin ke clipboard.');
+                } else {
+                  prompt('Salin tautan petisi berikut:', url);
+                }
+              } catch (e) {
+                // diamkan; pengguna mungkin membatalkan share
+              }
+            });
+          }
+        });
+      }
+
+      // Bind setelah load DOM (script berada di akhir body, tapi kita pastikan saja)
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', attachPetitionActions);
+      } else {
+        attachPetitionActions();
+      }
+    </script>
+  </div>
+</body>
+</html>
+
