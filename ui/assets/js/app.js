@@ -153,8 +153,8 @@
       document.body.style.color = '#374151';
       document.documentElement.style.color = '#374151';
       
-      // Force dark blue accent for light theme
-      const accentElements = document.querySelectorAll('a, .tab.active, .bottom-nav a.active, .bottom-nav button.active');
+      // Force dark blue accent for light theme (avoid overriding buttons/CTAs)
+      const accentElements = document.querySelectorAll('.tab.active, .bottom-nav a.active, .bottom-nav button.active');
       accentElements.forEach(el => {
         el.style.color = '#1e40af';
         el.style.borderColor = '#1e40af';
@@ -181,8 +181,8 @@
       document.body.style.color = '#374151';
       document.documentElement.style.color = '#374151';
       
-      // Force dark blue accent for light theme
-      const accentElements = document.querySelectorAll('a, .tab.active, .bottom-nav a.active, .bottom-nav button.active');
+      // Force dark blue accent for light theme (avoid overriding buttons/CTAs)
+      const accentElements = document.querySelectorAll('.tab.active, .bottom-nav a.active, .bottom-nav button.active');
       accentElements.forEach(el => {
         el.style.color = '#1e40af';
         el.style.borderColor = '#1e40af';
@@ -202,8 +202,8 @@
       document.body.style.color = '#374151';
       document.documentElement.style.color = '#374151';
       
-      // Force dark blue accent for light theme
-      const accentElements = document.querySelectorAll('a, .tab.active, .bottom-nav a.active, .bottom-nav button.active');
+      // Force dark blue accent for light theme (avoid overriding buttons/CTAs)
+      const accentElements = document.querySelectorAll('.tab.active, .bottom-nav a.active, .bottom-nav button.active');
       accentElements.forEach(el => {
         el.style.color = '#1e40af';
         el.style.borderColor = '#1e40af';
@@ -273,12 +273,109 @@
   closeProfile && closeProfile.addEventListener('click', () => profileModal.classList.remove('open'));
   profileModal && profileModal.addEventListener('click', (e) => { if (e.target === profileModal) profileModal.classList.remove('open'); });
 
+  // Function to wrap all "SpeakUp!" text with brand-name class
+  function wrapSpeakUpText() {
+    console.log('Starting to wrap SpeakUp! text...');
+    
+    // First, handle existing spans with class "accent" that contain "SpeakUp!"
+    const accentSpans = document.querySelectorAll('.accent');
+    accentSpans.forEach(span => {
+      if (span.textContent.includes('SpeakUp!')) {
+        span.classList.add('brand-name');
+        console.log('Added brand-name class to existing accent span');
+      }
+    });
+
+    // Get all text nodes in the document
+    const walker = document.createTreeWalker(
+      document.body,
+      NodeFilter.SHOW_TEXT,
+      null,
+      false
+    );
+
+    const textNodes = [];
+    let node;
+    while (node = walker.nextNode()) {
+      if (node.textContent.includes('SpeakUp!')) {
+        textNodes.push(node);
+      }
+    }
+
+    console.log(`Found ${textNodes.length} text nodes containing "SpeakUp!"`);
+
+    // Replace text in each node
+    textNodes.forEach(textNode => {
+      const parent = textNode.parentNode;
+      // Skip if already wrapped or if parent is a script/style tag
+      if (parent.tagName === 'SCRIPT' || parent.tagName === 'STYLE' || 
+          parent.classList.contains('brand-name') || parent.classList.contains('accent')) {
+        return;
+      }
+
+      const text = textNode.textContent;
+      if (text.includes('SpeakUp!')) {
+        const newHTML = text.replace(/SpeakUp!/g, '<span class="brand-name">SpeakUp!</span>');
+        const tempDiv = document.createElement('div');
+        tempDiv.innerHTML = newHTML;
+        
+        // Replace the text node with the new content
+        while (tempDiv.firstChild) {
+          parent.insertBefore(tempDiv.firstChild, textNode);
+        }
+        parent.removeChild(textNode);
+        console.log('Wrapped SpeakUp! text with brand-name class');
+      }
+    });
+
+    console.log('Finished wrapping SpeakUp! text');
+  }
+
+  // Additional function to force apply brand styling
+  function forceBrandStyling() {
+    // Apply styling to all elements containing "SpeakUp!"
+    const allElements = document.querySelectorAll('*');
+    allElements.forEach(el => {
+      if (el.textContent && el.textContent.includes('SpeakUp!') && 
+          el.children.length === 0) { // Only text nodes
+        el.style.color = '#38bdf8';
+        el.style.fontWeight = '700';
+        el.classList.add('brand-name');
+      }
+    });
+
+    // Force style on existing accent spans
+    document.querySelectorAll('.accent').forEach(el => {
+      if (el.textContent.includes('SpeakUp!')) {
+        el.style.color = '#38bdf8 !important';
+        el.style.fontWeight = '700 !important';
+        el.classList.add('brand-name');
+      }
+    });
+
+    console.log('Force brand styling applied');
+  }
+
   // Initialize modal when DOM is ready
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initModal);
+    document.addEventListener('DOMContentLoaded', () => {
+      initModal();
+      wrapSpeakUpText();
+      setTimeout(forceBrandStyling, 100); // Run after DOM is fully loaded
+    });
   } else {
     initModal();
+    wrapSpeakUpText();
+    setTimeout(forceBrandStyling, 100);
   }
+
+  // Run again after page is fully loaded
+  window.addEventListener('load', () => {
+    setTimeout(() => {
+      wrapSpeakUpText();
+      forceBrandStyling();
+    }, 200);
+  });
 })();
 
 

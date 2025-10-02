@@ -2,7 +2,7 @@
 <html lang="id">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5, user-scalable=yes, viewport-fit=cover" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <meta name="format-detection" content="telephone=no" />
   <meta name="theme-color" content="#38bdf8" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -39,9 +39,20 @@
   </div>
 
   <main class="container">
+    <!-- Call to Action untuk Mulai Petisi -->
+    <div class="card" style="background: linear-gradient(135deg, #38bdf8 0%, #0ea5e9 100%); color: white; text-align: center; margin: 16px 0;">
+      <h3 style="color: white; margin-bottom: 8px;">🚀 Punya Masalah yang Perlu Disuarakan?</h3>
+      <p style="color: rgba(255,255,255,0.9); margin-bottom: 16px; font-size: 14px;">
+        Buat petisi dengan validasi lengkap untuk memastikan kredibilitas dan dampak maksimal
+      </p>
+      <a class="btn" href="./create-petition.html" style="background: white; color: #38bdf8; font-weight: 600; padding: 12px 24px; border-radius: 8px; text-decoration: none; display: inline-block;">
+        ✨ Mulai Petisi Sekarang
+      </a>
+    </div>
+
     <div class="row space mt-12">
-      <h3>Daftar Petisi</h3>
-      <a class="btn primary" href="./petition-detail.html">Buat Petisi</a>
+      <h3>Daftar Petisi Aktif</h3>
+      <span class="pill">3 petisi tersedia</span>
     </div>
     <div class="grid mt-12">
       <article class="card">
@@ -59,6 +70,17 @@
           <a class="btn ghost" href="#">Bagikan</a>
         </div>
       </article>
+    </div>
+
+    <!-- Tombol Tambahan di Bawah -->
+    <div class="card mt-16" style="text-align: center; border: 2px dashed #38bdf8; background: rgba(30, 64, 175, 0.05);">
+      <h4 style="color: #38bdf8; margin-bottom: 8px;">Tidak Menemukan Petisi yang Sesuai?</h4>
+      <p style="color: var(--muted); margin-bottom: 16px; font-size: 14px;">
+        Buat petisi baru dengan sistem validasi yang ketat untuk memastikan kredibilitas
+      </p>
+      <a class="btn primary" href="./create-petition.html" style="padding: 12px 24px; font-size: 16px;">
+        📝 Buat Petisi Baru
+      </a>
     </div>
 
     <p class="footer">Prototipe statis. Tidak terhubung API.</p>

@@ -3,7 +3,7 @@
   --panel: #ffffff;
   --muted: #64748b; /* slate-500 */
   --text: #0f172a;  /* slate-900 */
-  --accent: #38bdf8; /* sky-400 */
+  --accent: #38bdf8; /* blue-700 - Logo blue */
   --danger: #ef476f;
   --success: #06d6a0;
   --warn: #f59e0b; /* amber-500 */
@@ -17,7 +17,7 @@
   --panel: #ffffff !important;
   --muted: #374151; /* dark grey for muted text */
   --text: #374151; /* dark grey for main text */
-  --accent: #38bdf8; /* light blue for titles and accents */
+  --accent: #38bdf8; /* blue-700 - Logo blue */
   --danger: #ef476f;
   --success: #06d6a0;
   --warn: #f59e0b;
@@ -139,13 +139,13 @@ html:not([data-theme]) {
   border-color: #e5e7eb !important;
 }
 
-/* Force dark blue accent for light theme */
-:root:not([data-theme]) a,
+/* Force dark blue accent for light theme, exclude button-style links */
+:root:not([data-theme]) a:not(.btn):not(.btn-hero-primary):not(.btn-hero-secondary):not(.btn-cta-primary):not(.btn-cta-secondary),
 :root:not([data-theme]) .tab.active,
 :root:not([data-theme]) .bottom-nav a.active,
 :root:not([data-theme]) .bottom-nav button.active {
-  color: #1e40af !important;
-  border-color: #1e40af !important;
+  color: #38bdf8 !important;
+  border-color: #38bdf8 !important;
 }
 
 /* Judul menggunakan biru muda di kedua mode */
@@ -183,34 +183,116 @@ h1, h2, h3, h4, h5, h6 {
 
 :root:not([data-theme]) .btn.primary,
 :root:not([data-theme]) .btn.plus-btn {
-  background: linear-gradient(135deg, #1e40af 0%, #1d4ed8 100%) !important;
+  background: linear-gradient(135deg, #38bdf8 0%, #1d4ed8 100%) !important;
   color: #ffffff !important;
   border: none !important;
 }
 
 /* Additional dark blue accent elements */
 :root:not([data-theme]) .brand {
-  background: linear-gradient(135deg, #1e40af, #1d4ed8) !important;
+  background: linear-gradient(135deg, #38bdf8, #1d4ed8) !important;
   -webkit-background-clip: text !important;
   background-clip: text !important;
   color: transparent !important;
 }
 
 :root:not([data-theme]) .switch input:checked + .slider {
-  background-color: #1e40af !important;
+  background-color: #38bdf8 !important;
 }
 
 :root:not([data-theme]) .switch input:focus + .slider {
-  box-shadow: 0 0 1px #1e40af !important;
+  box-shadow: 0 0 1px #38bdf8 !important;
 }
 
 /* Force dark blue for all accent elements */
 :root:not([data-theme]) *[style*="color: var(--accent)"],
 :root:not([data-theme]) *[style*="border-color: var(--accent)"] {
-  color: #1e40af !important;
-  border-color: #1e40af !important;
+  color: #38bdf8 !important;
+  border-color: #38bdf8 !important;
 }
 a { color: var(--accent); text-decoration: none; }
+/* Global accent utility to color brand text like "SpeakUp!" */
+.accent { color: #38bdf8 !important; }
+
+/* Brand name styling - specifically for "SpeakUp!" text */
+.brand-name {
+  color: #38bdf8 !important; /* Logo blue color - same as --accent */
+  font-weight: 700 !important; /* Keep it bold */
+}
+
+/* Ensure brand name is blue in all contexts */
+h1 .brand-name,
+h2 .brand-name,
+h3 .brand-name,
+h4 .brand-name,
+h5 .brand-name,
+h6 .brand-name,
+p .brand-name,
+div .brand-name,
+span .brand-name {
+  color: #38bdf8 !important;
+  font-weight: 700 !important;
+}
+
+/* Use logo blue for specific headings where only the brand name should be highlighted */
+.stats-header .accent,
+.how-it-works-header .accent {
+  color: #38bdf8 !important;
+}
+
+/* Force brand-name class to override all other styles */
+.accent.brand-name,
+.brand-name.accent,
+span.brand-name {
+  color: #38bdf8 !important;
+  font-weight: 700 !important;
+}
+
+/* Override any inherited styles that might affect brand name color */
+* .brand-name {
+  color: #38bdf8 !important;
+  font-weight: 700 !important;
+}
+
+/* Additional fallbacks for maximum browser compatibility */
+.brand-name,
+[class*="brand-name"] {
+  color: #38bdf8 !important;
+  font-weight: bold !important;
+  font-weight: 700 !important;
+}
+
+/* Specific overrides for common parent elements */
+h1 > .brand-name,
+h2 > .brand-name,
+h3 > .brand-name,
+p > .brand-name,
+div > .brand-name,
+span > .brand-name,
+a > .brand-name {
+  color: #38bdf8 !important;
+  font-weight: 700 !important;
+}
+
+/* Ultimate fallback - inline style simulation via CSS */
+.brand-name[style*="color"] {
+  color: #38bdf8 !important;
+}
+
+/* Force override any theme or inherited colors */
+:root .brand-name,
+:root:not([data-theme]) .brand-name,
+[data-theme="dark"] .brand-name,
+[data-theme="light"] .brand-name {
+  color: #38bdf8 !important;
+  font-weight: 700 !important;
+}
+
+/* Ensure only the brand word is blue; rest of the title uses normal text color */
+.stats-header h2,
+.how-it-works-header h2 {
+  color: var(--text) !important;
+}
 
 .container { max-width: 1024px; margin: 0 auto; padding: 20px 24px; }
 .header { position: sticky; top: 0; z-index: 10; -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px); background: var(--bg); border-bottom: 1px solid var(--border); }
@@ -219,7 +301,7 @@ a { color: var(--accent); text-decoration: none; }
 .header .logo img { height: 12px; width: auto; }
 .actions { display: flex; gap: 8px; align-items: center; }
 .btn { background: var(--panel); color: var(--text); border: 1px solid var(--border); padding: 8px 12px; border-radius: 8px; cursor: pointer; box-shadow: var(--shadow); }
-.btn.primary { background: linear-gradient(135deg, #0ea5e9 0%, #38bdf8 100%); color: #ffffff; border: none; font-weight: 600; }
+.btn.primary { background: linear-gradient(135deg, #38bdf8 0%, #0ea5e9 100%); color: #ffffff; border: none; font-weight: 600; }
 .btn.ghost { background: transparent; border: 1px solid var(--border); }
 .btn.warn { background: var(--warn); color: #ffffff; border: none; }
 
@@ -409,13 +491,12 @@ th { color: var(--muted); font-weight: 600; }
 
 /* iOS Safari specific fixes */
 @supports (-webkit-touch-callout: none) {
-  .modal { -webkit-overflow-scrolling: touch; }
   .bottom-nav { -webkit-transform: translateZ(0); }
   .card { -webkit-transform: translateZ(0); }
 }
 
 /* Firefox specific */
-@-moz-document url-prefix() {
+@supports (-moz-appearance: none) {
   .btn { -moz-appearance: none; }
   .input, select, textarea { -moz-appearance: none; }
 }
@@ -440,14 +521,15 @@ th { color: var(--muted); font-weight: 600; }
 .file-upload-container .image-preview img { max-width: 100%; max-height: 200px; border-radius: 8px; border: 1px solid var(--border); }
 .file-upload-container .remove-btn { margin-top: 8px; color: var(--danger); }
 
-/* Ensure hero CTA button text stays white on initial paint */
+/* Ensure hero/CTA secondary button text stays white on initial paint */
 .btn-hero-primary,
-.btn-hero-secondary {
+.btn-hero-secondary,
+.btn-cta-secondary {
   color: #ffffff !important;
 }
 
 /* Desktop Top Navigation */
-.desktop-nav { position: fixed; top: 0; left: 0; right: 0; background: var(--panel); border-bottom: 1px solid var(--border); display: none; z-index: 30; backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); }
+.desktop-nav { position: fixed; top: 0; left: 0; right: 0; background: var(--panel); border-bottom: 1px solid var(--border); display: none; z-index: 30; -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px); }
 .desktop-nav-inner { max-width: 1024px; margin: 0 auto; padding: 12px 24px; display: flex; align-items: center; justify-content: space-between; }
 .desktop-nav .nav-left { display: flex; align-items: center; gap: 32px; }
 .desktop-nav .nav-right { display: flex; align-items: center; gap: 16px; }
@@ -456,8 +538,8 @@ th { color: var(--muted); font-weight: 600; }
 .desktop-nav .nav-item.active { background: var(--accent); color: #ffffff; }
 .desktop-nav .nav-item svg { width: 18px; height: 18px; flex-shrink: 0; }
 .desktop-nav .nav-item span { font-size: 14px; }
-.desktop-nav .nav-item.plus-btn { background: linear-gradient(135deg, #0ea5e9 0%, #38bdf8 100%); color: #ffffff; font-weight: 600; }
-.desktop-nav .nav-item.plus-btn:hover { background: linear-gradient(135deg, #0284c7 0%, #0ea5e9 100%); }
+.desktop-nav .nav-item.plus-btn { background: linear-gradient(135deg, #38bdf8 0%, #0ea5e9 100%); color: #ffffff; font-weight: 600; }
+.desktop-nav .nav-item.plus-btn:hover { background: linear-gradient(135deg, #0284c7 0%, #38bdf8 100%); }
 
 /* Bottom Nav */
 .bottom-nav { position: fixed; left: 0; right: 0; bottom: 0; background: var(--panel); border-top: 1px solid var(--border); display: none; z-index: 40; }
@@ -465,7 +547,7 @@ th { color: var(--muted); font-weight: 600; }
 .bottom-nav a, .bottom-nav button { display: flex; align-items: center; justify-content: center; padding: 10px 8px; border-radius: 10px; color: var(--text); border: 1px solid var(--border); background: transparent; }
 .bottom-nav a svg, .bottom-nav button svg { width: 20px; height: 20px; }
 .bottom-nav a.active, .bottom-nav button.active { background: var(--accent); border-color: var(--accent); color: #ffffff; }
-.bottom-nav button.plus-btn { background: linear-gradient(135deg, #0ea5e9 0%, #38bdf8 100%); color: #ffffff; border: none; font-weight: 600; }
+.bottom-nav button.plus-btn { background: linear-gradient(135deg, #38bdf8 0%, #0ea5e9 100%); color: #ffffff; border: none; font-weight: 600; }
 .bottom-nav button.plus-btn svg { width: 24px; height: 24px; }
 
 /* Desktop Navigation Display (only for pages with .desktop-page) */

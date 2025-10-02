@@ -1,4 +1,4 @@
-image.png<!doctype html>
+<!doctype html>
 <html lang="id">
 <head>
   <meta charset="utf-8" />
@@ -86,7 +86,7 @@ image.png<!doctype html>
                   Dokter yang peduli dengan kesehatan mental dan kesejahteraan masyarakat. Berbagi pengetahuan medis dan pengalaman untuk membantu sesama. 🩺💙
                 </p>
                 <div style="display: flex; align-items: center; gap: 16px; margin-bottom: 16px;">
-                  <a href="https://dika-medical-blog.com" target="_blank" style="color: #667eea; text-decoration: none; display: flex; align-items: center; gap: 4px;">
+                  <a href="https://dika-medical-blog.com" target="_blank" rel="noopener" style="color: #667eea; text-decoration: none; display: flex; align-items: center; gap: 4px;">
                     <svg width="16" height="16" fill="currentColor" viewBox="0 0 20 20">
                       <path fill-rule="evenodd" d="M12.586 4.586a2 2 0 112.828 2.828l-3 3a2 2 0 01-2.828 0 1 1 0 00-1.414 1.414 4 4 0 005.656 0l3-3a4 4 0 00-5.656-5.656l-1.5 1.5a1 1 0 101.414 1.414l1.5-1.5zm-5 5a2 2 0 012.828 0 1 1 0 101.414-1.414 4 4 0 00-5.656 0l-3 3a4 4 0 105.656 5.656l1.5-1.5a1 1 0 10-1.414-1.414l-1.5 1.5a2 2 0 11-2.828-2.828l3-3z" clip-rule="evenodd"/>
                     </svg>
@@ -94,30 +94,41 @@ image.png<!doctype html>
                   </a>
                   <span style="color: #6b7280; font-size: 14px;">📍 Jakarta, Indonesia</span>
                 </div>
+                
+                <!-- Profile Stats -->
+                <div style="display: flex; gap: 32px; margin-bottom: 16px;">
+                  <div style="text-align: center;">
+                    <div style="font-size: 20px; font-weight: 700; color: #1f2937;">1,234</div>
+                    <div style="font-size: 14px; color: #6b7280;">Posts</div>
+                  </div>
+                  <div style="text-align: center;">
+                    <div style="font-size: 20px; font-weight: 700; color: #1f2937;">5,678</div>
+                    <div style="font-size: 14px; color: #6b7280;">Followers</div>
+                  </div>
+                  <div style="text-align: center;">
+                    <div style="font-size: 20px; font-weight: 700; color: #1f2937;">890</div>
+                    <div style="font-size: 14px; color: #6b7280;">Following</div>
+                  </div>
+                </div>
               </div>
-              <button onclick="openDMModal()" style="background: none; border: none; color: #667eea; cursor: pointer; padding: 8px; border-radius: 50%; transition: all 0.2s; display: flex; align-items: center; justify-content: center;" onmouseover="this.style.backgroundColor='#f3f4f6'" onmouseout="this.style.backgroundColor='transparent'" title="Kirim Pesan">
-                <svg width="24" height="24" fill="currentColor" viewBox="0 0 20 20">
-                  <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"/>
-                  <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"/>
-                </svg>
-              </button>
-            </div>
-            
-            <!-- Profile Stats -->
-            <div style="display: flex; gap: 32px; padding-top: 16px; border-top: 1px solid #e5e7eb;">
-              <div style="text-align: center;">
-                <div style="font-size: 20px; font-weight: 700; color: #1f2937;">1,234</div>
-                <div style="font-size: 14px; color: #6b7280;">Posts</div>
+              <div style="display: flex; gap: 8px; align-items: center;">
+                <button onclick="openDMModal()" style="background: none; border: none; color: #667eea; cursor: pointer; padding: 8px; border-radius: 50%; transition: all 0.2s; display: flex; align-items: center; justify-content: center;" onmouseover="this.style.backgroundColor='#f3f4f6'" onmouseout="this.style.backgroundColor='transparent'" title="Kirim Pesan">
+                  <svg width="24" height="24" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"/>
+                    <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"/>
+                  </svg>
+                </button>
+                <button onclick="shareProfile()" style="background: none; border: none; color: #667eea; cursor: pointer; padding: 8px; border-radius: 50%; transition: all 0.2s; display: flex; align-items: center; justify-content: center;" onmouseover="this.style.backgroundColor='#f3f4f6'" onmouseout="this.style.backgroundColor='transparent'" title="Bagikan Profil">
+                  <svg width="24" height="24" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M15 8a3 3 0 10-2.977-2.63l-4.94 2.47a3 3 0 100 4.319l4.94 2.47a3 3 0 10.895-1.789l-4.94-2.47a3.027 3.027 0 000-.74l4.94-2.47C13.456 7.68 14.19 8 15 8z"/>
+                  </svg>
+                </button>
+                <button onclick="reportUser()" style="background: none; border: none; color: #ef4444; cursor: pointer; padding: 8px; border-radius: 50%; transition: all 0.2s; display: flex; align-items: center; justify-content: center;" onmouseover="this.style.backgroundColor='#fef2f2'" onmouseout="this.style.backgroundColor='transparent'" title="Laporkan Orang Ini">
+                  <svg width="24" height="24" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"/>
+                  </svg>
+                </button>
               </div>
-              <div style="text-align: center;">
-                <div style="font-size: 20px; font-weight: 700; color: #1f2937;">5,678</div>
-                <div style="font-size: 14px; color: #6b7280;">Followers</div>
-              </div>
-              <div style="text-align: center;">
-                <div style="font-size: 20px; font-weight: 700; color: #1f2937;">890</div>
-                <div style="font-size: 14px; color: #6b7280;">Following</div>
-              </div>
-            </div>
           </div>
         </div>
 
@@ -194,7 +205,7 @@ image.png<!doctype html>
                   <span style="color: #6b7280; font-size: 14px;">1 hari lalu</span>
                 </div>
                 <div class="meta" style="margin-bottom: 12px;">
-                  <span class="badge" style="background: #dbeafe; color: #1e40af; padding: 4px 8px; border-radius: 4px; font-size: 12px; font-weight: 500;">education</span>
+                  <span class="badge" style="background: #dbeafe; color: #38bdf8; padding: 4px 8px; border-radius: 4px; font-size: 12px; font-weight: 500;">education</span>
                 </div>
               </div>
             </div>
@@ -202,15 +213,9 @@ image.png<!doctype html>
               Berbagi pengalaman tentang pentingnya pendidikan inklusif. Setiap anak berhak mendapat pendidikan yang berkualitas, terlepas dari latar belakang mereka. Video ini menceritakan kisah inspiratif dari seorang guru yang mengubah hidup murid-muridnya.
             </p>
             <div style="margin-bottom: 16px; position: relative;">
-              <video 
-                style="width: 100%; height: 200px; border-radius: 8px; object-fit: cover; background: #1f2937;"
-                controls
-                preload="metadata"
-                poster="assets/img/timeline/pexels-idinarisk-3012422.jpg"
-              >
+              <video controls style="width: 100%; height: 200px; border-radius: 8px; object-fit: cover;">
                 <source src="assets/video/2073129-uhd_3840_2160_30fps.mp4" type="video/mp4">
-                <source src="assets/video/3186590-uhd_3840_2160_30fps.mp4" type="video/mp4">
-                Browser Anda tidak mendukung video HTML5.
+                Browser Anda tidak mendukung video.
               </video>
             </div>
             <div style="display: flex; gap: 24px; color: #6b7280; font-size: 14px;">
@@ -306,15 +311,9 @@ image.png<!doctype html>
               Dokumentasi kegiatan komunitas kemarin. Melihat semangat para relawan yang membantu membersihkan pantai dari sampah plastik. Setiap aksi kecil memang penting untuk menjaga lingkungan kita! 🌊♻️
             </p>
             <div style="margin-bottom: 16px; position: relative;">
-              <video 
-                style="width: 100%; height: 200px; border-radius: 8px; object-fit: cover; background: #1f2937;"
-                controls
-                preload="metadata"
-                poster="assets/img/timeline/pexels-alfinauzikri-2968077.jpg"
-              >
-                <source src="assets/video/3186590-uhd_3840_2160_30fps.mp4" type="video/mp4">
+              <video controls style="width: 100%; height: 200px; border-radius: 8px; object-fit: cover;">
                 <source src="assets/video/3691102-uhd_3840_2160_25fps.mp4" type="video/mp4">
-                Browser Anda tidak mendukung video HTML5.
+                Browser Anda tidak mendukung video.
               </video>
             </div>
             <div style="display: flex; gap: 24px; color: #6b7280; font-size: 14px;">
@@ -596,6 +595,198 @@ image.png<!doctype html>
       newMessage.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
       
       showNotification('Pesan berhasil dikirim! 💬', 'success');
+    }
+
+    // Share Profile Function
+    function shareProfile() {
+      if (navigator.share) {
+        navigator.share({
+          title: 'Profil Dr. Dika - SpeakUp!',
+          text: 'Lihat profil Dr. Dika di SpeakUp! - Dokter yang peduli dengan kesehatan mental dan kesejahteraan masyarakat.',
+          url: window.location.href
+        });
+      } else {
+        // Fallback untuk browser yang tidak support Web Share API
+        const url = window.location.href;
+        navigator.clipboard.writeText(url).then(() => {
+          showNotification('Link profil berhasil disalin ke clipboard! 📋', 'success');
+        }).catch(() => {
+          showNotification('Link profil: ' + url, 'info');
+        });
+      }
+    }
+
+    // Report User Function
+    function reportUser() {
+      // Hapus modal lama jika ada
+      const existingModal = document.querySelector('.report-modal');
+      if (existingModal) {
+        existingModal.remove();
+      }
+
+      // Buat modal laporan
+      const modal = document.createElement('div');
+      modal.className = 'report-modal';
+      modal.style.cssText = `
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0,0,0,0.5);
+        z-index: 2000;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        animation: fadeIn 0.3s ease-out;
+      `;
+
+      modal.innerHTML = `
+        <div class="report-modal-content" style="
+          background: white;
+          border-radius: 12px;
+          width: 90%;
+          max-width: 500px;
+          max-height: 80vh;
+          overflow: hidden;
+          box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1);
+          animation: slideUp 0.3s ease-out;
+        ">
+          <div class="report-header" style="
+            padding: 20px;
+            border-bottom: 1px solid #e5e7eb;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+          ">
+            <h3 style="margin: 0; font-size: 18px; font-weight: 600; color: #1f2937;">Laporkan Pengguna</h3>
+            <button onclick="closeReportModal()" style="
+              background: none;
+              border: none;
+              font-size: 24px;
+              cursor: pointer;
+              color: #6b7280;
+              padding: 4px;
+              border-radius: 4px;
+            ">&times;</button>
+          </div>
+          
+          <div class="report-content" style="padding: 20px;">
+            <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 20px; padding: 16px; background: #f9fafb; border-radius: 8px;">
+              <img src="assets/img/profil picture/Dika - Dokter.jpg" alt="Dr. Dika" style="
+                width: 40px;
+                height: 40px;
+                border-radius: 50%;
+                object-fit: cover;
+              ">
+              <div>
+                <h4 style="margin: 0; font-size: 16px; font-weight: 600; color: #1f2937;">Dr. Dika</h4>
+                <p style="margin: 0; font-size: 14px; color: #6b7280;">@dika_doctor</p>
+              </div>
+            </div>
+            
+            <div style="margin-bottom: 20px;">
+              <label style="display: block; font-weight: 600; color: #374151; margin-bottom: 8px;">Alasan Pelaporan:</label>
+              <select id="reportReason" style="
+                width: 100%;
+                padding: 12px;
+                border: 1px solid #d1d5db;
+                border-radius: 8px;
+                font-size: 14px;
+                background: white;
+                outline: none;
+              ">
+                <option value="">Pilih alasan pelaporan...</option>
+                <option value="spam">Spam atau konten berulang</option>
+                <option value="harassment">Pelecehan atau intimidasi</option>
+                <option value="hate_speech">Ujaran kebencian</option>
+                <option value="fake_info">Informasi palsu</option>
+                <option value="inappropriate">Konten tidak pantas</option>
+                <option value="other">Lainnya</option>
+              </select>
+            </div>
+            
+            <div style="margin-bottom: 20px;">
+              <label style="display: block; font-weight: 600; color: #374151; margin-bottom: 8px;">Detail Tambahan (Opsional):</label>
+              <textarea id="reportDetails" placeholder="Jelaskan lebih detail tentang pelaporan Anda..." style="
+                width: 100%;
+                min-height: 100px;
+                padding: 12px;
+                border: 1px solid #d1d5db;
+                border-radius: 8px;
+                font-size: 14px;
+                font-family: inherit;
+                resize: vertical;
+                outline: none;
+              "></textarea>
+            </div>
+            
+            <div style="display: flex; gap: 12px; justify-content: flex-end;">
+              <button onclick="closeReportModal()" style="
+                background: #f3f4f6;
+                color: #374151;
+                border: none;
+                padding: 12px 24px;
+                border-radius: 8px;
+                font-weight: 600;
+                cursor: pointer;
+                transition: background-color 0.2s;
+              " onmouseover="this.style.backgroundColor='#e5e7eb'" onmouseout="this.style.backgroundColor='#f3f4f6'">
+                Batal
+              </button>
+              <button onclick="submitReport()" style="
+                background: #ef4444;
+                color: white;
+                border: none;
+                padding: 12px 24px;
+                border-radius: 8px;
+                font-weight: 600;
+                cursor: pointer;
+                transition: background-color 0.2s;
+              " onmouseover="this.style.backgroundColor='#dc2626'" onmouseout="this.style.backgroundColor='#ef4444'">
+                Laporkan
+              </button>
+            </div>
+          </div>
+        </div>
+      `;
+
+      document.body.appendChild(modal);
+
+      // Close modal saat klik di luar
+      modal.addEventListener('click', (e) => {
+        if (e.target === modal) {
+          closeReportModal();
+        }
+      });
+    }
+
+    // Close Report Modal
+    function closeReportModal() {
+      const modal = document.querySelector('.report-modal');
+      if (modal) {
+        modal.style.animation = 'fadeOut 0.3s ease-in';
+        setTimeout(() => {
+          if (modal.parentNode) {
+            modal.remove();
+          }
+        }, 300);
+      }
+    }
+
+    // Submit Report
+    function submitReport() {
+      const reason = document.getElementById('reportReason').value;
+      const details = document.getElementById('reportDetails').value.trim();
+      
+      if (!reason) {
+        showNotification('Silakan pilih alasan pelaporan!', 'error');
+        return;
+      }
+
+      // Simulasi pengiriman laporan
+      showNotification('Laporan berhasil dikirim! Tim moderasi akan meninjau laporan ini. 🚨', 'success');
+      closeReportModal();
     }
 
     // Notification System

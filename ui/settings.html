@@ -2,7 +2,7 @@
 <html lang="id">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5, user-scalable=yes, viewport-fit=cover" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <meta name="format-detection" content="telephone=no" />
   <meta name="theme-color" content="#38bdf8" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -133,7 +133,6 @@
       flex: 1;
       padding: 16px;
       overflow-y: auto;
-      -webkit-overflow-scrolling: touch;
       background: var(--bg);
     }
 
@@ -212,7 +211,7 @@
             <div class="pill">Aktifkan untuk mode gelap</div>
           </div>
           <label class="switch">
-            <input id="switchTheme" type="checkbox" />
+            <input id="switchTheme" type="checkbox" aria-label="Toggle Tema Gelap" />
             <span class="slider"></span>
           </label>
         </div>
@@ -221,7 +220,7 @@
             <div class="label">Bahasa</div>
             <div class="pill">Pilih bahasa antarmuka</div>
           </div>
-          <select class="btn" style="min-width: 140px;">
+          <select class="btn" style="min-width: 140px;" title="Pilih Bahasa">
             <option>Bahasa Indonesia</option>
             <option>English</option>
           </select>
@@ -237,7 +236,7 @@
             <div class="pill">Terima notifikasi untuk dukungan & balasan</div>
           </div>
           <label class="switch">
-            <input id="switchNotif" type="checkbox" />
+            <input id="switchNotif" type="checkbox" aria-label="Toggle Notifikasi Push" />
             <span class="slider"></span>
           </label>
         </div>
@@ -247,7 +246,7 @@
             <div class="pill">Terima notifikasi melalui email</div>
           </div>
           <label class="switch">
-            <input id="switchEmail" type="checkbox" />
+            <input id="switchEmail" type="checkbox" aria-label="Toggle Notifikasi Email" />
             <span class="slider"></span>
           </label>
         </div>
@@ -257,7 +256,7 @@
             <div class="pill">Dapatkan update tentang petisi yang didukung</div>
           </div>
           <label class="switch">
-            <input id="switchPetition" type="checkbox" />
+            <input id="switchPetition" type="checkbox" aria-label="Toggle Notifikasi Petisi" />
             <span class="slider"></span>
           </label>
         </div>
@@ -286,7 +285,7 @@
             <div class="pill">Tingkatkan keamanan akun</div>
           </div>
           <label class="switch">
-            <input id="switch2FA" type="checkbox" />
+            <input id="switch2FA" type="checkbox" aria-label="Toggle Two-Factor Authentication" />
             <span class="slider"></span>
           </label>
         </div>
@@ -301,7 +300,7 @@
             <div class="pill">Izinkan orang lain melihat profil Anda</div>
           </div>
           <label class="switch">
-            <input id="switchPublicProfile" type="checkbox" />
+            <input id="switchPublicProfile" type="checkbox" aria-label="Toggle Profil Publik" />
             <span class="slider"></span>
           </label>
         </div>
@@ -311,7 +310,7 @@
             <div class="pill">Izinkan profil muncul di hasil pencarian</div>
           </div>
           <label class="switch">
-            <input id="switchSearchable" type="checkbox" />
+            <input id="switchSearchable" type="checkbox" aria-label="Toggle Pencarian" />
             <span class="slider"></span>
           </label>
         </div>
@@ -333,7 +332,7 @@
             <div class="pill">Saring konten yang tidak pantas</div>
           </div>
           <label class="switch">
-            <input id="switchContentFilter" type="checkbox" checked />
+            <input id="switchContentFilter" type="checkbox" checked aria-label="Toggle Filter Konten" />
             <span class="slider"></span>
           </label>
         </div>
