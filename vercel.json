@@ -1,5 +1,6 @@
 {
   "version": 2,
+  "public": true,
   "builds": [
     {
       "src": "ui/**/*",
@@ -8,12 +9,72 @@
   ],
   "routes": [
     {
-      "src": "/(.*)",
-      "dest": "/ui/$1"
-    },
-    {
       "src": "/",
       "dest": "/ui/desktop.html"
+    },
+    {
+      "src": "/desktop.html",
+      "dest": "/ui/desktop.html"
+    },
+    {
+      "src": "/petitions-desktop.html",
+      "dest": "/ui/petitions-desktop.html"
+    },
+    {
+      "src": "/create-petition-desktop.html",
+      "dest": "/ui/create-petition-desktop.html"
+    },
+    {
+      "src": "/profile-desktop.html",
+      "dest": "/ui/profile-desktop.html"
+    },
+    {
+      "src": "/settings-desktop.html",
+      "dest": "/ui/settings-desktop.html"
+    },
+    {
+      "src": "/timeline-desktop.html",
+      "dest": "/ui/timeline-desktop.html"
+    },
+    {
+      "src": "/sign-desktop.html",
+      "dest": "/ui/sign-desktop.html"
+    },
+    {
+      "src": "/admin-petitions-desktop.html",
+      "dest": "/ui/admin-petitions-desktop.html"
+    },
+    {
+      "src": "/admin-verified-badge-desktop.html",
+      "dest": "/ui/admin-verified-badge-desktop.html"
+    },
+    {
+      "src": "/request-verified-badge-desktop.html",
+      "dest": "/ui/request-verified-badge-desktop.html"
+    },
+    {
+      "src": "/edit-profile-desktop.html",
+      "dest": "/ui/edit-profile-desktop.html"
+    },
+    {
+      "src": "/terms-privacy-desktop.html",
+      "dest": "/ui/terms-privacy-desktop.html"
+    },
+    {
+      "src": "/oauth-callback.html",
+      "dest": "/ui/oauth-callback.html"
+    },
+    {
+      "src": "/assets/(.*)",
+      "dest": "/ui/assets/$1"
+    },
+    {
+      "src": "/config/(.*)",
+      "dest": "/ui/config/$1"
+    },
+    {
+      "src": "/favicon.ico",
+      "dest": "/ui/favicon.ico"
     }
   ]
 }
