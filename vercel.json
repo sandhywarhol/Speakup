@@ -2,18 +2,18 @@
   "version": 2,
   "builds": [
     {
-      "src": "public/**/*",
+      "src": "ui/**/*",
       "use": "@vercel/static"
     }
   ],
   "routes": [
     {
       "src": "/",
-      "dest": "/public/desktop.html"
+      "dest": "/ui/desktop.html"
     },
     {
       "src": "/(.*)",
-      "dest": "/public/$1"
+      "dest": "/ui/$1"
     }
   ]
 }
