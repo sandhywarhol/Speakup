@@ -8,6 +8,10 @@
   ],
   "routes": [
     {
+      "src": "/",
+      "dest": "/public/desktop.html"
+    },
+    {
       "src": "/(.*)",
       "dest": "/public/$1"
     }
