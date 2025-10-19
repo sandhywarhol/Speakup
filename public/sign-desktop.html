@@ -1,0 +1,407 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>SpeakUp! — Sign In / Sign Up</title>
+  <link rel="icon" type="image/png" href="assets/logo/logo apps.png?v=2">
+  <link rel="shortcut icon" type="image/png" href="assets/logo/logo apps.png?v=2">
+  <link rel="stylesheet" href="assets/css/style.css" />
+  <style>
+    /* Critical CSS - Prevent flash of unstyled content */
+    body {
+      visibility: hidden;
+    }
+    
+    body.loaded {
+      visibility: visible;
+    }
+    :root { --bg:#ffffff; --panel:#ffffff; --text:#374151; --muted:#64748b; --accent:#38bdf8; --border:#e5e7eb; }
+    .logo img[data-theme="light"]{display:block!important}.logo img[data-theme="dark"]{display:none!important}
+    html,body,main,.desktop-container,.desktop-nav,.card,.tabs .tab,.modal .box{background:#ffffff!important}
+    body{margin:0;padding:0;min-height:100vh;background:#ffffff!important;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif}
+    .desktop-nav{display:block!important}
+    .desktop-container{max-width:1024px;margin:0 auto;padding:24px 32px}
+    .desktop-nav .nav-item.active{background:#ffffff!important;color:#374151!important;border:1px solid #e5e7eb!important}
+    .desktop-nav .nav-item.plus-btn,.btn.primary{background:#ffffff!important;color:#374151!important;border:1px solid #e5e7eb!important}
+    body.desktop-page, body.desktop-page *:not(h1):not(h2):not(h3):not(h4):not(h5):not(h6){color:#374151!important}
+    
+    /* Logo SpeakUp! berwarna biru */
+    .desktop-nav .logo { 
+      color: #38bdf8 !important; 
+      font-weight: 800; 
+      letter-spacing: 0.5px; 
+    }
+
+    /* Force logo color with maximum specificity */
+    .desktop-page .desktop-nav .logo,
+    body.desktop-page .desktop-nav .logo,
+    html body.desktop-page .desktop-nav .logo {
+      color: #38bdf8 !important;
+      font-weight: 800 !important;
+      letter-spacing: 0.5px !important;
+    }
+    
+    /* Sign page specific styles */
+    .sign-container { max-width: 400px; margin: 60px auto; }
+    .sign-tabs { display: flex; margin-bottom: 24px; border-bottom: 1px solid var(--border); }
+    .sign-tab { flex: 1; padding: 12px 16px; text-align: center; background: transparent; border: none; color: var(--muted); cursor: pointer; border-bottom: 2px solid transparent; }
+    .sign-tab.active { color: var(--accent); border-bottom-color: var(--accent); }
+    .sign-form { display: none; }
+    .sign-form.active { display: block; }
+    .form-group { margin-bottom: 16px; }
+    .form-group label { display: block; margin-bottom: 6px; font-weight: 500; }
+    .form-group input { width: 100%; padding: 12px; border: 1px solid var(--border); border-radius: 8px; font-size: 14px; }
+    .form-group input:focus { outline: none; border-color: var(--accent); }
+    .google-btn { width: 100%; padding: 12px; background: #ffffff; border: 1px solid var(--border); border-radius: 8px; display: flex; align-items: center; justify-content: center; gap: 8px; cursor: pointer; margin-bottom: 16px; }
+    .google-btn:hover { background: #f9fafb; }
+    .divider { text-align: center; margin: 16px 0; position: relative; color: var(--muted); height: 1px; }
+    .divider::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px; background: var(--border); }
+    .divider span { display: none; }
+    .forgot-link { text-align: right; margin-top: 8px; }
+    .forgot-link a { color: var(--accent); text-decoration: none; font-size: 14px; }
+    .forgot-link a:hover { text-decoration: underline; }
+    .terms { font-size: 12px; color: var(--muted); }
+    .terms a { font-size: 12px; }
+  </style>
+</head>
+<body class="desktop-page">
+  <div class="desktop-container">
+    <nav class="desktop-nav" aria-label="Navigasi desktop">
+      <div class="desktop-nav-inner">
+        <div class="nav-left">
+          <div class="logo" style="font-weight: 800; letter-spacing: 0.5px; color: #111827;">SpeakUp!</div>
+          <a href="./desktop.html" class="nav-item" title="Home">
+            <svg fill="currentColor" viewBox="0 0 20 20"><path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"/></svg>
+            <span>Home</span>
+          </a>
+        </div>
+        <div class="nav-right">
+          <a href="./sign-desktop.html" class="nav-item active" title="Sign">
+            <svg fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M3 10a1 1 0 011-1h8.586l-3.293-3.293a1 1 0 111.414-1.414l5 5a1 1 0 010 1.414l-5 5a1 1 0 11-1.414-1.414L12.586 11H4a1 1 0 01-1-1z" clip-rule="evenodd"/></svg>
+            <span>Sign</span>
+          </a>
+        </div>
+      </div>
+    </nav>
+
+    <main>
+      <div class="sign-container">
+        <div class="card">
+          <div class="sign-tabs">
+            <button class="sign-tab active" onclick="switchTab('login')">Masuk</button>
+            <button class="sign-tab" onclick="switchTab('register')">Daftar</button>
+          </div>
+
+          <!-- Login Form -->
+          <form class="sign-form active" id="loginForm">
+            <h3 style="text-align: center; margin-bottom: 24px; color: #38bdf8;">Selamat Datang Kembali</h3>
+            
+            <button type="button" class="google-btn" onclick="loginWithGoogle()">
+              <svg width="20" height="20" viewBox="0 0 24 24">
+                <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+                <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+                <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
+                <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
+              </svg>
+              Masuk dengan Google
+            </button>
+
+            <div class="divider"><span></span></div>
+
+            <div class="form-group">
+              <label for="loginEmail">Email</label>
+              <input type="email" id="loginEmail" name="email" required placeholder="nama@email.com">
+            </div>
+
+            <div class="form-group">
+              <label for="loginPassword">Password</label>
+              <input type="password" id="loginPassword" name="password" required placeholder="Masukkan password">
+            </div>
+
+            <div class="forgot-link">
+              <a href="#forgot">Lupa password?</a>
+            </div>
+
+            <button type="submit" class="btn primary" style="width: 100%; padding: 12px; margin-top: 16px;">Masuk</button>
+          </form>
+
+          <!-- Register Form -->
+          <form class="sign-form" id="registerForm">
+            <h3 style="text-align: center; margin-bottom: 24px; color: #38bdf8;">Bergabung dengan SpeakUp!</h3>
+            
+            <button type="button" class="google-btn" onclick="registerWithGoogle()">
+              <svg width="20" height="20" viewBox="0 0 24 24">
+                <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+                <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+                <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
+                <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
+              </svg>
+              Daftar dengan Google
+            </button>
+
+            <div class="divider"><span></span></div>
+
+            <div class="form-group">
+              <label for="registerName">Nama Lengkap</label>
+              <input type="text" id="registerName" name="name" required placeholder="Nama lengkap Anda">
+            </div>
+
+            <div class="form-group">
+              <label for="registerEmail">Email</label>
+              <input type="email" id="registerEmail" name="email" required placeholder="nama@email.com">
+            </div>
+
+            <div class="form-group">
+              <label for="registerPassword">Password</label>
+              <input type="password" id="registerPassword" name="password" required placeholder="Minimal 8 karakter">
+            </div>
+
+            <div class="form-group">
+              <label for="confirmPassword">Konfirmasi Password</label>
+              <input type="password" id="confirmPassword" name="confirmPassword" required placeholder="Ulangi password">
+            </div>
+
+            <div class="form-group terms">
+              <label style="display: flex; align-items: center; gap: 8px;">
+                <input type="checkbox" required style="width: auto;">
+                Saya setuju dengan <a href="./terms-privacy-desktop.html" style="color: var(--accent);">Syarat & Ketentuan</a> dan <a href="./terms-privacy-desktop.html" style="color: var(--accent);">Kebijakan Privasi</a>
+              </label>
+            </div>
+
+            <button type="submit" class="btn primary" style="width: 100%; padding: 12px; margin-top: 16px;">Daftar Sekarang</button>
+          </form>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- Supabase SDK -->
+  
+  
+  <script>
+    // Guard jalankan server dari start-server
+    (function(){
+      if (location.protocol === 'file:') {
+        alert('Jalankan server dari start-server.bat!');
+        location.href = 'http://localhost:8000/sign-desktop.html';
+      }
+    })();
+
+    // Initialize Supabase client
+    let supabase;
+    
+    // Wait for config to load
+    document.addEventListener('DOMContentLoaded', function() {
+      // Initialize Supabase after config is loaded
+      if (window.getSupabase) {
+        supabase = window.getSupabase();
+      } else if (window.SUPABASE_CONFIG && window.supabase && window.supabase.createClient) {
+        supabase = window.supabase.createClient(
+          window.SUPABASE_CONFIG.url,
+          window.SUPABASE_CONFIG.anonKey
+        );
+      }
+      
+      // Make page visible after initialization
+      document.body.classList.add('loaded');
+    });
+    
+    function switchTab(tab) {
+      // Remove active class from all tabs and forms
+      document.querySelectorAll('.sign-tab').forEach(t => t.classList.remove('active'));
+      document.querySelectorAll('.sign-form').forEach(f => f.classList.remove('active'));
+      
+      // Add active class to clicked tab and corresponding form
+      event.target.classList.add('active');
+      document.getElementById(tab + 'Form').classList.add('active');
+    }
+
+    async function loginWithGoogle() {
+      if (!supabase) {
+        alert('Supabase belum diinisialisasi. Silakan refresh halaman.');
+        return;
+      }
+      
+      try {
+        const { data, error } = await supabase.auth.signInWithOAuth({
+          provider: 'google',
+          options: {
+            redirectTo: window.location.origin + '/oauth-callback.html'
+          }
+        });
+        
+        if (error) {
+          console.error('Error logging in with Google:', error);
+          alert('Terjadi kesalahan saat login dengan Google: ' + error.message);
+        } else {
+          console.log('Google OAuth initiated successfully');
+          // The redirect will handle the rest
+        }
+      } catch (error) {
+        console.error('Error:', error);
+        alert('Terjadi kesalahan: ' + error.message);
+      }
+    }
+
+    async function registerWithGoogle() {
+      if (!supabase) {
+        alert('Supabase belum diinisialisasi. Silakan refresh halaman.');
+        return;
+      }
+      
+      try {
+        const { data, error } = await supabase.auth.signInWithOAuth({
+          provider: 'google',
+          options: {
+            redirectTo: window.location.origin + '/oauth-callback.html'
+          }
+        });
+        
+        if (error) {
+          console.error('Error registering with Google:', error);
+          alert('Terjadi kesalahan saat daftar dengan Google: ' + error.message);
+        }
+      } catch (error) {
+        console.error('Error:', error);
+        alert('Terjadi kesalahan: ' + error.message);
+      }
+    }
+
+    // Check for existing session on page load
+    document.addEventListener('DOMContentLoaded', async function() {
+      if (supabase) {
+        console.log('Checking for existing session...');
+        const { data: { session } } = await supabase.auth.getSession();
+        const user = session?.user;
+        console.log('sign session.user:', user || null);
+        
+        if (session && user) {
+          // User is already logged in, redirect to dashboard
+          localStorage.setItem('speakup_logged_in', 'true');
+          localStorage.setItem('speakup_user_email', session.user.email);
+          localStorage.setItem('speakup_user_id', session.user.id);
+          console.log('Session found, redirecting to dashboard');
+          window.location.href = './desktop.html';
+        }
+        
+        // Listen for auth state changes
+        supabase.auth.onAuthStateChange((event, session) => {
+          console.log('Auth state change:', event, session);
+          if (event === 'SIGNED_IN' && session) {
+            localStorage.setItem('speakup_logged_in', 'true');
+            localStorage.setItem('speakup_user_email', session.user.email);
+            localStorage.setItem('speakup_user_id', session.user.id);
+            console.log('User signed in, redirecting to dashboard');
+            window.location.href = './desktop.html';
+          } else if (event === 'SIGNED_OUT') {
+            localStorage.removeItem('speakup_logged_in');
+            localStorage.removeItem('speakup_user_email');
+            localStorage.removeItem('speakup_user_id');
+            console.log('User signed out, clearing localStorage');
+          }
+        });
+      }
+    });
+
+    // Form submission handlers
+    document.getElementById('loginForm').addEventListener('submit', async function(e) {
+      e.preventDefault();
+      const email = document.getElementById('loginEmail').value;
+      const password = document.getElementById('loginPassword').value;
+      
+      if (email && password) {
+        if (!supabase) {
+          alert('Supabase belum diinisialisasi. Silakan refresh halaman.');
+          return;
+        }
+        
+        try {
+          const { data, error } = await supabase.auth.signInWithPassword({
+            email: email,
+            password: password
+          });
+          
+          if (error) {
+            alert('Login gagal: ' + error.message);
+          } else {
+            console.log('Login successful, data:', data);
+            
+            // Wait a moment for session to be established
+            await new Promise(resolve => setTimeout(resolve, 1000));
+            
+            // Double-check session
+            const { data: { session } } = await supabase.auth.getSession();
+            console.log('Session after login:', session);
+            
+            if (session) {
+              localStorage.setItem('speakup_logged_in', 'true');
+              localStorage.setItem('speakup_user_email', session.user.email);
+              localStorage.setItem('speakup_user_id', session.user.id);
+              console.log('Session and localStorage updated');
+              alert('Login berhasil!');
+              window.location.href = './desktop.html';
+            } else {
+              console.error('No session found after login');
+              alert('Login berhasil tapi session tidak tersimpan. Silakan coba lagi.');
+            }
+          }
+        } catch (error) {
+          alert('Terjadi kesalahan: ' + error.message);
+        }
+      }
+    });
+
+    document.getElementById('registerForm').addEventListener('submit', async function(e) {
+      e.preventDefault();
+      
+      try {
+        const name = document.getElementById('registerName').value;
+        const email = document.getElementById('registerEmail').value;
+        const password = document.getElementById('registerPassword').value;
+        const confirmPassword = document.getElementById('confirmPassword').value;
+      
+        if (password !== confirmPassword) {
+          alert('Password dan konfirmasi password tidak sama!');
+          return;
+        }
+        
+        if (name && email && password && confirmPassword) {
+          if (!supabase) {
+            alert('Supabase belum diinisialisasi. Silakan refresh halaman.');
+            return;
+          }
+          
+          const { data, error } = await supabase.auth.signUp({
+            email: email,
+            password: password,
+            options: {
+              data: {
+                full_name: name
+              }
+            }
+          });
+          
+          if (error) {
+            alert('Pendaftaran gagal: ' + error.message);
+          } else {
+            alert('Pendaftaran berhasil! Silakan cek email Anda untuk verifikasi.');
+            // Switch to login tab
+            switchTab('login');
+            // Pre-fill email
+            document.getElementById('loginEmail').value = email;
+          }
+        }
+      } catch (error) {
+        console.error('Registration error:', error);
+        alert('Terjadi kesalahan: ' + error.message);
+      }
+    });
+  </script>
+
+  <!-- Supabase SDK -->
+  <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
+  <script src="config/supabase-config.js"></script>
+  <script src="config/supabase-bootstrap.js"></script>
+  </body>
+</html>

@@ -1,0 +1,2156 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>SpeakUp! — Aspirasi (Desktop)</title>
+  <link rel="icon" type="image/png" href="assets/logo/logo apps.png?v=2">
+  <link rel="shortcut icon" type="image/png" href="assets/logo/logo apps.png?v=2">
+  <link rel="stylesheet" href="assets/css/style.css" />
+  <style>
+    /* Critical CSS - Prevent flash of unstyled content */
+    body {
+      visibility: hidden;
+    }
+    
+    body.loaded {
+      visibility: visible;
+    }
+    :root { --bg:#ffffff; --panel:#ffffff; --text:#374151; --muted:#64748b; --accent:#38bdf8; --border:#e5e7eb; }
+    .logo img[data-theme="light"]{display:block!important}.logo img[data-theme="dark"]{display:none!important}
+    html,body,main,.desktop-container,.desktop-nav,.card,.tabs .tab,.modal .box{background:#ffffff!important}
+    body{margin:0;padding:0;min-height:100vh;background:#ffffff!important;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif}
+    .desktop-nav{display:block!important}
+    .desktop-container{max-width:1024px;margin:0 auto;padding:24px 32px}
+    .desktop-nav .nav-item.active{background:#ffffff!important;color:#374151!important;border:1px solid #e5e7eb!important}
+    .desktop-nav .nav-item.plus-btn,.btn.primary{background:#ffffff!important;color:#374151!important;border:1px solid #e5e7eb!important}
+    body.desktop-page, body.desktop-page *:not(h1):not(h2):not(h3):not(h4):not(h5):not(h6){color:#374151!important}
+    
+    /* Logo SpeakUp! berwarna biru */
+    .desktop-nav .logo { 
+      color: #38bdf8 !important; 
+      font-weight: 800; 
+      letter-spacing: 0.5px; 
+    }
+
+    /* Force logo color with maximum specificity */
+    .desktop-page .desktop-nav .logo,
+    body.desktop-page .desktop-nav .logo,
+    html body.desktop-page .desktop-nav .logo {
+      color: #38bdf8 !important;
+      font-weight: 800 !important;
+      letter-spacing: 0.5px !important;
+    }
+
+    /* Signature Modal Styles - Ensure same size as settings */
+    #signatureModal .box {
+      max-width: 600px !important;
+      width: 100% !important;
+      min-width: 500px !important;
+    }
+    
+    #signatureModal #signatureCanvas {
+      width: 500px !important;
+      height: 200px !important;
+    }
+    
+    #signatureModal #signaturePreview {
+      min-height: 80px !important;
+      padding: 16px !important;
+    }
+
+    /* Emoji Picker Styles */
+    .post-content {
+      position: relative;
+    }
+    
+    .emoji-picker {
+      position: absolute;
+      top: -180px;
+      left: 0;
+      background: #ffffff;
+      border: 1px solid #e5e7eb;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      padding: 12px;
+      z-index: 1000;
+      max-width: 200px;
+    }
+
+    .emoji-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 8px;
+      max-width: 200px;
+    }
+
+    .emoji-btn {
+      background: none;
+      border: none;
+      font-size: 20px;
+      padding: 8px;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background-color 0.2s ease;
+    }
+
+    .emoji-btn:hover {
+      background: #f3f4f6;
+    }
+
+    /* Follow button styles */
+    .btn.icon.followed {
+      background-color: #38bdf8 !important;
+      color: white !important;
+      border-color: #38bdf8 !important;
+    }
+
+    .btn.icon.followed:hover {
+      background-color: #0ea5e9 !important;
+      border-color: #0ea5e9 !important;
+    }
+
+    /* More specific follow button styles */
+    .petition-actions .btn.icon[aria-label="Ikut Aspirasi"].followed {
+      background-color: #38bdf8 !important;
+      color: white !important;
+      border-color: #38bdf8 !important;
+    }
+
+    .petition-actions .btn.icon[aria-label="Ikut Aspirasi"].followed:hover {
+      background-color: #0ea5e9 !important;
+      border-color: #0ea5e9 !important;
+    }
+
+    .petition-actions .btn.icon[aria-label="Ikut Aspirasi"].followed svg {
+      fill: white !important;
+    }
+
+    /* Support button styles - Maximum specificity to override all global styles */
+    html body.desktop-page .petition-actions .btn[data-active="true"],
+    html body.desktop-page .petition-actions .btn.supported,
+    html .desktop-page .petition-actions .btn[data-active="true"],
+    html .desktop-page .petition-actions .btn.supported,
+    body.desktop-page .petition-actions .btn[data-active="true"],
+    body.desktop-page .petition-actions .btn.supported,
+    .desktop-page .petition-actions .btn[data-active="true"],
+    .desktop-page .petition-actions .btn.supported {
+      background-color: #38bdf8 !important;
+      color: white !important;
+      border-color: #38bdf8 !important;
+    }
+
+    body.desktop-page .petition-actions .btn[data-active="true"]:hover,
+    body.desktop-page .petition-actions .btn.supported:hover,
+    .desktop-page .petition-actions .btn[data-active="true"]:hover,
+    .desktop-page .petition-actions .btn.supported:hover {
+      background-color: #0ea5e9 !important;
+      border-color: #0ea5e9 !important;
+    }
+
+    /* Ensure text inside supported button is white - Maximum specificity */
+    html body.desktop-page .petition-actions .btn[data-active="true"] *,
+    html body.desktop-page .petition-actions .btn.supported *,
+    html .desktop-page .petition-actions .btn[data-active="true"] *,
+    html .desktop-page .petition-actions .btn.supported *,
+    body.desktop-page .petition-actions .btn[data-active="true"] *,
+    body.desktop-page .petition-actions .btn.supported *,
+    .desktop-page .petition-actions .btn[data-active="true"] *,
+    .desktop-page .petition-actions .btn.supported * {
+      color: white !important;
+    }
+
+    /* Force support button styling with maximum specificity */
+    html body.desktop-page .petition-actions .btn.supported[data-active="true"],
+    html body.desktop-page .petition-actions .btn[data-active="true"].supported {
+      background-color: #38bdf8 !important;
+      color: white !important;
+      border-color: #38bdf8 !important;
+    }
+
+    html body.desktop-page .petition-actions .btn.supported[data-active="true"] *,
+    html body.desktop-page .petition-actions .btn[data-active="true"].supported * {
+      color: white !important;
+    }
+
+    /* Pinned badge styling - Blue like active buttons */
+    .badge.pinned {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background-color: #38bdf8 !important;
+      color: white !important;
+      border-radius: 4px;
+      padding: 2px 6px;
+      font-size: 12px;
+      font-weight: 500;
+      margin-left: 8px;
+      border: none;
+    }
+
+    .badge.pinned svg {
+      width: 12px;
+      height: 12px;
+      fill: white !important;
+      color: white !important;
+    }
+
+    /* Force pinned badge to be blue with higher specificity */
+    html body.desktop-page .badge.pinned,
+    body.desktop-page .badge.pinned,
+    .desktop-page .badge.pinned {
+      background-color: #38bdf8 !important;
+      color: white !important;
+      border: none !important;
+    }
+
+    html body.desktop-page .badge.pinned svg,
+    body.desktop-page .badge.pinned svg,
+    .desktop-page .badge.pinned svg {
+      fill: white !important;
+      color: white !important;
+    }
+  </style>
+</head>
+<body class="desktop-page">
+  <div class="desktop-container">
+    <nav class="desktop-nav" aria-label="Navigasi desktop">
+      <div class="desktop-nav-inner">
+        <div class="nav-left">
+          <div class="logo">SpeakUp!</div>
+          <a href="./desktop.html" class="nav-item" title="Home">
+            <svg fill="currentColor" viewBox="0 0 20 20"><path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"/></svg>
+            <span>Home</span>
+          </a>
+          
+          <a href="./timeline-desktop.html" class="nav-item" title="Timeline">
+            <svg fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clip-rule="evenodd"/></svg>
+            <span>Timeline</span>
+          </a>
+          <a href="./petitions-desktop.html" class="nav-item active" title="Aspirasi">
+            <svg fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M3 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clip-rule="evenodd"/></svg>
+            <span>Aspirasi</span>
+          </a>
+        </div>
+        <div class="nav-right">
+          <a href="./settings-desktop.html" class="nav-item" title="Settings">
+            <svg fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M11.49 3.17c-.38-1.56-2.6-1.56-2.98 0a1.532 1.532 0 01-2.286.948c-1.372-.836-2.942.734-2.106 2.106.54.886.061 2.042-.947 2.287-1.561.379-1.561 2.6 0 2.978a1.532 1.532 0 01.947 2.287c-.836 1.372.734 2.942 2.106 2.106a1.532 1.532 0 012.287.947c.379 1.561 2.6 1.561 2.978 0a1.533 1.533 0 012.287-.947c1.372.836 2.942-.734 2.106-2.106a1.533 1.533 0 01.947-2.287c1.561-.379 1.561-2.6 0-2.978a1.532 1.532 0 01-.947-2.287c.836-1.372-.734-2.942-2.106-2.106a1.532 1.532 0 01-2.287-.947zM10 13a3 3 0 100-6 3 3 0 000 6z" clip-rule="evenodd"/></svg>
+            <span>Settings</span>
+          </a>
+          <a href="./profile-desktop.html" class="nav-item" title="Profile">
+            <svg fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"/></svg>
+            <span>Profile</span>
+          </a>
+          <a href="./sign-desktop.html" class="nav-item" id="signButton" title="Login">
+            <svg fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M3 10a1 1 0 011-1h8.586l-3.293-3.293a1 1 0 111.414-1.414l5 5a1 1 0 010 1.414l-5 5a1 1 0 11-1.414-1.414L12.586 11H4a1 1 0 01-1-1z" clip-rule="evenodd"/></svg>
+            <span>Login</span>
+          </a>
+        </div>
+      </div>
+    </nav>
+
+    <main>
+      <section class="container">
+        <h1>Aspirasi</h1>
+        
+        <!-- Filter Topik dengan tombol Mulai Aspirasi -->
+        <div class="tabs topic-filter" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px;">
+          <div class="tabs" style="margin: 0;">
+            <button class="tab active" data-topic="all">Semua Topik</button>
+            <button class="tab" data-topic="bullying">Bullying</button>
+            <button class="tab" data-topic="workplace">Workplace</button>
+            <button class="tab" data-topic="education">Pendidikan</button>
+            <button class="tab" data-topic="health">Kesehatan</button>
+            <button class="tab" data-topic="environment">Lingkungan</button>
+          </div>
+          <a class="btn primary" href="./create-petition-desktop.html" style="padding: 12px 24px; font-size: 16px; text-decoration: none; white-space: nowrap;">
+            Mulai Aspirasi Sekarang
+          </a>
+        </div>
+
+        <style>
+          .topic-filter { margin-bottom: 24px; }
+          .petition-card { margin-bottom: 20px; }
+          .petition-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 12px; }
+          .petition-title { font-size: 18px; font-weight: 600; margin: 0; }
+          .petition-meta { display: flex; gap: 12px; align-items: center; font-size: 12px; color: var(--muted); margin-bottom: 12px; }
+          .petition-preview { max-height: 120px; overflow: hidden; position: relative; }
+          .petition-preview::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 40px; background: linear-gradient(transparent, var(--bg)); }
+          .petition-full { 
+            display: none !important; 
+            opacity: 0;
+            transition: opacity 0.3s ease;
+          }
+          .petition-full.show { 
+            display: block !important; 
+            opacity: 1;
+          }
+          .petition-letter { background: #f8fafc; border: 1px solid var(--border); border-radius: 8px; padding: 24px; margin: 16px 0; font-family: 'Times New Roman', serif; }
+          .petition-letter .letterhead { text-align: center; margin-bottom: 24px; }
+          .petition-letter .letterhead h3 { margin: 0; font-size: 16px; font-weight: 600; }
+          .petition-letter .letterhead p { margin: 4px 0; font-size: 12px; color: var(--muted); }
+          .petition-letter .recipient { margin-bottom: 16px; }
+          .petition-letter .content { line-height: 1.6; margin-bottom: 24px; }
+          .petition-letter .content-section { margin-bottom: 20px; }
+          .petition-letter .content-section h4 { margin: 0 0 8px 0; font-size: 14px; font-weight: 600; color: var(--text); }
+          .petition-letter .content-section p { margin: 0; font-size: 13px; line-height: 1.5; }
+          
+          /* Signature item styles */
+          .signature-item {
+            transition: all 0.2s ease;
+          }
+          .signature-item:hover {
+            background: #f8fafc !important;
+            border-color: #d1d5db !important;
+          }
+          .signature-item .avatar img {
+            transition: transform 0.2s ease;
+          }
+          .signature-item:hover .avatar img {
+            transform: scale(1.05);
+          }
+          .petition-letter .signatures { margin-top: 24px; padding-top: 16px; border-top: 1px solid var(--border); }
+          .signature-count { display: flex; align-items: center; gap: 8px; font-weight: 600; color: var(--accent); }
+          .petition-actions { display: flex; gap: 8px; margin-top: 16px; }
+          .btn.icon { width: 36px; height: 36px; padding: 0; display: inline-flex; align-items: center; justify-content: center; }
+          .btn.icon svg { width: 18px; height: 18px; }
+          
+          /* Progress bar styles */
+          .progress-bar { 
+            width: 100%; 
+            height: 8px; 
+            background: #e5e7eb; 
+            border-radius: 4px; 
+            overflow: hidden; 
+            margin: 12px 0 8px 0; 
+          }
+          .progress-fill { 
+            height: 100%; 
+            background: linear-gradient(90deg, #38bdf8, #0ea5e9); 
+            border-radius: 4px; 
+            transition: width 0.3s ease; 
+          }
+          .progress-text { 
+            font-size: 12px; 
+            color: var(--muted); 
+            text-align: center; 
+          }
+          
+          /* Badge styles */
+          .badge { 
+            display: inline-block; 
+            padding: 4px 8px; 
+            border-radius: 12px; 
+            font-size: 11px; 
+            font-weight: 500; 
+            margin-left: 8px; 
+          }
+          .badge.pinned { 
+            background: #fef3c7; 
+            color: #92400e; 
+          }
+          .badge.featured { 
+            background: #dbeafe; 
+            color: #1e40af; 
+          }
+          .category-badge { 
+            background: #f3f4f6; 
+            color: #374151; 
+            padding: 4px 8px; 
+            border-radius: 6px; 
+            font-size: 12px; 
+            font-weight: 500; 
+          }
+        </style>
+
+        <div class="grid" id="petitionsGrid">
+          <!-- Loading state -->
+          <div id="loadingState" class="loading-state" style="text-align: center; padding: 60px 20px; color: var(--muted);">
+            <div style="font-size: 48px; margin-bottom: 16px; opacity: 0.5;">⏳</div>
+            <h3 style="margin: 0 0 12px; color: var(--text);">Memuat Aspirasi...</h3>
+            <p style="margin: 0; max-width: 400px; margin-left: auto; margin-right: auto;">
+              Sedang mengambil aspirasi terbaru dari database
+            </p>
+          </div>
+          
+          <!-- Empty state - no petitions yet -->
+          <div id="emptyState" class="empty-state" style="text-align: center; padding: 60px 20px; color: var(--muted); display: none;">
+            <div style="font-size: 48px; margin-bottom: 16px; opacity: 0.5;">📝</div>
+            <h3 style="margin: 0 0 12px; color: var(--text);">Belum Ada Aspirasi</h3>
+            <p style="margin: 0 0 24px; max-width: 400px; margin-left: auto; margin-right: auto;">
+              Belum ada aspirasi yang dipublikasikan. Jadilah yang pertama membuat aspirasi untuk perubahan positif!
+            </p>
+            <a href="./create-petition-desktop.html" class="btn primary" style="text-decoration: none;">
+              Buat Aspirasi Pertama
+            </a>
+          </div>
+        </div>
+
+      </section>
+    </main>
+
+  <script src="config/supabase-config.js"></script>
+  <script src="config/supabase-bootstrap.js"></script>
+  <script src="config/petitions-api.js"></script>
+  <script src="assets/js/app.js"></script>
+    <script>
+      // Navigation logic for logged in users
+      function checkAndUpdateNavigation() {
+        console.log('Checking navigation status in petitions...');
+        
+        // Check if user is logged in
+        const isLoggedIn = localStorage.getItem('speakup_logged_in');
+        console.log('Login status in petitions:', isLoggedIn);
+        
+        if (isLoggedIn === 'true') {
+          console.log('User is logged in, updating navigation...');
+          updateNavigationForLoggedInUser();
+        } else {
+          console.log('User is not logged in, showing Login button...');
+          updateNavigationForHomepage();
+        }
+      }
+      
+      // Simplified navigation logic - single call on page load
+      document.addEventListener('DOMContentLoaded', function() {
+        console.log('Petitions DOMContentLoaded - checking navigation...');
+        
+        // Make page visible after initialization
+        document.body.classList.add('loaded');
+        
+        // Single navigation check with small delay to ensure DOM is ready
+        setTimeout(checkAndUpdateNavigation, 100);
+      });
+      
+      // Fallback for window load (only if DOMContentLoaded didn't fire)
+      window.addEventListener('load', function() {
+        console.log('Window loaded, checking navigation in petitions...');
+        // Only check if navigation wasn't already updated
+        if (!document.body.classList.contains('loaded')) {
+          setTimeout(checkAndUpdateNavigation, 100);
+        }
+      });
+      
+      // Run navigation logic when page becomes visible (user switches tabs)
+      document.addEventListener('visibilitychange', function() {
+        if (!document.hidden) {
+          console.log('Page became visible, checking navigation...');
+          setTimeout(checkAndUpdateNavigation, 100);
+        }
+      });
+      
+      // Removed polling mechanism to prevent infinite loop
+      // Navigation will be updated on page load and when needed
+      
+      function updateNavigationForLoggedInUser() {
+        console.log('Updating navigation for logged in user...');
+        
+        // Show all navigation items
+        const navItems = document.querySelectorAll('.desktop-nav .nav-item');
+        navItems.forEach(item => {
+          item.style.display = 'flex';
+        });
+        
+        // Convert Login button to Logout button (delegated handler global akan menangani klik)
+        const signButton = document.getElementById('signButton');
+        if (signButton) {
+          console.log('Converting Login button to Logout button');
+          signButton.href = 'javascript:void(0)';
+          try { signButton.onclick = null; } catch(_) {}
+          signButton.title = 'Logout';
+          signButton.innerHTML = `
+            <svg fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M3 3a1 1 0 00-1 1v12a1 1 0 102 0V4a1 1 0 00-1-1zm10.293 9.293a1 1 0 001.414 1.414l3-3a1 1 0 000-1.414l-3-3a1 1 0 10-1.414 1.414L14.586 9H7a1 1 0 100 2h7.586l-1.293 1.293z" clip-rule="evenodd"/>
+            </svg>
+            <span>Logout</span>
+          `;
+        }
+        
+        // Show Speak! button
+        const speakButton = document.querySelector('.plus-btn');
+        if (speakButton) {
+          speakButton.style.display = 'flex';
+        }
+        
+        // Handle Profile button click to go to own profile
+        const profileButton = document.querySelector('a[href="./profile-desktop.html"]');
+        if (profileButton) {
+          profileButton.addEventListener('click', function(e) {
+            e.preventDefault();
+            // Navigate to own profile (without URL parameter)
+            window.location.href = 'profile-desktop.html';
+          });
+        }
+      }
+      
+      function updateNavigationForHomepage() {
+        console.log('Updating navigation for homepage (not logged in)...');
+        
+        // Show only Home and Login navigation items for non-logged in users
+        const navItems = document.querySelectorAll('.desktop-nav .nav-item');
+        navItems.forEach(item => {
+          if (item.textContent.includes('Home') || 
+              item.textContent.includes('Login')) {
+            item.style.display = 'flex';
+          } else {
+            item.style.display = 'none';
+          }
+        });
+        
+        // Reset Login button to original state
+        const signButton = document.getElementById('signButton');
+        if (signButton) {
+          console.log('Resetting Login button to original state');
+          signButton.href = './sign-desktop.html';
+          signButton.onclick = null;
+          signButton.title = 'Login';
+          signButton.innerHTML = `
+            <svg fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M3 10a1 1 0 011-1h8.586l-3.293-3.293a1 1 0 111.414-1.414l5 5a1 1 0 010 1.414l-5 5a1 1 0 11-1.414-1.414L12.586 11H4a1 1 0 01-1-1z" clip-rule="evenodd"/></svg>
+            <span>Login</span>
+          `;
+        }
+        
+        // Hide Speak! button for non-logged in users
+        const speakButton = document.querySelector('.plus-btn');
+        if (speakButton) {
+          speakButton.style.display = 'none';
+        }
+      }
+      
+      // Debug function to manually update navigation
+      window.debugNavigation = function() {
+        console.log('Manual navigation update triggered in petitions');
+        const isLoggedIn = localStorage.getItem('speakup_logged_in');
+        console.log('Current login status:', isLoggedIn);
+        
+        if (isLoggedIn === 'true') {
+          updateNavigationForLoggedInUser();
+        } else {
+          updateNavigationForHomepage();
+        }
+      };
+      
+      // Force navigation update function
+      window.forceNavigationUpdate = function() {
+        console.log('Force navigation update in petitions...');
+        
+        // Force set localStorage if not set
+        if (!localStorage.getItem('speakup_logged_in')) {
+          localStorage.setItem('speakup_logged_in', 'true');
+          console.log('Set login status to true');
+        }
+        
+        // Force update navigation
+        checkAndUpdateNavigation();
+      };
+      
+      // Check if user is logged in and force update
+      window.checkLoginStatus = function() {
+        const isLoggedIn = localStorage.getItem('speakup_logged_in');
+        console.log('Current login status:', isLoggedIn);
+        console.log('All localStorage keys:', Object.keys(localStorage));
+        
+        if (isLoggedIn === 'true') {
+          console.log('User is logged in, forcing navigation update...');
+          updateNavigationForLoggedInUser();
+        } else {
+          console.log('User is not logged in, showing Sign button...');
+          updateNavigationForHomepage();
+        }
+      };
+      
+      // Logout handled globally in assets/js/app.js
+    </script>
+    
+    <script>
+      // =====================================================
+      // PETITIONS LOADING AND DISPLAY
+      // =====================================================
+      
+      let currentCategory = 'all';
+      let currentPage = 0;
+      const pageSize = 10;
+      let isLoading = false;
+      let hasMoreData = true;
+      
+      // Load petitions on page load
+      document.addEventListener('DOMContentLoaded', function() {
+        console.log('Loading petitions...');
+        loadPetitions();
+        
+        // Debug: Check if togglePetition function is available
+        window.togglePetition = togglePetition;
+        console.log('togglePetition function registered globally');
+      });
+      
+      // Load petitions from database
+      async function loadPetitions(reset = true) {
+        if (isLoading) return;
+        
+        try {
+          isLoading = true;
+          
+          if (reset) {
+            currentPage = 0;
+            hasMoreData = true;
+            const loadingState = document.getElementById('loadingState');
+            const emptyState = document.getElementById('emptyState');
+            if (loadingState) loadingState.style.display = 'block';
+            if (emptyState) emptyState.style.display = 'none';
+          }
+          
+          // Get current user
+          const { data: { user } } = await window.getSupabase().auth.getUser();
+          let allPetitions = [];
+          
+          if (user && reset) {
+            // Load followed (pinned) petitions first
+            try {
+              const followedPetitions = await window.petitionsAPI.getUserFollowedPetitions(user.id);
+              console.log('Loaded followed petitions:', followedPetitions);
+              
+              // Add followed petitions to the beginning
+              followedPetitions.forEach(follow => {
+                if (follow.petitions) {
+                  allPetitions.push({
+                    ...follow.petitions,
+                    is_followed: true,
+                    follow_date: follow.created_at
+                  });
+                }
+              });
+            } catch (error) {
+              console.error('Error loading followed petitions:', error);
+              // Continue loading regular petitions even if followed petitions fail
+              console.log('Continuing with regular petitions only...');
+            }
+          }
+          
+          // Load regular petitions
+          const options = {
+            category: currentCategory === 'all' ? null : currentCategory,
+            limit: pageSize,
+            offset: currentPage * pageSize,
+            sortBy: 'created_at',
+            sortOrder: 'desc'
+          };
+          
+          console.log('Loading petitions with options:', options);
+          const regularPetitions = await window.petitionsAPI.getPublishedPetitions(options);
+          console.log('Loaded regular petitions:', regularPetitions);
+          
+          // Add regular petitions (excluding already followed ones)
+          const followedIds = allPetitions.map(p => p.id);
+          regularPetitions.forEach(petition => {
+            if (!followedIds.includes(petition.id)) {
+              allPetitions.push(petition);
+            }
+          });
+          
+          console.log('All petitions (followed + regular):', allPetitions);
+          
+          if (reset) {
+            const loadingState = document.getElementById('loadingState');
+            const petitionsGrid = document.getElementById('petitionsGrid');
+            if (loadingState) loadingState.style.display = 'none';
+            if (petitionsGrid) petitionsGrid.innerHTML = '';
+          }
+          
+          if (allPetitions.length === 0 && reset) {
+            const emptyState = document.getElementById('emptyState');
+            if (emptyState) emptyState.style.display = 'block';
+            return;
+          }
+          
+          if (regularPetitions.length < pageSize) {
+            hasMoreData = false;
+          }
+          
+          // Display petitions
+          allPetitions.forEach(petition => {
+            displayPetition(petition);
+          });
+          
+          currentPage++;
+          
+        } catch (error) {
+          console.error('Error loading petitions:', error);
+          const loadingState = document.getElementById('loadingState');
+          if (loadingState) {
+            loadingState.style.display = 'none';
+          }
+          
+          // Show error state
+          const errorDiv = document.createElement('div');
+          errorDiv.className = 'error-state';
+          errorDiv.style.cssText = 'text-align: center; padding: 60px 20px; color: var(--muted);';
+          errorDiv.innerHTML = `
+            <div style="font-size: 48px; margin-bottom: 16px; opacity: 0.5;">⚠️</div>
+            <h3 style="margin: 0 0 12px; color: var(--text);">Gagal Memuat Aspirasi</h3>
+            <p style="margin: 0 0 24px; max-width: 400px; margin-left: auto; margin-right: auto;">
+              Terjadi kesalahan saat memuat aspirasi. Silakan coba lagi.
+            </p>
+            <button onclick="loadPetitions(true)" class="btn primary" style="text-decoration: none;">
+              Coba Lagi
+            </button>
+          `;
+          document.getElementById('petitionsGrid').appendChild(errorDiv);
+        } finally {
+          isLoading = false;
+        }
+      }
+      
+      // Display single petition
+      function displayPetition(petition) {
+        const petitionCard = document.createElement('div');
+        petitionCard.className = 'petition-card card';
+        petitionCard.dataset.topic = petition.category;
+        petitionCard.dataset.petitionId = petition.id;
+        
+        const progressPercentage = Math.min((petition.signature_count / petition.signature_target) * 100, 100);
+        const formattedSignatureCount = window.petitionsAPI.formatNumber(petition.signature_count);
+        const formattedSignatureTarget = window.petitionsAPI.formatNumber(petition.signature_target);
+        const formattedDate = window.petitionsAPI.formatRelativeTime(petition.created_at);
+        
+        petitionCard.innerHTML = `
+          <div class="petition-header">
+            <h3 class="petition-title">${petition.title}</h3>
+            ${petition.is_followed ? '<span class="badge pinned" title="Dipasang"><svg width="14" height="14" fill="white" viewBox="0 0 384 512"><path d="M32 32C32 14.3 46.3 0 64 0H320c17.7 0 32 14.3 32 32s-14.3 32-32 32H290.5l11.4 148.2c36.7 19.9 65.7 53.2 79.5 94.7l1 3c3.3 9.8 1.6 20.5-4.4 28.8s-15.7 13.3-26 13.3H32c-10.3 0-19.9-4.9-26-13.3s-7.7-19.1-4.4-28.8l1-3c13.8-41.5 42.8-74.8 79.5-94.7L93.5 64H64C46.3 64 32 49.7 32 32zM160 384h64v96c0 17.7-14.3 32-32 32s-32-14.3-32-32V384z"/></svg></span>' : ''}
+            ${petition.is_pinned ? '<span class="badge pinned" title="Dipasang"><svg width="14" height="14" fill="white" viewBox="0 0 384 512"><path d="M32 32C32 14.3 46.3 0 64 0H320c17.7 0 32 14.3 32 32s-14.3 32-32 32H290.5l11.4 148.2c36.7 19.9 65.7 53.2 79.5 94.7l1 3c3.3 9.8 1.6 20.5-4.4 28.8s-15.7 13.3-26 13.3H32c-10.3 0-19.9-4.9-26-13.3s-7.7-19.1-4.4-28.8l1-3c13.8-41.5 42.8-74.8 79.5-94.7L93.5 64H64C46.3 64 32 49.7 32 32zM160 384h64v96c0 17.7-14.3 32-32 32s-32-14.3-32-32V384z"/></svg></span>' : ''}
+            ${petition.is_featured ? '<span class="badge featured">⭐ Unggulan</span>' : ''}
+          </div>
+          
+          <div class="petition-meta">
+            <span class="category-badge">${getCategoryLabel(petition.category)}</span>
+            <span class="signature-count">
+              <span>${formattedSignatureCount} dari ${formattedSignatureTarget} tanda tangan</span>
+            </span>
+            <span class="date">${formattedDate}</span>
+          </div>
+          
+          <div class="petition-preview">
+            <p>${truncateText(petition.description, 200)}</p>
+            <div class="progress-bar">
+              <div class="progress-fill" style="width: ${progressPercentage}%"></div>
+            </div>
+            <div class="progress-text">${progressPercentage.toFixed(1)}% tercapai</div>
+          </div>
+          
+          <div class="petition-full" style="display: none;">
+            <div class="petition-letter">
+              <div class="letterhead">
+                <h3>PETISI MASYARAKAT</h3>
+                <p><strong>${petition.title}</strong></p>
+                <p>${window.petitionsAPI.formatDate(petition.created_at)}</p>
+              </div>
+              
+              <div class="recipient">
+                <p><strong>Kepada Yth.</strong><br>${petition.target || 'Pihak yang Berwenang'}</p>
+              </div>
+              
+              <div class="content">
+                <div class="content-section">
+                  <h4>Deskripsi Masalah:</h4>
+                  <p>${petition.description || 'Tidak ada deskripsi tersedia.'}</p>
+                </div>
+                
+                <div class="content-section">
+                  <h4>Solusi yang Diharapkan:</h4>
+                  <p>${petition.solution || 'Tidak ada solusi yang diharapkan tersedia.'}</p>
+                </div>
+              </div>
+              
+              <div class="signatures">
+                <div class="signature-count">
+                  <span>${formattedSignatureCount} dari ${formattedSignatureTarget} tanda tangan</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="petition-actions">
+            <button class="btn primary" onclick="signPetition('${petition.id}')">
+              Tanda Tangan
+            </button>
+            <button class="btn" data-petition-id="${petition.id}" data-active="false">
+              <span class="support-text">Dukung</span>
+              <span class="support-count" style="margin-left: 4px; font-size: 12px;">0</span>
+            </button>
+            <button class="btn icon" aria-label="Ikut Aspirasi" data-petition-id="${petition.id}">
+              <svg fill="currentColor" viewBox="0 0 20 20">
+                <path d="M10 12a2 2 0 100-4 2 2 0 000 4z"/>
+                <path fill-rule="evenodd" d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z" clip-rule="evenodd"/>
+              </svg>
+            </button>
+            <button class="btn icon" aria-label="Bagikan Aspirasi" onclick="sharePetition('${petition.id}')">
+              <svg fill="currentColor" viewBox="0 0 20 20">
+                <path d="M15 8a3 3 0 10-2.977-2.63l-4.94 2.47a3 3 0 100 4.319l4.94 2.47a3 3 0 10.895-1.789l-4.94-2.47a3.027 3.027 0 000-.74l4.94-2.47C13.456 7.68 14.19 8 15 8z"/>
+              </svg>
+            </button>
+            <button class="btn ghost" onclick="togglePetition(this)">
+              Baca Lengkap
+            </button>
+          </div>
+        `;
+        
+        document.getElementById('petitionsGrid').appendChild(petitionCard);
+        
+        // Debug: Log the created card structure
+        console.log('Created petition card:', petitionCard);
+        
+        // Attach event handlers to the new card
+        attachPetitionActions();
+        
+        // Check and update support status
+        updateSupportButtonStatus(petitionCard, petition.id);
+        
+        // Load support count
+        loadSupportCount(petitionCard, petition.id);
+        
+        // Check and update follow status
+        updateFollowButtonStatus(petitionCard, petition.id);
+        
+        console.log('Preview element:', petitionCard.querySelector('.petition-preview'));
+        console.log('Full element:', petitionCard.querySelector('.petition-full'));
+      }
+      
+      // Update support button status based on user's support
+      async function updateSupportButtonStatus(card, petitionId) {
+        try {
+          // Check if user is logged in
+          const { data: { user } } = await window.getSupabase().auth.getUser();
+          if (!user) {
+            return; // User not logged in, keep default state
+          }
+          
+          // Check if user has already supported this petition
+          const hasSupported = await window.petitionsAPI.hasUserSupported(petitionId, user.id);
+          
+          const supportBtn = card.querySelector('.petition-actions .btn[data-petition-id]');
+          if (supportBtn) {
+            if (hasSupported) {
+              // User has supported, show supported state
+              supportBtn.dataset.active = 'true';
+              const supportText = supportBtn.querySelector('.support-text');
+              if (supportText) supportText.textContent = 'Didukung';
+              supportBtn.classList.add('supported');
+              console.log('Support button updated to supported state');
+            } else {
+              // User hasn't supported, show default state
+              supportBtn.dataset.active = 'false';
+              const supportText = supportBtn.querySelector('.support-text');
+              if (supportText) supportText.textContent = 'Dukung';
+              supportBtn.classList.remove('supported');
+              console.log('Support button updated to default state');
+            }
+          }
+        } catch (error) {
+          console.error('Error updating support button status:', error);
+        }
+      }
+      
+      // Load support count for a petition
+      async function loadSupportCount(card, petitionId) {
+        try {
+          const supabase = window.getSupabase();
+          if (!supabase) return;
+          
+          // Get support count from database
+          const { data, error } = await supabase
+            .from('petition_supporters')
+            .select('id')
+            .eq('petition_id', petitionId);
+          
+          if (error) {
+            console.error('Error loading support count:', error);
+            return;
+          }
+          
+          const supportCount = data ? data.length : 0;
+          
+          // Update support count display
+          const supportBtn = card.querySelector('.petition-actions .btn[data-petition-id]');
+          if (supportBtn) {
+            const countSpan = supportBtn.querySelector('.support-count');
+            if (countSpan) {
+              countSpan.textContent = supportCount;
+              console.log(`Support count updated: ${supportCount}`);
+            }
+          }
+        } catch (error) {
+          console.error('Error in loadSupportCount:', error);
+        }
+      }
+      
+      // Update follow button status
+      async function updateFollowButtonStatus(card, petitionId) {
+        try {
+          const { data: { user } } = await window.getSupabase().auth.getUser();
+          if (!user) return;
+          
+          // Check if user has followed this petition
+          const hasFollowed = await window.petitionsAPI.hasUserFollowed(petitionId, user.id);
+          
+          const followBtn = card.querySelector('.petition-actions .btn.icon[aria-label="Ikut Aspirasi"]');
+          if (followBtn) {
+            if (hasFollowed) {
+              // User has followed, show followed state
+              followBtn.classList.add('followed');
+              followBtn.title = 'Hapus dari Aspirasi';
+              console.log('Follow button updated to followed state');
+            } else {
+              // User hasn't followed, show default state
+              followBtn.classList.remove('followed');
+              followBtn.title = 'Ikut Aspirasi';
+              console.log('Follow button updated to default state');
+            }
+          }
+        } catch (error) {
+          console.error('Error updating follow button status:', error);
+        }
+      }
+      
+      // Get category label in Indonesian
+      function getCategoryLabel(category) {
+        const labels = {
+          'bullying': 'Bullying',
+          'workplace': 'Tempat Kerja',
+          'education': 'Pendidikan',
+          'health': 'Kesehatan',
+          'environment': 'Lingkungan',
+          'discrimination': 'Diskriminasi',
+          'corruption': 'Korupsi',
+          'other': 'Lainnya'
+        };
+        return labels[category] || category;
+      }
+      
+      // Truncate text to specified length
+      function truncateText(text, maxLength) {
+        if (text.length <= maxLength) return text;
+        return text.substring(0, maxLength) + '...';
+      }
+      
+      // Sign petition
+      async function signPetition(petitionId) {
+        try {
+          console.log('Signing petition:', petitionId);
+          
+          // Check if user is logged in
+          const supabase = window.getSupabase();
+          if (!supabase) {
+            alert('Database tidak tersedia. Silakan refresh halaman.');
+            return;
+          }
+          
+          const { data: { user } } = await supabase.auth.getUser();
+          if (!user) {
+            alert('Silakan login terlebih dahulu untuk menandatangani aspirasi');
+            return;
+          }
+          
+          console.log('User signed in:', user.id);
+          
+          // Check if already signed
+          const { data: existingSignature } = await supabase
+            .from('petition_signatures')
+            .select('id')
+            .eq('petition_id', petitionId)
+            .eq('user_id', user.id)
+            .single();
+          
+          if (existingSignature) {
+            alert('Anda sudah menandatangani aspirasi ini');
+            return;
+          }
+          
+          // Get user profile to get full_name
+          const { data: profile, error: profileError } = await supabase
+            .from('profiles')
+            .select('full_name, email')
+            .eq('id', user.id)
+            .single();
+          
+          console.log('Profile data:', profile);
+          
+          // Use full_name from profile, or fallback to email, or "Anonim"
+          let displayName = 'Anonim';
+          if (profile && profile.full_name) {
+            displayName = profile.full_name;
+          } else if (profile && profile.email) {
+            displayName = profile.email.split('@')[0]; // Use email prefix
+          } else if (user.email) {
+            displayName = user.email.split('@')[0]; // Use auth email prefix
+          }
+          
+          console.log('Using display name:', displayName);
+          
+          // Add signature to database
+          const { data: signature, error } = await supabase
+            .from('petition_signatures')
+            .insert({
+              petition_id: petitionId,
+              user_id: user.id,
+              full_name: displayName,
+              created_at: new Date().toISOString()
+            })
+            .select()
+            .single();
+          
+          if (error) {
+            console.error('Error adding signature:', error);
+            alert('Terjadi kesalahan saat menandatangani aspirasi: ' + error.message);
+            return;
+          }
+          
+          console.log('Signature added successfully:', signature);
+          
+          // Update petition signature count by counting actual signatures
+          try {
+            // Count actual signatures from petition_signatures table
+            const { count: actualCount, error: countError } = await supabase
+              .from('petition_signatures')
+              .select('*', { count: 'exact', head: true })
+              .eq('petition_id', petitionId);
+            
+            if (countError) {
+              console.warn('Error counting signatures:', countError);
+            } else {
+              // Update petition with actual count
+              await supabase
+                .from('petitions')
+                .update({ signature_count: actualCount || 0 })
+                .eq('id', petitionId);
+              
+              console.log('Updated signature count to:', actualCount);
+            }
+          } catch (updateError) {
+            console.warn('Error updating signature count:', updateError);
+          }
+          
+          // Show success message
+          alert('Terima kasih! Tanda tangan Anda berhasil ditambahkan ke aspirasi ini.');
+          
+          // Reload petitions to update counts
+          loadPetitions(true);
+          
+        } catch (error) {
+          console.error('Error signing petition:', error);
+          alert('Terjadi kesalahan saat menandatangani aspirasi: ' + error.message);
+        }
+      }
+      
+      // Support petition (legacy function - now handled by button click handlers)
+      async function supportPetition(petitionId) {
+        try {
+          // Check if user is logged in
+          const { data: { user } } = await window.getSupabase().auth.getUser();
+          if (!user) {
+            alert('Silakan login terlebih dahulu untuk mendukung aspirasi');
+            return;
+          }
+          
+          // Check if already supported
+          const hasSupported = await window.petitionsAPI.hasUserSupported(petitionId, user.id);
+          
+          if (hasSupported) {
+            await window.petitionsAPI.unsupportPetition(petitionId);
+            return { action: 'unsupported' };
+          } else {
+            await window.petitionsAPI.supportPetition(petitionId);
+            return { action: 'supported' };
+          }
+          
+        } catch (error) {
+          console.error('Error supporting petition:', error);
+          throw error; // Re-throw to be handled by caller
+        }
+      }
+      
+      // Follow petition (pin/unpin)
+      let followActionInProgress = false;
+      
+      async function followPetition(petitionId) {
+        // Prevent double action
+        if (followActionInProgress) {
+          console.log('Follow action already in progress, ignoring...');
+          return;
+        }
+        
+        try {
+          followActionInProgress = true;
+          
+          // Check if user is logged in
+          const { data: { user } } = await window.getSupabase().auth.getUser();
+          if (!user) {
+            alert('Silakan login terlebih dahulu untuk mengikuti aspirasi');
+            return;
+          }
+
+          // Find the follow button
+          const followBtn = document.querySelector(`button[aria-label="Ikut Aspirasi"][data-petition-id="${petitionId}"]`);
+          if (!followBtn) {
+            console.error('Follow button not found for petition:', petitionId);
+            return;
+          }
+
+          const isFollowed = followBtn.classList.contains('followed');
+          
+          if (isFollowed) {
+            // Unfollow (unpin)
+            await window.petitionsAPI.unfollowPetition(petitionId);
+            followBtn.classList.remove('followed');
+            followBtn.title = 'Ikut Aspirasi';
+            console.log('Petition unfollowed:', petitionId);
+          } else {
+            // Follow (pin)
+            await window.petitionsAPI.followPetition(petitionId);
+            followBtn.classList.add('followed');
+            followBtn.title = 'Hapus dari Aspirasi';
+            console.log('Petition followed:', petitionId);
+          }
+
+          // Refresh the petitions list to show pinned petitions at the top
+          await loadPetitions();
+
+        } catch (error) {
+          console.error('Error in followPetition:', error);
+          alert('Gagal mengubah status mengikuti aspirasi: ' + error.message);
+        } finally {
+          followActionInProgress = false;
+        }
+      }
+      
+      // Share petition
+      function sharePetition(petitionId) {
+        const url = `${window.location.origin}${window.location.pathname}#${petitionId}`;
+        if (navigator.share) {
+          navigator.share({
+            title: 'Aspirasi SpeakUp!',
+            text: 'Lihat aspirasi ini di SpeakUp!',
+            url: url
+          });
+        } else {
+          navigator.clipboard.writeText(url).then(() => {
+            alert('Link aspirasi telah disalin ke clipboard!');
+          });
+        }
+      }
+      
+      // Update category filter
+      document.querySelectorAll('.tab').forEach(tab => {
+        tab.addEventListener('click', function() {
+          const topic = this.dataset.topic;
+          currentCategory = topic;
+          
+          // Update active tab
+          document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+          this.classList.add('active');
+          
+          // Reload petitions with new category
+          loadPetitions(true);
+        });
+      });
+      
+      // Load more petitions on scroll
+      window.addEventListener('scroll', function() {
+        if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 1000) {
+          if (hasMoreData && !isLoading) {
+            loadPetitions(false);
+          }
+        }
+      });
+    </script>
+    <script>
+      // Filter topik
+      document.querySelectorAll('.tab').forEach(tab => {
+        tab.addEventListener('click', function() {
+          const topic = this.dataset.topic;
+          
+          // Update active tab
+          document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+          this.classList.add('active');
+          
+          // Filter aspirasi
+          document.querySelectorAll('.petition-card').forEach(card => {
+            if (topic === 'all' || card.dataset.topic === topic) {
+              card.style.display = 'block';
+            } else {
+              card.style.display = 'none';
+            }
+          });
+        });
+      });
+      
+      // Toggle aspirasi lengkap
+      function togglePetition(button) {
+        console.log('Toggle petition clicked');
+        const card = button.closest('.petition-card');
+        const preview = card.querySelector('.petition-preview');
+        const full = card.querySelector('.petition-full');
+        
+        console.log('Card found:', card);
+        console.log('Preview found:', preview);
+        console.log('Full found:', full);
+        
+        if (!card || !preview || !full) {
+          console.error('Missing elements:', { card, preview, full });
+          return;
+        }
+        
+        if (full.classList.contains('show')) {
+          console.log('Hiding full content');
+          full.classList.remove('show');
+          full.style.display = 'none';
+          preview.style.display = 'block';
+          button.textContent = 'Baca Lengkap';
+        } else {
+          console.log('Showing full content');
+          full.classList.add('show');
+          full.style.display = 'block';
+          preview.style.display = 'none';
+          button.textContent = 'Tutup';
+          
+          // Tampilkan daftar penandatangan
+          showSignatures(card);
+        }
+      }
+
+      // Tampilkan daftar penandatangan
+      async function showSignatures(card) {
+        const signaturesContainer = card.querySelector('.signatures');
+        if (signaturesContainer && !signaturesContainer.querySelector('.signatures-list')) {
+          const petitionId = card.dataset.petitionId;
+          console.log('Loading signatures for petition:', petitionId);
+          
+          const signaturesList = document.createElement('div');
+          signaturesList.className = 'signatures-list';
+          signaturesList.innerHTML = `
+            <h4 style="margin: 16px 0 12px 0; color: var(--text); font-size: 16px;">Daftar Penandatangan</h4>
+            <div class="signatures-grid" style="display: grid; gap: 12px; max-height: 300px; overflow-y: auto; border: 1px solid var(--border); border-radius: 8px; padding: 16px; background: #f8fafc;">
+              <div style="text-align: center; padding: 20px; color: var(--muted);">Memuat tanda tangan...</div>
+            </div>
+          `;
+          signaturesContainer.appendChild(signaturesList);
+          
+          // Load real signatures
+          try {
+            const signaturesHTML = await generateSignaturesList(petitionId);
+            const signaturesGrid = signaturesList.querySelector('.signatures-grid');
+            signaturesGrid.innerHTML = signaturesHTML;
+          } catch (error) {
+            console.error('Error loading signatures:', error);
+            const signaturesGrid = signaturesList.querySelector('.signatures-grid');
+            signaturesGrid.innerHTML = '<div style="text-align: center; padding: 20px; color: var(--muted);">Error memuat tanda tangan</div>';
+          }
+        }
+      }
+
+      // Generate daftar penandatangan asli dari database
+      async function generateSignaturesList(petitionId) {
+        try {
+          console.log('Fetching real signatures for petition:', petitionId);
+          
+          // Ambil tanda tangan asli dari database
+          const supabase = window.getSupabase();
+          if (!supabase) {
+            console.error('Supabase not available');
+            return '<div style="text-align: center; padding: 20px; color: var(--muted);">Database tidak tersedia</div>';
+          }
+          
+          // Try with join first, fallback to separate queries if it fails
+          let signatures, error;
+          
+          try {
+            const result = await supabase
+              .from('petition_signatures')
+              .select(`
+                id,
+                user_id,
+                full_name,
+                created_at,
+                profiles!inner(
+                  id,
+                  full_name,
+                  profession,
+                  title,
+                  is_verified,
+                  avatar_url,
+                  bio
+                )
+              `)
+              .eq('petition_id', petitionId)
+              .order('created_at', { ascending: false })
+              .limit(50);
+            
+            signatures = result.data;
+            error = result.error;
+          } catch (joinError) {
+            console.warn('Join query failed, using fallback method:', joinError);
+            
+            // Fallback: Get signatures first, then get profiles separately
+            const { data: signaturesData, error: signaturesError } = await supabase
+              .from('petition_signatures')
+              .select(`
+                id,
+                user_id,
+                full_name,
+                created_at
+              `)
+              .eq('petition_id', petitionId)
+              .order('created_at', { ascending: false })
+              .limit(50);
+            
+            if (signaturesError) {
+              signatures = null;
+              error = signaturesError;
+            } else {
+              // Get profiles for each signature
+              const userIds = signaturesData.map(s => s.user_id);
+              const { data: profilesData } = await supabase
+                .from('profiles')
+                .select('id, full_name, profession, title, is_verified, avatar_url, bio')
+                .in('id', userIds);
+              
+              // Combine signatures with profiles
+              signatures = signaturesData.map(signature => ({
+                ...signature,
+                profiles: profilesData?.find(p => p.id === signature.user_id) || null
+              }));
+              error = null;
+            }
+          }
+
+          if (error) {
+            console.error('Error fetching signatures:', error);
+            return '<div style="text-align: center; padding: 20px; color: var(--muted);">Belum ada tanda tangan</div>';
+          }
+
+          if (!signatures || signatures.length === 0) {
+            return '<div style="text-align: center; padding: 20px; color: var(--muted);">Belum ada tanda tangan</div>';
+          }
+
+          console.log('Found signatures:', signatures.length);
+
+          return signatures.map(signature => {
+            const profile = signature.profiles;
+            const timeAgo = window.petitionsAPI.formatRelativeTime(signature.created_at);
+            
+            // Use profile data if available, otherwise fallback to signature data
+            const displayName = profile?.full_name || signature.full_name || 'Anonim';
+            const profession = profile?.title || profile?.profession || 'Warga';
+            const isVerified = profile?.is_verified || false;
+            const avatarUrl = profile?.avatar_url;
+            
+            return `
+              <div class="signature-item" style="display: flex; align-items: center; gap: 12px; padding: 8px; background: white; border-radius: 6px; border: 1px solid #e5e7eb;">
+                <div class="avatar" style="width: 32px; height: 32px; border-radius: 50%; background: #f3f4f6; display: flex; align-items: center; justify-content: center; flex-shrink: 0; overflow: hidden;">
+                  ${avatarUrl ? 
+                    `<img src="${avatarUrl}" alt="${displayName}" style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%;" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                     <div style="display: none; width: 100%; height: 100%; align-items: center; justify-content: center;">
+                       <svg width="16" height="16" fill="#9ca3af" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"/></svg>
+                     </div>` :
+                    `<svg width="16" height="16" fill="#9ca3af" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"/></svg>`
+                  }
+                </div>
+                <div class="signature-info" style="flex: 1; min-width: 0;">
+                  <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 2px;">
+                    <span style="font-weight: 500; color: var(--text);">${displayName}</span>
+                    ${isVerified ? 
+                      '<span style="display: inline-flex; align-items: center; justify-content: center; width: 16px; height: 16px; margin-left: 4px;" title="Verified Account"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="10" fill="#38bdf8"/><path d="M9 12l2 2 4-4" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>' : 
+                      ''
+                    }
+                  </div>
+                  <div style="font-size: 12px; color: var(--muted);">${profession}</div>
+                  <div style="font-size: 11px; color: var(--muted);">${timeAgo}</div>
+                </div>
+              </div>
+            `;
+          }).join('');
+
+        } catch (error) {
+          console.error('Error in generateSignaturesList:', error);
+          return '<div style="text-align: center; padding: 20px; color: var(--muted);">Error memuat tanda tangan</div>';
+        }
+      }
+
+      // ---------- Dummy interaksi tombol ----------
+      function formatNumberId(num) {
+        try { return new Intl.NumberFormat('id-ID').format(num); } catch (_) { return String(num); }
+      }
+
+      function parseFirstNumber(text) {
+        const m = text.match(/([0-9][0-9\.,]*)/);
+        if (!m) return null;
+        return parseInt(m[1].replace(/[\.,]/g, ''), 10);
+      }
+
+      function parseTwoNumbers(text) {
+        const ms = text.match(/([0-9][0-9\.,]*)/g);
+        if (!ms || ms.length === 0) return { current: null, goal: null };
+        const current = parseInt(ms[0].replace(/[\.,]/g, ''), 10);
+        const goal = ms.length > 1 ? parseInt(ms[1].replace(/[\.,]/g, ''), 10) : null;
+        return { current, goal };
+      }
+
+      function ensureCardId(card) {
+        if (card.id) return card.id;
+        const title = card.querySelector('.petition-title')?.textContent?.trim() || 'aspirasi';
+        const slug = title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+        card.id = slug || ('aspirasi-' + Math.random().toString(36).slice(2, 8));
+        return card.id;
+      }
+
+      function updateSignatureCounts(card, delta) {
+        // meta count (ringkas)
+        const metaCountEl = card.querySelector('.petition-meta .signature-count span');
+        if (metaCountEl) {
+          const currentMeta = parseFirstNumber(metaCountEl.textContent) || 0;
+          const nextMeta = Math.max(0, currentMeta + delta);
+          metaCountEl.textContent = `${formatNumberId(nextMeta)} tanda tangan`;
+        }
+        // full count (dengan target)
+        const fullCountEl = card.querySelector('.petition-full .signature-count span');
+        if (fullCountEl) {
+          const { current, goal } = parseTwoNumbers(fullCountEl.textContent);
+          const next = Math.max(0, (current || 0) + delta);
+          if (goal) {
+            fullCountEl.textContent = `${formatNumberId(next)} dari ${formatNumberId(goal)} tanda tangan`;
+          } else {
+            fullCountEl.textContent = `${formatNumberId(next)} tanda tangan`;
+          }
+        }
+      }
+
+      function attachPetitionActions() {
+        document.querySelectorAll('.petition-card:not([data-actions-attached])').forEach(card => {
+          // Tanda Tangan
+          const signBtn = card.querySelector('.petition-actions .btn.primary');
+          if (signBtn && !signBtn.dataset.bound) {
+            signBtn.dataset.bound = 'true';
+            signBtn.addEventListener('click', () => {
+              const signed = card.dataset.signed === 'true';
+              if (signed) {
+                updateSignatureCounts(card, -1);
+                card.dataset.signed = 'false';
+                signBtn.textContent = 'Tanda Tangan';
+              } else {
+                updateSignatureCounts(card, +1);
+                card.dataset.signed = 'true';
+                signBtn.textContent = 'Batalkan Tanda Tangan';
+              }
+            });
+          }
+
+          // Dukung (like button)
+          const supportBtn = card.querySelector('.petition-actions .btn[data-petition-id]');
+          console.log('Support button found:', supportBtn); // Debug
+          if (supportBtn && !supportBtn.dataset.bound) {
+            supportBtn.dataset.bound = 'true';
+            supportBtn.addEventListener('click', async (e) => {
+              e.preventDefault();
+              e.stopPropagation();
+              
+              console.log('Support button clicked'); // Debug
+              console.log('Support button element:', supportBtn); // Debug
+              console.log('Current active state:', supportBtn.dataset.active); // Debug
+              
+              try {
+                // Check if user is logged in
+                const { data: { user } } = await window.getSupabase().auth.getUser();
+                if (!user) {
+                  alert('Silakan login terlebih dahulu untuk mendukung aspirasi');
+                  return;
+                }
+                
+                // Check if already supported
+                const isSupported = supportBtn.dataset.active === 'true';
+                
+                // Get petition ID from button data attribute
+                const petitionId = supportBtn.dataset.petitionId;
+                console.log('Petition ID:', petitionId);
+                
+                if (isSupported) {
+                  // Unsupport
+                  await window.petitionsAPI.unsupportPetition(petitionId);
+                  supportBtn.dataset.active = 'false';
+                  const supportText = supportBtn.querySelector('.support-text');
+                  if (supportText) supportText.textContent = 'Dukung';
+                  supportBtn.classList.remove('supported');
+                  console.log('Support removed');
+                  
+                  // Update support count
+                  await loadSupportCount(card, petitionId);
+                } else {
+                  // Support
+                  try {
+                    await window.petitionsAPI.supportPetition(petitionId);
+                    supportBtn.dataset.active = 'true';
+                    const supportText = supportBtn.querySelector('.support-text');
+                    if (supportText) supportText.textContent = 'Didukung';
+                    supportBtn.classList.add('supported');
+                    console.log('Support added');
+                    
+                    // Update support count
+                    await loadSupportCount(card, petitionId);
+                  } catch (supportError) {
+                    // Handle duplicate key constraint error
+                    if (supportError.message && supportError.message.includes('duplicate key value violates unique constraint')) {
+                      // User already supported, just update UI
+                      supportBtn.dataset.active = 'true';
+                      const supportText = supportBtn.querySelector('.support-text');
+                      if (supportText) supportText.textContent = 'Didukung';
+                      supportBtn.classList.add('supported');
+                      console.log('Support already exists, UI updated');
+                      
+                      // Update support count
+                      await loadSupportCount(card, petitionId);
+                    } else {
+                      throw supportError; // Re-throw other errors
+                    }
+                  }
+                }
+                
+              } catch (error) {
+                console.error('Error in support button click:', error);
+                alert('Gagal mengubah status dukungan: ' + error.message);
+              }
+            });
+          }
+
+          // Ikut Aspirasi (icon)
+          const followBtn = card.querySelector('.petition-actions .btn.icon[aria-label="Ikut Aspirasi"]');
+          if (followBtn && !followBtn.dataset.bound) {
+            followBtn.dataset.bound = 'true';
+            followBtn.addEventListener('click', async (e) => {
+              e.preventDefault();
+              e.stopPropagation();
+              
+              // Get petition ID from data attribute
+              const petitionId = followBtn.dataset.petitionId;
+              if (!petitionId) {
+                console.error('Petition ID not found in follow button');
+                return;
+              }
+              
+              // Call the followPetition function
+              await followPetition(petitionId);
+            });
+          }
+
+          // Bagikan Aspirasi (icon)
+          const shareBtn = card.querySelector('.petition-actions .btn.icon[aria-label="Bagikan Aspirasi"]');
+          if (shareBtn && !shareBtn.dataset.bound) {
+            shareBtn.dataset.bound = 'true';
+            shareBtn.addEventListener('click', async () => {
+              const id = ensureCardId(card);
+              const url = `${location.origin}${location.pathname}#${id}`;
+              const title = card.querySelector('.petition-title')?.textContent?.trim() || 'Aspirasi SpeakUp!';
+              try {
+                if (navigator.share) {
+                  await navigator.share({ title, url });
+                } else if (navigator.clipboard && navigator.clipboard.writeText) {
+                  await navigator.clipboard.writeText(url);
+                  alert('Tautan disalin ke clipboard.');
+                } else {
+                  prompt('Salin tautan aspirasi berikut:', url);
+                }
+              } catch (e) {
+                // diamkan; pengguna mungkin membatalkan share
+              }
+            });
+          }
+          
+          // Mark this card as having actions attached
+          card.dataset.actionsAttached = 'true';
+        });
+      }
+
+      // Bind setelah load DOM (script berada di akhir body, tapi kita pastikan saja)
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', attachPetitionActions);
+      } else {
+        attachPetitionActions();
+      }
+      
+      // Debug: Check if support buttons exist
+      setTimeout(() => {
+        const supportButtons = document.querySelectorAll('.petition-actions .btn');
+        console.log('Total buttons found:', supportButtons.length);
+        supportButtons.forEach((btn, index) => {
+          console.log(`Button ${index}:`, btn.textContent, btn);
+        });
+      }, 1000);
+      
+    </script>
+  </div>
+
+  <!-- Signature Settings Modal -->
+  <div id="signatureModal" class="modal" role="dialog">
+    <div class="box" style="max-width: 600px;">
+      <div class="head">
+        <strong>Atur Tanda Tangan Digital</strong>
+        <button id="closeSignature" class="btn ghost">Tutup</button>
+      </div>
+      <form id="signatureForm">
+        <div class="mt-12">
+          <label>Nama Lengkap</label>
+          <input type="text" name="fullName" id="signatureFullName" placeholder="Masukkan nama lengkap Anda" />
+        </div>
+        <div class="mt-12">
+          <label>Canvas Tanda Tangan</label>
+          <div style="border: 2px dashed var(--border); border-radius: 8px; padding: 16px; text-align: center; background: var(--bg);">
+            <canvas id="signatureCanvas" width="500" height="200" style="border: 1px solid var(--border); border-radius: 4px; cursor: crosshair; background: white;"></canvas>
+            <div style="margin-top: 8px; font-size: 12px; color: var(--muted);">
+              Gambar tanda tangan Anda di atas
+            </div>
+            <div style="margin-top: 8px;">
+              <button type="button" class="btn ghost" onclick="clearSignature()" style="font-size: 12px;">Hapus</button>
+              <button type="button" class="btn ghost" onclick="saveSignature()" style="font-size: 12px;">Simpan</button>
+            </div>
+          </div>
+        </div>
+        <div class="mt-12">
+          <label>Preview Tanda Tangan</label>
+          <div id="signaturePreview" style="border: 1px solid var(--border); border-radius: 4px; padding: 16px; min-height: 80px; background: var(--bg); text-align: center; color: var(--muted);">
+            Tanda tangan akan muncul di sini
+          </div>
+          <div id="signatureStatus" style="margin-top: 8px; font-size: 12px; color: var(--muted);">
+            Status: Belum ada tanda tangan
+          </div>
+        </div>
+        <div class="actions-row">
+          <button type="submit" class="btn primary">Simpan Pengaturan</button>
+          <button type="button" id="closeSignature2" class="btn ghost">Batal</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Signature Success Modal -->
+  <div id="signatureSuccessModal" class="modal" role="dialog">
+    <div class="box" style="max-width: 500px; text-align: center;">
+      <div class="head">
+        <strong>Berhasil!</strong>
+        <button id="closeSuccess" class="btn ghost">Tutup</button>
+      </div>
+      <div style="padding: 20px;">
+        <div style="font-size: 48px; margin-bottom: 16px; color: #10b981; font-weight: bold;">✓</div>
+        <h3 style="margin: 0 0 12px;">Aspirasi Berhasil Ditandatangani!</h3>
+        <p style="color: var(--muted); margin-bottom: 20px;">
+          Terima kasih telah mendukung aspirasi ini. Tanda tangan Anda telah tercatat.
+        </p>
+        <div id="signatureInfo" style="background: var(--bg); border: 1px solid var(--border); border-radius: 8px; padding: 16px; margin-bottom: 20px;">
+          <!-- Informasi penanda tangan akan ditampilkan di sini -->
+        </div>
+        <div class="actions-row">
+          <button class="btn primary" onclick="closeSuccessModal()">Selesai</button>
+          <button class="btn ghost" onclick="sharePetition()">Bagikan Aspirasi</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Signature functionality
+    let signatureCanvas, signatureCtx, isDrawing = false;
+    let signatureData = null;
+    let currentPetitionId = null;
+
+    function openSignatureModal(petitionId) {
+      currentPetitionId = petitionId;
+      document.getElementById('signatureModal').classList.add('open');
+      initializeSignatureCanvas();
+      loadSignatureSettings();
+    }
+
+    function initializeSignatureCanvas() {
+      signatureCanvas = document.getElementById('signatureCanvas');
+      if (!signatureCanvas) return;
+      
+      signatureCtx = signatureCanvas.getContext('2d');
+      signatureCtx.strokeStyle = '#000';
+      signatureCtx.lineWidth = 2;
+      signatureCtx.lineCap = 'round';
+      signatureCtx.lineJoin = 'round';
+
+      // Mouse events
+      signatureCanvas.addEventListener('mousedown', startDrawing);
+      signatureCanvas.addEventListener('mousemove', draw);
+      signatureCanvas.addEventListener('mouseup', stopDrawing);
+      signatureCanvas.addEventListener('mouseout', stopDrawing);
+
+      // Touch events for mobile
+      signatureCanvas.addEventListener('touchstart', handleTouch);
+      signatureCanvas.addEventListener('touchmove', handleTouch);
+      signatureCanvas.addEventListener('touchend', stopDrawing);
+    }
+
+    function startDrawing(e) {
+      isDrawing = true;
+      const rect = signatureCanvas.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      signatureCtx.beginPath();
+      signatureCtx.moveTo(x, y);
+    }
+
+    function draw(e) {
+      if (!isDrawing) return;
+      const rect = signatureCanvas.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      signatureCtx.lineTo(x, y);
+      signatureCtx.stroke();
+    }
+
+    function stopDrawing() {
+      isDrawing = false;
+      signatureCtx.beginPath();
+      // Auto-save signature when user stops drawing
+      if (signatureCanvas) {
+        signatureData = signatureCanvas.toDataURL();
+        updateSignaturePreview();
+      }
+    }
+
+    function handleTouch(e) {
+      e.preventDefault();
+      const touch = e.touches[0];
+      const mouseEvent = new MouseEvent(e.type === 'touchstart' ? 'mousedown' : 
+                                       e.type === 'touchmove' ? 'mousemove' : 'mouseup', {
+        clientX: touch.clientX,
+        clientY: touch.clientY
+      });
+      signatureCanvas.dispatchEvent(mouseEvent);
+    }
+
+    function clearSignature() {
+      if (signatureCtx) {
+        signatureCtx.clearRect(0, 0, signatureCanvas.width, signatureCanvas.height);
+        signatureData = null;
+        updateSignaturePreview();
+      }
+    }
+
+    function saveSignature() {
+      if (signatureCanvas) {
+        // Save with high quality to preserve signature details
+        signatureData = signatureCanvas.toDataURL('image/png', 1.0);
+        updateSignaturePreview();
+        console.log('✅ Tanda tangan disimpan ke memory (siap untuk disimpan ke database)');
+        alert('Tanda tangan berhasil disimpan ke memory! Klik "Simpan Pengaturan" untuk menyimpan ke akun Anda.');
+      }
+    }
+
+    function updateSignaturePreview() {
+      const preview = document.getElementById('signaturePreview');
+      const status = document.getElementById('signatureStatus');
+      if (!preview) return;
+
+      if (signatureData) {
+        preview.innerHTML = `<img src="${signatureData}" style="max-width: 100%; max-height: 80px;" alt="Preview Tanda Tangan" />`;
+        if (status) {
+          status.innerHTML = 'Status: ✅ Tanda tangan siap disimpan';
+          status.style.color = '#059669';
+        }
+      } else {
+        preview.innerHTML = 'Tanda tangan akan muncul di sini';
+        if (status) {
+          status.innerHTML = 'Status: Belum ada tanda tangan';
+          status.style.color = 'var(--muted)';
+        }
+      }
+    }
+
+    async function loadSignatureSettings() {
+      try {
+        // Load from localStorage first (simpler approach)
+        const savedSignature = localStorage.getItem('userSignature');
+        const savedFullName = localStorage.getItem('userFullName');
+        
+        if (savedFullName) {
+          document.getElementById('signatureFullName').value = savedFullName;
+        }
+        
+        if (savedSignature) {
+          signatureData = savedSignature;
+          const img = new Image();
+          img.onload = function() {
+            signatureCtx.clearRect(0, 0, signatureCanvas.width, signatureCanvas.height);
+            
+            // Use the exact scaling logic from the reference
+            const scale = Math.min(
+              signatureCanvas.width / img.width,
+              signatureCanvas.height / img.height
+            );
+            const x = (signatureCanvas.width - img.width * scale) / 2;
+            const y = (signatureCanvas.height - img.height * scale) / 2;
+            
+            signatureCtx.drawImage(img, x, y, img.width * scale, img.height * scale);
+          };
+          img.src = savedSignature;
+          updateSignaturePreview();
+        }
+        
+        // Try to load from Supabase if available
+        if (window.settingsAPI) {
+          try {
+            const signature = await window.settingsAPI.getDigitalSignature();
+            if (signature) {
+              if (signature.full_name) {
+                document.getElementById('signatureFullName').value = signature.full_name;
+              }
+              
+              if (signature.signature_data) {
+                signatureData = signature.signature_data;
+                const img = new Image();
+                img.onload = function() {
+                  signatureCtx.clearRect(0, 0, signatureCanvas.width, signatureCanvas.height);
+                  
+                  // Use the exact scaling logic from the reference
+                  const scale = Math.min(
+                    signatureCanvas.width / img.width,
+                    signatureCanvas.height / img.height
+                  );
+                  const x = (signatureCanvas.width - img.width * scale) / 2;
+                  const y = (signatureCanvas.height - img.height * scale) / 2;
+                  
+                  signatureCtx.drawImage(img, x, y, img.width * scale, img.height * scale);
+                };
+                img.src = signature.signature_data;
+                updateSignaturePreview();
+              }
+            }
+          } catch (apiError) {
+            console.warn('Failed to load from Supabase, using localStorage:', apiError);
+          }
+        }
+      } catch (error) {
+        console.error('Error loading signature settings:', error);
+      }
+    }
+
+    function closeSuccessModal() {
+      document.getElementById('signatureSuccessModal').classList.remove('open');
+    }
+
+    function sharePetition() {
+      if (navigator.share) {
+        navigator.share({
+          title: 'Hentikan Perundungan di Kampus X',
+          text: 'Dukung aspirasi ini untuk menghentikan perundungan di kampus',
+          url: window.location.href
+        });
+      } else {
+        // Fallback untuk browser yang tidak mendukung Web Share API
+        const url = window.location.href;
+        navigator.clipboard.writeText(url).then(() => {
+          alert('Link aspirasi telah disalin ke clipboard!');
+        });
+      }
+    }
+
+    // Modal handlers
+    const signatureModal = document.getElementById('signatureModal');
+    const closeSignature = document.getElementById('closeSignature');
+    const closeSignature2 = document.getElementById('closeSignature2');
+    const signatureForm = document.getElementById('signatureForm');
+
+    closeSignature && closeSignature.addEventListener('click', () => signatureModal.classList.remove('open'));
+    closeSignature2 && closeSignature2.addEventListener('click', () => signatureModal.classList.remove('open'));
+    signatureModal && signatureModal.addEventListener('click', (e) => { if (e.target === signatureModal) signatureModal.classList.remove('open'); });
+
+    signatureForm && signatureForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const data = Object.fromEntries(new FormData(signatureForm).entries());
+      
+      // Validasi input
+      if (!data.fullName || data.fullName.trim() === '') {
+        alert('Silakan isi nama lengkap terlebih dahulu!');
+        return;
+      }
+      
+      if (!signatureData) {
+        alert('Silakan buat tanda tangan terlebih dahulu dengan menggambar di canvas dan klik tombol "Simpan"!');
+        return;
+      }
+      
+      try {
+        console.log('🔄 Menyimpan tanda tangan ke Supabase...');
+        console.log('Data:', { fullName: data.fullName, hasSignature: !!signatureData });
+        
+        // Always save to localStorage as backup
+        console.log('💾 Menyimpan tanda tangan ke localStorage sebagai backup...');
+        localStorage.setItem('userSignature', signatureData);
+        localStorage.setItem('userFullName', data.fullName.trim());
+        console.log('✅ Tanda tangan berhasil disimpan ke localStorage');
+        
+        if (window.settingsAPI) {
+          try {
+            const result = await window.settingsAPI.saveDigitalSignature(
+              signatureData,
+              data.fullName.trim()
+            );
+            console.log('✅ Tanda tangan berhasil disimpan ke Supabase');
+            
+            alert('Pengaturan tanda tangan berhasil disimpan ke database dan localStorage!');
+          } catch (apiError) {
+            console.warn('⚠️ Gagal menyimpan ke Supabase, menggunakan localStorage:', apiError);
+            
+            alert('Pengaturan tanda tangan berhasil disimpan ke localStorage!');
+          }
+        } else {
+          console.log('⚠️ SettingsAPI tidak tersedia, hanya menyimpan ke localStorage');
+          
+          alert('Pengaturan tanda tangan berhasil disimpan ke localStorage!');
+        }
+        
+        signatureModal.classList.remove('open');
+      } catch (error) {
+        console.error('❌ Error saving signature:', error);
+        alert('Gagal menyimpan tanda tangan: ' + error.message);
+      }
+    });
+
+    // Success modal handlers
+    const successModal = document.getElementById('signatureSuccessModal');
+    const closeSuccess = document.getElementById('closeSuccess');
+
+    closeSuccess && closeSuccess.addEventListener('click', () => successModal.classList.remove('open'));
+    successModal && successModal.addEventListener('click', (e) => { if (e.target === successModal) successModal.classList.remove('open'); });
+
+    // Emoji Picker Functions
+    function toggleEmojiPicker() {
+      const emojiPicker = document.getElementById('emojiPicker');
+      if (emojiPicker) {
+        if (emojiPicker.style.display === 'none' || emojiPicker.style.display === '') {
+          emojiPicker.style.display = 'block';
+          emojiPicker.classList.add('open');
+        } else {
+          emojiPicker.style.display = 'none';
+          emojiPicker.classList.remove('open');
+        }
+      }
+    }
+
+    function insertEmoji(emoji) {
+      const textarea = document.getElementById('contentText');
+      if (textarea) {
+        const currentPos = textarea.selectionStart;
+        const textBefore = textarea.value.substring(0, currentPos);
+        const textAfter = textarea.value.substring(textarea.selectionEnd);
+        
+        textarea.value = textBefore + emoji + textAfter;
+        textarea.focus();
+        textarea.setSelectionRange(currentPos + emoji.length, currentPos + emoji.length);
+        
+        // Hide emoji picker after selection
+        const emojiPicker = document.getElementById('emojiPicker');
+        if (emojiPicker) {
+          emojiPicker.style.display = 'none';
+          emojiPicker.classList.remove('open');
+        }
+      }
+    }
+
+    function removeMedia() {
+      document.getElementById('mediaUpload').value = '';
+      document.getElementById('mediaPreview').style.display = 'none';
+      document.getElementById('previewImg').style.display = 'none';
+      document.getElementById('previewVideo').style.display = 'none';
+    }
+
+    // Removed Speak! button logic on petitions page per requirement
+  </script>
+
+  <!-- Create Post Modal -->
+  <div id="createModal" class="modal" role="dialog">
+    <div class="box">
+      <div class="head">
+        <strong>Buat Post</strong>
+        <button id="closeCreate" class="btn ghost">×</button>
+      </div>
+      <form id="createForm">
+        <div class="mt-12">
+          <label>Konten</label>
+          <div style="position: relative;">
+            <textarea name="content" id="contentText" rows="6" maxlength="5000" required placeholder="Speak! Bagikan pengalamanmu..." style="
+              width: 100%;
+              min-height: 120px;
+              padding: 12px 40px 12px 12px;
+              border: 1px solid #d1d5db;
+              border-radius: 8px;
+              resize: vertical;
+              font-family: inherit;
+              font-size: 14px;
+              outline: none;
+              transition: border-color 0.2s;
+            " onfocus="this.style.borderColor='#38bdf8'" onblur="this.style.borderColor='#d1d5db'"></textarea>
+            <button type="button" onclick="toggleEmojiPicker()" style="
+              position: absolute;
+              right: 8px;
+              bottom: 8px;
+              background: none;
+              border: none;
+              font-size: 18px;
+              cursor: pointer;
+              padding: 4px;
+              border-radius: 4px;
+              transition: background-color 0.2s;
+            " onmouseover="this.style.backgroundColor='#f3f4f6'" onmouseout="this.style.backgroundColor='transparent'" title="Pilih Emoji">
+              😊
+            </button>
+            
+            <!-- Emoji Picker -->
+            <div id="emojiPicker" style="
+              position: absolute;
+              bottom: 10px;
+              left: 10px;
+              right: 50px;
+              background: #ffffff;
+              border: 2px solid #38bdf8;
+              border-radius: 8px;
+              box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+              padding: 12px;
+              z-index: 10;
+              display: none;
+            ">
+              <div style="display: grid; grid-template-columns: repeat(8, 1fr); gap: 8px;">
+                <button type="button" onclick="insertEmoji('😊')" style="background: none; border: none; font-size: 20px; padding: 8px; border-radius: 4px; cursor: pointer; transition: background-color 0.2s ease;" onmouseover="this.style.background='#f3f4f6'" onmouseout="this.style.background='none'">😊</button>
+                <button type="button" onclick="insertEmoji('😢')" style="background: none; border: none; font-size: 20px; padding: 8px; border-radius: 4px; cursor: pointer; transition: background-color 0.2s ease;" onmouseover="this.style.background='#f3f4f6'" onmouseout="this.style.background='none'">😢</button>
+                <button type="button" onclick="insertEmoji('😡')" style="background: none; border: none; font-size: 20px; padding: 8px; border-radius: 4px; cursor: pointer; transition: background-color 0.2s ease;" onmouseover="this.style.background='#f3f4f6'" onmouseout="this.style.background='none'">😡</button>
+                <button type="button" onclick="insertEmoji('😍')" style="background: none; border: none; font-size: 20px; padding: 8px; border-radius: 4px; cursor: pointer; transition: background-color 0.2s ease;" onmouseover="this.style.background='#f3f4f6'" onmouseout="this.style.background='none'">😍</button>
+                <button type="button" onclick="insertEmoji('🤔')" style="background: none; border: none; font-size: 20px; padding: 8px; border-radius: 4px; cursor: pointer; transition: background-color 0.2s ease;" onmouseover="this.style.background='#f3f4f6'" onmouseout="this.style.background='none'">🤔</button>
+                <button type="button" onclick="insertEmoji('😮')" style="background: none; border: none; font-size: 20px; padding: 8px; border-radius: 4px; cursor: pointer; transition: background-color 0.2s ease;" onmouseover="this.style.background='#f3f4f6'" onmouseout="this.style.background='none'">😮</button>
+                <button type="button" onclick="insertEmoji('😭')" style="background: none; border: none; font-size: 20px; padding: 8px; border-radius: 4px; cursor: pointer; transition: background-color 0.2s ease;" onmouseover="this.style.background='#f3f4f6'" onmouseout="this.style.background='none'">😭</button>
+                <button type="button" onclick="insertEmoji('😤')" style="background: none; border: none; font-size: 20px; padding: 8px; border-radius: 4px; cursor: pointer; transition: background-color 0.2s ease;" onmouseover="this.style.background='#f3f4f6'" onmouseout="this.style.background='none'">😤</button>
+                <button type="button" onclick="insertEmoji('🙏')" style="background: none; border: none; font-size: 20px; padding: 8px; border-radius: 4px; cursor: pointer; transition: background-color 0.2s ease;" onmouseover="this.style.background='#f3f4f6'" onmouseout="this.style.background='none'">🙏</button>
+                <button type="button" onclick="insertEmoji('❤️')" style="background: none; border: none; font-size: 20px; padding: 8px; border-radius: 4px; cursor: pointer; transition: background-color 0.2s ease;" onmouseover="this.style.background='#f3f4f6'" onmouseout="this.style.background='none'">❤️</button>
+                <button type="button" onclick="insertEmoji('👍')" style="background: none; border: none; font-size: 20px; padding: 8px; border-radius: 4px; cursor: pointer; transition: background-color 0.2s ease;" onmouseover="this.style.background='#f3f4f6'" onmouseout="this.style.background='none'">👍</button>
+                <button type="button" onclick="insertEmoji('👎')" style="background: none; border: none; font-size: 20px; padding: 8px; border-radius: 4px; cursor: pointer; transition: background-color 0.2s ease;" onmouseover="this.style.background='#f3f4f6'" onmouseout="this.style.background='none'">👎</button>
+                <button type="button" onclick="insertEmoji('🔥')" style="background: none; border: none; font-size: 20px; padding: 8px; border-radius: 4px; cursor: pointer; transition: background-color 0.2s ease;" onmouseover="this.style.background='#f3f4f6'" onmouseout="this.style.background='none'">🔥</button>
+                <button type="button" onclick="insertEmoji('💪')" style="background: none; border: none; font-size: 20px; padding: 8px; border-radius: 4px; cursor: pointer; transition: background-color 0.2s ease;" onmouseover="this.style.background='#f3f4f6'" onmouseout="this.style.background='none'">💪</button>
+                <button type="button" onclick="insertEmoji('🎉')" style="background: none; border: none; font-size: 20px; padding: 8px; border-radius: 4px; cursor: pointer; transition: background-color 0.2s ease;" onmouseover="this.style.background='#f3f4f6'" onmouseout="this.style.background='none'">🎉</button>
+                <button type="button" onclick="insertEmoji('✨')" style="background: none; border: none; font-size: 20px; padding: 8px; border-radius: 4px; cursor: pointer; transition: background-color 0.2s ease;" onmouseover="this.style.background='#f3f4f6'" onmouseout="this.style.background='none'">✨</button>
+                <button type="button" onclick="insertEmoji('😀')" style="background: none; border: none; font-size: 20px; padding: 8px; border-radius: 4px; cursor: pointer; transition: background-color 0.2s ease;" onmouseover="this.style.background='#f3f4f6'" onmouseout="this.style.background='none'">😀</button>
+                <button type="button" onclick="insertEmoji('😃')" style="background: none; border: none; font-size: 20px; padding: 8px; border-radius: 4px; cursor: pointer; transition: background-color 0.2s ease;" onmouseover="this.style.background='#f3f4f6'" onmouseout="this.style.background='none'">😃</button>
+                <button type="button" onclick="insertEmoji('😄')" style="background: none; border: none; font-size: 20px; padding: 8px; border-radius: 4px; cursor: pointer; transition: background-color 0.2s ease;" onmouseover="this.style.background='#f3f4f6'" onmouseout="this.style.background='none'">😄</button>
+                <button type="button" onclick="insertEmoji('😁')" style="background: none; border: none; font-size: 20px; padding: 8px; border-radius: 4px; cursor: pointer; transition: background-color 0.2s ease;" onmouseover="this.style.background='#f3f4f6'" onmouseout="this.style.background='none'">😁</button>
+                <button type="button" onclick="insertEmoji('😆')" style="background: none; border: none; font-size: 20px; padding: 8px; border-radius: 4px; cursor: pointer; transition: background-color 0.2s ease;" onmouseover="this.style.background='#f3f4f6'" onmouseout="this.style.background='none'">😆</button>
+                <button type="button" onclick="insertEmoji('😅')" style="background: none; border: none; font-size: 20px; padding: 8px; border-radius: 4px; cursor: pointer; transition: background-color 0.2s ease;" onmouseover="this.style.background='#f3f4f6'" onmouseout="this.style.background='none'">😅</button>
+                <button type="button" onclick="insertEmoji('🤣')" style="background: none; border: none; font-size: 20px; padding: 8px; border-radius: 4px; cursor: pointer; transition: background-color 0.2s ease;" onmouseover="this.style.background='#f3f4f6'" onmouseout="this.style.background='none'">🤣</button>
+                <button type="button" onclick="insertEmoji('😂')" style="background: none; border: none; font-size: 20px; padding: 8px; border-radius: 4px; cursor: pointer; transition: background-color 0.2s ease;" onmouseover="this.style.background='#f3f4f6'" onmouseout="this.style.background='none'">😂</button>
+                <button type="button" onclick="insertEmoji('🙂')" style="background: none; border: none; font-size: 20px; padding: 8px; border-radius: 4px; cursor: pointer; transition: background-color 0.2s ease;" onmouseover="this.style.background='#f3f4f6'" onmouseout="this.style.background='none'">🙂</button>
+                <button type="button" onclick="insertEmoji('🙃')" style="background: none; border: none; font-size: 20px; padding: 8px; border-radius: 4px; cursor: pointer; transition: background-color 0.2s ease;" onmouseover="this.style.background='#f3f4f6'" onmouseout="this.style.background='none'">🙃</button>
+                <button type="button" onclick="insertEmoji('😉')" style="background: none; border: none; font-size: 20px; padding: 8px; border-radius: 4px; cursor: pointer; transition: background-color 0.2s ease;" onmouseover="this.style.background='#f3f4f6'" onmouseout="this.style.background='none'">😉</button>
+                <button type="button" onclick="insertEmoji('😇')" style="background: none; border: none; font-size: 20px; padding: 8px; border-radius: 4px; cursor: pointer; transition: background-color 0.2s ease;" onmouseover="this.style.background='#f3f4f6'" onmouseout="this.style.background='none'">😇</button>
+                <button type="button" onclick="insertEmoji('🥰')" style="background: none; border: none; font-size: 20px; padding: 8px; border-radius: 4px; cursor: pointer; transition: background-color 0.2s ease;" onmouseover="this.style.background='#f3f4f6'" onmouseout="this.style.background='none'">🥰</button>
+                <button type="button" onclick="insertEmoji('🤩')" style="background: none; border: none; font-size: 20px; padding: 8px; border-radius: 4px; cursor: pointer; transition: background-color 0.2s ease;" onmouseover="this.style.background='#f3f4f6'" onmouseout="this.style.background='none'">🤩</button>
+                <button type="button" onclick="insertEmoji('😘')" style="background: none; border: none; font-size: 20px; padding: 8px; border-radius: 4px; cursor: pointer; transition: background-color 0.2s ease;" onmouseover="this.style.background='#f3f4f6'" onmouseout="this.style.background='none'">😘</button>
+                <button type="button" onclick="insertEmoji('😋')" style="background: none; border: none; font-size: 20px; padding: 8px; border-radius: 4px; cursor: pointer; transition: background-color 0.2s ease;" onmouseover="this.style.background='#f3f4f6'" onmouseout="this.style.background='none'">😋</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="mt-12">
+          <label>Upload Gambar/Foto (Opsional)</label>
+          <div class="file-upload-container">
+            <input type="file" id="imageUpload" name="image" accept="image/*">
+            <button type="button" class="btn ghost upload-btn" onclick="document.getElementById('imageUpload').click()">
+              <svg fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z" clip-rule="evenodd"/>
+              </svg>
+              Klik untuk Upload Gambar
+            </button>
+            <div id="imagePreview" class="image-preview">
+              <img id="previewImg">
+              <button type="button" onclick="removeImage()" class="btn ghost remove-btn">Hapus Gambar</button>
+            </div>
+          </div>
+        </div>
+        <div class="mt-12 row">
+          <div style="flex:1">
+            <label>Kategori</label>
+            <select name="category">
+              <option value="bullying">Bullying</option>
+              <option value="mental_health">Mental Health</option>
+              <option value="workplace">Workplace</option>
+              <option value="aspirasi">Aspirasi</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+          <div style="flex:1">
+            <label>Identitas</label>
+            <select name="identity">
+              <option value="anonymous">Anonymous</option>
+              <option value="custom_anon">Custom Handle</option>
+              <option value="verified">Verified</option>
+            </select>
+          </div>
+        </div>
+        <div class="mt-12">
+          <label><input type="checkbox" name="want_solution" value="true" /> Saya ingin solusi</label>
+        </div>
+        <div class="actions-row">
+          <button type="submit" class="btn primary">Kirim</button>
+          <button type="button" id="closeCreate2" class="btn ghost" onclick="document.getElementById('createModal').classList.remove('open')">Batal</button>
+        </div>
+        
+      </form>
+    </div>
+  </div>
+
+  <script src="assets/js/app.js"></script>
+  <!-- Supabase SDK -->
+  <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
+  <script src="config/supabase-config.js"></script>
+  <script src="config/supabase-bootstrap.js"></script>
+  
+  <script>
+    // Sync signature counts for all petitions
+    async function syncAllSignatureCounts() {
+      try {
+        const supabase = window.getSupabase();
+        if (!supabase) return;
+
+        console.log('Syncing signature counts...');
+        
+        // Get all petitions
+        const { data: petitions } = await supabase
+          .from('petitions')
+          .select('id, signature_count');
+        
+        if (!petitions) return;
+        
+        // Update each petition's signature count
+        for (const petition of petitions) {
+          const { count: actualCount } = await supabase
+            .from('petition_signatures')
+            .select('*', { count: 'exact', head: true })
+            .eq('petition_id', petition.id);
+          
+          if (actualCount !== petition.signature_count) {
+            await supabase
+              .from('petitions')
+              .update({ signature_count: actualCount || 0 })
+              .eq('id', petition.id);
+            
+            console.log(`Updated petition ${petition.id}: ${petition.signature_count} → ${actualCount}`);
+          }
+        }
+        
+        console.log('Signature counts synced successfully');
+      } catch (error) {
+        console.error('Error syncing signature counts:', error);
+      }
+    }
+
+    // Run sync on page load
+    document.addEventListener('DOMContentLoaded', function() {
+      setTimeout(syncAllSignatureCounts, 2000); // Wait 2 seconds for everything to load
+    });
+  </script>
+</body>
+</html>
+
