@@ -1,0 +1,912 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SpeakUp! - Admin Verified Badge</title>
+  <link rel="icon" href="favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="assets/css/style.css">
+  <style>
+    /* Admin specific styles */
+    .admin-header {
+      background: linear-gradient(135deg, #38bdf8 0%, #0ea5e9 100%);
+      color: white;
+      padding: 20px 0;
+      margin-bottom: 32px;
+    }
+    
+    .admin-badge {
+      background: #38bdf8;
+      color: white;
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 600;
+      margin-left: 12px;
+    }
+    
+    .verified-badge-card {
+      background: white;
+      border: 1px solid #e5e7eb;
+      border-radius: 12px;
+      padding: 24px;
+      margin-bottom: 24px;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+      transition: all 0.2s ease;
+    }
+    
+    .verified-badge-card:hover {
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      transform: translateY(-2px);
+    }
+    
+    .badge-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 16px;
+    }
+    
+    .user-info {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    
+    .user-avatar {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 24px;
+      font-weight: 600;
+    }
+    
+    .user-details h3 {
+      margin: 0;
+      font-size: 18px;
+      color: #1f2937;
+    }
+    
+    .user-details p {
+      margin: 4px 0 0 0;
+      color: #6b7280;
+      font-size: 14px;
+    }
+    
+    .badge-status {
+      padding: 6px 12px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 600;
+      text-transform: uppercase;
+    }
+    
+    .status-pending {
+      background: #fef3c7;
+      color: #92400e;
+    }
+    
+    .status-approved {
+      background: #d1fae5;
+      color: #065f46;
+    }
+    
+    .status-rejected {
+      background: #fee2e2;
+      color: #991b1b;
+    }
+    
+    .badge-meta {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 16px;
+      margin-bottom: 20px;
+      padding: 16px;
+      background: #f9fafb;
+      border-radius: 8px;
+    }
+    
+    .meta-item {
+      display: flex;
+      flex-direction: column;
+    }
+    
+    .meta-label {
+      font-size: 12px;
+      color: #6b7280;
+      font-weight: 500;
+      margin-bottom: 4px;
+    }
+    
+    .meta-value {
+      font-size: 14px;
+      color: #1f2937;
+      font-weight: 500;
+    }
+    
+    .verification-content {
+      margin-bottom: 20px;
+    }
+    
+    .content-section {
+      margin-bottom: 16px;
+    }
+    
+    .content-label {
+      font-size: 14px;
+      font-weight: 600;
+      color: #374151;
+      margin-bottom: 8px;
+    }
+    
+    .content-text {
+      font-size: 14px;
+      color: #4b5563;
+      line-height: 1.6;
+      background: #f9fafb;
+      padding: 12px;
+      border-radius: 6px;
+      border-left: 4px solid #3b82f6;
+    }
+    
+    .verification-documents {
+      margin-bottom: 20px;
+    }
+    
+    .document-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+      gap: 12px;
+    }
+    
+    .document-item {
+      background: #f3f4f6;
+      border: 1px solid #d1d5db;
+      border-radius: 8px;
+      padding: 12px;
+      text-align: center;
+      transition: all 0.2s ease;
+    }
+    
+    .document-item:hover {
+      background: #e5e7eb;
+      transform: translateY(-1px);
+    }
+    
+    .document-icon {
+      font-size: 24px;
+      margin-bottom: 8px;
+    }
+    
+    .document-name {
+      font-size: 12px;
+      color: #374151;
+      word-break: break-all;
+    }
+    
+    .admin-actions {
+      display: flex;
+      gap: 12px;
+      padding-top: 20px;
+      border-top: 1px solid #e5e7eb;
+    }
+    
+    .btn-approve {
+      background: #059669;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 6px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    
+    .btn-approve:hover {
+      background: #047857;
+    }
+    
+    .btn-reject {
+      background: #dc2626;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 6px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    
+    .btn-reject:hover {
+      background: #b91c1c;
+    }
+    
+    .btn-view {
+      background: #3b82f6;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 6px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    
+    .btn-view:hover {
+      background: #2563eb;
+    }
+    
+    .moderation-notes {
+      margin-top: 16px;
+    }
+    
+    .notes-textarea {
+      width: 100%;
+      min-height: 80px;
+      padding: 12px;
+      border: 1px solid #d1d5db;
+      border-radius: 6px;
+      font-size: 14px;
+      resize: vertical;
+    }
+    
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+      margin-bottom: 32px;
+    }
+    
+    .stat-card {
+      background: white;
+      border: 1px solid #e5e7eb;
+      border-radius: 12px;
+      padding: 20px;
+      text-align: center;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    }
+    
+    .stat-number {
+      font-size: 32px;
+      font-weight: 700;
+      color: #1f2937;
+      margin-bottom: 8px;
+    }
+    
+    .stat-label {
+      font-size: 14px;
+      color: #6b7280;
+      font-weight: 500;
+    }
+    
+    .filters {
+      background: white;
+      border: 1px solid #e5e7eb;
+      border-radius: 12px;
+      padding: 20px;
+      margin-bottom: 24px;
+    }
+    
+    .filter-row {
+      display: flex;
+      gap: 16px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    
+    .filter-group {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    
+    .filter-label {
+      font-size: 12px;
+      color: #6b7280;
+      font-weight: 500;
+    }
+    
+    .filter-select {
+      padding: 8px 12px;
+      border: 1px solid #d1d5db;
+      border-radius: 6px;
+      font-size: 14px;
+      background: white;
+    }
+    
+    .loading {
+      text-align: center;
+      padding: 40px;
+      color: #6b7280;
+    }
+    
+    .empty-state {
+      text-align: center;
+      padding: 60px 20px;
+      color: #6b7280;
+    }
+    
+    .empty-icon {
+      font-size: 48px;
+      margin-bottom: 16px;
+      opacity: 0.5;
+    }
+    
+    .verified-badge-preview {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+      color: white;
+      padding: 6px 12px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 600;
+    }
+    
+    .badge-icon {
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body class="desktop-page">
+  <div class="container">
+    <!-- Header -->
+    <header class="admin-header">
+      <div class="container">
+        <div class="flex items-center justify-between">
+          <div class="flex items-center">
+            <img src="assets/logo/logo speak up white.png" alt="SpeakUp!" style="height: 40px; margin-right: 16px;">
+            <h1 style="margin: 0; font-size: 24px;">Admin Panel</h1>
+            <span class="admin-badge">ADMIN</span>
+          </div>
+          <nav class="flex items-center gap-6">
+            <a href="desktop.html" class="text-white hover:text-gray-200" style="color: white !important;">🏠 Home</a>
+            <a href="admin-petitions-desktop.html" class="text-white hover:text-gray-200" style="color: white !important;">📝 Petitions</a>
+            <a href="#" onclick="logout()" class="text-white hover:text-gray-200" style="color: white !important;">🚪 Logout</a>
+          </nav>
+        </div>
+      </div>
+    </header>
+
+    <!-- Back Navigation -->
+    <div class="container" style="margin-bottom: 24px;">
+      <div class="flex items-center gap-4">
+        <a href="desktop.html" class="btn ghost" style="display: inline-flex; align-items: center; gap: 8px;">
+          <span>←</span>
+          <span>Kembali ke Home</span>
+        </a>
+        <span style="color: #6b7280; font-size: 14px;">|</span>
+        <span style="color: #6b7280; font-size: 14px;">Admin Panel - Verified Badge</span>
+      </div>
+    </div>
+
+    <!-- Main Content -->
+    <main>
+      <!-- Stats -->
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-number" id="totalRequests">-</div>
+          <div class="stat-label">Total Permintaan</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number" id="pendingRequests">-</div>
+          <div class="stat-label">Menunggu Review</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number" id="approvedRequests">-</div>
+          <div class="stat-label">Disetujui</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number" id="rejectedRequests">-</div>
+          <div class="stat-label">Ditolak</div>
+        </div>
+      </div>
+
+      <!-- Filters -->
+      <div class="filters">
+        <div class="filter-row">
+          <div class="filter-group">
+            <label class="filter-label">Status</label>
+            <select id="statusFilter" class="filter-select" title="Filter berdasarkan status">
+              <option value="">Semua Status</option>
+              <option value="pending">Pending</option>
+              <option value="approved">Approved</option>
+              <option value="rejected">Rejected</option>
+            </select>
+          </div>
+          <div class="filter-group">
+            <label class="filter-label">Tanggal</label>
+            <select id="dateFilter" class="filter-select" title="Filter berdasarkan tanggal">
+              <option value="">Semua Tanggal</option>
+              <option value="today">Hari Ini</option>
+              <option value="week">Minggu Ini</option>
+              <option value="month">Bulan Ini</option>
+            </select>
+          </div>
+          <button onclick="applyFilters()" class="btn primary">Terapkan Filter</button>
+          <button onclick="clearFilters()" class="btn ghost">Reset</button>
+        </div>
+      </div>
+
+      <!-- Verified Badge Requests List -->
+      <div id="verifiedBadgeList">
+        <div class="loading">
+          <div>Memuat permintaan verified badge...</div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- Moderation Modal -->
+  <div id="moderationModal" class="modal" style="display: none;">
+    <div class="box" style="max-width: 600px;">
+      <h3 id="moderationTitle">Moderasi Verified Badge</h3>
+      <div id="moderationContent"></div>
+      <div class="moderation-notes">
+        <label style="font-weight: 500; color: #374151; margin-bottom: 8px; display: block;">Catatan Moderasi</label>
+        <textarea id="moderationNotes" class="notes-textarea" placeholder="Masukkan catatan untuk user..."></textarea>
+      </div>
+      <div class="actions-row" style="margin-top: 20px;">
+        <button onclick="approveVerifiedBadge()" class="btn-approve">✅ Setujui</button>
+        <button onclick="rejectVerifiedBadge()" class="btn-reject">❌ Tolak</button>
+        <button onclick="closeModerationModal()" class="btn ghost">Batal</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let currentRequestId = null;
+    let allRequests = [];
+
+    // Check admin access
+    async function checkAdminAccess() {
+      try {
+        const isLoggedIn = localStorage.getItem('speakup_logged_in');
+        if (!isLoggedIn) {
+          alert('Anda harus login terlebih dahulu.');
+          window.location.href = './desktop.html';
+          return false;
+        }
+
+        // Check if user is admin
+        const supabase = window.getSupabase();
+        if (!supabase) {
+          alert('Supabase tidak tersedia.');
+          return false;
+        }
+
+        const { data: { user }, error: userError } = await supabase.auth.getUser();
+        if (userError || !user) {
+          alert('User tidak terautentikasi.');
+          return false;
+        }
+
+        // Check admin role in profiles table
+        const { data: profile, error: profileError } = await supabase
+          .from('profiles')
+          .select('role')
+          .eq('id', user.id)
+          .single();
+
+        if (profileError || !profile || profile.role !== 'admin') {
+          alert('Akses ditolak. Hanya admin yang dapat mengakses halaman ini.');
+          window.location.href = './desktop.html';
+          return false;
+        }
+
+        return true;
+      } catch (error) {
+        console.error('Error checking admin access:', error);
+        alert('Error checking admin access: ' + error.message);
+        return false;
+      }
+    }
+
+    // Load verified badge requests
+    async function loadVerifiedBadgeRequests() {
+      try {
+        const supabase = window.getSupabase();
+        if (!supabase) {
+          throw new Error('Supabase tidak tersedia');
+        }
+
+        // First, create the table if it doesn't exist
+        await createVerifiedBadgeTableIfNotExists();
+
+        const { data, error } = await supabase
+          .from('verified_badge_requests')
+          .select(`
+            id,
+            user_id,
+            full_name,
+            email,
+            phone,
+            profession,
+            organization,
+            verification_reason,
+            supporting_documents,
+            status,
+            admin_notes,
+            created_at,
+            updated_at,
+            reviewed_at,
+            reviewed_by,
+            profiles!inner(
+              id,
+              full_name,
+              email,
+              avatar_url
+            )
+          `)
+          .order('created_at', { ascending: false });
+
+        if (error) {
+          throw error;
+        }
+
+        allRequests = data || [];
+        updateStats();
+        renderVerifiedBadgeRequests(allRequests);
+      } catch (error) {
+        console.error('Error loading verified badge requests:', error);
+        document.getElementById('verifiedBadgeList').innerHTML = `
+          <div class="empty-state">
+            <div class="empty-icon">⚠️</div>
+            <div>Error memuat permintaan verified badge: ${error.message}</div>
+          </div>
+        `;
+      }
+    }
+
+    // Create verified badge requests table if not exists
+    async function createVerifiedBadgeTableIfNotExists() {
+      try {
+        const supabase = window.getSupabase();
+        
+        // Try to select from the table to check if it exists
+        const { error } = await supabase
+          .from('verified_badge_requests')
+          .select('id')
+          .limit(1);
+
+        if (error && error.code === 'PGRST116') {
+          // Table doesn't exist, create it
+          console.log('Creating verified_badge_requests table...');
+          
+          // Note: In a real application, you would run this SQL in Supabase SQL Editor
+          // For now, we'll just show a message
+          console.warn('Table verified_badge_requests does not exist. Please create it in Supabase SQL Editor.');
+        }
+      } catch (error) {
+        console.error('Error checking table existence:', error);
+      }
+    }
+
+    // Update statistics
+    function updateStats() {
+      const total = allRequests.length;
+      const pending = allRequests.filter(r => r.status === 'pending').length;
+      const approved = allRequests.filter(r => r.status === 'approved').length;
+      const rejected = allRequests.filter(r => r.status === 'rejected').length;
+
+      document.getElementById('totalRequests').textContent = total;
+      document.getElementById('pendingRequests').textContent = pending;
+      document.getElementById('approvedRequests').textContent = approved;
+      document.getElementById('rejectedRequests').textContent = rejected;
+    }
+
+    // Render verified badge requests
+    function renderVerifiedBadgeRequests(requests) {
+      const container = document.getElementById('verifiedBadgeList');
+      
+      if (requests.length === 0) {
+        container.innerHTML = `
+          <div class="empty-state">
+            <div class="empty-icon">🏆</div>
+            <div>Tidak ada permintaan verified badge yang ditemukan</div>
+          </div>
+        `;
+        return;
+      }
+
+      container.innerHTML = requests.map(request => `
+        <div class="verified-badge-card">
+          <div class="badge-header">
+            <div class="user-info">
+              <div class="user-avatar">
+                ${request.profiles?.full_name?.charAt(0) || request.full_name?.charAt(0) || '?'}
+              </div>
+              <div class="user-details">
+                <h3>${request.profiles?.full_name || request.full_name}</h3>
+                <p>${request.profiles?.email || request.email}</p>
+              </div>
+            </div>
+            <div>
+              <span class="badge-status status-${request.status}">${request.status}</span>
+              ${request.status === 'approved' ? '<div class="verified-badge-preview" style="margin-top: 8px;"><span class="badge-icon">✓</span>Verified</div>' : ''}
+            </div>
+          </div>
+          
+          <div class="badge-meta">
+            <div class="meta-item">
+              <span class="meta-label">Profesi</span>
+              <span class="meta-value">${request.profession || 'Tidak diisi'}</span>
+            </div>
+            <div class="meta-item">
+              <span class="meta-label">Organisasi</span>
+              <span class="meta-value">${request.organization || 'Tidak diisi'}</span>
+            </div>
+            <div class="meta-item">
+              <span class="meta-label">Phone</span>
+              <span class="meta-value">${request.phone || 'Tidak diisi'}</span>
+            </div>
+            <div class="meta-item">
+              <span class="meta-label">Dibuat</span>
+              <span class="meta-value">${new Date(request.created_at).toLocaleDateString('id-ID')}</span>
+            </div>
+          </div>
+
+          <div class="verification-content">
+            <div class="content-section">
+              <div class="content-label">Alasan Verifikasi</div>
+              <div class="content-text">${request.verification_reason || 'Tidak diisi'}</div>
+            </div>
+          </div>
+
+          ${request.supporting_documents && request.supporting_documents.length > 0 ? `
+            <div class="verification-documents">
+              <div class="content-label">Dokumen Pendukung</div>
+              <div class="document-grid">
+                ${request.supporting_documents.map(doc => `
+                  <div class="document-item">
+                    <div class="document-icon">📄</div>
+                    <div class="document-name">${doc.name || 'Dokumen'}</div>
+                  </div>
+                `).join('')}
+              </div>
+            </div>
+          ` : ''}
+
+          ${request.admin_notes ? `
+            <div class="content-section">
+              <div class="content-label">Catatan Admin</div>
+              <div class="content-text">${request.admin_notes}</div>
+            </div>
+          ` : ''}
+
+          <div class="admin-actions">
+            <button onclick="viewVerifiedBadgeRequest('${request.id}')" class="btn-view">👁️ Lihat Detail</button>
+            ${request.status === 'pending' ? `
+              <button onclick="openModerationModal('${request.id}', 'approve')" class="btn-approve">✅ Setujui</button>
+              <button onclick="openModerationModal('${request.id}', 'reject')" class="btn-reject">❌ Tolak</button>
+            ` : ''}
+          </div>
+        </div>
+      `).join('');
+    }
+
+    // Open moderation modal
+    function openModerationModal(requestId, action) {
+      currentRequestId = requestId;
+      const request = allRequests.find(r => r.id === requestId);
+      
+      if (!request) return;
+
+      document.getElementById('moderationTitle').textContent = 
+        action === 'approve' ? 'Setujui Verified Badge' : 'Tolak Verified Badge';
+      
+      document.getElementById('moderationContent').innerHTML = `
+        <div class="content-section">
+          <div class="content-label">User</div>
+          <div class="content-text">${request.profiles?.full_name || request.full_name} (${request.profiles?.email || request.email})</div>
+        </div>
+        <div class="content-section">
+          <div class="content-label">Profesi</div>
+          <div class="content-text">${request.profession || 'Tidak diisi'}</div>
+        </div>
+        <div class="content-section">
+          <div class="content-label">Alasan Verifikasi</div>
+          <div class="content-text">${request.verification_reason || 'Tidak diisi'}</div>
+        </div>
+      `;
+
+      document.getElementById('moderationNotes').value = '';
+      document.getElementById('moderationModal').style.display = 'flex';
+    }
+
+    // Close moderation modal
+    function closeModerationModal() {
+      document.getElementById('moderationModal').style.display = 'none';
+      currentRequestId = null;
+    }
+
+    // Approve verified badge
+    async function approveVerifiedBadge() {
+      if (!currentRequestId) return;
+
+      const notes = document.getElementById('moderationNotes').value.trim();
+      
+      try {
+        const supabase = window.getSupabase();
+        const { data: { user } } = await supabase.auth.getUser();
+
+        const { error } = await supabase
+          .from('verified_badge_requests')
+          .update({
+            status: 'approved',
+            admin_notes: notes,
+            reviewed_by: user.id,
+            reviewed_at: new Date().toISOString()
+          })
+          .eq('id', currentRequestId);
+
+        if (error) throw error;
+
+        // Also update the user's profile to mark them as verified
+        const request = allRequests.find(r => r.id === currentRequestId);
+        if (request) {
+          await supabase
+            .from('profiles')
+            .update({ is_verified: true })
+            .eq('id', request.user_id);
+        }
+
+        alert('Verified badge berhasil disetujui!');
+        closeModerationModal();
+        loadVerifiedBadgeRequests(); // Reload data
+      } catch (error) {
+        console.error('Error approving verified badge:', error);
+        alert('Error menyetujui verified badge: ' + error.message);
+      }
+    }
+
+    // Reject verified badge
+    async function rejectVerifiedBadge() {
+      if (!currentRequestId) return;
+
+      const notes = document.getElementById('moderationNotes').value.trim();
+      if (!notes) {
+        alert('Harap masukkan alasan penolakan.');
+        return;
+      }
+
+      try {
+        const supabase = window.getSupabase();
+        const { data: { user } } = await supabase.auth.getUser();
+
+        const { error } = await supabase
+          .from('verified_badge_requests')
+          .update({
+            status: 'rejected',
+            admin_notes: notes,
+            reviewed_by: user.id,
+            reviewed_at: new Date().toISOString()
+          })
+          .eq('id', currentRequestId);
+
+        if (error) throw error;
+
+        alert('Verified badge berhasil ditolak!');
+        closeModerationModal();
+        loadVerifiedBadgeRequests(); // Reload data
+      } catch (error) {
+        console.error('Error rejecting verified badge:', error);
+        alert('Error menolak verified badge: ' + error.message);
+      }
+    }
+
+    // View verified badge request details
+    function viewVerifiedBadgeRequest(requestId) {
+      const request = allRequests.find(r => r.id === requestId);
+      if (!request) return;
+
+      // Create detailed view modal
+      const modal = document.createElement('div');
+      modal.className = 'modal';
+      modal.style.display = 'flex';
+      modal.innerHTML = `
+        <div class="box" style="max-width: 800px; max-height: 90vh; overflow-y: auto;">
+          <h3>Detail Permintaan Verified Badge</h3>
+          <div class="verification-content">
+            <div class="content-section">
+              <div class="content-label">Informasi User</div>
+              <div class="content-text">
+                <strong>Nama:</strong> ${request.profiles?.full_name || request.full_name}<br>
+                <strong>Email:</strong> ${request.profiles?.email || request.email}<br>
+                <strong>Phone:</strong> ${request.phone || 'Tidak diisi'}<br>
+                <strong>Profesi:</strong> ${request.profession || 'Tidak diisi'}<br>
+                <strong>Organisasi:</strong> ${request.organization || 'Tidak diisi'}
+              </div>
+            </div>
+            <div class="content-section">
+              <div class="content-label">Alasan Verifikasi</div>
+              <div class="content-text">${request.verification_reason || 'Tidak diisi'}</div>
+            </div>
+            ${request.admin_notes ? `
+              <div class="content-section">
+                <div class="content-label">Catatan Admin</div>
+                <div class="content-text">${request.admin_notes}</div>
+              </div>
+            ` : ''}
+          </div>
+          <div class="actions-row">
+            <button onclick="this.closest('.modal').remove()" class="btn ghost">Tutup</button>
+          </div>
+        </div>
+      `;
+      document.body.appendChild(modal);
+    }
+
+    // Apply filters
+    function applyFilters() {
+      const statusFilter = document.getElementById('statusFilter').value;
+      const dateFilter = document.getElementById('dateFilter').value;
+
+      let filtered = [...allRequests];
+
+      if (statusFilter) {
+        filtered = filtered.filter(r => r.status === statusFilter);
+      }
+
+      if (dateFilter) {
+        const now = new Date();
+        const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+        const weekAgo = new Date(today.getTime() - 7 * 24 * 60 * 60 * 1000);
+        const monthAgo = new Date(today.getTime() - 30 * 24 * 60 * 60 * 1000);
+
+        filtered = filtered.filter(r => {
+          const createdDate = new Date(r.created_at);
+          switch (dateFilter) {
+            case 'today':
+              return createdDate >= today;
+            case 'week':
+              return createdDate >= weekAgo;
+            case 'month':
+              return createdDate >= monthAgo;
+            default:
+              return true;
+          }
+        });
+      }
+
+      renderVerifiedBadgeRequests(filtered);
+    }
+
+    // Clear filters
+    function clearFilters() {
+      document.getElementById('statusFilter').value = '';
+      document.getElementById('dateFilter').value = '';
+      renderVerifiedBadgeRequests(allRequests);
+    }
+
+    // Logout function
+    function logout() {
+      localStorage.removeItem('speakup_logged_in');
+      localStorage.removeItem('speakup_user_data');
+      window.location.href = './desktop.html';
+    }
+
+    // Initialize page
+    async function init() {
+      const hasAccess = await checkAdminAccess();
+      if (hasAccess) {
+        await loadVerifiedBadgeRequests();
+      }
+    }
+
+    // Start when page loads
+    document.addEventListener('DOMContentLoaded', init);
+  </script>
+
+  <script src="assets/js/app.js"></script>
+  <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
+  <script src="config/supabase-config.js"></script>
+  <script src="config/supabase-client.js"></script>
+</body>
+</html>

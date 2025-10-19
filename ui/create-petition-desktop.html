@@ -3,7 +3,9 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>SpeakUp! — Buat Petisi (Desktop)</title>
+  <title>SpeakUp! — Buat Aspirasi (Desktop)</title>
+  <link rel="icon" type="image/png" href="assets/logo/logo apps.png?v=2">
+  <link rel="shortcut icon" type="image/png" href="assets/logo/logo apps.png?v=2">
   <link rel="stylesheet" href="assets/css/style.css" />
   <style>
     :root { --bg:#ffffff; --panel:#ffffff; --text:#374151; --muted:#64748b; --accent:#38bdf8; --border:#e5e7eb; }
@@ -31,6 +33,19 @@
     .checkbox-item { display: flex; align-items: flex-start; gap: 12px; }
     .checkbox-item input[type="checkbox"] { margin-top: 4px; }
     .checkbox-item span { line-height: 1.5; }
+    
+    /* Signature Canvas Styles - Ensure same size as settings */
+    #signatureCanvas {
+      width: 500px !important;
+      height: 200px !important;
+      max-width: 500px !important;
+      min-width: 500px !important;
+    }
+    
+    .signature-container {
+      min-width: 500px !important;
+      max-width: 500px !important;
+    }
   </style>
 </head>
 <body class="desktop-page">
@@ -53,9 +68,9 @@
             <svg fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clip-rule="evenodd"/></svg>
             <span>Timeline</span>
           </a>
-          <a href="./petitions-desktop.html" class="nav-item active" title="Petitions">
+          <a href="./petitions-desktop.html" class="nav-item active" title="Aspirasi">
             <svg fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M3 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clip-rule="evenodd"/></svg>
-            <span>Petitions</span>
+            <span>Aspirasi</span>
           </a>
         </div>
         <div class="nav-right">
@@ -67,9 +82,9 @@
             <svg fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"/></svg>
             <span>Profile</span>
           </a>
-          <a href="./sign-desktop.html" class="nav-item" title="Sign">
+          <a href="./sign-desktop.html" class="nav-item" id="signButton" title="Login">
             <svg fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M3 10a1 1 0 011-1h8.586l-3.293-3.293a1 1 0 111.414-1.414l5 5a1 1 0 010 1.414l-5 5a1 1 0 11-1.414-1.414L12.586 11H4a1 1 0 01-1-1z" clip-rule="evenodd"/></svg>
-            <span>Sign</span>
+            <span>Login</span>
           </a>
         </div>
       </div>
@@ -78,12 +93,12 @@
     <main>
       <section class="container">
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px;">
-          <h1>🚀 Yuk, Suarakan Aspirasimu!</h1>
-          <a href="./petitions-desktop.html" class="btn ghost">← Kembali ke Petisi</a>
+          <h1>Yuk, Suarakan Aspirasimu!</h1>
+          <a href="./petitions-desktop.html" class="btn ghost">← Kembali ke Aspirasi</a>
         </div>
         
         <p style="color: var(--muted); margin-bottom: 32px; font-size: 16px;">
-          Ceritakan masalahmu dan mari kita buat perubahan bersama-sama ✊
+          Ceritakan masalahmu dan mari kita buat perubahan bersama-sama
         </p>
 
         <div class="form-container">
@@ -91,50 +106,111 @@
             <!-- Step 1: Ceritakan Masalahmu -->
             <div class="form-section">
               <div class="card" style="background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%); border: none;">
-                <h3 style="margin-bottom: 12px; color: #1e293b; font-size: 20px;">💬 Ceritakan Masalahmu</h3>
+                <h3 style="margin-bottom: 12px; color: #1e293b; font-size: 20px;">Ceritakan Masalahmu</h3>
                 <p style="color: var(--muted); font-size: 14px; margin-bottom: 24px;">Jangan khawatir, kita akan bantu kamu menyuarakan ini!</p>
                 
                 <div class="form-grid">
                   <div>
-                    <label style="font-weight: 500; color: #374151;">Apa masalah yang ingin kamu angkat? ✨</label>
+                    <label style="font-weight: 500; color: #374151;">Apa masalah yang ingin kamu angkat?</label>
                     <input type="text" name="title" required maxlength="100" placeholder="Misal: Stop bullying di sekolahku!" style="margin-top: 8px;">
                   </div>
                   
                   <div>
-                    <label style="font-weight: 500; color: #374151;">Kategori masalah 🏷️</label>
+                    <label style="font-weight: 500; color: #374151;">Kategori masalah</label>
                     <select name="category" required style="margin-top: 8px;">
                       <option value="">Pilih kategori yang paling sesuai</option>
-                      <option value="bullying">🎭 Bullying/Perundungan</option>
-                      <option value="workplace">🏢 Masalah di Tempat Kerja</option>
-                      <option value="education">📚 Pendidikan</option>
-                      <option value="discrimination">⚖️ Diskriminasi</option>
-                      <option value="corruption">🚫 Korupsi</option>
-                      <option value="environment">🌱 Lingkungan</option>
-                      <option value="other">📋 Lainnya</option>
+                      <option value="bullying">Bullying/Perundungan</option>
+                      <option value="workplace">Masalah di Tempat Kerja</option>
+                      <option value="education">Pendidikan</option>
+                      <option value="discrimination">Diskriminasi</option>
+                      <option value="corruption">Korupsi</option>
+                      <option value="environment">Lingkungan</option>
+                      <option value="other">Lainnya</option>
                     </select>
                   </div>
                 </div>
 
                 <div class="mt-16">
-                  <label style="font-weight: 500; color: #374151;">Ceritakan kronologi masalahnya 📝</label>
-                  <textarea name="description" rows="5" required maxlength="2000" placeholder="Ceritakan apa yang terjadi, kapan, dimana, dan bagaimana dampaknya ke kamu atau orang lain..." style="margin-top: 8px;"></textarea>
-                  <div style="font-size: 12px; color: var(--muted); margin-top: 6px;">💡 Tip: Semakin detail ceritamu, semakin kuat petisimu!</div>
+                  <label style="font-weight: 500; color: #374151;">Ceritakan kronologi masalahnya</label>
+                  <div style="position: relative; margin-top: 8px;">
+                    <textarea name="description" id="descriptionText" rows="5" required maxlength="2000" placeholder="Ceritakan apa yang terjadi, kapan, dimana, dan bagaimana dampaknya ke kamu atau orang lain..." style="
+                      width: 100%;
+                      min-height: 120px;
+                      padding: 12px 40px 12px 12px;
+                      border: 1px solid #d1d5db;
+                      border-radius: 8px;
+                      resize: vertical;
+                      font-family: inherit;
+                      font-size: 14px;
+                      outline: none;
+                      transition: border-color 0.2s;
+                    " onfocus="this.style.borderColor='#38bdf8'" onblur="this.style.borderColor='#d1d5db'"></textarea>
+                    <button type="button" onclick="toggleEmojiPicker()" style="
+                      position: absolute;
+                      right: 8px;
+                      bottom: 8px;
+                      background: none;
+                      border: none;
+                      font-size: 18px;
+                      cursor: pointer;
+                      padding: 4px;
+                      border-radius: 4px;
+                      transition: background-color 0.2s;
+                    " onmouseover="this.style.backgroundColor='#f3f4f6'" onmouseout="this.style.backgroundColor='transparent'" title="Pilih Emoji">
+                      😊
+                    </button>
+                    
+                    <!-- Emoji Picker untuk Deskripsi -->
+                    <div id="descriptionEmojiPicker" style="
+                      position: absolute;
+                      bottom: 50px;
+                      right: 0;
+                      background: #ffffff;
+                      border: 1px solid #e5e7eb;
+                      border-radius: 8px;
+                      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+                      padding: 12px;
+                      z-index: 1000;
+                      max-width: 200px;
+                      display: none;
+                    ">
+                      <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px;">
+                        <button type="button" onclick="insertEmoji('😊')" style="background: none; border: none; font-size: 20px; padding: 8px; border-radius: 4px; cursor: pointer; transition: background-color 0.2s ease;" onmouseover="this.style.background='#f3f4f6'" onmouseout="this.style.background='none'">😊</button>
+                        <button type="button" onclick="insertEmoji('😢')" style="background: none; border: none; font-size: 20px; padding: 8px; border-radius: 4px; cursor: pointer; transition: background-color 0.2s ease;" onmouseover="this.style.background='#f3f4f6'" onmouseout="this.style.background='none'">😢</button>
+                        <button type="button" onclick="insertEmoji('😡')" style="background: none; border: none; font-size: 20px; padding: 8px; border-radius: 4px; cursor: pointer; transition: background-color 0.2s ease;" onmouseover="this.style.background='#f3f4f6'" onmouseout="this.style.background='none'">😡</button>
+                        <button type="button" onclick="insertEmoji('😍')" style="background: none; border: none; font-size: 20px; padding: 8px; border-radius: 4px; cursor: pointer; transition: background-color 0.2s ease;" onmouseover="this.style.background='#f3f4f6'" onmouseout="this.style.background='none'">😍</button>
+                        <button type="button" onclick="insertEmoji('🤔')" style="background: none; border: none; font-size: 20px; padding: 8px; border-radius: 4px; cursor: pointer; transition: background-color 0.2s ease;" onmouseover="this.style.background='#f3f4f6'" onmouseout="this.style.background='none'">🤔</button>
+                        <button type="button" onclick="insertEmoji('😮')" style="background: none; border: none; font-size: 20px; padding: 8px; border-radius: 4px; cursor: pointer; transition: background-color 0.2s ease;" onmouseover="this.style.background='#f3f4f6'" onmouseout="this.style.background='none'">😮</button>
+                        <button type="button" onclick="insertEmoji('😭')" style="background: none; border: none; font-size: 20px; padding: 8px; border-radius: 4px; cursor: pointer; transition: background-color 0.2s ease;" onmouseover="this.style.background='#f3f4f6'" onmouseout="this.style.background='none'">😭</button>
+                        <button type="button" onclick="insertEmoji('😤')" style="background: none; border: none; font-size: 20px; padding: 8px; border-radius: 4px; cursor: pointer; transition: background-color 0.2s ease;" onmouseover="this.style.background='#f3f4f6'" onmouseout="this.style.background='none'">😤</button>
+                        <button type="button" onclick="insertEmoji('🙏')" style="background: none; border: none; font-size: 20px; padding: 8px; border-radius: 4px; cursor: pointer; transition: background-color 0.2s ease;" onmouseover="this.style.background='#f3f4f6'" onmouseout="this.style.background='none'">🙏</button>
+                        <button type="button" onclick="insertEmoji('❤️')" style="background: none; border: none; font-size: 20px; padding: 8px; border-radius: 4px; cursor: pointer; transition: background-color 0.2s ease;" onmouseover="this.style.background='#f3f4f6'" onmouseout="this.style.background='none'">❤️</button>
+                        <button type="button" onclick="insertEmoji('👍')" style="background: none; border: none; font-size: 20px; padding: 8px; border-radius: 4px; cursor: pointer; transition: background-color 0.2s ease;" onmouseover="this.style.background='#f3f4f6'" onmouseout="this.style.background='none'">👍</button>
+                        <button type="button" onclick="insertEmoji('👎')" style="background: none; border: none; font-size: 20px; padding: 8px; border-radius: 4px; cursor: pointer; transition: background-color 0.2s ease;" onmouseover="this.style.background='#f3f4f6'" onmouseout="this.style.background='none'">👎</button>
+                        <button type="button" onclick="insertEmoji('🔥')" style="background: none; border: none; font-size: 20px; padding: 8px; border-radius: 4px; cursor: pointer; transition: background-color 0.2s ease;" onmouseover="this.style.background='#f3f4f6'" onmouseout="this.style.background='none'">🔥</button>
+                        <button type="button" onclick="insertEmoji('💪')" style="background: none; border: none; font-size: 20px; padding: 8px; border-radius: 4px; cursor: pointer; transition: background-color 0.2s ease;" onmouseover="this.style.background='#f3f4f6'" onmouseout="this.style.background='none'">💪</button>
+                        <button type="button" onclick="insertEmoji('🎉')" style="background: none; border: none; font-size: 20px; padding: 8px; border-radius: 4px; cursor: pointer; transition: background-color 0.2s ease;" onmouseover="this.style.background='#f3f4f6'" onmouseout="this.style.background='none'">🎉</button>
+                        <button type="button" onclick="insertEmoji('✨')" style="background: none; border: none; font-size: 20px; padding: 8px; border-radius: 4px; cursor: pointer; transition: background-color 0.2s ease;" onmouseover="this.style.background='#f3f4f6'" onmouseout="this.style.background='none'">✨</button>
+                      </div>
+                    </div>
+                  </div>
+                  <div style="font-size: 12px; color: var(--muted); margin-top: 6px;">Tip: Semakin detail ceritamu, semakin kuat aspirasimu!</div>
                 </div>
 
                 <div class="form-grid mt-16">
                   <div>
-                    <label style="font-weight: 500; color: #374151;">Siapa yang bisa menyelesaikan masalah ini? 🎯</label>
+                    <label style="font-weight: 500; color: #374151;">Siapa yang bisa menyelesaikan masalah ini?</label>
                     <input type="text" name="target" required placeholder="Misal: Kepala Sekolah, Rektor, Walikota..." style="margin-top: 8px;">
                   </div>
                   
                   <div>
-                    <label style="font-weight: 500; color: #374151;">Target tanda tangan (opsional) 📊</label>
+                    <label style="font-weight: 500; color: #374151;">Target tanda tangan (opsional)</label>
                     <input type="number" name="signature_target" min="100" max="100000" placeholder="Misal: 1000 orang" style="margin-top: 8px;">
                   </div>
                 </div>
 
                 <div class="mt-16">
-                  <label style="font-weight: 500; color: #374151;">Apa solusi yang kamu inginkan? 💡</label>
+                  <label style="font-weight: 500; color: #374151;">Apa solusi yang kamu inginkan?</label>
                   <textarea name="solution" rows="4" required maxlength="1000" placeholder="Misal: Buat kebijakan anti-bullying yang tegas, adakan sosialisasi..." style="margin-top: 8px;"></textarea>
                 </div>
               </div>
@@ -143,9 +219,9 @@
             <!-- Step 2: Verifikasi Diri -->
             <div class="form-section">
               <div class="card" style="background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%); border: none;">
-                <h3 style="margin-bottom: 12px; color: #92400e; font-size: 20px;">🛡️ Verifikasi Diri</h3>
+                <h3 style="margin-bottom: 12px; color: #92400e; font-size: 20px;">Verifikasi Diri</h3>
                 <p style="color: #a16207; font-size: 14px; margin-bottom: 24px;">
-                  Tenang aja! Data kamu aman dan cuma dipakai untuk verifikasi 🔒
+                  Tenang aja! Data kamu aman dan cuma dipakai untuk verifikasi
                 </p>
 
                 <div class="form-grid">
@@ -194,9 +270,9 @@
             <!-- Step 3: Bukti Pendukung -->
             <div class="form-section">
               <div class="card" style="background: linear-gradient(135deg, #ecfdf5 0%, #d1fae5 100%); border: none; padding: 24px 28px;">
-                <h3 style="margin-bottom: 12px; color: #065f46; font-size: 20px;">📸 Punya Bukti? Upload Yuk!</h3>
+                <h3 style="margin-bottom: 12px; color: #065f46; font-size: 20px;">Punya Bukti? Upload Yuk!</h3>
                 <p style="color: #047857; font-size: 14px; margin-bottom: 24px;">
-                  Bukti akan bikin petisimu lebih kuat! Tapi gak wajib kok 😊
+                  Bukti akan bikin aspirasimu lebih kuat! Tapi gak wajib kok
                 </p>
 
                 <div class="form-grid">
@@ -253,7 +329,7 @@
                 </div>
 
                 <div class="mt-16">
-                  <label style="font-weight: 500; color: #374151;">Cerita tambahan tentang bukti-bukti ini 💬</label>
+                  <label style="font-weight: 500; color: #374151;">Cerita tambahan tentang bukti-bukti ini</label>
                   <textarea name="additional_info" rows="3" maxlength="500" placeholder="Misal: Foto ini diambil saat kejadian, video ini menunjukkan..." style="margin-top: 8px;"></textarea>
                 </div>
               </div>
@@ -262,34 +338,55 @@
             <!-- Step 3.5: Tanda Tangan Digital -->
             <div class="form-section">
               <div class="card" style="background: linear-gradient(135deg, #e0e7ff 0%, #c7d2fe 100%); border: none; padding: 24px 28px;">
-                <h3 style="margin-bottom: 12px; color: #3730a3; font-size: 20px;">✍️ Tanda Tangan Digital</h3>
+                <h3 style="margin-bottom: 12px; color: #3730a3; font-size: 20px;">Tanda Tangan Digital</h3>
                 <p style="color: #4338ca; font-size: 14px; margin-bottom: 24px;">
-                  Buat tanda tangan digitalmu sebagai komitmen atas petisi ini! ✨
+                  Buat tanda tangan digitalmu sebagai komitmen atas aspirasi ini!
                 </p>
 
                 <div class="mt-16">
-                  <label style="font-weight: 500; color: #374151;">Tanda tangan kamu ✍️</label>
+                  <label style="font-weight: 500; color: #374151;">Tanda tangan kamu</label>
                   <div style="font-size: 12px; color: var(--muted); margin-bottom: 12px;">Gambar tanda tangan di kotak biru di bawah ini</div>
                   
-                  <div style="border: 2px dashed #38bdf8; border-radius: 12px; background: white; margin-top: 12px; position: relative; max-width: 400px;">
-                    <canvas id="signatureCanvas" width="400" height="200" style="display: block; width: 100%; max-width: 400px; height: 200px; cursor: crosshair; border-radius: 10px;"></canvas>
-                    <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); color: #9ca3af; font-size: 14px; pointer-events: none; text-align: center;" id="signaturePlaceholder">
+                  <div style="border: 2px dashed var(--border); border-radius: 8px; padding: 16px; text-align: center; background: var(--bg); margin-top: 12px; position: relative; width: 500px; max-width: 500px; min-width: 500px; overflow: hidden;">
+                    <canvas id="signatureCanvas" width="500" height="200" style="display: block; width: 500px; height: 200px; cursor: crosshair; background: white; border-radius: 4px;"></canvas>
+                    <div style="margin-top: 8px; font-size: 12px; color: var(--muted);">
+                      Gambar tanda tangan Anda di atas
+                    </div>
+                    <div style="margin-top: 8px;">
+                      <button type="button" class="btn ghost" onclick="clearSignature()" style="font-size: 12px;">Hapus</button>
+                      <button type="button" class="btn ghost" onclick="saveSignature()" style="font-size: 12px;">Simpan</button>
+                    </div>
+                    <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); color: #9ca3af; font-size: 14px; pointer-events: none; text-align: center; z-index: 1;" id="signaturePlaceholder">
                       Gambar tanda tangan di sini
                     </div>
                   </div>
                   
-                  <div style="display: flex; gap: 12px; margin-top: 16px; max-width: 400px;">
-                    <button type="button" onclick="clearSignature()" class="btn ghost" style="flex: 1; padding: 12px 20px; font-size: 14px;">
-                      🗑️ Hapus
+                  
+                  <div id="signatureTipsSection" style="margin-top: 16px; padding: 16px; background: #f0f9ff; border: 1px solid #0ea5e9; border-radius: 8px; max-width: 500px;">
+                    <div style="font-size: 14px; color: #0369a1; font-weight: 500; margin-bottom: 8px;">💡 Tips</div>
+                    <div id="signatureTipsText" style="font-size: 13px; color: #0369a1; margin-bottom: 12px;">
+                      Sudah punya tanda tangan digital? Gunakan yang sudah tersimpan!
+                    </div>
+                    <button type="button" onclick="loadSavedSignature()" class="btn" style="width: 100%; background: #0ea5e9; color: white; border: none; padding: 10px 16px; font-size: 13px; margin-bottom: 8px;">
+                      📝 Gunakan Tanda Tangan Tersimpan
                     </button>
-                    <button type="button" onclick="saveSignature()" class="btn" style="flex: 1; background: #38bdf8; color: white; border: none; padding: 12px 20px; font-size: 14px;">
-                      💾 Simpan
+                    <button type="button" onclick="loadFromSupabase()" class="btn" style="width: 100%; background: #3b82f6; color: white; border: none; padding: 10px 16px; font-size: 13px; margin-bottom: 8px;">
+                      📥 Muat dari Database
+                    </button>
+                    <button type="button" onclick="debugSignatureStorage()" class="btn" style="width: 100%; background: #f59e0b; color: white; border: none; padding: 10px 16px; font-size: 13px;">
+                      🔍 Debug Storage
                     </button>
                   </div>
                   
-                  <div id="signaturePreview" style="display: none; margin-top: 16px; padding: 16px; background: rgba(99, 102, 241, 0.1); border-radius: 8px; max-width: 400px;">
-                    <div style="font-size: 14px; color: #4338ca; margin-bottom: 12px;">✅ Tanda tangan tersimpan:</div>
-                    <img id="signatureImage" style="max-width: 200px; border: 1px solid #d1d5db; border-radius: 4px;">
+                  <div id="signaturePreview" style="display: none; margin-top: 16px; padding: 16px; background: rgba(99, 102, 241, 0.1); border-radius: 8px; max-width: 500px;">
+                    <div style="font-size: 14px; color: #4338ca; margin-bottom: 12px;">Tanda tangan tersimpan:</div>
+                    <div style="display: flex; align-items: center; gap: 12px;">
+                      <img id="signatureImage" style="max-width: 80px; max-height: 40px; border: 1px solid #d1d5db; border-radius: 4px; background: white;">
+                      <div>
+                        <div id="signatureName" style="font-size: 14px; font-weight: 500; color: #374151;"></div>
+                        <div id="signatureDate" style="font-size: 11px; color: #6b7280;"></div>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -298,7 +395,7 @@
             <!-- Step 4: Pernyataan dan Konfirmasi -->
             <div class="form-section">
               <div class="card">
-                <h3 style="margin-bottom: 24px; color: var(--accent); font-size: 20px;">✅ Pernyataan dan Konfirmasi</h3>
+                <h3 style="margin-bottom: 24px; color: var(--accent); font-size: 20px;">Pernyataan dan Konfirmasi</h3>
                 
                 <div class="checkbox-group">
                   <div class="checkbox-item">
@@ -311,7 +408,7 @@
                   <div class="checkbox-item">
                     <input type="checkbox" name="responsibility" required id="responsibility">
                     <label for="responsibility">
-                      <span>Saya bertanggung jawab penuh atas petisi ini dan siap mempertanggungjawabkan secara hukum jika terbukti memberikan informasi palsu.</span>
+                      <span>Saya bertanggung jawab penuh atas aspirasi ini dan siap mempertanggungjawabkan secara hukum jika terbukti memberikan informasi palsu.</span>
                     </label>
                   </div>
 
@@ -325,7 +422,7 @@
                   <div class="checkbox-item">
                     <input type="checkbox" name="terms_agreement" required id="terms_agreement">
                     <label for="terms_agreement">
-                      <span>Saya menyetujui <a href="#" style="color: var(--accent);">Syarat dan Ketentuan</a> serta <a href="#" style="color: var(--accent);">Kebijakan Privasi</a> SpeakUp!</span>
+                      <span>Saya menyetujui <a href="./terms-privacy-desktop.html" style="color: var(--accent);">Syarat dan Ketentuan</a> serta <a href="./terms-privacy-desktop.html" style="color: var(--accent);">Kebijakan Privasi</a> SpeakUp!</span>
                     </label>
                   </div>
                 </div>
@@ -335,10 +432,10 @@
             <!-- Submit Button -->
             <div style="text-align: center; margin: 40px 0;">
               <button type="submit" class="btn primary" style="padding: 16px 48px; font-size: 18px; font-weight: 600;">
-                🚀 Kirim Petisi untuk Verifikasi
+                Kirim Aspirasi untuk Verifikasi
               </button>
               <p style="margin-top: 16px; font-size: 14px; color: var(--muted);">
-                Petisi akan direview dalam 1-3 hari kerja sebelum dipublikasikan
+                Aspirasi akan direview dalam 1-3 hari kerja sebelum dipublikasikan
               </p>
             </div>
           </form>
@@ -434,7 +531,7 @@
               const fileInfo = document.createElement('div');
               fileInfo.style.cssText = 'flex: 1; font-size: 14px;';
               fileInfo.innerHTML = `
-                <div style="font-weight: 500; color: #047857;">📷 ${file.name}</div>
+                <div style="font-weight: 500; color: #047857;">${file.name}</div>
                 <div style="color: var(--muted); font-size: 12px;">${(file.size / 1024).toFixed(1)} KB</div>
               `;
               
@@ -499,7 +596,7 @@
           const fileInfo = document.createElement('div');
           fileInfo.style.cssText = 'flex: 1; min-width: 0;';
           fileInfo.innerHTML = `
-            <div style="font-weight: 500; color: #047857; font-size: 16px; margin-bottom: 6px;">🎥 ${file.name}</div>
+            <div style="font-weight: 500; color: #047857; font-size: 16px; margin-bottom: 6px;">${file.name}</div>
             <div style="color: var(--muted); font-size: 14px; margin-bottom: 6px;">${(file.size / (1024 * 1024)).toFixed(1)} MB</div>
             <div style="color: var(--muted); font-size: 12px;">Klik untuk memutar video</div>
           `;
@@ -520,7 +617,7 @@
           removeBtn.onclick = removeVideo;
           removeBtn.className = 'btn ghost remove-btn';
           removeBtn.style.cssText = 'margin-top: 12px; width: 100%;';
-          removeBtn.textContent = '❌ Hapus Video';
+          removeBtn.textContent = 'Hapus Video';
           videoPreview.appendChild(removeBtn);
           
           videoPreview.style.display = 'block';
@@ -558,7 +655,7 @@
               iconColor = '#dc2626';
               iconEmoji = '📕';
             } else if (extension === 'DOC' || extension === 'DOCX') {
-              iconColor = '#2563eb';
+              iconColor = '#38bdf8';
               iconEmoji = '📘';
             } else if (extension === 'XLS' || extension === 'XLSX') {
               iconColor = '#059669';
@@ -585,7 +682,7 @@
             else if (extension === 'PPT' || extension === 'PPTX') fileTypeDesc = 'PowerPoint Presentation';
             
             fileInfo.innerHTML = `
-              <div style="font-weight: 500; color: #047857; font-size: 16px; margin-bottom: 4px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">📄 ${file.name}</div>
+              <div style="font-weight: 500; color: #047857; font-size: 16px; margin-bottom: 4px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">${file.name}</div>
               <div style="color: var(--muted); font-size: 14px; margin-bottom: 4px;">${fileTypeDesc}</div>
               <div style="color: var(--muted); font-size: 12px;">${(file.size / 1024).toFixed(1)} KB • Klik untuk info lebih</div>
             `;
@@ -619,8 +716,16 @@
       });
 
       // Form submission
-      document.getElementById('createPetitionForm').addEventListener('submit', function(e) {
+      document.getElementById('createPetitionForm').addEventListener('submit', async function(e) {
         e.preventDefault();
+        
+        // Check if user is logged in
+        const isLoggedIn = localStorage.getItem('speakup_logged_in');
+        if (!isLoggedIn) {
+          alert('Anda harus login terlebih dahulu untuk membuat aspirasi. Silakan login di halaman utama.');
+          window.location.href = './desktop.html';
+          return;
+        }
         
         const formData = new FormData(this);
         
@@ -638,8 +743,62 @@
           return;
         }
         
-        // Show petition preview
-        showPetitionPreview(formData);
+        if (!signatureData) {
+          alert('Mohon buat tanda tangan digital terlebih dahulu!');
+          document.getElementById('signatureCanvas').scrollIntoView({ behavior: 'smooth' });
+          return;
+        }
+        
+        // Show loading state
+        const submitButton = this.querySelector('button[type="submit"]');
+        const originalText = submitButton.textContent;
+        submitButton.textContent = 'Mengirim Aspirasi...';
+        submitButton.disabled = true;
+        
+        try {
+          // Prepare petition data
+          const petitionData = {
+            title: formData.get('title'),
+            description: formData.get('description'),
+            category: formData.get('category'),
+            target: formData.get('target'),
+            solution: formData.get('solution'),
+            signature_target: parseInt(formData.get('signature_target')) || 100,
+            full_name: formData.get('full_name'),
+            nik: formData.get('nik'),
+            phone: formData.get('phone'),
+            email: formData.get('email'),
+            additional_info: formData.get('additional_info'),
+            digital_signature: signatureData,
+            ktp_file: formData.get('ktp'),
+            evidence_photos: formData.getAll('evidence_photos'),
+            evidence_video: formData.get('evidence_video'),
+            documents: formData.getAll('documents')
+          };
+          
+          // Validate data
+          if (window.petitionsAPI && window.petitionsAPI.validatePetitionData) {
+            const validation = window.petitionsAPI.validatePetitionData(petitionData);
+            if (!validation.isValid) {
+              alert('Data tidak valid:\n' + validation.errors.join('\n'));
+              return;
+            }
+          }
+          
+          // Create petition
+          const result = await window.petitionsAPI.createPetition(petitionData);
+          
+          // Show success message
+          showSuccessModal(result);
+          
+        } catch (error) {
+          console.error('Error creating petition:', error);
+          alert('Gagal membuat aspirasi: ' + error.message);
+        } finally {
+          // Reset button state
+          submitButton.textContent = originalText;
+          submitButton.disabled = false;
+        }
       });
 
       function showPetitionPreview(formData) {
@@ -660,7 +819,7 @@
         modalContent.innerHTML = `
           <div style="padding: 32px;">
             <div style="text-align: center; margin-bottom: 32px;">
-              <h2 style="color: #1e293b; margin-bottom: 12px; font-size: 24px;">📋 Preview Petisi</h2>
+              <h2 style="color: #1e293b; margin-bottom: 12px; font-size: 24px;">Preview Aspirasi</h2>
               <p style="color: var(--muted); font-size: 16px;">Pastikan semua informasi sudah benar sebelum dikirim</p>
             </div>
             
@@ -679,7 +838,7 @@
               <div style="line-height: 1.7; margin-bottom: 32px; font-size: 15px;">
                 <p>Dengan hormat,</p>
                 
-                <p>Saya, ${formData.get('full_name')}, dengan ini menyampaikan petisi terkait masalah berikut:</p>
+                <p>Saya, ${formData.get('full_name')}, dengan ini menyampaikan aspirasi terkait masalah berikut:</p>
                 
                 <p><strong>Deskripsi Masalah:</strong><br>
                 ${formData.get('description')}</p>
@@ -689,7 +848,7 @@
                 
                 ${formData.get('additional_info') ? `<p><strong>Informasi Tambahan:</strong><br>${formData.get('additional_info')}</p>` : ''}
                 
-                <p>Demikian petisi ini saya sampaikan dengan harapan dapat ditindaklanjuti segera.</p>
+                <p>Demikian aspirasi ini saya sampaikan dengan harapan dapat ditindaklanjuti segera.</p>
                 
                 <p>Hormat saya,<br>
                 <strong>${formData.get('full_name')}</strong><br>
@@ -709,7 +868,7 @@
                 ← Kembali Edit
               </button>
               <button onclick="submitPetition()" class="btn primary" style="padding: 14px 32px; font-size: 16px; background: #10b981; color: white; border: none;">
-                🚀 Kirim Petisi!
+                Kirim Aspirasi!
               </button>
             </div>
           </div>
@@ -729,14 +888,57 @@
         }
       }
 
-      function submitPetition() {
-        closePetitionPreview();
+      function showSuccessModal(petitionResult) {
+        // Create success modal
+        const modal = document.createElement('div');
+        modal.style.cssText = 'position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); z-index: 1000; display: flex; align-items: center; justify-content: center; padding: 40px;';
         
-        // Mock submission
-        alert('🎉 Yeay! Petisimu berhasil dikirim!\n\n📝 Tim kami akan review petisimu dalam 1-3 hari kerja\n📧 Kamu akan dapat notifikasi lewat email\n\n✊ Terima kasih sudah berani speak up! Bersama kita bisa buat perubahan!');
+        const modalContent = document.createElement('div');
+        modalContent.style.cssText = 'background: white; border-radius: 12px; max-width: 500px; width: 100%; text-align: center; padding: 40px;';
+        
+        modalContent.innerHTML = `
+          <div style="font-size: 64px; margin-bottom: 20px; color: #10b981;">✓</div>
+          <h2 style="color: #1e293b; margin-bottom: 16px; font-size: 24px;">Aspirasi Berhasil Dikirim!</h2>
+          <p style="color: var(--muted); margin-bottom: 24px; line-height: 1.6;">
+            Terima kasih telah berani menyuarakan aspirasimu!<br>
+            Tim kami akan mereview aspirasimu dalam 1-3 hari kerja.<br>
+            Kamu akan mendapat notifikasi via email.
+          </p>
+          <div style="background: #f0f9ff; border: 1px solid #0ea5e9; border-radius: 8px; padding: 16px; margin-bottom: 24px;">
+            <div style="font-size: 14px; color: #0369a1; font-weight: 500;">ID Aspirasi: ${petitionResult.id}</div>
+            <div style="font-size: 12px; color: #0369a1; margin-top: 4px;">Simpan ID ini untuk referensi</div>
+          </div>
+          <div style="display: flex; gap: 12px; justify-content: center;">
+            <button onclick="closeSuccessModal()" class="btn primary" style="padding: 12px 24px; background: #10b981; color: white; border: none; border-radius: 8px; font-weight: 500;">
+              Selesai
+            </button>
+            <button onclick="viewMyPetitions()" class="btn ghost" style="padding: 12px 24px; border: 1px solid #e5e7eb; border-radius: 8px; background: white; color: #374151;">
+              Lihat Aspirasiku
+            </button>
+          </div>
+        `;
+        
+        modal.appendChild(modalContent);
+        document.body.appendChild(modal);
+        
+        // Store modal reference
+        window.currentSuccessModal = modal;
+      }
+      
+      function closeSuccessModal() {
+        if (window.currentSuccessModal) {
+          document.body.removeChild(window.currentSuccessModal);
+          window.currentSuccessModal = null;
+        }
         
         // Redirect back to petitions page
         window.location.href = './petitions-desktop.html';
+      }
+      
+      function viewMyPetitions() {
+        closeSuccessModal();
+        // Redirect to user's petitions (bisa dibuat halaman khusus atau filter di petitions page)
+        window.location.href = './petitions-desktop.html?my=true';
       }
 
       // Function to show video in modal
@@ -749,7 +951,7 @@
         
         modalContent.innerHTML = `
           <div style="text-align: center; margin-bottom: 24px;">
-            <h3 style="margin: 0; color: #1e293b; font-size: 20px;">🎥 ${fileName}</h3>
+            <h3 style="margin: 0; color: #1e293b; font-size: 20px;">${fileName}</h3>
           </div>
           <video controls style="max-width: 100%; max-height: 70vh; border-radius: 8px;">
             <source src="${videoUrl}" type="video/mp4">
@@ -885,12 +1087,11 @@
       const ctx = canvas.getContext('2d');
       const placeholder = document.getElementById('signaturePlaceholder');
 
-      // Set canvas size properly
+      // Set canvas size properly (same as settings)
       function resizeCanvas() {
-        const rect = canvas.getBoundingClientRect();
-        canvas.width = rect.width * 2; // High DPI
-        canvas.height = rect.height * 2;
-        ctx.scale(2, 2);
+        // Use exact same size as settings - no High DPI scaling
+        canvas.width = 500;
+        canvas.height = 200;
         ctx.lineCap = 'round';
         ctx.lineJoin = 'round';
         ctx.strokeStyle = '#1f2937';
@@ -898,7 +1099,9 @@
       }
 
       resizeCanvas();
-      window.addEventListener('resize', resizeCanvas);
+      
+      // Check for saved signature on page load
+      checkForSavedSignature();
 
       // Mouse events
       canvas.addEventListener('mousedown', startDrawing);
@@ -917,8 +1120,8 @@
         const rect = canvas.getBoundingClientRect();
         ctx.beginPath();
         ctx.moveTo(
-          (e.clientX - rect.left) * (canvas.width / rect.width) / 2,
-          (e.clientY - rect.top) * (canvas.height / rect.height) / 2
+          (e.clientX - rect.left) * (canvas.width / rect.width),
+          (e.clientY - rect.top) * (canvas.height / rect.height)
         );
       }
 
@@ -926,8 +1129,8 @@
         if (!isDrawing) return;
         const rect = canvas.getBoundingClientRect();
         ctx.lineTo(
-          (e.clientX - rect.left) * (canvas.width / rect.width) / 2,
-          (e.clientY - rect.top) * (canvas.height / rect.height) / 2
+          (e.clientX - rect.left) * (canvas.width / rect.width),
+          (e.clientY - rect.top) * (canvas.height / rect.height)
         );
         ctx.stroke();
       }
@@ -953,17 +1156,38 @@
         placeholder.style.display = 'block';
         document.getElementById('signaturePreview').style.display = 'none';
         signatureData = null;
+        
+        // Also remove from localStorage
+        localStorage.removeItem('userSignature');
+        localStorage.removeItem('userFullName');
+        console.log('✅ Tanda tangan dihapus dari memory dan localStorage');
       }
 
       function saveSignature() {
         if (isCanvasEmpty()) {
-          alert('Mohon buat tanda tangan terlebih dahulu! ✍️');
+          alert('Mohon buat tanda tangan terlebih dahulu!');
           return;
         }
         
-        signatureData = canvas.toDataURL('image/png');
+        // Save with high quality to preserve signature details
+        signatureData = canvas.toDataURL('image/png', 1.0);
         document.getElementById('signatureImage').src = signatureData;
         document.getElementById('signaturePreview').style.display = 'block';
+        
+        // Also save to localStorage for future use
+        localStorage.setItem('userSignature', signatureData);
+        console.log('✅ Tanda tangan disimpan ke localStorage');
+        
+        // Update name and date for new signature
+        const signatureName = document.getElementById('signatureName');
+        const signatureDate = document.getElementById('signatureDate');
+        if (signatureName) {
+          signatureName.textContent = 'Tanda Tangan Baru';
+        }
+        if (signatureDate) {
+          const now = new Date();
+          signatureDate.textContent = `Dibuat: ${now.toLocaleDateString('id-ID')} ${now.toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' })}`;
+        }
         
         // Show success message
         const preview = document.getElementById('signaturePreview');
@@ -974,6 +1198,8 @@
           preview.style.background = 'rgba(99, 102, 241, 0.1)';
           preview.style.borderLeft = 'none';
         }, 2000);
+        
+        alert('✅ Tanda tangan berhasil disimpan! Sekarang bisa digunakan di halaman lain.');
       }
 
       function isCanvasEmpty() {
@@ -983,17 +1209,536 @@
         return canvas.toDataURL() === blank.toDataURL();
       }
 
-      // Update form validation to include signature
-      document.getElementById('createPetitionForm').addEventListener('submit', function(e) {
-        if (!signatureData) {
-          e.preventDefault();
-          alert('Mohon buat tanda tangan digital terlebih dahulu! ✍️');
-          document.getElementById('signatureCanvas').scrollIntoView({ behavior: 'smooth' });
-          return false;
+      // Load saved signature from Supabase (with localStorage fallback)
+      async function loadSavedSignature() {
+        try {
+          console.log('🔄 Loading saved signature...');
+          
+          // First try to load from Supabase
+          const supabase = window.getSupabase();
+          if (supabase) {
+            console.log('🔄 Mencoba memuat dari Supabase...');
+            
+            const { data, error } = await supabase.rpc('get_user_signature');
+            
+            if (!error && data && data.signature_data) {
+              console.log('✅ Tanda tangan ditemukan di Supabase:', data);
+              
+              // Load signature to canvas
+              const img = new Image();
+              img.onload = function() {
+                canvas.width = 500;
+                canvas.height = 200;
+                
+                // Clear canvas first
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                
+                // Use the exact scaling logic from the reference
+                const scale = Math.min(
+                  canvas.width / img.width,
+                  canvas.height / img.height
+                );
+                const x = (canvas.width - img.width * scale) / 2;
+                const y = (canvas.height - img.height * scale) / 2;
+                
+                console.log('🔄 Scaling signature:', {
+                  originalSize: `${img.width}x${img.height}`,
+                  canvasSize: `${canvas.width}x${canvas.height}`,
+                  scale: scale.toFixed(3),
+                  position: `${x.toFixed(1)}, ${y.toFixed(1)}`,
+                  finalSize: `${(img.width * scale).toFixed(1)}x${(img.height * scale).toFixed(1)}`
+                });
+                
+                // Draw saved signature with proper scaling and centering
+                ctx.drawImage(img, x, y, img.width * scale, img.height * scale);
+                
+                // Hide placeholder
+                placeholder.style.display = 'none';
+                
+                // Auto-save to signatureData
+                signatureData = canvas.toDataURL('image/png', 1.0);
+                
+                console.log('✅ Signature loaded and centered successfully');
+                
+                // Update preview with name and date
+                document.getElementById('signatureImage').src = signatureData;
+                document.getElementById('signaturePreview').style.display = 'block';
+                
+                // Update name and date
+                const signatureName = document.getElementById('signatureName');
+                const signatureDate = document.getElementById('signatureDate');
+                if (signatureName) {
+                  signatureName.textContent = data.full_name || 'Tanda Tangan Tersimpan';
+                }
+                if (signatureDate) {
+                  const now = new Date();
+                  signatureDate.textContent = `Dimuat: ${now.toLocaleDateString('id-ID')} ${now.toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' })}`;
+                }
+                
+                // Show success message
+                const preview = document.getElementById('signaturePreview');
+                preview.style.background = 'rgba(34, 197, 94, 0.1)';
+                preview.style.borderLeft = '4px solid #22c55e';
+                
+                setTimeout(() => {
+                  preview.style.background = 'rgba(99, 102, 241, 0.1)';
+                  preview.style.borderLeft = 'none';
+                }, 2000);
+                
+                // Show success alert
+                const nameText = data.full_name ? ` (${data.full_name})` : '';
+                alert(`✅ Tanda tangan tersimpan berhasil dimuat dari database${nameText}!`);
+              };
+              
+              img.onerror = function() {
+                alert('❌ Gagal memuat tanda tangan tersimpan. File mungkin rusak.');
+              };
+              
+              img.src = data.signature_data;
+              
+              // Also save to localStorage as backup
+              localStorage.setItem('userSignature', data.signature_data);
+              localStorage.setItem('userFullName', data.full_name);
+              
+              return;
+            } else {
+              console.log('❌ Tidak ada tanda tangan di Supabase, mencoba localStorage...');
+            }
+          }
+          
+          // Fallback to localStorage
+          const savedSignature = localStorage.getItem('userSignature');
+          const savedFullName = localStorage.getItem('userFullName');
+          
+          console.log('Saved signature exists (localStorage):', !!savedSignature);
+          console.log('Saved full name:', savedFullName);
+          console.log('All localStorage keys:', Object.keys(localStorage));
+          
+          if (!savedSignature) {
+            console.log('❌ No saved signature found in localStorage');
+            alert('Tidak ada tanda tangan tersimpan.\n\nSilakan:\n1. Buka halaman Settings\n2. Buat tanda tangan\n3. Klik "Simpan ke Database"\n4. Kembali ke halaman ini\n\nAtau klik tombol "🔍 Debug Storage" untuk info lebih detail.');
+            return;
+          }
+          
+          console.log('✅ Found saved signature, loading to canvas...');
+          
+          // Load signature to canvas
+          const img = new Image();
+          img.onload = function() {
+            // Force canvas size to be correct before drawing
+            canvas.width = 500;
+            canvas.height = 200;
+            
+            // Clear canvas first
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+            // Use the exact scaling logic from the reference
+            const scale = Math.min(
+              canvas.width / img.width,
+              canvas.height / img.height
+            );
+            const x = (canvas.width - img.width * scale) / 2;
+            const y = (canvas.height - img.height * scale) / 2;
+            
+            console.log('🔄 Scaling signature:', {
+              originalSize: `${img.width}x${img.height}`,
+              canvasSize: `${canvas.width}x${canvas.height}`,
+              scale: scale.toFixed(3),
+              position: `${x.toFixed(1)}, ${y.toFixed(1)}`,
+              finalSize: `${(img.width * scale).toFixed(1)}x${(img.height * scale).toFixed(1)}`
+            });
+            
+            // Draw saved signature with proper scaling and centering
+            ctx.drawImage(img, x, y, img.width * scale, img.height * scale);
+            
+            // Hide placeholder
+            placeholder.style.display = 'none';
+            
+            // Auto-save to signatureData
+            signatureData = canvas.toDataURL('image/png', 1.0);
+            
+            console.log('✅ Signature loaded and centered successfully');
+            
+            // Update preview with name and date
+            document.getElementById('signatureImage').src = signatureData;
+            document.getElementById('signaturePreview').style.display = 'block';
+            
+            // Update name and date
+            const signatureName = document.getElementById('signatureName');
+            const signatureDate = document.getElementById('signatureDate');
+            if (signatureName) {
+              signatureName.textContent = savedFullName || 'Tanda Tangan Digital';
+            }
+            if (signatureDate) {
+              const now = new Date();
+              signatureDate.textContent = `Dimuat: ${now.toLocaleDateString('id-ID')} ${now.toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' })}`;
+            }
+            
+            // Show success message
+            const preview = document.getElementById('signaturePreview');
+            preview.style.background = 'rgba(34, 197, 94, 0.1)';
+            preview.style.borderLeft = '4px solid #22c55e';
+            
+            setTimeout(() => {
+              preview.style.background = 'rgba(99, 102, 241, 0.1)';
+              preview.style.borderLeft = 'none';
+            }, 2000);
+            
+            // Show success alert
+            const nameText = savedFullName ? ` (${savedFullName})` : '';
+            alert(`✅ Tanda tangan tersimpan berhasil dimuat${nameText}!`);
+          };
+          
+          img.onerror = function() {
+            alert('❌ Gagal memuat tanda tangan tersimpan. File mungkin rusak.');
+          };
+          
+          img.src = savedSignature;
+          
+        } catch (error) {
+          console.error('Error loading saved signature:', error);
+          alert('❌ Terjadi kesalahan saat memuat tanda tangan tersimpan.');
+        }
+      }
+
+      // Load signature directly from Supabase
+      async function loadFromSupabase() {
+        try {
+          console.log('🔄 Loading signature directly from Supabase...');
+          
+          const supabase = window.getSupabase();
+          if (!supabase) {
+            throw new Error('Supabase tidak tersedia');
+          }
+
+          const { data, error } = await supabase.rpc('get_user_signature');
+          
+          if (error) {
+            console.error('❌ Supabase error:', error);
+            alert(`❌ Error Supabase: ${error.message}\n\nKemungkinan:\n1. Script SQL belum dijalankan di Supabase\n2. Function get_user_signature belum ada\n3. User tidak terautentikasi\n\nSilakan jalankan script create-signatures-table.sql di Supabase SQL Editor.`);
+            return;
+          }
+
+          if (data && data.signature_data) {
+            console.log('✅ Tanda tangan ditemukan di Supabase:', data);
+            
+            // Load signature to canvas
+            const img = new Image();
+            img.onload = function() {
+              canvas.width = 500;
+              canvas.height = 200;
+              
+              // Clear canvas first
+              ctx.clearRect(0, 0, canvas.width, canvas.height);
+              
+              // Use the exact scaling logic from the reference
+              const scale = Math.min(
+                canvas.width / img.width,
+                canvas.height / img.height
+              );
+              const x = (canvas.width - img.width * scale) / 2;
+              const y = (canvas.height - img.height * scale) / 2;
+              
+              console.log('🔄 Scaling signature:', {
+                originalSize: `${img.width}x${img.height}`,
+                canvasSize: `${canvas.width}x${canvas.height}`,
+                scale: scale.toFixed(3),
+                position: `${x.toFixed(1)}, ${y.toFixed(1)}`,
+                finalSize: `${(img.width * scale).toFixed(1)}x${(img.height * scale).toFixed(1)}`
+              });
+              
+              // Draw saved signature with proper scaling and centering
+              ctx.drawImage(img, x, y, img.width * scale, img.height * scale);
+              
+              // Hide placeholder
+              placeholder.style.display = 'none';
+              
+              // Auto-save to signatureData
+              signatureData = canvas.toDataURL('image/png', 1.0);
+              
+              console.log('✅ Signature loaded and centered successfully');
+              
+              // Update preview with name and date
+              document.getElementById('signatureImage').src = signatureData;
+              document.getElementById('signaturePreview').style.display = 'block';
+              
+              // Update name and date
+              const signatureName = document.getElementById('signatureName');
+              const signatureDate = document.getElementById('signatureDate');
+              if (signatureName) {
+                signatureName.textContent = data.full_name || 'Tanda Tangan Tersimpan';
+              }
+              if (signatureDate) {
+                const now = new Date();
+                signatureDate.textContent = `Dimuat: ${now.toLocaleDateString('id-ID')} ${now.toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' })}`;
+              }
+              
+              // Show success message
+              const preview = document.getElementById('signaturePreview');
+              preview.style.background = 'rgba(34, 197, 94, 0.1)';
+              preview.style.borderLeft = '4px solid #22c55e';
+              
+              setTimeout(() => {
+                preview.style.background = 'rgba(99, 102, 241, 0.1)';
+                preview.style.borderLeft = 'none';
+              }, 2000);
+              
+              // Show success alert
+              const nameText = data.full_name ? ` (${data.full_name})` : '';
+              alert(`✅ Tanda tangan berhasil dimuat dari database${nameText}!`);
+            };
+            
+            img.onerror = function() {
+              alert('❌ Gagal memuat tanda tangan tersimpan. File mungkin rusak.');
+            };
+            
+            img.src = data.signature_data;
+            
+            // Also save to localStorage as backup
+            localStorage.setItem('userSignature', data.signature_data);
+            localStorage.setItem('userFullName', data.full_name);
+            
+          } else {
+            console.log('❌ Tidak ada tanda tangan di Supabase');
+            alert('❌ Tidak ada tanda tangan di Supabase.\n\nSilakan:\n1. Buka halaman Settings\n2. Buat tanda tangan\n3. Klik "Simpan ke Database"\n4. Kembali ke halaman ini');
+          }
+          
+        } catch (error) {
+          console.error('❌ Error loading from Supabase:', error);
+          alert('❌ Terjadi kesalahan saat memuat dari database: ' + error.message);
+        }
+      }
+
+      // Debug function to check localStorage and Supabase
+      async function debugSignatureStorage() {
+        console.log('🔍 DEBUG: Checking storage...');
+        console.log('All localStorage keys:', Object.keys(localStorage));
+        
+        const userSignature = localStorage.getItem('userSignature');
+        const userFullName = localStorage.getItem('userFullName');
+        
+        console.log('userSignature exists (localStorage):', !!userSignature);
+        console.log('userSignature length:', userSignature ? userSignature.length : 0);
+        console.log('userFullName:', userFullName);
+        
+        // Check Supabase
+        const supabase = window.getSupabase();
+        if (supabase) {
+          try {
+            console.log('🔍 Checking Supabase...');
+            const { data, error } = await supabase.rpc('get_user_signature');
+            
+            if (error) {
+              console.error('❌ Supabase error:', error);
+              alert(`❌ Error Supabase: ${error.message}\n\nKemungkinan:\n1. Script SQL belum dijalankan di Supabase\n2. Function get_user_signature belum ada\n3. User tidak terautentikasi\n\nSilakan jalankan script create-signatures-table.sql di Supabase SQL Editor.`);
+            } else if (data && data.signature_data) {
+              console.log('✅ Tanda tangan ditemukan di Supabase:', data);
+              alert(`✅ Tanda tangan ditemukan di Supabase!\n\nNama: ${data.full_name}\nUkuran: ${data.signature_data.length} karakter\n\nTanda tangan siap digunakan.`);
+            } else {
+              console.log('❌ Tidak ada tanda tangan di Supabase');
+              alert('❌ Tidak ada tanda tangan di Supabase.\n\nSilakan:\n1. Buka halaman Settings\n2. Buat tanda tangan\n3. Klik "Simpan ke Database"\n4. Kembali ke halaman ini');
+            }
+          } catch (error) {
+            console.error('❌ Error checking Supabase:', error);
+            alert(`❌ Error checking Supabase: ${error.message}`);
+          }
+        } else {
+          console.log('❌ Supabase tidak tersedia');
+          alert('❌ Supabase tidak tersedia.\n\nPeriksa konfigurasi Supabase.');
+        }
+        
+        if (userSignature) {
+          console.log('userSignature preview:', userSignature.substring(0, 100) + '...');
+          alert(`✅ Tanda tangan ditemukan di localStorage!\n\nNama: ${userFullName || 'Tidak ada'}\nUkuran: ${userSignature.length} karakter\n\nTanda tangan siap digunakan.`);
+        } else {
+          console.log('❌ No signature found in localStorage');
+        }
+      }
+
+      // Check for saved signature on page load
+      function checkForSavedSignature() {
+        try {
+          console.log('🔍 Checking for saved signature...');
+          const savedSignature = localStorage.getItem('userSignature');
+          const savedFullName = localStorage.getItem('userFullName');
+          
+          console.log('Saved signature exists:', !!savedSignature);
+          console.log('Saved full name:', savedFullName);
+          
+          if (savedSignature) {
+            console.log('✅ Found saved signature, updating UI...');
+            // Update the tips text
+            const tipsText = document.getElementById('signatureTipsText');
+            if (tipsText) {
+              const nameText = savedFullName ? ` (${savedFullName})` : '';
+              tipsText.innerHTML = `Sudah punya tanda tangan digital${nameText}? Gunakan yang sudah tersimpan!`;
+            }
+            
+            // Change button text to be more specific
+            const loadButton = document.querySelector('[onclick="loadSavedSignature()"]');
+            if (loadButton) {
+              loadButton.innerHTML = '📝 Gunakan Tanda Tangan Tersimpan';
+            }
+            
+            // Show the tips section
+            const tipsSection = document.getElementById('signatureTipsSection');
+            if (tipsSection) {
+              tipsSection.style.display = 'block';
+            }
+          } else {
+            console.log('❌ No saved signature found');
+            // Update tips text to show no signature found
+            const tipsText = document.getElementById('signatureTipsText');
+            if (tipsText) {
+              tipsText.innerHTML = 'Belum ada tanda tangan tersimpan. Buat di halaman Settings terlebih dahulu.';
+            }
+            
+            // Show the tips section anyway for debugging
+            const tipsSection = document.getElementById('signatureTipsSection');
+            if (tipsSection) {
+              tipsSection.style.display = 'block';
+            }
+          }
+        } catch (error) {
+          console.error('Error checking for saved signature:', error);
+        }
+      }
+
+
+
+
+      // Emoji Picker Functions
+      function toggleEmojiPicker() {
+        const emojiPicker = document.getElementById('descriptionEmojiPicker');
+        if (emojiPicker) {
+          if (emojiPicker.style.display === 'none') {
+            emojiPicker.style.display = 'block';
+          } else {
+            emojiPicker.style.display = 'none';
+          }
+        }
+      }
+
+      function insertEmoji(emoji) {
+        const textarea = document.getElementById('descriptionText');
+        if (textarea) {
+          const currentPos = textarea.selectionStart;
+          const textBefore = textarea.value.substring(0, currentPos);
+          const textAfter = textarea.value.substring(textarea.selectionEnd);
+          
+          textarea.value = textBefore + emoji + textAfter;
+          textarea.focus();
+          textarea.setSelectionRange(currentPos + emoji.length, currentPos + emoji.length);
+          
+          // Hide emoji picker after selection
+          const emojiPicker = document.getElementById('descriptionEmojiPicker');
+          if (emojiPicker) {
+            emojiPicker.style.display = 'none';
+          }
+        }
+      }
+    </script>
+    
+    <script>
+      // Navigation logic for logged in users
+      document.addEventListener('DOMContentLoaded', function() {
+        // Check if user is logged in
+        const isLoggedIn = localStorage.getItem('speakup_logged_in');
+        
+        if (isLoggedIn === 'true') {
+          // User is logged in, hide Sign button and show Logout button
+          updateNavigationForLoggedInUser();
+        } else {
+          // User is not logged in, show Sign button and hide Logout button
+          updateNavigationForHomepage();
         }
       });
+      
+      function updateNavigationForLoggedInUser() {
+        console.log('Updating navigation for logged in user...');
+        
+        // Show all navigation items
+        const navItems = document.querySelectorAll('.desktop-nav .nav-item');
+        navItems.forEach(item => {
+          item.style.display = 'flex';
+        });
+        
+        // Convert Sign button to Logout button
+        const signButton = document.getElementById('signButton');
+        if (signButton) {
+          console.log('Converting Sign button to Logout button');
+          signButton.href = 'javascript:void(0)';
+          signButton.onclick = logout;
+          signButton.title = 'Logout';
+          signButton.innerHTML = `
+            <svg fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M3 3a1 1 0 00-1 1v12a1 1 0 102 0V4a1 1 0 00-1-1zm10.293 9.293a1 1 0 001.414 1.414l3-3a1 1 0 000-1.414l-3-3a1 1 0 10-1.414 1.414L14.586 9H7a1 1 0 100 2h7.586l-1.293 1.293z" clip-rule="evenodd"/>
+            </svg>
+            <span>Logout</span>
+          `;
+        }
+        
+        // Show Speak! button
+        const speakButton = document.querySelector('.plus-btn');
+        if (speakButton) {
+          speakButton.style.display = 'flex';
+        }
+        
+        // Handle Profile button click to go to own profile
+        const profileButton = document.querySelector('a[href="./profile-desktop.html"]');
+        if (profileButton) {
+          profileButton.addEventListener('click', function(e) {
+            e.preventDefault();
+            // Navigate to own profile (without URL parameter)
+            window.location.href = 'profile-desktop.html';
+          });
+        }
+      }
+      
+      function updateNavigationForHomepage() {
+        console.log('Updating navigation for homepage (not logged in)...');
+        
+        // Show only Home and Login navigation items for non-logged in users
+        const navItems = document.querySelectorAll('.desktop-nav .nav-item');
+        navItems.forEach(item => {
+          if (item.textContent.includes('Home') || 
+              item.textContent.includes('Login')) {
+            item.style.display = 'flex';
+          } else {
+            item.style.display = 'none';
+          }
+        });
+        
+        // Reset Login button to original state
+        const signButton = document.getElementById('signButton');
+        if (signButton) {
+          console.log('Resetting Login button to original state');
+          signButton.href = './sign-desktop.html';
+          signButton.onclick = null;
+          signButton.title = 'Login';
+          signButton.innerHTML = `
+            <svg fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M3 10a1 1 0 011-1h8.586l-3.293-3.293a1 1 0 111.414-1.414l5 5a1 1 0 010 1.414l-5 5a1 1 0 11-1.414-1.414L12.586 11H4a1 1 0 01-1-1z" clip-rule="evenodd"/></svg>
+            <span>Login</span>
+          `;
+        }
+        
+        // Hide Speak! button for non-logged in users
+        const speakButton = document.querySelector('.plus-btn');
+        if (speakButton) {
+          speakButton.style.display = 'none';
+        }
+      }
+      
+      // Logout handled globally in assets/js/app.js
     </script>
   </div>
-</body>
+
+  <script src="assets/js/app.js"></script>
+  <!-- Supabase SDK -->
+  <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
+  <script src="config/supabase-config.js"></script>
+  <script src="config/supabase-client.js"></script>
+  <script src="config/petitions-api.js"></script>
+  </body>
 </html>
 

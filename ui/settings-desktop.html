@@ -4,8 +4,18 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>SpeakUp! — Settings (Desktop)</title>
+  <link rel="icon" type="image/png" href="assets/logo/logo apps.png?v=2">
+  <link rel="shortcut icon" type="image/png" href="assets/logo/logo apps.png?v=2">
   <link rel="stylesheet" href="assets/css/style.css" />
   <style>
+    /* Critical CSS - Prevent flash of unstyled content */
+    body {
+      visibility: hidden;
+    }
+    
+    body.loaded {
+      visibility: visible;
+    }
     :root { --bg:#ffffff; --panel:#ffffff; --text:#374151; --muted:#64748b; --accent:#38bdf8; --border:#e5e7eb; }
     .logo img[data-theme="light"]{display:block!important}.logo img[data-theme="dark"]{display:none!important}
     html,body,main,.desktop-container,.desktop-nav,.card,.tabs .tab,.modal .box{background:#ffffff!important}
@@ -15,6 +25,197 @@
     .desktop-nav .nav-item.active{background:#ffffff!important;color:#374151!important;border:1px solid #e5e7eb!important}
     .desktop-nav .nav-item.plus-btn,.btn.primary{background:#ffffff!important;color:#374151!important;border:1px solid #e5e7eb!important}
     body.desktop-page, body.desktop-page *:not(h1):not(h2):not(h3):not(h4):not(h5):not(h6){color:#374151!important}
+    
+    /* Logo SpeakUp! berwarna biru */
+    .desktop-nav .logo { 
+      color: #38bdf8 !important; 
+      font-weight: 800; 
+      letter-spacing: 0.5px; 
+    }
+
+    /* Force logo color with maximum specificity */
+    .desktop-page .desktop-nav .logo,
+    body.desktop-page .desktop-nav .logo,
+    html body.desktop-page .desktop-nav .logo {
+      color: #38bdf8 !important;
+      font-weight: 800 !important;
+      letter-spacing: 0.5px !important;
+    }
+
+    /* Emoji Picker Styles */
+    .post-content {
+      position: relative;
+    }
+    
+    .emoji-picker {
+      position: absolute;
+      bottom: 100%;
+      left: 0;
+      margin-bottom: 8px;
+      background: #ffffff;
+      border: 1px solid #e5e7eb;
+      border-radius: 12px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+      padding: 16px;
+      z-index: 9999;
+      max-width: 280px;
+      animation: fadeIn 0.2s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(-10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .emoji-grid {
+      display: grid;
+      grid-template-columns: repeat(8, 1fr);
+      gap: 8px;
+      max-width: 280px;
+    }
+
+    .emoji-btn {
+      background: none;
+      border: 1px solid #e5e7eb;
+      font-size: 18px;
+      padding: 8px;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 36px;
+    }
+
+    .emoji-btn:hover {
+      background: #38bdf8;
+      color: white;
+      border-color: #38bdf8;
+      transform: scale(1.1);
+    }
+
+    .emoji-btn:active {
+      transform: scale(0.95);
+    }
+
+    /* Simplified settings without boxes */
+    .settings-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .setting-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 0;
+      background: transparent !important;
+      border: none !important;
+      border-radius: 0 !important;
+      border-bottom: 1px solid #f1f5f9 !important;
+    }
+
+    .setting-item:last-child {
+      border-bottom: none !important;
+    }
+
+    .setting-item .label {
+      color: var(--text);
+      font-weight: 500;
+      font-size: 16px;
+    }
+
+    .setting-item .pill {
+      color: var(--muted);
+      font-size: 14px;
+      margin-top: 4px;
+    }
+
+    /* Clean section headers */
+    h1, h2 {
+      color: var(--text);
+      font-weight: 600;
+      margin-bottom: 24px;
+      padding-bottom: 8px;
+      border-bottom: 2px solid #e2e8f0;
+    }
+
+    h1 {
+      font-size: 28px;
+      border-bottom: 3px solid #38bdf8;
+    }
+
+    h2 {
+      font-size: 20px;
+      margin-top: 40px;
+    }
+
+    /* Clean button styling */
+    .btn {
+      border-radius: 8px;
+      font-weight: 500;
+      transition: all 0.2s ease;
+    }
+
+    .btn:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(56, 189, 248, 0.3);
+    }
+
+    /* Responsive emoji picker */
+    @media (max-width: 768px) {
+      .emoji-picker {
+        position: absolute;
+        bottom: 100%;
+        left: 0;
+        margin-bottom: 8px;
+        max-width: 90vw;
+        max-height: 50vh;
+        overflow-y: auto;
+        z-index: 9999;
+      }
+      
+      .emoji-grid {
+        grid-template-columns: repeat(6, 1fr);
+        gap: 6px;
+      }
+      
+      .emoji-btn {
+        font-size: 16px;
+        padding: 6px;
+        min-height: 32px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .emoji-picker {
+        bottom: 100%;
+        left: 0;
+        margin-bottom: 8px;
+        max-width: 95vw;
+        max-height: 40vh;
+        overflow-y: auto;
+      }
+      
+      .emoji-grid {
+        grid-template-columns: repeat(5, 1fr);
+        gap: 4px;
+      }
+      
+      .emoji-btn {
+        font-size: 14px;
+        padding: 4px;
+        min-height: 28px;
+      }
+    }
   </style>
 </head>
 <body class="desktop-page">
@@ -23,23 +224,18 @@
       <div class="desktop-nav-inner">
         <div class="nav-left">
           <div class="logo">SpeakUp!</div>
-          <button class="nav-item plus-btn" data-open-create title="Speak!">
-            <svg fill="currentColor" viewBox="0 0 20 20">
-              <path fill-rule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clip-rule="evenodd"/>
-            </svg>
-            <span>Speak!</span>
-          </button>
           <a href="./desktop.html" class="nav-item" title="Home">
             <svg fill="currentColor" viewBox="0 0 20 20"><path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"/></svg>
             <span>Home</span>
           </a>
+          
           <a href="./timeline-desktop.html" class="nav-item" title="Timeline">
             <svg fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clip-rule="evenodd"/></svg>
             <span>Timeline</span>
           </a>
-          <a href="./petitions-desktop.html" class="nav-item" title="Petitions">
+          <a href="./petitions-desktop.html" class="nav-item" title="Aspirasi">
             <svg fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M3 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clip-rule="evenodd"/></svg>
-            <span>Petitions</span>
+            <span>Aspirasi</span>
           </a>
         </div>
         <div class="nav-right">
@@ -51,9 +247,9 @@
             <svg fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"/></svg>
             <span>Profile</span>
           </a>
-          <a href="./sign-desktop.html" class="nav-item" title="Sign">
+          <a href="./sign-desktop.html" class="nav-item" id="signButton" title="Login">
             <svg fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M3 10a1 1 0 011-1h8.586l-3.293-3.293a1 1 0 111.414-1.414l5 5a1 1 0 010 1.414l-5 5a1 1 0 11-1.414-1.414L12.586 11H4a1 1 0 01-1-1z" clip-rule="evenodd"/></svg>
-            <span>Sign</span>
+            <span>Login</span>
           </a>
         </div>
       </div>
@@ -62,80 +258,200 @@
     <main>
       <section class="container">
         <h1>Pengaturan</h1>
+        
+        
         <div class="settings-grid">
-          <div class="setting-item"><div><div class="label">Notifikasi Push</div><div class="pill">Dukungan & balasan</div></div><label class="switch"><input type="checkbox" aria-label="Notifikasi Push" /><span class="slider"></span></label></div>
-          <div class="setting-item"><div><div class="label">Notifikasi Email</div><div class="pill">Ringkasan berkala</div></div><label class="switch"><input type="checkbox" aria-label="Notifikasi Email" /><span class="slider"></span></label></div>
-          <div class="setting-item"><div><div class="label">Privasi</div><div class="pill">Visibilitas profil</div></div><button class="btn">Kelola</button></div>
+          <!-- Tombol notifikasi dan privasi dihapus sesuai permintaan -->
         </div>
 
         <h2 class="mt-20">Pengaturan Akun</h2>
         <div class="settings-grid">
-          <div class="setting-item">
-            <div>
-              <div class="label">Nama Tampilan</div>
-              <div class="pill">Bagaimana nama Anda muncul ke pengguna lain</div>
-            </div>
-            <label>
-              <span class="label">Nama Tampilan</span>
-              <input id="displayName" name="displayName" class="input" type="text" placeholder="Masukkan nama tampilan" />
-            </label>
-          </div>
 
           <div class="setting-item">
             <div>
-              <div class="label">Email</div>
-              <div class="pill">Digunakan untuk login & pemulihan akun</div>
+              <div class="label">Email Pemulihan</div>
+              <div class="pill">Email alternatif untuk reset password jika lupa email utama</div>
             </div>
-            <label>
-              <span class="label">Email</span>
-              <input id="email" name="email" class="input" type="email" placeholder="nama@contoh.com" />
-            </label>
+            <div style="display: flex; gap: 8px; align-items: center;">
+              <input id="recoveryEmail" name="recoveryEmail" class="input" type="email" placeholder="email.pemulihan@contoh.com" style="flex: 1;" />
+              <button type="button" onclick="saveRecoveryEmail()" class="btn" style="padding: 8px 16px; font-size: 14px;">Simpan</button>
+            </div>
+            <div id="recoveryEmailStatus" style="margin-top: 8px; font-size: 12px; color: var(--muted);">
+              Status: Belum ada email pemulihan
+            </div>
           </div>
 
-          <div class="setting-item">
+          <div class="setting-item" id="passwordSetting" style="display: none;">
             <div>
               <div class="label">Kata Sandi</div>
               <div class="pill">Ubah kata sandi secara berkala untuk keamanan</div>
             </div>
             <div class="actions-row">
-              <button class="btn">Ubah Kata Sandi</button>
+              <button class="btn" onclick="openChangePasswordModal()">Ubah Kata Sandi</button>
+            </div>
+          </div>
+          
+          <div class="setting-item" id="oauthInfo" style="display: none;">
+            <div>
+              <div class="label">Akun Terhubung</div>
+              <div class="pill">Anda login menggunakan Google. Kata sandi dikelola oleh Google.</div>
+            </div>
+            <div class="actions-row">
+              <button class="btn ghost" onclick="showOAuthInfo()">Info Akun</button>
             </div>
           </div>
 
+          <!-- Tombol 2FA dihapus sesuai permintaan -->
+        </div>
+
+        <h2 class="mt-20">Tanda Tangan Digital</h2>
+        <div class="settings-grid">
           <div class="setting-item">
             <div>
-              <div class="label">Verifikasi Dua Langkah (2FA)</div>
-              <div class="pill">Tambahkan lapisan keamanan tambahan saat login</div>
+              <div class="label">Tanda Tangan Saya</div>
+              <div class="pill">Atur tanda tangan digital untuk aspirasi</div>
+              <!-- Preview tanda tangan yang sudah tersimpan -->
+              <div id="signaturePreviewMain" style="margin-top: 12px; display: none;">
+                <div style="font-size: 12px; color: var(--muted); margin-bottom: 8px;">Tanda tangan tersimpan:</div>
+                <div style="display: flex; align-items: center; gap: 12px; padding: 12px; background: #f8fafc; border-radius: 8px; border: 1px solid #e2e8f0;">
+                  <img id="signatureImageMain" style="max-width: 80px; max-height: 40px; border: 1px solid #d1d5db; border-radius: 4px; background: white;" alt="Preview Tanda Tangan">
+                  <div>
+                    <div id="signatureNameMain" style="font-size: 14px; font-weight: 500; color: var(--text);"></div>
+                    <div id="signatureDateMain" style="font-size: 11px; color: var(--muted);"></div>
+                  </div>
+                </div>
+              </div>
             </div>
-            <label class="switch"><input type="checkbox" aria-label="Toggle 2FA" /><span class="slider"></span></label>
+            <button class="btn" onclick="openSignatureSettings()">Atur Tanda Tangan</button>
           </div>
+
         </div>
 
         <h2 class="mt-20">Privasi & Keamanan</h2>
         <div class="settings-grid">
+
+          <!-- Tombol Pesan Pribadi dihapus sesuai permintaan -->
+
+          <!-- Tombol Indeks Mesin Pencari dihapus sesuai permintaan -->
+
+          <!-- Tombol Visibilitas Cerita dihapus sesuai permintaan -->
+
+          <!-- Tombol Komentar pada Cerita dihapus sesuai permintaan -->
+
+          <!-- Tombol Daftar Blokir dihapus sesuai permintaan -->
+
           <div class="setting-item">
             <div>
-              <div class="label">Visibilitas Profil</div>
-              <div class="pill">Atur siapa yang dapat melihat profil Anda</div>
+              <div class="label">Data Akun</div>
+              <div class="pill">Hapus akun secara permanen dari database dan aplikasi</div>
+            </div>
+            <div class="actions-row">
+              <button class="btn warn" onclick="deleteUserAccount()">Hapus Akun</button>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <!-- Signature Settings Modal -->
+  <div id="signatureModal" class="modal" role="dialog">
+    <div class="box" style="max-width: 600px;">
+      <div class="head">
+        <strong>Atur Tanda Tangan Digital</strong>
+        <button id="closeSignature" class="btn ghost">Tutup</button>
+      </div>
+      <form id="signatureForm">
+        <div class="mt-12">
+          <label>Nama Lengkap</label>
+          <input type="text" name="fullName" id="signatureFullName" placeholder="Masukkan nama lengkap Anda" />
+        </div>
+        <div class="mt-12">
+          <label>Canvas Tanda Tangan</label>
+          <div style="border: 2px dashed var(--border); border-radius: 8px; padding: 16px; text-align: center; background: var(--bg);">
+            <canvas id="signatureCanvas" width="500" height="200" style="border: 1px solid var(--border); border-radius: 4px; cursor: crosshair; background: white;"></canvas>
+            <div style="margin-top: 8px; font-size: 12px; color: var(--muted);">
+              Gambar tanda tangan Anda di atas
+            </div>
+            <div style="margin-top: 8px;">
+              <button type="button" class="btn ghost" onclick="clearSignature()" style="font-size: 12px;">Hapus</button>
+              <button type="button" class="btn ghost" onclick="saveSignature()" style="font-size: 12px;">Simpan ke Database</button>
+              <button type="button" class="btn ghost" onclick="loadSignatureFromSupabase()" style="font-size: 12px; background: #3b82f6; color: white;">📥 Muat dari Database</button>
+              <button type="button" class="btn ghost" onclick="debugSignatureStorage()" style="font-size: 12px; background: #f59e0b; color: white;">🔍 Debug</button>
+            </div>
+          </div>
+        </div>
+        <div class="mt-12">
+          <label>Preview Tanda Tangan</label>
+          <div id="signaturePreview" style="border: 1px solid var(--border); border-radius: 4px; padding: 16px; min-height: 80px; background: var(--bg); text-align: center; color: var(--muted);">
+            Tanda tangan akan muncul di sini
+          </div>
+          <div id="signatureStatus" style="margin-top: 8px; font-size: 12px; color: var(--muted);">
+            Status: Belum ada tanda tangan
+          </div>
+        </div>
+        <div class="actions-row">
+          <button type="submit" class="btn primary">Simpan Pengaturan</button>
+          <button type="button" id="closeSignature2" class="btn ghost">Batal</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Privacy Settings Modal -->
+  <div id="privacyModal" class="modal" role="dialog">
+    <div class="box" style="max-width: 700px;">
+      <div class="head">
+        <strong>Pengaturan Privasi</strong>
+        <button id="closePrivacy" class="btn ghost">Tutup</button>
+      </div>
+      <form id="privacyForm">
+        <div class="mt-12">
+          <h3 style="margin-bottom: 16px; color: #1f2937;">Visibilitas Profil</h3>
+          <div class="setting-item">
+            <div>
+              <div class="label">Siapa yang dapat melihat profil Anda</div>
+              <div class="pill">Atur tingkat privasi profil Anda</div>
             </div>
             <label>
               <span class="label">Visibilitas Profil</span>
-              <select id="visibility" name="visibility" class="input" title="Visibilitas Profil">
-                <option>Publik</option>
-                <option>Terbatas (hanya pengguna terverifikasi)</option>
-                <option>Privat</option>
+              <select id="profileVisibility" name="profileVisibility" class="input" title="Visibilitas Profil">
+                <option value="public">Publik - Semua orang dapat melihat</option>
+                <option value="verified">Terbatas - Hanya pengguna terverifikasi</option>
+                <option value="private">Privat - Hanya Anda yang dapat melihat</option>
               </select>
+            </label>
+          </div>
+        </div>
+
+        <div class="mt-12">
+          <h3 style="margin-bottom: 16px; color: #1f2937;">Informasi Pribadi</h3>
+          <div class="setting-item">
+            <div>
+              <div class="label">Tampilkan Email</div>
+              <div class="pill">Perlihatkan alamat email di profil</div>
+            </div>
+            <label class="switch">
+              <input id="showEmail" type="checkbox" name="showEmail" aria-label="Toggle Tampilkan Email" />
+              <span class="slider"></span>
             </label>
           </div>
 
           <div class="setting-item">
             <div>
-              <div class="label">Tampilkan Status Aktivitas</div>
-              <div class="pill">Perlihatkan kapan Anda terakhir aktif</div>
+              <div class="label">Tampilkan Nomor Telepon</div>
+              <div class="pill">Perlihatkan nomor telepon di profil</div>
             </div>
-            <label class="switch"><input type="checkbox" aria-label="Toggle Status Aktivitas" /><span class="slider"></span></label>
+            <label class="switch">
+              <input id="showPhone" type="checkbox" name="showPhone" aria-label="Toggle Tampilkan Telepon" />
+              <span class="slider"></span>
+            </label>
           </div>
 
+        </div>
+
+        <div class="mt-12">
+          <h3 style="margin-bottom: 16px; color: #1f2937;">Interaksi</h3>
           <div class="setting-item">
             <div>
               <div class="label">Pesan Pribadi</div>
@@ -144,68 +460,1455 @@
             <label>
               <span class="label">Pesan Pribadi</span>
               <select id="dmPermission" name="dmPermission" class="input" title="Pengaturan Pesan Pribadi">
-                <option>Siapa saja</option>
-                <option>Hanya yang Anda ikuti</option>
-                <option>Tidak ada</option>
+                <option value="everyone">Siapa saja</option>
+                <option value="followers">Hanya yang Anda ikuti</option>
+                <option value="none">Tidak ada</option>
               </select>
             </label>
           </div>
 
+          <div class="setting-item">
+            <div>
+              <div class="label">Komentar pada Postingan</div>
+              <div class="pill">Izinkan orang lain berkomentar di postingan Anda</div>
+            </div>
+            <label class="switch">
+              <input id="allowComments" type="checkbox" name="allowComments" aria-label="Toggle Komentar" />
+              <span class="slider"></span>
+            </label>
+          </div>
+
+          <div class="setting-item">
+            <div>
+              <div class="label">Mention & Tag</div>
+              <div class="pill">Izinkan orang lain mention Anda</div>
+            </div>
+            <label class="switch">
+              <input id="allowMentions" type="checkbox" name="allowMentions" aria-label="Toggle Mention" />
+              <span class="slider"></span>
+            </label>
+          </div>
+        </div>
+
+        <div class="mt-12">
+          <h3 style="margin-bottom: 16px; color: #1f2937;">Keamanan</h3>
           <div class="setting-item">
             <div>
               <div class="label">Indeks Mesin Pencari</div>
               <div class="pill">Izinkan profil Anda muncul di mesin pencari</div>
             </div>
-            <label class="switch"><input type="checkbox" aria-label="Toggle Indeks Mesin Pencari" /><span class="slider"></span></label>
-          </div>
-
-          <div class="setting-item">
-            <div>
-              <div class="label">Visibilitas Cerita (Default)</div>
-              <div class="pill">Pengaturan default saat Anda memposting cerita</div>
-            </div>
-            <label>
-              <span class="label">Visibilitas Cerita (Default)</span>
-              <select id="storyDefaultVisibility" name="storyDefaultVisibility" class="input" title="Visibilitas Cerita Default">
-                <option>Publik</option>
-                <option>Komunitas</option>
-                <option>Hanya saya</option>
-              </select>
+            <label class="switch">
+              <input id="searchIndex" type="checkbox" name="searchIndex" aria-label="Toggle Indeks Mesin Pencari" />
+              <span class="slider"></span>
             </label>
           </div>
 
           <div class="setting-item">
             <div>
-              <div class="label">Komentar pada Cerita Saya</div>
-              <div class="pill">Izinkan orang lain berkomentar di cerita Anda</div>
+              <div class="label">Lokasi</div>
+              <div class="pill">Tampilkan lokasi dalam postingan</div>
             </div>
-            <label class="switch"><input type="checkbox" aria-label="Toggle Komentar pada Cerita" /><span class="slider"></span></label>
+            <label class="switch">
+              <input id="showLocation" type="checkbox" name="showLocation" aria-label="Toggle Lokasi" />
+              <span class="slider"></span>
+            </label>
           </div>
+        </div>
 
-          <div class="setting-item">
-            <div>
-              <div class="label">Daftar Blokir</div>
-              <div class="pill">Kelola pengguna yang Anda blokir</div>
-            </div>
-            <div class="actions-row">
-              <button class="btn">Kelola</button>
-            </div>
+        <div class="actions-row">
+          <button type="submit" class="btn primary">Simpan Pengaturan</button>
+          <button type="button" id="closePrivacy2" class="btn ghost">Batal</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+
+  <!-- Change Password Modal -->
+  <div id="changePasswordModal" class="modal" role="dialog">
+    <div class="box" style="max-width: 500px;">
+      <div class="head">
+        <strong>Ubah Kata Sandi</strong>
+        <button id="closeChangePassword" class="btn ghost">Tutup</button>
+      </div>
+      <form id="changePasswordForm">
+        <div class="mt-12">
+          <label>Kata Sandi Lama</label>
+          <input type="password" name="oldPassword" id="oldPassword" placeholder="Masukkan kata sandi lama" required />
+        </div>
+        <div class="mt-12">
+          <label>Kata Sandi Baru</label>
+          <input type="password" name="newPassword" id="newPassword" placeholder="Masukkan kata sandi baru" required minlength="6" />
+        </div>
+        <div class="mt-12">
+          <label>Konfirmasi Kata Sandi Baru</label>
+          <input type="password" name="confirmPassword" id="confirmPassword" placeholder="Konfirmasi kata sandi baru" required minlength="6" />
+        </div>
+        <div class="actions-row">
+          <button type="submit" class="btn primary">Ubah Kata Sandi</button>
+          <button type="button" id="closeChangePassword2" class="btn ghost">Batal</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Create Post Modal -->
+  <div id="createModal" class="modal" role="dialog">
+    <div class="box">
+      <div class="head">
+        <strong>Buat Post</strong>
+        <button id="closeCreate" class="btn ghost">×</button>
+      </div>
+      <form id="createForm">
+        <div class="mt-12">
+          <label>Konten</label>
+          <div style="position: relative;">
+            <textarea name="content" id="contentText" rows="6" maxlength="5000" required placeholder="Speak! Bagikan pengalamanmu..." style="width: 100%; min-height: 120px; padding: 12px 40px 12px 12px; border: 1px solid #d1d5db; border-radius: 8px; resize: vertical; font-family: inherit; font-size: 14px; outline: none; transition: border-color 0.2s;"></textarea>
+            <button type="button" onclick="toggleEmojiPicker()" style="position: absolute; right: 8px; bottom: 8px; background: none; border: none; font-size: 18px; cursor: pointer; padding: 4px; border-radius: 4px; transition: background-color 0.2s;">😊</button>
+            <div id="emojiPicker" style="position: absolute; bottom: 10px; left: 10px; right: 50px; background: #ffffff; border: 2px solid #38bdf8; border-radius: 8px; box-shadow: 0 8px 24px rgba(0,0,0,0.2); padding: 12px; z-index: 10; display: none;"></div>
           </div>
-
-          <div class="setting-item">
-            <div>
-              <div class="label">Data Akun</div>
-              <div class="pill">Ekspor salinan data Anda atau hapus akun secara permanen</div>
-            </div>
-            <div class="actions-row">
-              <button class="btn">Ekspor Data</button>
-              <button class="btn warn">Hapus Akun</button>
+        </div>
+        <div class="mt-12">
+          <label>Upload Gambar/Foto (Opsional)</label>
+          <div class="file-upload-container">
+            <input type="file" id="imageUpload" name="image" accept="image/*">
+            <button type="button" class="btn ghost upload-btn" onclick="document.getElementById('imageUpload').click()">
+              <svg fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z" clip-rule="evenodd"/></svg>
+              Klik untuk Upload Gambar
+            </button>
+            <div id="imagePreview" class="image-preview">
+              <img id="previewImg">
+              <button type="button" onclick="removeImage()" class="btn ghost remove-btn">Hapus Gambar</button>
             </div>
           </div>
         </div>
-      </section>
-    </main>
+        <div class="mt-12 row">
+          <div style="flex:1">
+            <label>Kategori</label>
+            <select name="category">
+              <option value="bullying">Bullying</option>
+              <option value="mental_health">Mental Health</option>
+              <option value="workplace">Workplace</option>
+              <option value="aspirasi">Aspirasi</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+          <div style="flex:1">
+            <label>Identitas</label>
+            <select name="identity">
+              <option value="anonymous">Anonymous</option>
+              <option value="custom_anon">Custom Handle</option>
+              <option value="verified">Verified</option>
+            </select>
+          </div>
+        </div>
+        <div class="mt-12">
+          <label><input type="checkbox" name="want_solution" value="true" /> Saya ingin solusi</label>
+        </div>
+        <div class="actions-row">
+          <button type="submit" class="btn primary">Kirim</button>
+          <button type="button" id="closeCreate2" class="btn ghost" onclick="document.getElementById('createModal').classList.remove('open')">Batal</button>
+        </div>
+      </form>
+    </div>
   </div>
-</body>
-</html>
 
+  <script src="config/supabase-config.js"></script>
+  <script src="config/supabase-bootstrap.js"></script>
+  <script src="config/settings-api.js"></script>
+  <script src="assets/js/app.js"></script>
+  <script>
+    // Development test functions removed - no longer needed in production
+  </script>
+  <script>
+    // Check login status and update navigation
+    document.addEventListener('DOMContentLoaded', function() {
+      // Make page visible after initialization
+      document.body.classList.add('loaded');
+      
+      const isLoggedIn = localStorage.getItem('speakup_logged_in');
+      
+      if (isLoggedIn === 'true') {
+        // User is logged in, update navigation
+        updateNavigationForLoggedInUser();
+      } else {
+        // User is not logged in, redirect to homepage
+        window.location.href = './desktop.html';
+      }
+    });
+    
+    function updateNavigationForLoggedInUser() {
+      console.log('Updating navigation for logged in user...');
+      
+      // Show all navigation items
+      const navItems = document.querySelectorAll('.desktop-nav .nav-item');
+      navItems.forEach(item => {
+        item.style.display = 'flex';
+      });
+      
+      // Convert Sign button to Logout button
+      const signButton = document.getElementById('signButton');
+      if (signButton) {
+        console.log('Converting Sign button to Logout button');
+        signButton.href = 'javascript:void(0)';
+        signButton.onclick = logout;
+        signButton.title = 'Logout';
+        signButton.innerHTML = `
+          <svg fill="currentColor" viewBox="0 0 20 20">
+            <path fill-rule="evenodd" d="M3 3a1 1 0 00-1 1v12a1 1 0 102 0V4a1 1 0 00-1-1zm10.293 9.293a1 1 0 001.414 1.414l3-3a1 1 0 000-1.414l-3-3a1 1 0 10-1.414 1.414L14.586 9H7a1 1 0 100 2h7.586l-1.293 1.293z" clip-rule="evenodd"/>
+          </svg>
+          <span>Logout</span>
+        `;
+      }
+      
+      // Show Speak! button
+      const speakButton = document.querySelector('.plus-btn');
+      if (speakButton) {
+        speakButton.style.display = 'flex';
+      }
+      
+      // Handle Profile button click to go to own profile
+      const profileButton = document.querySelector('a[href="./profile-desktop.html"]');
+      if (profileButton) {
+        profileButton.addEventListener('click', function(e) {
+          e.preventDefault();
+          // Navigate to own profile (without URL parameter)
+          window.location.href = 'profile-desktop.html';
+        });
+      }
+    }
+    
+    // Logout handled globally in assets/js/app.js
+  </script>
+  <script>
+    // Settings functions
+    function openSignatureSettings() {
+      document.getElementById('signatureModal').classList.add('open');
+      initializeSignatureCanvas();
+      loadSignatureSettings();
+    }
+
+    // Privacy settings functions
+    function openPrivacySettings() {
+      document.getElementById('privacyModal').classList.add('open');
+      loadPrivacySettings();
+    }
+
+
+    function loadPrivacySettings() {
+      // Load saved privacy settings from localStorage
+      const settings = {
+        profileVisibility: localStorage.getItem('privacy_profileVisibility') || 'public',
+        showEmail: localStorage.getItem('privacy_showEmail') === 'true',
+        showPhone: localStorage.getItem('privacy_showPhone') === 'true',
+        dmPermission: localStorage.getItem('privacy_dmPermission') || 'everyone',
+        allowComments: localStorage.getItem('privacy_allowComments') === 'true',
+        allowMentions: localStorage.getItem('privacy_allowMentions') === 'true',
+        searchIndex: localStorage.getItem('privacy_searchIndex') === 'true',
+        showLocation: localStorage.getItem('privacy_showLocation') === 'true'
+      };
+
+      // Apply settings to form
+      document.getElementById('profileVisibility').value = settings.profileVisibility;
+      document.getElementById('showEmail').checked = settings.showEmail;
+      document.getElementById('showPhone').checked = settings.showPhone;
+      document.getElementById('dmPermission').value = settings.dmPermission;
+      document.getElementById('allowComments').checked = settings.allowComments;
+      document.getElementById('allowMentions').checked = settings.allowMentions;
+      document.getElementById('searchIndex').checked = settings.searchIndex;
+      document.getElementById('showLocation').checked = settings.showLocation;
+    }
+
+    function savePrivacySettings(settings) {
+      // Save privacy settings to localStorage
+      localStorage.setItem('privacy_profileVisibility', settings.profileVisibility);
+      localStorage.setItem('privacy_showEmail', settings.showEmail);
+      localStorage.setItem('privacy_showPhone', settings.showPhone);
+      localStorage.setItem('privacy_dmPermission', settings.dmPermission);
+      localStorage.setItem('privacy_allowComments', settings.allowComments);
+      localStorage.setItem('privacy_allowMentions', settings.allowMentions);
+      localStorage.setItem('privacy_searchIndex', settings.searchIndex);
+      localStorage.setItem('privacy_showLocation', settings.showLocation);
+    }
+
+    // Blocklist management functions removed - feature no longer available
+
+    // Signature functionality
+    let signatureCanvas, signatureCtx, isDrawing = false;
+    let signatureData = null;
+
+    function initializeSignatureCanvas() {
+      signatureCanvas = document.getElementById('signatureCanvas');
+      if (!signatureCanvas) return;
+      
+      signatureCtx = signatureCanvas.getContext('2d');
+      signatureCtx.strokeStyle = '#000';
+      signatureCtx.lineWidth = 2;
+      signatureCtx.lineCap = 'round';
+      signatureCtx.lineJoin = 'round';
+
+      // Mouse events
+      signatureCanvas.addEventListener('mousedown', startDrawing);
+      signatureCanvas.addEventListener('mousemove', draw);
+      signatureCanvas.addEventListener('mouseup', stopDrawing);
+      signatureCanvas.addEventListener('mouseout', stopDrawing);
+
+      // Touch events for mobile
+      signatureCanvas.addEventListener('touchstart', handleTouch);
+      signatureCanvas.addEventListener('touchmove', handleTouch);
+      signatureCanvas.addEventListener('touchend', stopDrawing);
+    }
+
+    function startDrawing(e) {
+      isDrawing = true;
+      const rect = signatureCanvas.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      signatureCtx.beginPath();
+      signatureCtx.moveTo(x, y);
+    }
+
+    function draw(e) {
+      if (!isDrawing) return;
+      const rect = signatureCanvas.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      signatureCtx.lineTo(x, y);
+      signatureCtx.stroke();
+    }
+
+    function stopDrawing() {
+      isDrawing = false;
+      signatureCtx.beginPath();
+    }
+
+    function handleTouch(e) {
+      e.preventDefault();
+      const touch = e.touches[0];
+      const mouseEvent = new MouseEvent(e.type === 'touchstart' ? 'mousedown' : 
+                                       e.type === 'touchmove' ? 'mousemove' : 'mouseup', {
+        clientX: touch.clientX,
+        clientY: touch.clientY
+      });
+      signatureCanvas.dispatchEvent(mouseEvent);
+    }
+
+    async function clearSignature() {
+      if (signatureCtx) {
+        signatureCtx.clearRect(0, 0, signatureCanvas.width, signatureCanvas.height);
+        signatureData = null;
+        updateSignaturePreview();
+        
+        try {
+          // Remove from Supabase
+          const supabase = window.getSupabase();
+          if (supabase) {
+            console.log('🗑️ Menghapus tanda tangan dari Supabase...');
+            const { error } = await supabase.rpc('delete_user_signature');
+            if (error) {
+              console.warn('⚠️ Gagal menghapus dari Supabase:', error);
+            } else {
+              console.log('✅ Tanda tangan dihapus dari Supabase');
+            }
+          }
+        } catch (error) {
+          console.warn('⚠️ Error deleting from Supabase:', error);
+        }
+        
+        // Also remove from localStorage
+        localStorage.removeItem('userSignature');
+        localStorage.removeItem('userFullName');
+        console.log('✅ Tanda tangan dihapus dari memory dan localStorage');
+        
+        alert('✅ Tanda tangan berhasil dihapus dari database dan browser!');
+      }
+    }
+
+    async function saveSignature() {
+      if (signatureCanvas) {
+        // Save with high quality to preserve signature details
+        signatureData = signatureCanvas.toDataURL('image/png', 1.0);
+        updateSignaturePreview();
+        
+        try {
+          // Get current user data from localStorage or prompt user
+          let fullName = localStorage.getItem('speakup_user_full_name') || 
+                        localStorage.getItem('userFullName') || 
+                        prompt('Masukkan nama lengkap untuk tanda tangan:');
+          
+          if (!fullName || fullName.trim() === '') {
+            alert('Nama lengkap diperlukan untuk menyimpan tanda tangan.');
+            return;
+          }
+
+          // Save to Supabase
+          const supabase = window.getSupabase();
+          if (!supabase) {
+            throw new Error('Supabase tidak tersedia');
+          }
+
+          console.log('💾 Menyimpan tanda tangan ke Supabase...');
+          console.log('Full name:', fullName.trim());
+          
+          const { data, error } = await supabase.rpc('save_user_signature', {
+            p_signature_data: signatureData,
+            p_full_name: fullName.trim()
+          });
+
+          if (error) {
+            throw error;
+          }
+
+          console.log('✅ Tanda tangan berhasil disimpan ke Supabase:', data);
+          
+          // Also save to localStorage as backup
+          localStorage.setItem('userSignature', signatureData);
+          localStorage.setItem('userFullName', fullName.trim());
+          
+          alert('✅ Tanda tangan berhasil disimpan ke database! Sekarang bisa diakses dari device mana saja.');
+          
+        } catch (error) {
+          console.error('❌ Error saving signature to Supabase:', error);
+          
+          // Fallback to localStorage only
+          localStorage.setItem('userSignature', signatureData);
+          localStorage.setItem('userFullName', fullName || 'Tanda Tangan');
+          
+          alert('⚠️ Gagal menyimpan ke database, disimpan ke browser lokal saja.\n\nError: ' + error.message);
+        }
+      }
+    }
+
+    // Load signature from Supabase
+    async function loadSignatureFromSupabase() {
+      try {
+        const supabase = window.getSupabase();
+        if (!supabase) {
+          throw new Error('Supabase tidak tersedia');
+        }
+
+        console.log('🔄 Memuat tanda tangan dari Supabase...');
+        
+        const { data, error } = await supabase.rpc('get_user_signature');
+
+        if (error) {
+          throw error;
+        }
+
+        if (data && data.signature_data) {
+          console.log('✅ Tanda tangan ditemukan di Supabase:', data);
+          
+          // Load signature to canvas
+          signatureData = data.signature_data;
+          updateSignaturePreview();
+          
+          // Also save to localStorage as backup
+          localStorage.setItem('userSignature', data.signature_data);
+          localStorage.setItem('userFullName', data.full_name);
+          
+          // Load to canvas
+          if (signatureCanvas && signatureCtx) {
+            const img = new Image();
+            img.onload = function() {
+              signatureCtx.clearRect(0, 0, signatureCanvas.width, signatureCanvas.height);
+              signatureCtx.drawImage(img, 0, 0, signatureCanvas.width, signatureCanvas.height);
+            };
+            img.src = data.signature_data;
+          }
+          
+          alert(`✅ Tanda tangan berhasil dimuat dari database!\n\nNama: ${data.full_name}\nTanggal dibuat: ${new Date(data.created_at).toLocaleDateString('id-ID')}`);
+          
+          return data;
+        } else {
+          console.log('❌ Tidak ada tanda tangan di Supabase');
+          alert('❌ Tidak ada tanda tangan di Supabase.\n\nSilakan buat tanda tangan baru dan klik "Simpan ke Database".');
+          return null;
+        }
+        
+      } catch (error) {
+        console.error('❌ Error loading signature from Supabase:', error);
+        return null;
+      }
+    }
+
+    function debugSignatureStorage() {
+      console.log('🔍 DEBUG: Checking storage...');
+      console.log('All localStorage keys:', Object.keys(localStorage));
+      
+      const userSignature = localStorage.getItem('userSignature');
+      const userFullName = localStorage.getItem('userFullName');
+      
+      console.log('userSignature exists (localStorage):', !!userSignature);
+      console.log('userSignature length:', userSignature ? userSignature.length : 0);
+      console.log('userFullName:', userFullName);
+      console.log('signatureData in memory:', !!signatureData);
+      
+      if (userSignature) {
+        console.log('userSignature preview:', userSignature.substring(0, 100) + '...');
+        alert(`✅ Tanda tangan ditemukan di localStorage!\n\nNama: ${userFullName || 'Tidak ada'}\nUkuran: ${userSignature.length} karakter\n\nTanda tangan siap digunakan di halaman lain.`);
+      } else {
+        console.log('❌ No signature found in localStorage');
+        alert('❌ Tidak ada tanda tangan di localStorage.\n\nSilakan:\n1. Gambar tanda tangan di canvas\n2. Klik "Simpan"\n3. Tanda tangan akan tersimpan ke database');
+      }
+    }
+
+    function updateSignaturePreview() {
+      const preview = document.getElementById('signaturePreview');
+      const status = document.getElementById('signatureStatus');
+      if (!preview) return;
+
+      if (signatureData) {
+        preview.innerHTML = `<img src="${signatureData}" style="max-width: 100%; max-height: 80px;" alt="Preview Tanda Tangan" />`;
+        if (status) {
+          status.innerHTML = 'Status: ✅ Tanda tangan siap disimpan';
+          status.style.color = '#059669';
+        }
+      } else {
+        preview.innerHTML = 'Tanda tangan akan muncul di sini';
+        if (status) {
+          status.innerHTML = 'Status: Belum ada tanda tangan';
+          status.style.color = 'var(--muted)';
+        }
+      }
+    }
+
+    async function loadSignatureSettings() {
+      try {
+        if (window.settingsAPI) {
+          const signature = await window.settingsAPI.getDigitalSignature();
+          
+          if (signature) {
+            if (signature.full_name) {
+              document.getElementById('signatureFullName').value = signature.full_name;
+            }
+            
+            if (signature.signature_data) {
+              signatureData = signature.signature_data;
+              const img = new Image();
+              img.onload = function() {
+                signatureCtx.clearRect(0, 0, signatureCanvas.width, signatureCanvas.height);
+                
+                // Calculate scaling to fit signature properly
+                const canvasAspectRatio = signatureCanvas.width / signatureCanvas.height;
+                const imgAspectRatio = img.width / img.height;
+                
+                let drawWidth, drawHeight, offsetX = 0, offsetY = 0;
+                
+                if (imgAspectRatio > canvasAspectRatio) {
+                  // Image is wider than canvas - fit to width
+                  drawWidth = signatureCanvas.width;
+                  drawHeight = signatureCanvas.width / imgAspectRatio;
+                  offsetY = (signatureCanvas.height - drawHeight) / 2;
+                } else {
+                  // Image is taller than canvas - fit to height
+                  drawHeight = signatureCanvas.height;
+                  drawWidth = signatureCanvas.height * imgAspectRatio;
+                  offsetX = (signatureCanvas.width - drawWidth) / 2;
+                }
+                
+                // Draw signature with proper scaling
+                signatureCtx.drawImage(img, offsetX, offsetY, drawWidth, drawHeight);
+              };
+              img.src = signature.signature_data;
+              updateSignaturePreview();
+            }
+          }
+        } else {
+          // Fallback to localStorage
+      const savedSignature = localStorage.getItem('userSignature');
+      const savedFullName = localStorage.getItem('userFullName');
+      
+      if (savedFullName) {
+        document.getElementById('signatureFullName').value = savedFullName;
+      }
+      
+      if (savedSignature) {
+        signatureData = savedSignature;
+        const img = new Image();
+        img.onload = function() {
+          signatureCtx.clearRect(0, 0, signatureCanvas.width, signatureCanvas.height);
+          
+          // Calculate scaling to fit signature properly
+          const canvasAspectRatio = signatureCanvas.width / signatureCanvas.height;
+          const imgAspectRatio = img.width / img.height;
+          
+          let drawWidth, drawHeight, offsetX = 0, offsetY = 0;
+          
+          if (imgAspectRatio > canvasAspectRatio) {
+            // Image is wider than canvas - fit to width
+            drawWidth = signatureCanvas.width;
+            drawHeight = signatureCanvas.width / imgAspectRatio;
+            offsetY = (signatureCanvas.height - drawHeight) / 2;
+          } else {
+            // Image is taller than canvas - fit to height
+            drawHeight = signatureCanvas.height;
+            drawWidth = signatureCanvas.height * imgAspectRatio;
+            offsetX = (signatureCanvas.width - drawWidth) / 2;
+          }
+          
+          // Draw signature with proper scaling
+          signatureCtx.drawImage(img, offsetX, offsetY, drawWidth, drawHeight);
+        };
+        img.src = savedSignature;
+        updateSignaturePreview();
+          }
+        }
+      } catch (error) {
+        console.error('Error loading signature settings:', error);
+        // Fallback to localStorage
+        const savedSignature = localStorage.getItem('userSignature');
+        const savedFullName = localStorage.getItem('userFullName');
+        
+        if (savedFullName) {
+          document.getElementById('signatureFullName').value = savedFullName;
+        }
+        
+        if (savedSignature) {
+          signatureData = savedSignature;
+          const img = new Image();
+          img.onload = function() {
+            signatureCtx.clearRect(0, 0, signatureCanvas.width, signatureCanvas.height);
+            
+            // Calculate scaling to fit signature properly
+            const canvasAspectRatio = signatureCanvas.width / signatureCanvas.height;
+            const imgAspectRatio = img.width / img.height;
+            
+            let drawWidth, drawHeight, offsetX = 0, offsetY = 0;
+            
+            if (imgAspectRatio > canvasAspectRatio) {
+              // Image is wider than canvas - fit to width
+              drawWidth = signatureCanvas.width;
+              drawHeight = signatureCanvas.width / imgAspectRatio;
+              offsetY = (signatureCanvas.height - drawHeight) / 2;
+            } else {
+              // Image is taller than canvas - fit to height
+              drawHeight = signatureCanvas.height;
+              drawWidth = signatureCanvas.height * imgAspectRatio;
+              offsetX = (signatureCanvas.width - drawWidth) / 2;
+            }
+            
+            // Draw signature with proper scaling
+            signatureCtx.drawImage(img, offsetX, offsetY, drawWidth, drawHeight);
+          };
+          img.src = savedSignature;
+          updateSignaturePreview();
+        }
+      }
+    }
+
+    // Signature modal handlers
+    const signatureModal = document.getElementById('signatureModal');
+    const closeSignature = document.getElementById('closeSignature');
+    const closeSignature2 = document.getElementById('closeSignature2');
+    const signatureForm = document.getElementById('signatureForm');
+
+    closeSignature && closeSignature.addEventListener('click', () => signatureModal.classList.remove('open'));
+    closeSignature2 && closeSignature2.addEventListener('click', () => signatureModal.classList.remove('open'));
+    signatureModal && signatureModal.addEventListener('click', (e) => { if (e.target === signatureModal) signatureModal.classList.remove('open'); });
+
+    signatureForm && signatureForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const data = Object.fromEntries(new FormData(signatureForm).entries());
+      
+      // Validasi input
+      if (!data.fullName || data.fullName.trim() === '') {
+        alert('Silakan isi nama lengkap terlebih dahulu!');
+        return;
+      }
+      
+      if (!signatureData) {
+        alert('Silakan buat tanda tangan terlebih dahulu dengan menggambar di canvas dan klik tombol "Simpan"!');
+        return;
+      }
+      
+      try {
+        console.log('🔄 Menyimpan tanda tangan ke Supabase...');
+        console.log('Data:', { fullName: data.fullName, hasSignature: !!signatureData });
+        
+        // Always save to localStorage as backup
+        console.log('💾 Menyimpan tanda tangan ke localStorage sebagai backup...');
+        localStorage.setItem('userSignature', signatureData);
+        localStorage.setItem('userFullName', data.fullName.trim());
+        console.log('✅ Tanda tangan berhasil disimpan ke localStorage');
+        
+        if (window.settingsAPI) {
+          try {
+            const result = await window.settingsAPI.saveDigitalSignature(
+              signatureData,
+              data.fullName.trim()
+            );
+            console.log('✅ Tanda tangan berhasil disimpan ke Supabase');
+            
+            // Update preview di halaman utama
+            displaySignaturePreview(result);
+            
+            alert('Pengaturan tanda tangan berhasil disimpan ke database dan localStorage!');
+          } catch (apiError) {
+            console.warn('⚠️ Gagal menyimpan ke Supabase, menggunakan localStorage:', apiError);
+            
+            // Update preview di halaman utama dengan data localStorage
+            displaySignaturePreview({
+              signature_data: signatureData,
+              full_name: data.fullName.trim(),
+              created_at: new Date().toISOString()
+            });
+            
+            alert('Pengaturan tanda tangan berhasil disimpan ke localStorage!');
+          }
+        } else {
+          console.log('⚠️ SettingsAPI tidak tersedia, hanya menyimpan ke localStorage');
+          
+          // Update preview di halaman utama
+          displaySignaturePreview({
+            signature_data: signatureData,
+            full_name: data.fullName.trim(),
+            created_at: new Date().toISOString()
+          });
+          
+          alert('Pengaturan tanda tangan berhasil disimpan ke localStorage!');
+        }
+        
+        signatureModal.classList.remove('open');
+      } catch (error) {
+        console.error('❌ Error saving signature:', error);
+        alert('Gagal menyimpan tanda tangan: ' + error.message);
+      }
+    });
+
+    // Privacy modal handlers
+    const privacyModal = document.getElementById('privacyModal');
+    const closePrivacy = document.getElementById('closePrivacy');
+    const closePrivacy2 = document.getElementById('closePrivacy2');
+    const privacyForm = document.getElementById('privacyForm');
+
+    closePrivacy && closePrivacy.addEventListener('click', () => privacyModal.classList.remove('open'));
+    closePrivacy2 && closePrivacy2.addEventListener('click', () => privacyModal.classList.remove('open'));
+    privacyModal && privacyModal.addEventListener('click', (e) => { if (e.target === privacyModal) privacyModal.classList.remove('open'); });
+
+    privacyForm && privacyForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const formData = new FormData(privacyForm);
+      const settings = {
+        profile_visibility: formData.get('profileVisibility'),
+        show_email: formData.get('showEmail') === 'on',
+        show_phone: formData.get('showPhone') === 'on',
+        dm_permission: formData.get('dmPermission'),
+        allow_comments: formData.get('allowComments') === 'on',
+        allow_mentions: formData.get('allowMentions') === 'on',
+        search_engine_index: formData.get('searchIndex') === 'on',
+        show_location: formData.get('showLocation') === 'on'
+      };
+      
+      try {
+        if (window.settingsAPI) {
+          await window.settingsAPI.updatePrivacySettings(settings);
+      alert('Pengaturan privasi berhasil disimpan! 🔒');
+        } else {
+          // Fallback to localStorage
+          savePrivacySettings({
+            profileVisibility: settings.profile_visibility,
+            showEmail: settings.show_email,
+            showPhone: settings.show_phone,
+            dmPermission: settings.dm_permission,
+            allowComments: settings.allow_comments,
+            allowMentions: settings.allow_mentions,
+            searchIndex: settings.search_engine_index,
+            showLocation: settings.show_location
+          });
+          alert('Pengaturan privasi berhasil disimpan! 🔒');
+        }
+      privacyModal.classList.remove('open');
+      } catch (error) {
+        console.error('Error saving privacy settings:', error);
+        alert('Gagal menyimpan pengaturan privasi: ' + error.message);
+      }
+    });
+
+    // Blocklist modal handlers removed - feature no longer available
+
+    // Change Password Modal Handlers
+    const changePasswordModal = document.getElementById('changePasswordModal');
+    const closeChangePassword = document.getElementById('closeChangePassword');
+    const closeChangePassword2 = document.getElementById('closeChangePassword2');
+    const changePasswordForm = document.getElementById('changePasswordForm');
+
+    closeChangePassword && closeChangePassword.addEventListener('click', () => changePasswordModal.classList.remove('open'));
+    closeChangePassword2 && closeChangePassword2.addEventListener('click', () => changePasswordModal.classList.remove('open'));
+    changePasswordModal && changePasswordModal.addEventListener('click', (e) => { if (e.target === changePasswordModal) changePasswordModal.classList.remove('open'); });
+
+    changePasswordForm && changePasswordForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const formData = new FormData(changePasswordForm);
+      const oldPassword = formData.get('oldPassword');
+      const newPassword = formData.get('newPassword');
+      const confirmPassword = formData.get('confirmPassword');
+
+      if (newPassword !== confirmPassword) {
+        alert('Kata sandi baru dan konfirmasi tidak cocok!');
+        return;
+      }
+
+      if (newPassword.length < 6) {
+        alert('Kata sandi baru harus minimal 6 karakter!');
+        return;
+      }
+
+      try {
+        if (window.settingsAPI) {
+          await window.settingsAPI.changePassword(newPassword);
+          alert('Kata sandi berhasil diubah! 🔒');
+          changePasswordModal.classList.remove('open');
+          changePasswordForm.reset();
+        } else {
+          alert('SettingsAPI tidak tersedia. Coba refresh halaman.');
+        }
+      } catch (error) {
+        console.error('Error changing password:', error);
+        alert('Terjadi kesalahan saat mengubah kata sandi: ' + error.message);
+      }
+    });
+
+    // Enter key support for block user input
+    // Blocklist event listeners removed - feature no longer available
+
+    // Change Password Modal Functions
+    function openChangePasswordModal() {
+      document.getElementById('changePasswordModal').classList.add('open');
+    }
+
+    // OAuth Info Function
+    function showOAuthInfo() {
+      alert('ℹ️ Informasi Akun Google\n\n' +
+            '• Anda login menggunakan akun Google\n' +
+            '• Kata sandi dikelola oleh Google\n' +
+            '• Untuk mengubah kata sandi, kunjungi: myaccount.google.com\n' +
+            '• Email pemulihan tetap bisa diatur di sini');
+    }
+
+    // Check authentication method and show appropriate section
+    async function checkAuthMethod() {
+      try {
+        if (window.settingsAPI) {
+          const user = await window.settingsAPI.getCurrentUser();
+          
+          // Check if user has password (manual registration) or OAuth
+          const hasPassword = user.app_metadata?.provider === 'email' || 
+                             (user.identities && user.identities.some(identity => identity.provider === 'email'));
+          
+          const isOAuth = user.app_metadata?.provider === 'google' || 
+                         (user.identities && user.identities.some(identity => identity.provider === 'google'));
+          
+          console.log('User auth method:', { hasPassword, isOAuth, provider: user.app_metadata?.provider });
+          
+          if (hasPassword) {
+            // Show password change section for manual registration
+            document.getElementById('passwordSetting').style.display = 'block';
+            document.getElementById('oauthInfo').style.display = 'none';
+          } else if (isOAuth) {
+            // Show OAuth info for Google users
+            document.getElementById('passwordSetting').style.display = 'none';
+            document.getElementById('oauthInfo').style.display = 'block';
+          } else {
+            // Default: show password section (fallback)
+            document.getElementById('passwordSetting').style.display = 'block';
+            document.getElementById('oauthInfo').style.display = 'none';
+          }
+        } else {
+          // Fallback: show password section
+          document.getElementById('passwordSetting').style.display = 'block';
+          document.getElementById('oauthInfo').style.display = 'none';
+        }
+      } catch (error) {
+        console.error('Error checking auth method:', error);
+        // Fallback: show password section
+        document.getElementById('passwordSetting').style.display = 'block';
+        document.getElementById('oauthInfo').style.display = 'none';
+      }
+    }
+
+    // Recovery Email Functions
+    async function saveRecoveryEmail() {
+      const recoveryEmailInput = document.getElementById('recoveryEmail');
+      const recoveryEmailStatus = document.getElementById('recoveryEmailStatus');
+      const recoveryEmail = recoveryEmailInput.value.trim();
+
+      if (!recoveryEmail) {
+        alert('Silakan masukkan email pemulihan!');
+        return;
+      }
+
+      // Validasi format email
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailRegex.test(recoveryEmail)) {
+        alert('Format email tidak valid!');
+        return;
+      }
+
+      try {
+        recoveryEmailStatus.innerHTML = 'Status: Menyimpan email pemulihan...';
+        recoveryEmailStatus.style.color = '#d97706';
+
+        if (window.settingsAPI) {
+          await window.settingsAPI.updateRecoveryEmail(recoveryEmail);
+          
+          recoveryEmailStatus.innerHTML = 'Status: ✅ Email pemulihan tersimpan (belum diverifikasi)';
+          recoveryEmailStatus.style.color = '#059669';
+          
+          alert('Email pemulihan berhasil disimpan!\n\nCatatan: Email ini belum diverifikasi. Untuk keamanan maksimal, pastikan Anda memiliki akses ke email ini.');
+        } else {
+          // Fallback to localStorage
+          localStorage.setItem('recoveryEmail', recoveryEmail);
+          recoveryEmailStatus.innerHTML = 'Status: ✅ Email pemulihan tersimpan (localStorage)';
+          recoveryEmailStatus.style.color = '#059669';
+          alert('Email pemulihan disimpan ke localStorage!');
+        }
+      } catch (error) {
+        console.error('Error saving recovery email:', error);
+        recoveryEmailStatus.innerHTML = 'Status: ❌ Gagal menyimpan email pemulihan';
+        recoveryEmailStatus.style.color = '#dc2626';
+        alert('Gagal menyimpan email pemulihan: ' + error.message);
+      }
+    }
+
+    async function loadRecoveryEmail() {
+      try {
+        if (window.settingsAPI) {
+          const securitySettings = await window.settingsAPI.getSecuritySettings();
+          
+          const recoveryEmailInput = document.getElementById('recoveryEmail');
+          const recoveryEmailStatus = document.getElementById('recoveryEmailStatus');
+          
+          if (securitySettings.recovery_email) {
+            recoveryEmailInput.value = securitySettings.recovery_email;
+            
+            if (securitySettings.recovery_email_verified) {
+              recoveryEmailStatus.innerHTML = 'Status: ✅ Email pemulihan terverifikasi';
+              recoveryEmailStatus.style.color = '#059669';
+            } else {
+              recoveryEmailStatus.innerHTML = 'Status: ⚠️ Email pemulihan belum diverifikasi';
+              recoveryEmailStatus.style.color = '#d97706';
+            }
+          }
+        } else {
+          // Fallback to localStorage
+          const recoveryEmail = localStorage.getItem('recoveryEmail');
+          if (recoveryEmail) {
+            document.getElementById('recoveryEmail').value = recoveryEmail;
+            document.getElementById('recoveryEmailStatus').innerHTML = 'Status: ✅ Email pemulihan tersimpan (localStorage)';
+            document.getElementById('recoveryEmailStatus').style.color = '#059669';
+          }
+        }
+      } catch (error) {
+        console.error('Error loading recovery email:', error);
+      }
+    }
+
+
+    // Delete User Account Function
+    async function deleteUserAccount() {
+      try {
+        // Konfirmasi pertama
+        const confirmed = confirm('⚠️ PERINGATAN: Menghapus akun akan menghapus SEMUA data Anda secara permanen dari database dan aplikasi SpeakUp!.\n\nData yang akan dihapus:\n• Semua postingan dan komentar\n• Tanda tangan digital\n• Pengaturan akun\n• Data profil\n• Riwayat aktivitas\n\nTindakan ini TIDAK DAPAT DIBATALKAN!\n\nApakah Anda yakin ingin melanjutkan?');
+        if (!confirmed) return;
+
+        // Konfirmasi kedua dengan input
+        const userInput = prompt('⚠️ KONFIRMASI TERAKHIR\n\nUntuk melanjutkan penghapusan akun, ketik "HAPUS AKUN" (huruf kapital) di bawah ini:\n\nIni akan menghapus akun Anda selamanya dari database dan aplikasi SpeakUp!.');
+        if (userInput !== 'HAPUS AKUN') {
+          alert('Penghapusan akun dibatalkan. Input tidak sesuai.');
+          return;
+        }
+
+        // Loading indicator
+        const loadingMsg = '🔄 Menghapus akun dari database...\nMohon tunggu sebentar.';
+        alert(loadingMsg);
+
+        if (window.settingsAPI) {
+          console.log('🗑️ Memulai proses penghapusan akun...');
+          
+          // Hapus akun dari database
+          await window.settingsAPI.deleteUserAccount();
+          
+          // Clear local storage
+          localStorage.clear();
+          sessionStorage.clear();
+          
+          console.log('✅ Akun berhasil dihapus dari database');
+          
+          alert('✅ Akun berhasil dihapus dari database dan aplikasi SpeakUp!.\n\nAnda akan dialihkan ke halaman utama.');
+          
+          // Redirect ke halaman utama
+          window.location.href = './desktop.html';
+        } else {
+          alert('❌ SettingsAPI tidak tersedia. Tidak dapat menghapus akun.\n\nSilakan refresh halaman dan coba lagi.');
+        }
+      } catch (error) {
+        console.error('❌ Error in deleteUserAccount:', error);
+        alert('❌ Terjadi kesalahan saat menghapus akun:\n\n' + error.message + '\n\nSilakan coba lagi atau hubungi administrator.');
+      }
+    }
+
+    // Settings Toggle Handlers and Load Functions
+    async function loadSettings() {
+      try {
+        // Initialize user settings if needed
+        if (window.settingsAPI) {
+          await window.settingsAPI.initializeUserSettings();
+        }
+
+        // Load settings from Supabase (with localStorage fallback)
+        await loadNotificationSettings();
+        await loadPrivacySettings();
+        await loadSecuritySettings();
+        await loadRecoveryEmail();
+        await loadDigitalSignature();
+        
+        // Check authentication method and show appropriate password section
+        await checkAuthMethod();
+        
+        console.log('✅ All settings loaded successfully');
+      } catch (error) {
+        console.error('❌ Error loading settings:', error);
+        // Fallback to localStorage
+        loadSettingsFromLocalStorage();
+      }
+    }
+
+    async function loadNotificationSettings() {
+      try {
+        if (window.settingsAPI) {
+          const settings = await window.settingsAPI.getNotificationSettings();
+          
+          const pushNotifications = document.getElementById('pushNotifications');
+          const emailNotifications = document.getElementById('emailNotifications');
+          
+          if (pushNotifications) {
+            pushNotifications.checked = settings.push_notifications;
+            pushNotifications.addEventListener('change', async (e) => {
+              try {
+                await window.settingsAPI.updateNotificationSettings({
+                  push_notifications: e.target.checked
+                });
+                console.log('Push notifications updated:', e.target.checked);
+              } catch (error) {
+                console.error('Error updating push notifications:', error);
+                // Fallback to localStorage
+                localStorage.setItem('settings_pushNotifications', e.target.checked);
+              }
+            });
+          }
+
+          if (emailNotifications) {
+            emailNotifications.checked = settings.email_notifications;
+            emailNotifications.addEventListener('change', async (e) => {
+              try {
+                await window.settingsAPI.updateNotificationSettings({
+                  email_notifications: e.target.checked
+                });
+                console.log('Email notifications updated:', e.target.checked);
+              } catch (error) {
+                console.error('Error updating email notifications:', error);
+                localStorage.setItem('settings_emailNotifications', e.target.checked);
+              }
+            });
+          }
+        } else {
+          // Fallback to localStorage
+          const pushNotifications = document.getElementById('pushNotifications');
+          const emailNotifications = document.getElementById('emailNotifications');
+          
+          if (pushNotifications) {
+            pushNotifications.checked = localStorage.getItem('settings_pushNotifications') === 'true';
+            pushNotifications.addEventListener('change', (e) => {
+              localStorage.setItem('settings_pushNotifications', e.target.checked);
+            });
+          }
+
+          if (emailNotifications) {
+            emailNotifications.checked = localStorage.getItem('settings_emailNotifications') === 'true';
+            emailNotifications.addEventListener('change', (e) => {
+              localStorage.setItem('settings_emailNotifications', e.target.checked);
+            });
+          }
+        }
+      } catch (error) {
+        console.error('Error loading notification settings:', error);
+      }
+    }
+
+    async function loadPrivacySettings() {
+      try {
+        if (window.settingsAPI) {
+          const settings = await window.settingsAPI.getPrivacySettings();
+          
+          // Load all privacy toggles
+          const searchEngineIndex = document.getElementById('searchEngineIndex');
+          const allowStoryComments = document.getElementById('allowStoryComments');
+          const dmPermission = document.getElementById('dmPermission');
+          const storyDefaultVisibility = document.getElementById('storyDefaultVisibility');
+
+          if (searchEngineIndex) {
+            searchEngineIndex.checked = settings.search_engine_index;
+            searchEngineIndex.addEventListener('change', async (e) => {
+              try {
+                await window.settingsAPI.updatePrivacySettings({
+                  search_engine_index: e.target.checked
+                });
+              } catch (error) {
+                localStorage.setItem('settings_searchEngineIndex', e.target.checked);
+              }
+            });
+          }
+
+          if (allowStoryComments) {
+            allowStoryComments.checked = settings.allow_story_comments;
+            allowStoryComments.addEventListener('change', async (e) => {
+              try {
+                await window.settingsAPI.updatePrivacySettings({
+                  allow_story_comments: e.target.checked
+                });
+              } catch (error) {
+                localStorage.setItem('settings_allowStoryComments', e.target.checked);
+              }
+            });
+          }
+
+          if (dmPermission) {
+            dmPermission.value = settings.dm_permission;
+            dmPermission.addEventListener('change', async (e) => {
+              try {
+                await window.settingsAPI.updatePrivacySettings({
+                  dm_permission: e.target.value
+                });
+              } catch (error) {
+                localStorage.setItem('settings_dmPermission', e.target.value);
+              }
+            });
+          }
+
+          if (storyDefaultVisibility) {
+            storyDefaultVisibility.value = settings.story_default_visibility;
+            storyDefaultVisibility.addEventListener('change', async (e) => {
+              try {
+                await window.settingsAPI.updatePrivacySettings({
+                  story_default_visibility: e.target.value
+                });
+              } catch (error) {
+                localStorage.setItem('settings_storyDefaultVisibility', e.target.value);
+              }
+            });
+          }
+        } else {
+          // Fallback to localStorage
+          loadPrivacySettingsFromLocalStorage();
+        }
+      } catch (error) {
+        console.error('Error loading privacy settings:', error);
+        loadPrivacySettingsFromLocalStorage();
+      }
+    }
+
+    async function loadSecuritySettings() {
+      try {
+        if (window.settingsAPI) {
+          const settings = await window.settingsAPI.getSecuritySettings();
+          
+          const twoFactorAuth = document.getElementById('twoFactorAuth');
+          if (twoFactorAuth) {
+            twoFactorAuth.checked = settings.two_factor_enabled;
+            twoFactorAuth.addEventListener('change', async (e) => {
+              try {
+                await window.settingsAPI.updateSecuritySettings({
+                  two_factor_enabled: e.target.checked
+                });
+                if (e.target.checked) {
+                  alert('2FA akan diaktifkan. Fitur ini akan tersedia dalam versi mendatang.');
+                }
+              } catch (error) {
+                localStorage.setItem('settings_twoFactorAuth', e.target.checked);
+              }
+            });
+          }
+        } else {
+          // Fallback to localStorage
+          const twoFactorAuth = document.getElementById('twoFactorAuth');
+          if (twoFactorAuth) {
+            twoFactorAuth.checked = localStorage.getItem('settings_twoFactorAuth') === 'true';
+            twoFactorAuth.addEventListener('change', (e) => {
+              localStorage.setItem('settings_twoFactorAuth', e.target.checked);
+            });
+          }
+        }
+      } catch (error) {
+        console.error('Error loading security settings:', error);
+      }
+    }
+
+    async function loadDigitalSignature() {
+      try {
+        if (window.settingsAPI) {
+          const signature = await window.settingsAPI.getDigitalSignature();
+          
+
+          // Tampilkan preview tanda tangan di halaman utama
+          if (signature) {
+            displaySignaturePreview(signature);
+          }
+        } else {
+
+          // Cek localStorage untuk preview
+          const savedSignature = localStorage.getItem('userSignature');
+          const savedFullName = localStorage.getItem('userFullName');
+          if (savedSignature && savedFullName) {
+            displaySignaturePreview({
+              signature_data: savedSignature,
+              full_name: savedFullName,
+              created_at: new Date().toISOString()
+            });
+          }
+        }
+      } catch (error) {
+        console.error('Error loading digital signature:', error);
+      }
+    }
+
+    function displaySignaturePreview(signature) {
+      const previewDiv = document.getElementById('signaturePreviewMain');
+      const signatureImage = document.getElementById('signatureImageMain');
+      const signatureName = document.getElementById('signatureNameMain');
+      const signatureDate = document.getElementById('signatureDateMain');
+
+      if (previewDiv && signatureImage && signatureName && signatureDate) {
+        // Tampilkan preview
+        previewDiv.style.display = 'block';
+        
+        // Set gambar tanda tangan
+        if (signature.signature_data) {
+          signatureImage.src = signature.signature_data;
+          signatureImage.style.display = 'block';
+        } else {
+          signatureImage.style.display = 'none';
+        }
+        
+        // Set nama
+        signatureName.textContent = signature.full_name || 'Tanda Tangan Digital';
+        
+        // Set tanggal
+        const date = new Date(signature.created_at);
+        signatureDate.textContent = `Dibuat: ${date.toLocaleDateString('id-ID')} ${date.toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' })}`;
+        
+        console.log('✅ Preview tanda tangan ditampilkan di halaman utama');
+      }
+    }
+
+
+    // Fallback functions untuk localStorage
+    function loadSettingsFromLocalStorage() {
+      console.log('Loading settings from localStorage (fallback)');
+      
+      const pushNotifications = document.getElementById('pushNotifications');
+      const emailNotifications = document.getElementById('emailNotifications');
+      const twoFactorAuth = document.getElementById('twoFactorAuth');
+      const searchEngineIndex = document.getElementById('searchEngineIndex');
+      const allowStoryComments = document.getElementById('allowStoryComments');
+
+      if (pushNotifications) {
+        pushNotifications.checked = localStorage.getItem('settings_pushNotifications') === 'true';
+        pushNotifications.addEventListener('change', (e) => {
+          localStorage.setItem('settings_pushNotifications', e.target.checked);
+        });
+      }
+
+      if (emailNotifications) {
+        emailNotifications.checked = localStorage.getItem('settings_emailNotifications') === 'true';
+        emailNotifications.addEventListener('change', (e) => {
+          localStorage.setItem('settings_emailNotifications', e.target.checked);
+        });
+      }
+
+      if (twoFactorAuth) {
+        twoFactorAuth.checked = localStorage.getItem('settings_twoFactorAuth') === 'true';
+        twoFactorAuth.addEventListener('change', (e) => {
+          localStorage.setItem('settings_twoFactorAuth', e.target.checked);
+        });
+      }
+
+
+
+      if (searchEngineIndex) {
+        searchEngineIndex.checked = localStorage.getItem('settings_searchEngineIndex') === 'true';
+        searchEngineIndex.addEventListener('change', (e) => {
+          localStorage.setItem('settings_searchEngineIndex', e.target.checked);
+        });
+      }
+
+      if (allowStoryComments) {
+        allowStoryComments.checked = localStorage.getItem('settings_allowStoryComments') === 'true';
+        allowStoryComments.addEventListener('change', (e) => {
+          localStorage.setItem('settings_allowStoryComments', e.target.checked);
+        });
+      }
+
+
+      // Load DM permission setting
+      const dmPermission = document.getElementById('dmPermission');
+      if (dmPermission) {
+        const savedDmPermission = localStorage.getItem('settings_dmPermission') || 'everyone';
+        dmPermission.value = savedDmPermission;
+        dmPermission.addEventListener('change', (e) => {
+          localStorage.setItem('settings_dmPermission', e.target.value);
+        });
+      }
+
+      // Load story default visibility setting
+      const storyDefaultVisibility = document.getElementById('storyDefaultVisibility');
+      if (storyDefaultVisibility) {
+        const savedStoryVisibility = localStorage.getItem('settings_storyDefaultVisibility') || 'public';
+        storyDefaultVisibility.value = savedStoryVisibility;
+        storyDefaultVisibility.addEventListener('change', (e) => {
+          localStorage.setItem('settings_storyDefaultVisibility', e.target.value);
+        });
+      }
+    }
+
+    function loadPrivacySettingsFromLocalStorage() {
+      const searchEngineIndex = document.getElementById('searchEngineIndex');
+      const allowStoryComments = document.getElementById('allowStoryComments');
+      const dmPermission = document.getElementById('dmPermission');
+      const storyDefaultVisibility = document.getElementById('storyDefaultVisibility');
+
+
+      if (searchEngineIndex) {
+        searchEngineIndex.checked = localStorage.getItem('settings_searchEngineIndex') === 'true';
+        searchEngineIndex.addEventListener('change', (e) => {
+          localStorage.setItem('settings_searchEngineIndex', e.target.checked);
+        });
+      }
+
+      if (allowStoryComments) {
+        allowStoryComments.checked = localStorage.getItem('settings_allowStoryComments') === 'true';
+        allowStoryComments.addEventListener('change', (e) => {
+          localStorage.setItem('settings_allowStoryComments', e.target.checked);
+        });
+      }
+
+      if (dmPermission) {
+        const savedDmPermission = localStorage.getItem('settings_dmPermission') || 'everyone';
+        dmPermission.value = savedDmPermission;
+        dmPermission.addEventListener('change', (e) => {
+          localStorage.setItem('settings_dmPermission', e.target.value);
+        });
+      }
+
+      if (storyDefaultVisibility) {
+        const savedStoryVisibility = localStorage.getItem('settings_storyDefaultVisibility') || 'public';
+        storyDefaultVisibility.value = savedStoryVisibility;
+        storyDefaultVisibility.addEventListener('change', (e) => {
+          localStorage.setItem('settings_storyDefaultVisibility', e.target.value);
+        });
+      }
+    }
+
+    // Initialize settings when page loads
+    document.addEventListener('DOMContentLoaded', function() {
+      loadSettings();
+    });
+
+    // Emoji Picker Functions
+    function toggleEmojiPicker() {
+      const emojiPicker = document.getElementById('emojiPicker');
+      if (emojiPicker) {
+        if (emojiPicker.style.display === 'none' || emojiPicker.style.display === '') {
+          emojiPicker.style.display = 'block';
+          emojiPicker.classList.add('open');
+        } else {
+          emojiPicker.style.display = 'none';
+          emojiPicker.classList.remove('open');
+        }
+      }
+    }
+
+    function insertEmoji(emoji) {
+      const textarea = document.getElementById('contentText');
+      if (textarea) {
+        const currentPos = textarea.selectionStart;
+        const textBefore = textarea.value.substring(0, currentPos);
+        const textAfter = textarea.value.substring(textarea.selectionEnd);
+        
+        textarea.value = textBefore + emoji + textAfter;
+        textarea.focus();
+        textarea.setSelectionRange(currentPos + emoji.length, currentPos + emoji.length);
+        
+        // Hide emoji picker after selection
+        const emojiPicker = document.getElementById('emojiPicker');
+        if (emojiPicker) {
+          emojiPicker.style.display = 'none';
+          emojiPicker.classList.remove('open');
+        }
+      }
+    }
+
+    function removeMedia() {
+      document.getElementById('mediaUpload').value = '';
+      document.getElementById('mediaPreview').style.display = 'none';
+      document.getElementById('previewImg').style.display = 'none';
+      document.getElementById('previewVideo').style.display = 'none';
+    }
+
+    // Removed Speak! button logic on settings page per requirement
+
+    // Close emoji picker when clicking outside
+    document.addEventListener('click', function(e) {
+      const emojiPicker = document.getElementById('emojiPicker');
+      const emojiBtn = document.querySelector('[onclick="toggleEmojiPicker()"]');
+      
+      if (emojiPicker && emojiBtn && !emojiPicker.contains(e.target) && !emojiBtn.contains(e.target)) {
+        emojiPicker.style.display = 'none';
+        emojiPicker.classList.remove('open');
+      }
+    });
+
+    // Keyboard navigation for emoji picker
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') {
+        const emojiPicker = document.getElementById('emojiPicker');
+        if (emojiPicker && emojiPicker.style.display === 'block') {
+          emojiPicker.style.display = 'none';
+          emojiPicker.classList.remove('open');
+        }
+      }
+    });
+
+    // Emoji picker accessibility improvements
+    document.addEventListener('DOMContentLoaded', function() {
+      const emojiButtons = document.querySelectorAll('.emoji-btn');
+      emojiButtons.forEach((btn, index) => {
+        const emoji = btn.textContent;
+        btn.setAttribute('aria-label', `Insert ${emoji} emoji`);
+        btn.setAttribute('role', 'button');
+        btn.setAttribute('tabindex', '0');
+        
+        // Add keyboard support
+        btn.addEventListener('keydown', function(e) {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            btn.click();
+          }
+        });
+      });
+    });
+
+    // Emoji picker touch improvements
+    document.addEventListener('touchstart', function(e) {
+      if (e.target.classList.contains('emoji-btn')) {
+        e.target.style.transform = 'scale(0.95)';
+      }
+    });
+
+    document.addEventListener('touchend', function(e) {
+      if (e.target.classList.contains('emoji-btn')) {
+        e.target.style.transform = 'scale(1)';
+      }
+    });
+  </script>
+  </body>
+</html>

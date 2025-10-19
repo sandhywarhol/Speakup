@@ -4,8 +4,18 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>SpeakUp! — Sign In / Sign Up</title>
+  <link rel="icon" type="image/png" href="assets/logo/logo apps.png?v=2">
+  <link rel="shortcut icon" type="image/png" href="assets/logo/logo apps.png?v=2">
   <link rel="stylesheet" href="assets/css/style.css" />
   <style>
+    /* Critical CSS - Prevent flash of unstyled content */
+    body {
+      visibility: hidden;
+    }
+    
+    body.loaded {
+      visibility: visible;
+    }
     :root { --bg:#ffffff; --panel:#ffffff; --text:#374151; --muted:#64748b; --accent:#38bdf8; --border:#e5e7eb; }
     .logo img[data-theme="light"]{display:block!important}.logo img[data-theme="dark"]{display:none!important}
     html,body,main,.desktop-container,.desktop-nav,.card,.tabs .tab,.modal .box{background:#ffffff!important}
@@ -15,6 +25,22 @@
     .desktop-nav .nav-item.active{background:#ffffff!important;color:#374151!important;border:1px solid #e5e7eb!important}
     .desktop-nav .nav-item.plus-btn,.btn.primary{background:#ffffff!important;color:#374151!important;border:1px solid #e5e7eb!important}
     body.desktop-page, body.desktop-page *:not(h1):not(h2):not(h3):not(h4):not(h5):not(h6){color:#374151!important}
+    
+    /* Logo SpeakUp! berwarna biru */
+    .desktop-nav .logo { 
+      color: #38bdf8 !important; 
+      font-weight: 800; 
+      letter-spacing: 0.5px; 
+    }
+
+    /* Force logo color with maximum specificity */
+    .desktop-page .desktop-nav .logo,
+    body.desktop-page .desktop-nav .logo,
+    html body.desktop-page .desktop-nav .logo {
+      color: #38bdf8 !important;
+      font-weight: 800 !important;
+      letter-spacing: 0.5px !important;
+    }
     
     /* Sign page specific styles */
     .sign-container { max-width: 400px; margin: 60px auto; }
@@ -49,24 +75,8 @@
             <svg fill="currentColor" viewBox="0 0 20 20"><path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"/></svg>
             <span>Home</span>
           </a>
-          <a href="./timeline-desktop.html" class="nav-item" title="Timeline">
-            <svg fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clip-rule="evenodd"/></svg>
-            <span>Timeline</span>
-          </a>
-          <a href="./petitions-desktop.html" class="nav-item" title="Petitions">
-            <svg fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M3 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clip-rule="evenodd"/></svg>
-            <span>Petitions</span>
-          </a>
         </div>
         <div class="nav-right">
-          <a href="./settings-desktop.html" class="nav-item" title="Settings">
-            <svg fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M11.49 3.17c-.38-1.56-2.6-1.56-2.98 0a1.532 1.532 0 01-2.286.948c-1.372-.836-2.942.734-2.106 2.106.54.886.061 2.042-.947 2.287-1.561.379-1.561 2.6 0 2.978a1.532 1.532 0 01.947 2.287c-.836 1.372.734 2.942 2.106 2.106a1.532 1.532 0 012.287.947c.379 1.561 2.6 1.561 2.978 0a1.533 1.533 0 012.287-.947c1.372.836 2.942-.734 2.106-2.106a1.533 1.533 0 01.947-2.287c1.561-.379 1.561-2.6 0-2.978a1.532 1.532 0 01-.947-2.287c.836-1.372-.734-2.942-2.106-2.106a1.532 1.532 0 01-2.287-.947zM10 13a3 3 0 100-6 3 3 0 000 6z" clip-rule="evenodd"/></svg>
-            <span>Settings</span>
-          </a>
-          <a href="./profile-desktop.html" class="nav-item" title="Profile">
-            <svg fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"/></svg>
-            <span>Profile</span>
-          </a>
           <a href="./sign-desktop.html" class="nav-item active" title="Sign">
             <svg fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M3 10a1 1 0 011-1h8.586l-3.293-3.293a1 1 0 111.414-1.414l5 5a1 1 0 010 1.414l-5 5a1 1 0 11-1.414-1.414L12.586 11H4a1 1 0 01-1-1z" clip-rule="evenodd"/></svg>
             <span>Sign</span>
@@ -155,7 +165,7 @@
             <div class="form-group terms">
               <label style="display: flex; align-items: center; gap: 8px;">
                 <input type="checkbox" required style="width: auto;">
-                Saya setuju dengan <a href="#terms" style="color: var(--accent);">Syarat & Ketentuan</a> dan <a href="#privacy" style="color: var(--accent);">Kebijakan Privasi</a>
+                Saya setuju dengan <a href="./terms-privacy-desktop.html" style="color: var(--accent);">Syarat & Ketentuan</a> dan <a href="./terms-privacy-desktop.html" style="color: var(--accent);">Kebijakan Privasi</a>
               </label>
             </div>
 
@@ -166,7 +176,37 @@
     </main>
   </div>
 
+  <!-- Supabase SDK -->
+  
+  
   <script>
+    // Guard jalankan server dari start-server
+    (function(){
+      if (location.protocol === 'file:') {
+        alert('Jalankan server dari start-server.bat!');
+        location.href = 'http://localhost:8000/sign-desktop.html';
+      }
+    })();
+
+    // Initialize Supabase client
+    let supabase;
+    
+    // Wait for config to load
+    document.addEventListener('DOMContentLoaded', function() {
+      // Initialize Supabase after config is loaded
+      if (window.getSupabase) {
+        supabase = window.getSupabase();
+      } else if (window.SUPABASE_CONFIG && window.supabase && window.supabase.createClient) {
+        supabase = window.supabase.createClient(
+          window.SUPABASE_CONFIG.url,
+          window.SUPABASE_CONFIG.anonKey
+        );
+      }
+      
+      // Make page visible after initialization
+      document.body.classList.add('loaded');
+    });
+    
     function switchTab(tab) {
       // Remove active class from all tabs and forms
       document.querySelectorAll('.sign-tab').forEach(t => t.classList.remove('active'));
@@ -177,47 +217,191 @@
       document.getElementById(tab + 'Form').classList.add('active');
     }
 
-    function loginWithGoogle() {
-      alert('Fitur login dengan Google akan segera tersedia!');
+    async function loginWithGoogle() {
+      if (!supabase) {
+        alert('Supabase belum diinisialisasi. Silakan refresh halaman.');
+        return;
+      }
+      
+      try {
+        const { data, error } = await supabase.auth.signInWithOAuth({
+          provider: 'google',
+          options: {
+            redirectTo: window.location.origin + '/oauth-callback.html'
+          }
+        });
+        
+        if (error) {
+          console.error('Error logging in with Google:', error);
+          alert('Terjadi kesalahan saat login dengan Google: ' + error.message);
+        } else {
+          console.log('Google OAuth initiated successfully');
+          // The redirect will handle the rest
+        }
+      } catch (error) {
+        console.error('Error:', error);
+        alert('Terjadi kesalahan: ' + error.message);
+      }
     }
 
-    function registerWithGoogle() {
-      alert('Fitur daftar dengan Google akan segera tersedia!');
+    async function registerWithGoogle() {
+      if (!supabase) {
+        alert('Supabase belum diinisialisasi. Silakan refresh halaman.');
+        return;
+      }
+      
+      try {
+        const { data, error } = await supabase.auth.signInWithOAuth({
+          provider: 'google',
+          options: {
+            redirectTo: window.location.origin + '/oauth-callback.html'
+          }
+        });
+        
+        if (error) {
+          console.error('Error registering with Google:', error);
+          alert('Terjadi kesalahan saat daftar dengan Google: ' + error.message);
+        }
+      } catch (error) {
+        console.error('Error:', error);
+        alert('Terjadi kesalahan: ' + error.message);
+      }
     }
+
+    // Check for existing session on page load
+    document.addEventListener('DOMContentLoaded', async function() {
+      if (supabase) {
+        console.log('Checking for existing session...');
+        const { data: { session } } = await supabase.auth.getSession();
+        const user = session?.user;
+        console.log('sign session.user:', user || null);
+        
+        if (session && user) {
+          // User is already logged in, redirect to dashboard
+          localStorage.setItem('speakup_logged_in', 'true');
+          localStorage.setItem('speakup_user_email', session.user.email);
+          localStorage.setItem('speakup_user_id', session.user.id);
+          console.log('Session found, redirecting to dashboard');
+          window.location.href = './desktop.html';
+        }
+        
+        // Listen for auth state changes
+        supabase.auth.onAuthStateChange((event, session) => {
+          console.log('Auth state change:', event, session);
+          if (event === 'SIGNED_IN' && session) {
+            localStorage.setItem('speakup_logged_in', 'true');
+            localStorage.setItem('speakup_user_email', session.user.email);
+            localStorage.setItem('speakup_user_id', session.user.id);
+            console.log('User signed in, redirecting to dashboard');
+            window.location.href = './desktop.html';
+          } else if (event === 'SIGNED_OUT') {
+            localStorage.removeItem('speakup_logged_in');
+            localStorage.removeItem('speakup_user_email');
+            localStorage.removeItem('speakup_user_id');
+            console.log('User signed out, clearing localStorage');
+          }
+        });
+      }
+    });
 
     // Form submission handlers
-    document.getElementById('loginForm').addEventListener('submit', function(e) {
+    document.getElementById('loginForm').addEventListener('submit', async function(e) {
       e.preventDefault();
       const email = document.getElementById('loginEmail').value;
       const password = document.getElementById('loginPassword').value;
       
       if (email && password) {
-        alert('Login berhasil! (Demo)');
-        // Redirect to dashboard or home
-        window.location.href = './desktop.html';
+        if (!supabase) {
+          alert('Supabase belum diinisialisasi. Silakan refresh halaman.');
+          return;
+        }
+        
+        try {
+          const { data, error } = await supabase.auth.signInWithPassword({
+            email: email,
+            password: password
+          });
+          
+          if (error) {
+            alert('Login gagal: ' + error.message);
+          } else {
+            console.log('Login successful, data:', data);
+            
+            // Wait a moment for session to be established
+            await new Promise(resolve => setTimeout(resolve, 1000));
+            
+            // Double-check session
+            const { data: { session } } = await supabase.auth.getSession();
+            console.log('Session after login:', session);
+            
+            if (session) {
+              localStorage.setItem('speakup_logged_in', 'true');
+              localStorage.setItem('speakup_user_email', session.user.email);
+              localStorage.setItem('speakup_user_id', session.user.id);
+              console.log('Session and localStorage updated');
+              alert('Login berhasil!');
+              window.location.href = './desktop.html';
+            } else {
+              console.error('No session found after login');
+              alert('Login berhasil tapi session tidak tersimpan. Silakan coba lagi.');
+            }
+          }
+        } catch (error) {
+          alert('Terjadi kesalahan: ' + error.message);
+        }
       }
     });
 
-    document.getElementById('registerForm').addEventListener('submit', function(e) {
+    document.getElementById('registerForm').addEventListener('submit', async function(e) {
       e.preventDefault();
-      const name = document.getElementById('registerName').value;
-      const email = document.getElementById('registerEmail').value;
-      const password = document.getElementById('registerPassword').value;
-      const confirmPassword = document.getElementById('confirmPassword').value;
       
-      if (password !== confirmPassword) {
-        alert('Password dan konfirmasi password tidak sama!');
-        return;
-      }
+      try {
+        const name = document.getElementById('registerName').value;
+        const email = document.getElementById('registerEmail').value;
+        const password = document.getElementById('registerPassword').value;
+        const confirmPassword = document.getElementById('confirmPassword').value;
       
-      if (name && email && password && confirmPassword) {
-        alert('Pendaftaran berhasil! (Demo)');
-        // Switch to login tab
-        switchTab('login');
-        // Pre-fill email
-        document.getElementById('loginEmail').value = email;
+        if (password !== confirmPassword) {
+          alert('Password dan konfirmasi password tidak sama!');
+          return;
+        }
+        
+        if (name && email && password && confirmPassword) {
+          if (!supabase) {
+            alert('Supabase belum diinisialisasi. Silakan refresh halaman.');
+            return;
+          }
+          
+          const { data, error } = await supabase.auth.signUp({
+            email: email,
+            password: password,
+            options: {
+              data: {
+                full_name: name
+              }
+            }
+          });
+          
+          if (error) {
+            alert('Pendaftaran gagal: ' + error.message);
+          } else {
+            alert('Pendaftaran berhasil! Silakan cek email Anda untuk verifikasi.');
+            // Switch to login tab
+            switchTab('login');
+            // Pre-fill email
+            document.getElementById('loginEmail').value = email;
+          }
+        }
+      } catch (error) {
+        console.error('Registration error:', error);
+        alert('Terjadi kesalahan: ' + error.message);
       }
     });
   </script>
-</body>
+
+  <!-- Supabase SDK -->
+  <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
+  <script src="config/supabase-config.js"></script>
+  <script src="config/supabase-bootstrap.js"></script>
+  </body>
 </html>
