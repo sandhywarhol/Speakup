@@ -1,63 +1,57 @@
 {
   "version": 2,
-  "builds": [
-    {
-      "src": "ui/**/*",
-      "use": "@vercel/static"
-    }
-  ],
   "routes": [
     {
       "src": "/",
-      "dest": "/desktop.html"
+      "dest": "/ui/desktop.html"
     },
     {
       "src": "/desktop.html",
-      "dest": "/desktop.html"
+      "dest": "/ui/desktop.html"
     },
     {
       "src": "/petitions",
-      "dest": "/petitions-desktop.html"
+      "dest": "/ui/petitions-desktop.html"
     },
     {
       "src": "/create-petition",
-      "dest": "/create-petition-desktop.html"
+      "dest": "/ui/create-petition-desktop.html"
     },
     {
       "src": "/profile",
-      "dest": "/profile-desktop.html"
+      "dest": "/ui/profile-desktop.html"
     },
     {
       "src": "/settings",
-      "dest": "/settings-desktop.html"
+      "dest": "/ui/settings-desktop.html"
     },
     {
       "src": "/timeline",
-      "dest": "/timeline-desktop.html"
+      "dest": "/ui/timeline-desktop.html"
     },
     {
       "src": "/admin/petitions",
-      "dest": "/admin-petitions-desktop.html"
+      "dest": "/ui/admin-petitions-desktop.html"
     },
     {
       "src": "/admin/verified-badge",
-      "dest": "/admin-verified-badge-desktop.html"
+      "dest": "/ui/admin-verified-badge-desktop.html"
     },
     {
       "src": "/request-verified-badge",
-      "dest": "/request-verified-badge-desktop.html"
+      "dest": "/ui/request-verified-badge-desktop.html"
     },
     {
       "src": "/terms-privacy",
-      "dest": "/terms-privacy-desktop.html"
+      "dest": "/ui/terms-privacy-desktop.html"
     },
     {
       "src": "/oauth-callback",
-      "dest": "/oauth-callback.html"
+      "dest": "/ui/oauth-callback.html"
     },
     {
       "src": "/(.*)",
-      "dest": "/$1"
+      "dest": "/ui/$1"
     }
   ]
 }
