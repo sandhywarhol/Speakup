@@ -3,55 +3,55 @@
   "routes": [
     {
       "src": "/",
-      "dest": "/ui/desktop.html"
+      "dest": "/index.html"
     },
     {
       "src": "/desktop.html",
-      "dest": "/ui/desktop.html"
+      "dest": "/desktop.html"
     },
     {
       "src": "/petitions",
-      "dest": "/ui/petitions-desktop.html"
+      "dest": "/petitions-desktop.html"
     },
     {
       "src": "/create-petition",
-      "dest": "/ui/create-petition-desktop.html"
+      "dest": "/create-petition-desktop.html"
     },
     {
       "src": "/profile",
-      "dest": "/ui/profile-desktop.html"
+      "dest": "/profile-desktop.html"
     },
     {
       "src": "/settings",
-      "dest": "/ui/settings-desktop.html"
+      "dest": "/settings-desktop.html"
     },
     {
       "src": "/timeline",
-      "dest": "/ui/timeline-desktop.html"
+      "dest": "/timeline-desktop.html"
     },
     {
       "src": "/admin/petitions",
-      "dest": "/ui/admin-petitions-desktop.html"
+      "dest": "/admin-petitions-desktop.html"
     },
     {
       "src": "/admin/verified-badge",
-      "dest": "/ui/admin-verified-badge-desktop.html"
+      "dest": "/admin-verified-badge-desktop.html"
     },
     {
       "src": "/request-verified-badge",
-      "dest": "/ui/request-verified-badge-desktop.html"
+      "dest": "/request-verified-badge-desktop.html"
     },
     {
       "src": "/terms-privacy",
-      "dest": "/ui/terms-privacy-desktop.html"
+      "dest": "/terms-privacy-desktop.html"
     },
     {
       "src": "/oauth-callback",
-      "dest": "/ui/oauth-callback.html"
+      "dest": "/oauth-callback.html"
     },
     {
       "src": "/(.*)",
-      "dest": "/ui/$1"
+      "dest": "/$1"
     }
   ]
 }
