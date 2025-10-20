@@ -59,10 +59,5 @@
       "src": "/(.*)",
       "dest": "/ui/$1"
     }
-  ],
-  "functions": {
-    "ui/**/*.js": {
-      "runtime": "nodejs18.x"
-    }
-  }
+  ]
 }
