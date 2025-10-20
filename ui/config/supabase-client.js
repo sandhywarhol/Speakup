@@ -21,7 +21,12 @@
     if (!window.SUPABASE_CONFIG || !window.supabase) return null;
     window.__supabaseSingleton = window.supabase.createClient(
       window.SUPABASE_CONFIG.url,
-      window.SUPABASE_CONFIG.anonKey
+      window.SUPABASE_CONFIG.anonKey,
+      {
+        auth: {
+          redirectTo: window.location.origin + window.location.pathname
+        }
+      }
     );
     return window.__supabaseSingleton;
   };
