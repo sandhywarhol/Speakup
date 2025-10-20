@@ -1,0 +1,68 @@
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "ui/**/*",
+      "use": "@vercel/static"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/",
+      "dest": "/ui/desktop.html"
+    },
+    {
+      "src": "/desktop.html",
+      "dest": "/ui/desktop.html"
+    },
+    {
+      "src": "/petitions",
+      "dest": "/ui/petitions-desktop.html"
+    },
+    {
+      "src": "/create-petition",
+      "dest": "/ui/create-petition-desktop.html"
+    },
+    {
+      "src": "/profile",
+      "dest": "/ui/profile-desktop.html"
+    },
+    {
+      "src": "/settings",
+      "dest": "/ui/settings-desktop.html"
+    },
+    {
+      "src": "/timeline",
+      "dest": "/ui/timeline-desktop.html"
+    },
+    {
+      "src": "/admin/petitions",
+      "dest": "/ui/admin-petitions-desktop.html"
+    },
+    {
+      "src": "/admin/verified-badge",
+      "dest": "/ui/admin-verified-badge-desktop.html"
+    },
+    {
+      "src": "/request-verified-badge",
+      "dest": "/ui/request-verified-badge-desktop.html"
+    },
+    {
+      "src": "/terms-privacy",
+      "dest": "/ui/terms-privacy-desktop.html"
+    },
+    {
+      "src": "/oauth-callback",
+      "dest": "/ui/oauth-callback.html"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/ui/$1"
+    }
+  ],
+  "functions": {
+    "ui/**/*.js": {
+      "runtime": "nodejs18.x"
+    }
+  }
+}

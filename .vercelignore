@@ -1,0 +1,47 @@
+# Database schema files (tidak perlu di-deploy)
+*.sql
+
+# Documentation files
+docs/
+README.md
+PETITIONS_SYSTEM_README.md
+SETUP_INSTRUCTIONS.md
+
+# Development files
+start-server.bat
+start-server.sh
+
+# Postman files
+docs/postman/
+
+# Git files
+.git/
+.gitignore
+
+# Node modules (jika ada)
+node_modules/
+
+# Environment files
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# IDE files
+.vscode/
+.idea/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+logs/
+
+# Temporary files
+*.tmp
+*.temp
+*.bak
+*.backup

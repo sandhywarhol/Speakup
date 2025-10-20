@@ -1,0 +1,29 @@
+{
+  "name": "speakup-platform",
+  "version": "1.0.0",
+  "description": "SpeakUp! - Platform Petisi Online dengan Sistem Verifikasi Profesi",
+  "main": "ui/desktop.html",
+  "scripts": {
+    "start": "python -m http.server 8000 -d ui",
+    "dev": "python -m http.server 8000 -d ui",
+    "build": "echo 'No build step required for static site'",
+    "vercel-build": "echo 'No build step required for static site'"
+  },
+  "keywords": [
+    "petisi",
+    "platform",
+    "verifikasi",
+    "profesi",
+    "supabase",
+    "javascript"
+  ],
+  "author": "SpeakUp Team",
+  "license": "MIT",
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sandhywarhol/Speakup.git"
+  }
+}
