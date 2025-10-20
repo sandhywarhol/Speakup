@@ -1,0 +1,2458 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SpeakUp! - Platform Petisi Online</title>
+    <script>
+        // Redirect to main application
+        window.location.href = '/ui/desktop.html';
+    </script>
+</head>
+<body>
+    <p>Redirecting to SpeakUp!...</p>
+</body>
+</html>
+  <style>
+    /* Critical CSS - Prevent flash of unstyled content */
+    body {
+      visibility: hidden;
+    }
+    
+    body.loaded {
+      visibility: visible;
+    }
+    /* Lock to light/bright theme for desktop page */
+    :root {
+      --bg: #ffffff; /* putih penuh */
+      --panel: #ffffff;
+      --text: #374151;
+      --muted: #64748b;
+      --accent: #38bdf8;
+      --border: #e5e7eb;
+    }
+
+    /* Force logo to light variant on desktop page */
+    .logo img[data-theme="light"] { display: block !important; }
+    .logo img[data-theme="dark"] { display: none !important; }
+
+    /* Force white background for all elements - override external CSS */
+    html, body, main, .desktop-container, .desktop-nav, .card, .tabs .tab, .modal .box, .grid, .header, .btn, .badge, .pill {
+      background: #ffffff !important;
+    }
+    
+    /* Override specific CSS rules from style.css */
+    body.desktop-page, 
+    body.desktop-page html, 
+    body.desktop-page body,
+    .desktop-page .desktop-nav,
+    .desktop-page .desktop-nav .nav-item.active,
+    .desktop-page .desktop-nav .nav-item.plus-btn,
+    .desktop-page .btn.primary,
+    .desktop-page .btn.plus-btn {
+      background: #ffffff !important;
+    }
+
+    /* Desktop neutralization: remove blue backgrounds, keep titles blue */
+    .desktop-nav .logo { 
+      color: #111827 !important; 
+      font-weight: 800; 
+      letter-spacing: 0.5px; 
+    }
+    /* Make all text (non-headings) dark grey */
+    body.desktop-page, 
+    body.desktop-page *:not(h1):not(h2):not(h3):not(h4):not(h5):not(h6),
+    .desktop-page p,
+    .desktop-page .content,
+    .desktop-page .feature p,
+    .desktop-page .hero p,
+    .desktop-page .footer,
+    .desktop-page .pill,
+    .desktop-page .meta,
+    .desktop-page .badge,
+    .desktop-page .setting-item .label,
+    .desktop-page .setting-item .pill {
+      color: #374151 !important;
+    }
+    .desktop-nav .nav-item.active { background: #ffffff !important; color: #374151 !important; border: 1px solid #e5e7eb !important; }
+    .desktop-nav .nav-item:hover { background: #ffffff !important; }
+    .desktop-nav .nav-item.plus-btn { background: #ffffff !important; color: #374151 !important; border: 1px solid #e5e7eb !important; }
+    .btn.primary { background: #ffffff !important; color: #374151 !important; border: 1px solid #e5e7eb !important; }
+    .btn { background: #ffffff !important; color: #374151 !important; border-color: #e5e7eb !important; }
+    .badge, .badge.success, .badge.warn, .badge.danger { background: #ffffff !important; color: #374151 !important; border: 1px solid #e5e7eb !important; }
+    .tabs .tab.active { color: #374151 !important; background: #ffffff !important; border-color: #e5e7eb !important; }
+    .card { background: #ffffff !important; }
+    .grid, .header, .bottom-nav, .modal .box { background: #ffffff; }
+
+    /* Desktop layout (tanpa frame ponsel) */
+    body {
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+      background: #ffffff !important; /* putih penuh */
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    }
+    
+    /* Loading state - hide everything initially */
+    .loading-state {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      background: #ffffff;
+    }
+    
+    .loading-spinner {
+      width: 40px;
+      height: 40px;
+      border: 4px solid #f3f4f6;
+      border-top: 4px solid #38bdf8;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+    
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    
+    /* Hide content initially until JS determines what to show */
+    .homepage-only,
+    .dashboard-only {
+      display: none;
+    }
+    
+    /* Show content when ready */
+    .content-ready .homepage-only,
+    .content-ready .dashboard-only {
+      display: block;
+    }
+    
+    /* Specific visibility control */
+    .content-ready.show-homepage .homepage-only {
+      display: block;
+    }
+    
+    .content-ready.show-dashboard .dashboard-only {
+      display: block;
+    }
+    
+    /* Disabled button styles */
+    button:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+      pointer-events: none;
+    }
+
+    /* Matikan komponen simulasi ponsel di versi desktop */
+    .phone-frame,
+    .phone-screen,
+    .status-bar,
+    .notch,
+    .home-indicator {
+      display: none !important;
+    }
+
+    /* Konten utama desktop */
+    .desktop-container {
+      max-width: 100%;
+      margin: 0;
+      padding: 0;
+    }
+
+    /* Tampilkan desktop navigation */
+    .desktop-nav {
+      display: block !important;
+    }
+
+    /* Hero Section */
+    .hero-section {
+      background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+      padding: 80px 0;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 40px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+    }
+
+    .hero-text h1 {
+      font-size: 48px;
+      font-weight: 700;
+      line-height: 1.2;
+      margin: 0 0 24px;
+      color: #1e293b !important;
+    }
+
+    .hero-text p {
+      font-size: 18px;
+      line-height: 1.6;
+      margin: 0 0 32px;
+      color: #64748b !important;
+    }
+
+    .hero-features {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 40px;
+    }
+
+    .hero-features li {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      margin-bottom: 16px;
+      font-size: 16px;
+      color: #374151 !important;
+    }
+
+    .hero-features li::before {
+      content: '✓';
+      color: #10b981;
+      font-weight: bold;
+      font-size: 18px;
+    }
+
+    .hero-features li strong {
+      display: inline-block;
+      min-width: 220px;
+      color: #1e293b !important;
+    }
+
+    .hero-features li span {
+      color: #64748b !important;
+      line-height: 1.6;
+    }
+
+    .hero-buttons {
+      display: flex;
+      gap: 16px;
+    }
+
+    .btn-hero-primary {
+      background: #38bdf8 !important;
+      color: #ffffff !important;
+      padding: 16px 32px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 600;
+      border: none;
+    }
+
+    .btn-hero-secondary {
+      background: #374151 !important;
+      color: #ffffff !important;
+      padding: 16px 32px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 600;
+      border: none;
+    }
+
+    /* Override general btn styles for hero secondary button */
+    .hero-buttons .btn-hero-secondary {
+      color: #ffffff !important;
+    }
+
+    .hero-visual {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+    }
+
+    .device-mockup {
+      width: 350px;
+      height: 600px;
+      background: #ffffff;
+      border-radius: 20px;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      position: relative;
+      overflow: hidden;
+    }
+    .device-mockup img { 
+      max-width: 85%; 
+      height: auto; 
+      display: block;
+      object-fit: contain;
+    }
+
+    /* Blur background layer inside device-mockup */
+    .device-mockup .mockup-bg {
+      position: absolute;
+      inset: 0;
+      background: url('assets/img/city-bg.jpg') center/cover no-repeat;
+      background-size: cover;
+      background-position: center;
+      filter: none;
+      transform: none;
+      opacity: 1;
+      z-index: 0;
+    }
+
+    .device-mockup .mockup-overlay {
+      position: absolute;
+      inset: 0;
+      background: transparent;
+      z-index: 1;
+    }
+
+    .device-mockup .mockup-content {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+
+
+
+
+    /* How It Works Section */
+    .how-it-works-section {
+      padding: 80px 0;
+      background: #ffffff;
+    }
+
+    .how-it-works-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 40px;
+    }
+
+    .how-it-works-header {
+      text-align: center;
+      margin-bottom: 60px;
+    }
+
+    .how-it-works-header h2 {
+      font-size: 36px;
+      font-weight: 700;
+      margin: 0 0 16px;
+      color: #1e293b !important;
+    }
+
+    .how-it-works-header p {
+      font-size: 18px;
+      color: #64748b !important;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .steps-container {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 40px;
+    }
+
+    .step-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 24px;
+      padding: 30px;
+      background: #f8fafc;
+      border-radius: 12px;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .step-item:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+    }
+
+    .step-number {
+      width: 60px;
+      height: 60px;
+      background: #38bdf8;
+      color: #ffffff;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+
+    .step-content h3 {
+      font-size: 20px;
+      font-weight: 600;
+      margin: 0 0 12px;
+      color: #1e293b !important;
+    }
+
+    .step-content p {
+      font-size: 16px;
+      color: #64748b !important;
+      line-height: 1.6;
+      margin: 0;
+    }
+
+
+    /* Call to Action Section */
+    .cta-section {
+      padding: 80px 0;
+      background: linear-gradient(135deg, #38bdf8 0%, #0ea5e9 100%);
+      color: #ffffff;
+    }
+
+    .cta-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 40px;
+    }
+
+    .cta-content {
+      text-align: center;
+    }
+
+    .cta-content h2 {
+      font-size: 48px;
+      font-weight: 700;
+      margin: 0 0 24px;
+      color: #ffffff !important;
+    }
+
+    .cta-content p {
+      font-size: 20px;
+      line-height: 1.6;
+      margin: 0 0 40px;
+      color: #ffffff !important;
+      max-width: 800px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .cta-buttons {
+      display: flex;
+      gap: 20px;
+      justify-content: center;
+      margin-bottom: 40px;
+    }
+
+    .btn-cta-primary {
+      background: #ffffff !important;
+      color: #38bdf8 !important;
+      padding: 18px 36px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 18px;
+      border: none;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .btn-cta-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(255, 255, 255, 0.3);
+    }
+
+    .btn-cta-secondary {
+      background: #374151 !important; /* samakan dengan btn-hero-secondary */
+      color: #ffffff !important;
+      padding: 18px 36px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 18px;
+      border: none;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    /* Force CTA secondary button text to be white */
+    .cta-section .btn-cta-secondary {
+      color: #ffffff !important;
+    }
+
+    .btn-cta-secondary:hover {
+      background: #4b5563 !important;
+      color: #ffffff !important;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+    }
+
+    .cta-features {
+      display: flex;
+      gap: 40px;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .cta-feature {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 16px;
+      color: #ffffff !important;
+    }
+
+    .cta-icon {
+      color: #ffffff !important;
+      font-weight: bold;
+      font-size: 18px;
+    }
+
+    /* Force all text in CTA section to be white */
+    .cta-section .cta-content h2,
+    .cta-section .cta-content p,
+    .cta-section .cta-feature,
+    .cta-section .cta-feature span,
+    .cta-section .cta-icon {
+      color: #ffffff !important;
+    }
+
+    /* Preview Elements */
+    .preview-hidden {
+      display: none;
+    }
+
+    .preview-video {
+      max-width: 100%;
+      max-height: 300px;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      display: none;
+    }
+
+    /* Form Elements */
+    .form-group-half {
+      flex: 1;
+    }
+
+    /* Post Modal Styling */
+    .post-content {
+      margin-bottom: 20px;
+    }
+
+    .post-content textarea {
+      width: 100%;
+      border: 1px solid #e5e7eb;
+      border-radius: 8px;
+      padding: 16px;
+      font-size: 16px;
+      resize: vertical;
+      min-height: 120px;
+      font-family: inherit;
+    }
+
+    .post-content textarea:focus {
+      outline: none;
+      border-color: #38bdf8;
+      box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.1);
+    }
+
+    .post-actions {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .upload-section {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .upload-btn {
+      background: #f3f4f6;
+      border: 1px solid #d1d5db;
+      border-radius: 8px;
+      padding: 12px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      color: #6b7280;
+    }
+
+    .upload-btn:hover {
+      background: #e5e7eb;
+      color: #374151;
+    }
+
+    .media-preview {
+      position: relative;
+      display: inline-block;
+    }
+
+    .remove-media-btn {
+      position: absolute;
+      top: -8px;
+      right: -8px;
+      background: #ef4444;
+      color: white;
+      border: none;
+      border-radius: 50%;
+      width: 24px;
+      height: 24px;
+      cursor: pointer;
+      font-size: 16px;
+      line-height: 1;
+    }
+
+    .post-btn {
+      background: #38bdf8 !important;
+      color: #ffffff !important;
+      padding: 12px 24px;
+      border-radius: 8px;
+      border: none;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .post-btn:hover {
+      background: #0ea5e9 !important;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+    /* Emoji picker Edge/IE fixes */
+    @supports (-ms-ime-align: auto) {
+      .emoji-grid {
+        display: -ms-grid;
+        display: grid;
+      }
+    }
+
+    /* Emoji picker Webkit fixes */
+    @media screen and (-webkit-min-device-pixel-ratio: 0) {
+      .emoji-btn {
+        -webkit-appearance: none;
+      }
+    }
+
+    /* Emoji picker print styles */
+    @media print {
+      .emoji-picker {
+        display: none !important;
+      }
+    }
+
+    /* Emoji picker screen reader improvements */
+    .emoji-btn[aria-label] {
+      position: relative;
+    }
+
+    .emoji-btn[aria-label]::after {
+      content: attr(aria-label);
+      position: absolute;
+      bottom: -20px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #000000;
+      color: #ffffff;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 10px;
+      white-space: nowrap;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.2s ease;
+      z-index: 1000;
+    }
+
+    .emoji-btn[aria-label]:hover::after {
+      opacity: 1;
+    }
+
+    /* Emoji picker performance improvements */
+    .emoji-picker {
+      will-change: transform;
+      transform: translateZ(0);
+    }
+
+    .emoji-btn {
+      will-change: transform;
+      transform: translateZ(0);
+    }
+
+    /* Emoji picker browser compatibility */
+    .emoji-picker {
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    .emoji-btn {
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    /* Emoji picker final responsive adjustments */
+    @media (max-width: 320px) {
+      .emoji-picker {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        max-width: 95vw;
+        max-height: 60vh;
+        overflow-y: auto;
+        z-index: 9999;
+      }
+      
+      .emoji-grid {
+        grid-template-columns: repeat(4, 1fr);
+        gap: 2px;
+      }
+      
+      .emoji-btn {
+        font-size: 12px;
+        padding: 2px;
+        min-height: 24px;
+      }
+    }
+
+    @media (min-width: 321px) and (max-width: 480px) {
+      .emoji-picker {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        max-width: 90vw;
+        max-height: 50vh;
+        overflow-y: auto;
+        z-index: 9999;
+      }
+      
+      .emoji-grid {
+        grid-template-columns: repeat(5, 1fr);
+        gap: 4px;
+      }
+      
+      .emoji-btn {
+        font-size: 14px;
+        padding: 4px;
+        min-height: 28px;
+      }
+    }
+
+    @media (min-width: 481px) and (max-width: 768px) {
+      .emoji-picker {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        max-width: 80vw;
+        max-height: 40vh;
+        overflow-y: auto;
+        z-index: 9999;
+      }
+      
+      .emoji-grid {
+        grid-template-columns: repeat(6, 1fr);
+        gap: 6px;
+      }
+      
+      .emoji-btn {
+        font-size: 16px;
+        padding: 6px;
+        min-height: 32px;
+      }
+    }
+
+    @media (min-width: 769px) and (max-width: 1024px) {
+      .emoji-picker {
+        position: absolute;
+        bottom: 100%;
+        left: 0;
+        margin-bottom: 8px;
+        max-width: 300px;
+        padding: 18px;
+        z-index: 9999;
+      }
+      
+      .emoji-grid {
+        grid-template-columns: repeat(7, 1fr);
+        gap: 8px;
+        max-width: 300px;
+      }
+      
+      .emoji-btn {
+        font-size: 18px;
+        padding: 8px;
+        min-height: 36px;
+      }
+    }
+
+    @media (min-width: 1025px) and (max-width: 1440px) {
+      .emoji-picker {
+        position: absolute;
+        bottom: 100%;
+        left: 0;
+        margin-bottom: 8px;
+        max-width: 320px;
+        padding: 20px;
+        z-index: 9999;
+      }
+      
+      .emoji-grid {
+        grid-template-columns: repeat(8, 1fr);
+        gap: 10px;
+        max-width: 320px;
+      }
+      
+      .emoji-btn {
+        font-size: 20px;
+        padding: 10px;
+        min-height: 40px;
+      }
+    }
+
+    @media (min-width: 1441px) {
+      .emoji-picker {
+        position: absolute;
+        bottom: 100%;
+        left: 0;
+        margin-bottom: 8px;
+        max-width: 360px;
+        padding: 24px;
+        z-index: 9999;
+      }
+      
+      .emoji-grid {
+        grid-template-columns: repeat(8, 1fr);
+        gap: 12px;
+        max-width: 360px;
+      }
+      
+      .emoji-btn {
+        font-size: 22px;
+        padding: 12px;
+        min-height: 44px;
+      }
+    }
+
+    /* Emoji picker final touch improvements */
+    .emoji-btn {
+      -webkit-tap-highlight-color: transparent;
+      -webkit-touch-callout: none;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+    }
+
+    .emoji-btn:active {
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    /* Emoji picker final accessibility improvements */
+    .emoji-btn[aria-label] {
+      position: relative;
+    }
+
+    .emoji-btn[aria-label]::after {
+      content: attr(aria-label);
+      position: absolute;
+      bottom: -20px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #000000;
+      color: #ffffff;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 10px;
+      white-space: nowrap;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.2s ease;
+      z-index: 1000;
+    }
+
+    .emoji-btn[aria-label]:hover::after {
+      opacity: 1;
+    }
+
+    /* Emoji picker final performance improvements */
+    .emoji-picker {
+      will-change: transform;
+      transform: translateZ(0);
+    }
+
+    .emoji-btn {
+      will-change: transform;
+      transform: translateZ(0);
+    }
+
+    /* Emoji picker final browser compatibility */
+    .emoji-picker {
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    .emoji-btn {
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    /* Section Title */
+    .section-title {
+      text-align: center;
+      padding: 80px 40px 40px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .section-title h2 {
+      font-size: 36px;
+      font-weight: 700;
+      margin: 0 0 16px;
+      color: #1e293b !important;
+    }
+
+    .section-title h2 .accent {
+      color: #38bdf8 !important;
+    }
+
+    .section-title p {
+      font-size: 18px;
+      color: #64748b !important;
+      font-style: italic;
+    }
+
+    /* Carousel Section */
+    .carousel-section {
+      padding: 40px 0 80px;
+      background: #f8fafc;
+    }
+
+    .carousel-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 40px;
+      position: relative;
+    }
+
+    .carousel-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 30px;
+    }
+
+    .carousel-item {
+      background: #ffffff;
+      border-radius: 12px;
+      padding: 30px;
+      text-align: center;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    }
+
+    .carousel-item img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      object-position: center;
+      border-radius: 8px;
+      margin-bottom: 20px;
+      display: block;
+    }
+
+    .carousel-item h3 {
+      font-size: 20px;
+      font-weight: 600;
+      margin: 0 0 12px;
+      color: #1e293b !important;
+    }
+
+    .carousel-item p {
+      font-size: 14px;
+      color: #64748b !important;
+      line-height: 1.5;
+    }
+
+    /* Features Section */
+    .features-section {
+      padding: 80px 0;
+      background: #ffffff;
+    }
+
+    .features-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 40px;
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 40px;
+    }
+
+    .feature-item {
+      text-align: center;
+    }
+
+    .feature-icon {
+      width: 80px;
+      height: 80px;
+      background: #38bdf8;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 24px;
+      color: #ffffff;
+      font-size: 32px;
+    }
+
+    .feature-icon svg {
+      width: 32px;
+      height: 32px;
+      fill: currentColor;
+    }
+
+    /* Force monochrome white icons/text where needed */
+    .feature-icon,
+    .feature-icon svg,
+    .feature-icon svg path {
+      color: #ffffff !important;
+      fill: #ffffff !important;
+    }
+
+    /* Force white color for all feature icons */
+    .features-section .feature-icon,
+    .features-section .feature-icon svg,
+    .features-section .feature-icon svg path {
+      color: #ffffff !important;
+      fill: #ffffff !important;
+    }
+
+    .step-number {
+      color: #ffffff !important;
+    }
+
+    .hero-buttons .btn-hero-primary {
+      color: #ffffff !important;
+    }
+
+    .author-avatar {
+      color: #ffffff !important;
+    }
+
+    .feature-item h3 {
+      font-size: 20px;
+      font-weight: 600;
+      margin: 0 0 16px;
+      color: #1e293b !important;
+    }
+
+    .feature-item p {
+      font-size: 14px;
+      color: #64748b !important;
+      line-height: 1.5;
+    }
+
+    /* Testimonials Section */
+    .testimonials-section {
+      padding: 80px 0;
+      background: #f8fafc;
+    }
+
+    .testimonials-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 40px;
+    }
+
+    .testimonials-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 40px;
+    }
+
+    .testimonial-item {
+      background: #ffffff;
+      padding: 40px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    }
+
+    .testimonial-text {
+      font-size: 16px;
+      line-height: 1.6;
+      color: #374151 !important;
+      margin-bottom: 24px;
+      font-style: italic;
+    }
+
+    .testimonial-author {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .author-avatar {
+      width: 50px;
+      height: 50px;
+      background: #38bdf8;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #ffffff;
+      font-weight: bold;
+    }
+
+    .author-info h4 {
+      font-size: 16px;
+      font-weight: 600;
+      margin: 0 0 4px;
+      color: #1e293b !important;
+    }
+
+    .author-info p {
+      font-size: 14px;
+      color: #64748b !important;
+      margin: 0;
+    }
+
+    /* Clients Section */
+    .clients-section {
+      padding: 60px 0;
+      background: #ffffff;
+    }
+
+    .clients-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 40px;
+    }
+
+    .clients-grid {
+      display: grid;
+      grid-template-columns: repeat(8, 1fr);
+      gap: 40px;
+      align-items: center;
+    }
+
+    .client-logo {
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #374151 !important;
+      font-weight: bold;
+      font-size: 14px;
+      text-decoration: none;
+      transition: color 0.3s ease, transform 0.3s ease;
+      border-radius: 4px;
+      padding: 8px 12px;
+    }
+
+    /* Force client logo text to be dark */
+    .clients-section .client-logo,
+    .clients-section .client-logo *,
+    .clients-section a.client-logo,
+    .clients-section a.client-logo * {
+      color: #374151 !important;
+    }
+
+    /* Override any global text color rules for client logos */
+    .desktop-page .clients-section .client-logo,
+    .desktop-page .clients-section .client-logo * {
+      color: #374151 !important;
+    }
+
+    /* Force dark color for all client logos with maximum specificity */
+    body.desktop-page .clients-section .client-logo,
+    body.desktop-page .clients-section a.client-logo,
+    body.desktop-page .clients-section .client-logo *,
+    body.desktop-page .clients-section a.client-logo * {
+      color: #374151 !important;
+    }
+
+    /* Override any link color rules */
+    .clients-section a,
+    .clients-section a:visited,
+    .clients-section a:link {
+      color: #374151 !important;
+    }
+
+    .client-logo:hover {
+      color: #38bdf8;
+      transform: translateY(-2px);
+      text-decoration: none;
+    }
+
+    /* Footer */
+    .footer-section {
+      background: #1f2937;
+      color: #ffffff;
+      padding: 80px 0 40px;
+    }
+
+    .footer-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 40px;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 40px;
+      margin-bottom: 40px;
+    }
+
+    .footer-column h3 {
+      font-size: 18px;
+      font-weight: 600;
+      margin: 0 0 24px;
+      color: #ffffff !important;
+    }
+
+    /* Force all footer text to be white */
+    .footer-section .footer-column h3 {
+      color: #ffffff !important;
+    }
+    
+    .footer-section .footer-column p {
+      color: #ffffff !important;
+    }
+    
+    .footer-section .footer-column a {
+      color: #ffffff !important;
+    }
+    
+    .footer-section .newsletter-input {
+      color: #ffffff !important;
+    }
+    
+    .footer-section .newsletter-input::placeholder {
+      color: #ffffff !important;
+    }
+    
+    /* Force footer bottom text to be white */
+    .footer-section .footer-bottom p {
+      color: #ffffff !important;
+    }
+    
+    .footer-section .footer-nav a {
+      color: #ffffff !important;
+    }
+
+    .footer-column p {
+      font-size: 14px;
+      line-height: 1.6;
+      color: #ffffff !important;
+      margin: 0 0 16px;
+    }
+
+    .footer-column a {
+      color: #38bdf8 !important;
+      text-decoration: none;
+    }
+
+    .newsletter-form {
+      display: flex;
+      gap: 8px;
+      margin-top: 16px;
+    }
+
+    .newsletter-input {
+      flex: 1;
+      padding: 12px;
+      border: 1px solid #374151;
+      border-radius: 6px;
+      background: #374151;
+      color: #ffffff;
+    }
+
+    .newsletter-btn {
+      background: #38bdf8 !important;
+      color: #ffffff !important;
+      padding: 12px 24px;
+      border: none;
+      border-radius: 6px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .footer-bottom {
+      border-top: 1px solid #374151;
+      padding-top: 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .footer-bottom p {
+      font-size: 14px;
+      color: #ffffff !important;
+      margin: 0;
+    }
+
+    .footer-nav {
+      display: flex;
+      gap: 24px;
+    }
+
+    .footer-nav a {
+      color: #ffffff !important;
+      text-decoration: none;
+      font-size: 14px;
+    }
+
+    .footer-nav a:hover {
+      color: #ffffff !important;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .hero-content {
+        grid-template-columns: 1fr;
+        gap: 40px;
+        padding: 0 20px;
+      }
+      
+      .hero-text h1 {
+        font-size: 36px;
+      }
+
+      
+      .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .steps-container {
+        grid-template-columns: 1fr;
+      }
+
+      .safety-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      
+      .carousel-grid,
+      .features-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      
+      .testimonials-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .footer-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      
+      .clients-grid {
+        grid-template-columns: repeat(4, 1fr);
+      }
+
+      .cta-buttons {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .cta-features {
+        flex-direction: column;
+        gap: 20px;
+      }
+
+      .cta-content h2 {
+        font-size: 36px;
+      }
+
+      .carousel-item img {
+        height: 150px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .stats-grid,
+      .safety-grid,
+      .carousel-grid,
+      .features-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .clients-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .footer-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body class="desktop-page">
+  <!-- Loading State -->
+  <div id="loadingState" class="loading-state">
+    <div class="loading-spinner"></div>
+  </div>
+  
+  <div class="desktop-container" style="display: none;">
+          <!-- Desktop Top Navigation -->
+          <nav class="desktop-nav" aria-label="Navigasi desktop">
+    <div class="desktop-nav-inner">
+      <div class="nav-left">
+          <div class="logo">SpeakUp!</div>
+        <a href="./desktop.html" class="nav-item active" title="Home">
+          <svg fill="currentColor" viewBox="0 0 20 20">
+            <path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"/>
+          </svg>
+          <span>Home</span>
+        </a>
+          <button class="nav-item plus-btn dashboard-only" data-open-create title="Speak!">
+            <svg fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clip-rule="evenodd"/>
+            </svg>
+            <span>Speak!</span>
+          </button>
+          <a href="./timeline-desktop.html" class="nav-item dashboard-only" title="Timeline">
+          <svg fill="currentColor" viewBox="0 0 20 20">
+            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clip-rule="evenodd"/>
+          </svg>
+          <span>Timeline</span>
+        </a>
+          <a href="./petitions-desktop.html" class="nav-item dashboard-only" title="Aspirasi">
+          <svg fill="currentColor" viewBox="0 0 20 20">
+            <path fill-rule="evenodd" d="M3 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clip-rule="evenodd"/>
+          </svg>
+          <span>Aspirasi</span>
+        </a>
+      </div>
+      <div class="nav-right">
+          <a href="./settings-desktop.html" class="nav-item dashboard-only" title="Settings">
+          <svg fill="currentColor" viewBox="0 0 20 20">
+            <path fill-rule="evenodd" d="M11.49 3.17c-.38-1.56-2.6-1.56-2.98 0a1.532 1.532 0 01-2.286.948c-1.372-.836-2.942.734-2.106 2.106.54.886.061 2.042-.947 2.287-1.561.379-1.561 2.6 0 2.978a1.532 1.532 0 01.947 2.287c-.836 1.372.734 2.942 2.106 2.106a1.532 1.532 0 012.287.947c.379 1.561 2.6 1.561 2.978 0a1.533 1.533 0 012.287-.947c1.372.836 2.942-.734 2.106-2.106a1.533 1.533 0 01.947-2.287c1.561-.379 1.561-2.6 0-2.978a1.532 1.532 0 01-.947-2.287c.836-1.372-.734-2.942-2.106-2.106a1.532 1.532 0 01-2.287-.947zM10 13a3 3 0 100-6 3 3 0 000 6z" clip-rule="evenodd"/>
+          </svg>
+          <span>Settings</span>
+        </a>
+          <a href="./admin-petitions-desktop.html" class="nav-item dashboard-only admin-only" title="Admin Petitions" style="display: none;">
+          <svg fill="currentColor" viewBox="0 0 20 20">
+            <path fill-rule="evenodd" d="M3 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clip-rule="evenodd"/>
+          </svg>
+          <span>Admin</span>
+        </a>
+          <a href="./profile-desktop.html" class="nav-item dashboard-only" title="Profile">
+          <svg fill="currentColor" viewBox="0 0 20 20">
+            <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"/>
+          </svg>
+          <span>Profile</span>
+        </a>
+          <a href="./sign-desktop.html" class="nav-item" id="signButton" title="Login">
+            <svg fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M3 10a1 1 0 011-1h8.586l-3.293-3.293a1 1 0 111.414-1.414l5 5a1 1 0 010 1.414l-5 5a1 1 0 11-1.414-1.414L12.586 11H4a1 1 0 01-1-1z" clip-rule="evenodd"/>
+            </svg>
+            <span>Login</span>
+          </a>
+      </div>
+    </div>
+  </nav>
+
+  <main>
+      <!-- Hero Section -->
+      <section class="hero-section homepage-only">
+        <div class="hero-content">
+          <div class="hero-text">
+            <h1>Berani Bersuara, <span class="accent">Aman di Dengar</span></h1>
+            <p>SpeakUp! adalah platform revolusioner yang memberikan ruang aman untuk berbagi pengalaman bullying, kekerasan, atau ketidakadilan. Dapatkan dukungan, solusi, dan kekuatan untuk perubahan tanpa mengorbankan privasi Anda.</p>
+            <ul class="hero-features">
+              <li><strong>Anonimitas Fleksibel</strong><span>Pilih tingkat privasi sesuai kenyamanan Anda</span></li>
+              <li><strong>Moderasi Cerdas</strong><span>Konten aman dan terpantau 24/7</span></li>
+              <li><strong>Komunitas Supportif</strong><span>Dukungan dari sesama pengguna yang memahami</span></li>
+              <li><strong>Aksi Nyata</strong><span>Ubah cerita menjadi aspirasi dan perubahan positif</span></li>
+            </ul>
+            <div class="hero-buttons">
+              <a href="./sign-desktop.html" class="btn-hero-primary">Bergabung Sekarang - Gratis!</a>
+              <button id="heroInspireBtn" class="btn-hero-secondary" disabled style="opacity: 0.5; cursor: not-allowed;">Lihat Cerita Inspiratif</button>
+            </div>
+          </div>
+          <div class="hero-visual">
+            <div class="device-mockup">
+              <div class="mockup-bg"></div>
+              <div class="mockup-overlay"></div>
+              <div class="mockup-content">
+                <img src="assets/logo/logo speak up blue.png" alt="SpeakUp!" />
+              </div>
+            </div>
+      </div>
+      </div>
+    </section>
+
+
+      <!-- Section Title -->
+      <section class="section-title homepage-only">
+        <h2>Mengapa <span class="accent">SpeakUp!</span> Berbeda?</h2>
+        <p>"Setiap suara berharga, setiap cerita adalah langkah menuju perubahan"</p>
+      </section>
+
+      <!-- Carousel Section -->
+      <section class="carousel-section homepage-only">
+        <div class="carousel-container">
+          <div class="carousel-grid">
+            <div class="carousel-item">
+              <img src="assets/img/community.jpg" alt="Support Community">
+              <h3>Komunitas Supportif</h3>
+              <p>Bergabunglah dengan komunitas yang saling mendukung dan memahami perjalanan Anda.</p>
+            </div>
+            <div class="carousel-item">
+              <img src="assets/img/safe-space.jpg" alt="Safe Space">
+              <h3>Ruang Aman</h3>
+              <p>Berbagi cerita Anda di lingkungan yang aman dan bebas dari judgment.</p>
+        </div>
+            <div class="carousel-item">
+              <img src="assets/img/expert-help.jpg" alt="Expert Help">
+              <h3>Bantuan Ahli</h3>
+              <p>Dapatkan saran dan dukungan dari profesional yang berpengalaman.</p>
+        </div>
+            <div class="carousel-item">
+              <img src="assets/img/take-action.jpg" alt="Take Action">
+              <h3>Ambil Aksi</h3>
+              <p>Ubah cerita Anda menjadi kekuatan untuk perubahan positif.</p>
+        </div>
+        </div>
+      </div>
+    </section>
+
+      <!-- How It Works Section -->
+      <section class="how-it-works-section homepage-only">
+        <div class="how-it-works-container">
+          <div class="how-it-works-header">
+            <h2>Bagaimana <span class="accent">SpeakUp!</span> Bekerja?</h2>
+            <p>Langkah sederhana untuk membuat perubahan besar</p>
+          </div>
+          <div class="steps-container">
+            <div class="step-item">
+              <div class="step-number">1</div>
+              <div class="step-content">
+                <h3>Bergabung & Pilih Identitas</h3>
+                <p>Daftar gratis dan pilih tingkat anonimitas yang nyaman untuk Anda - mulai dari anonim penuh hingga identitas terverifikasi.</p>
+              </div>
+            </div>
+            <div class="step-item">
+              <div class="step-number">2</div>
+              <div class="step-content">
+                <h3>Bagikan Cerita Anda</h3>
+                <p>Tulis pengalaman Anda dengan aman. Sistem moderasi cerdas kami memastikan konten tetap suportif dan konstruktif.</p>
+              </div>
+            </div>
+            <div class="step-item">
+              <div class="step-number">3</div>
+              <div class="step-content">
+                <h3>Dapatkan Dukungan</h3>
+                <p>Terima dukungan dari komunitas, saran dari ahli, dan koneksi dengan orang-orang yang memahami situasi Anda.</p>
+              </div>
+            </div>
+            <div class="step-item">
+              <div class="step-number">4</div>
+              <div class="step-content">
+                <h3>Ambil Aksi Nyata</h3>
+                <p>Ubah cerita menjadi aspirasi, kampanye, atau inisiatif yang dapat menciptakan perubahan positif di masyarakat.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Features Section -->
+      <section class="features-section homepage-only">
+        <div class="features-container">
+          <div class="features-grid">
+            <div class="feature-item">
+              <div class="feature-icon">
+                <svg fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd"/>
+                </svg>
+              </div>
+              <h3>Anonimitas Fleksibel</h3>
+              <p>Pilih anonim default, handle khusus, atau identitas terverifikasi sesuai kebutuhan Anda.</p>
+          </div>
+            <div class="feature-item">
+              <div class="feature-icon">
+                <svg fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M11.3 1.046A1 1 0 0112 2v5h4a1 1 0 01.82 1.573l-7 10A1 1 0 018 18v-5H4a1 1 0 01-.82-1.573l7-10a1 1 0 011.12-.38z" clip-rule="evenodd"/>
+                </svg>
+              </div>
+              <h3>Moderasi Cerdas</h3>
+              <p>Konten diperiksa otomatis dan manual untuk menjaga keamanan dan empati.</p>
+          </div>
+            <div class="feature-item">
+              <div class="feature-icon">
+                <svg fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M4 4a2 2 0 00-2 2v8a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2H4zm0 2h12v8H4V6z" clip-rule="evenodd"/>
+                  <path d="M6 8h8v2H6V8zm0 3h8v1H6v-1z"/>
+                </svg>
+              </div>
+              <h3>Aspirasi & Aksi</h3>
+              <p>Buat aspirasi, kumpulkan dukungan, dan kirim ke pihak berwenang saat siap.</p>
+          </div>
+            <div class="feature-item">
+              <div class="feature-icon">
+                <svg fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M2.166 4.999A11.954 11.954 0 0010 1.944 11.954 11.954 0 0017.834 5c.11.65.166 1.32.166 2.001 0 5.225-3.34 9.67-8 11.317C5.34 16.67 2 12.225 2 7c0-.682.057-1.35.166-2.001zm11.541 3.708a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                </svg>
+              </div>
+              <h3>Privasi Dijaga</h3>
+              <p>Hanya menampilkan informasi yang Anda izinkan. Metadata sensitif diminimalkan.</p>
+      </div>
+        </div>
+      </div>
+    </section>
+
+
+      <!-- Testimonials Section -->
+      <section class="testimonials-section homepage-only">
+        <div class="testimonials-container">
+          <div class="testimonials-grid">
+            <div class="testimonial-item">
+              <p class="testimonial-text">"SpeakUp! memberikan saya keberanian untuk berbagi cerita yang selama ini saya pendam. Komunitasnya sangat supportif dan tidak menghakimi."</p>
+              <div class="testimonial-author">
+                <div class="author-avatar">A</div>
+                <div class="author-info">
+                  <h4>Anonymous User</h4>
+                  <p>Pengguna SpeakUp!</p>
+      </div>
+    </div>
+  </div>
+            <div class="testimonial-item">
+              <p class="testimonial-text">"Melalui SpeakUp!, saya bisa membantu orang lain yang mengalami hal serupa. Platform ini benar-benar mengubah hidup saya."</p>
+              <div class="testimonial-author">
+                <div class="author-avatar">B</div>
+                <div class="author-info">
+                  <h4>Supportive Member</h4>
+                  <p>Komunitas SpeakUp!</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+      </section>
+
+      <!-- Clients Section -->
+      <section class="clients-section homepage-only">
+        <div class="clients-container">
+          <div class="clients-grid">
+            <a href="https://www.komnasham.go.id" target="_blank" rel="noopener noreferrer" class="client-logo" style="color: #374151 !important;">KOMNAS HAM</a>
+            <a href="https://www.kpai.go.id" target="_blank" rel="noopener noreferrer" class="client-logo" style="color: #374151 !important;">KPAI</a>
+            <a href="https://www.komnasperempuan.go.id" target="_blank" rel="noopener noreferrer" class="client-logo" style="color: #374151 !important;">KOMNAS PEREMPUAN</a>
+            <a href="https://www.kemenpppa.go.id" target="_blank" rel="noopener noreferrer" class="client-logo" style="color: #374151 !important;">KEMENPPPA</a>
+            <a href="https://www.unicef.org/indonesia" target="_blank" rel="noopener noreferrer" class="client-logo" style="color: #374151 !important;">UNICEF</a>
+            <a href="https://www.savethechildren.or.id" target="_blank" rel="noopener noreferrer" class="client-logo" style="color: #374151 !important;">SAVE THE CHILDREN</a>
+            <a href="https://www.yayasanpulih.org" target="_blank" rel="noopener noreferrer" class="client-logo" style="color: #374151 !important;">YAYASAN PULIH</a>
+            <a href="https://www.rumahaman.org" target="_blank" rel="noopener noreferrer" class="client-logo" style="color: #374151 !important;">RUMAH AMAN</a>
+          </div>
+      </div>
+      </section>
+
+      <!-- Call to Action Section -->
+      <section class="cta-section homepage-only">
+        <div class="cta-container">
+          <div class="cta-content">
+            <h2>Siap Membuat Perubahan?</h2>
+            <p>Bergabunglah dengan ribuan orang yang telah menemukan kekuatan dalam suara mereka. Mulai perjalanan Anda menuju perubahan positif hari ini.</p>
+            <div class="cta-buttons">
+              <a href="./sign-desktop.html" class="btn-cta-primary">Bergabung Sekarang - Gratis!</a>
+              <a href="./timeline-desktop.html" class="btn-cta-secondary">Lihat Cerita Inspiratif</a>
+            </div>
+            <div class="cta-features">
+              <div class="cta-feature">
+                <span class="cta-icon">✓</span>
+                <span>Gratis selamanya</span>
+              </div>
+              <div class="cta-feature">
+                <span class="cta-icon">✓</span>
+                <span>100% Aman & Privat</span>
+              </div>
+              <div class="cta-feature">
+                <span class="cta-icon">✓</span>
+                <span>Dukungan 24/7</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+
+      <!-- Footer -->
+      <footer class="footer-section">
+        <div class="footer-container">
+          <div class="footer-grid">
+            <div class="footer-column">
+              <h3>Tentang SpeakUp!</h3>
+              <p>SpeakUp! adalah platform yang memberikan ruang aman untuk berbagi pengalaman dan mendapatkan dukungan dari komunitas yang peduli.</p>
+              <p>Kami berkomitmen untuk menciptakan lingkungan yang aman, suportif, dan bebas dari segala bentuk kekerasan.</p>
+        </div>
+            <div class="footer-column">
+              <h3>Timeline Terbaru</h3>
+              <p>Bergabunglah dengan diskusi terbaru di komunitas SpeakUp! dan dapatkan insight dari pengalaman sesama pengguna.</p>
+              <p>Setiap cerita adalah langkah menuju perubahan yang lebih baik.</p>
+          </div>
+            <div class="footer-column">
+              <h3>Hubungi Kami</h3>
+              <p>📞 +6282193333831</p>
+              <p>✉️ rangga@obeliskprotocol.io</p>
+              <p>📍 Yogyakarta, Indonesia</p>
+              <p><a href="#help">Butuh Bantuan?</a></p>
+          </div>
+            <div class="footer-column">
+              <h3>Newsletter</h3>
+              <p>Dapatkan update terbaru tentang fitur dan program SpeakUp!</p>
+              <div class="newsletter-form">
+                <input type="email" class="newsletter-input" placeholder="Email Anda">
+                <button class="newsletter-btn">SUBSCRIBE</button>
+          </div>
+        </div>
+      </div>
+          <div class="footer-bottom">
+            <p>Copyright © 2024 SpeakUp!. All rights reserved.</p>
+            <div class="footer-nav">
+              <a href="./desktop.html">Home</a>
+              <a href="./timeline-desktop.html">Timeline</a>
+              <a href="./petitions-desktop.html">Petitions</a>
+              <a href="./settings-desktop.html">Settings</a>
+              <a href="./profile-desktop.html">Profile</a>
+        </div>
+      </div>
+    </div>
+      </footer>
+    </main>
+  </div>
+
+  <script src="assets/js/app.js"></script>
+  <!-- Supabase SDK -->
+  <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
+  <script src="config/supabase-config.js"></script>
+  <script src="config/supabase-client.js"></script>
+  
+  <script>
+    // Initialize Supabase client
+    let supabase;
+    
+    // Wait for config to load
+    document.addEventListener('DOMContentLoaded', async function() {
+      // Show loading state immediately
+      const loadingState = document.getElementById('loadingState');
+      const desktopContainer = document.querySelector('.desktop-container');
+      
+      // Initialize Supabase after config is loaded
+      if (window.getSupabase) {
+        supabase = window.getSupabase();
+      } else if (window.SUPABASE_CONFIG && window.supabase && window.supabase.createClient) {
+        supabase = window.supabase.createClient(
+          window.SUPABASE_CONFIG.url,
+          window.SUPABASE_CONFIG.anonKey
+        );
+      }
+      
+      // Handle URL fragments (access tokens from OAuth)
+      if (window.location.hash && window.location.hash.includes('access_token')) {
+        console.log('Processing OAuth redirect...');
+        // Let Supabase handle the OAuth callback
+        const { data, error } = await supabase.auth.getSession();
+        if (data.session) {
+          console.log('OAuth login successful');
+          // Clear the hash to clean up URL
+          window.history.replaceState({}, document.title, window.location.pathname);
+        }
+      }
+      
+      // Check login status and show appropriate content
+      if (supabase) {
+        console.log('Checking Supabase session...');
+        const { data: { session } } = await supabase.auth.getSession();
+        console.log('Supabase session:', session);
+        
+        if (session) {
+          // User is logged in with Supabase, update localStorage and show content
+          localStorage.setItem('speakup_logged_in', 'true');
+          localStorage.setItem('speakup_user_email', session.user.email);
+          localStorage.setItem('speakup_user_id', session.user.id);
+          console.log('Supabase session found, user logged in');
+          showHomepageContent();
+        } else {
+          // Check localStorage fallback
+          const isLoggedIn = localStorage.getItem('speakup_logged_in');
+          const userEmail = localStorage.getItem('speakup_user_email');
+          console.log('No Supabase session, checking localStorage:', isLoggedIn, userEmail);
+          
+          if (isLoggedIn === 'true' && userEmail) {
+            console.log('localStorage indicates user is logged in');
+            showHomepageContent();
+          } else {
+            console.log('No login detected');
+            showHomepageContent();
+          }
+        }
+      } else {
+        // Fallback if Supabase is not available
+        const isLoggedIn = localStorage.getItem('speakup_logged_in');
+        const userEmail = localStorage.getItem('speakup_user_email');
+        console.log('Supabase not available, checking localStorage:', isLoggedIn, userEmail);
+        
+        if (isLoggedIn === 'true' && userEmail) {
+          console.log('localStorage indicates user is logged in');
+          showHomepageContent();
+        } else {
+          console.log('No login detected');
+          showHomepageContent();
+        }
+      }
+      
+      // Add polling mechanism to check login status periodically
+      setInterval(() => {
+        const isLoggedIn = localStorage.getItem('speakup_logged_in');
+        const signButton = document.getElementById('signButton');
+        
+        if (signButton) {
+          const isCurrentlyLogin = signButton.textContent.includes('Login');
+          const shouldBeLogout = isLoggedIn === 'true';
+          
+          if (shouldBeLogout && isCurrentlyLogin) {
+            console.log('Polling detected: User is logged in but button shows Login, updating...');
+            updateNavigationForLoggedInUser();
+          } else if (!shouldBeLogout && !isCurrentlyLogin) {
+            console.log('Polling detected: User is not logged in but button shows Logout, updating...');
+            updateNavigationForHomepage();
+          }
+        }
+      }, 2000); // Check every 2 seconds
+    });
+    
+    function showHomepageContent() {
+      console.log('Showing homepage content...');
+      
+      // Hide loading state and show content
+      const loadingState = document.getElementById('loadingState');
+      const desktopContainer = document.querySelector('.desktop-container');
+      
+      if (loadingState) loadingState.style.display = 'none';
+      if (desktopContainer) desktopContainer.style.display = 'block';
+      
+      // Add content-ready class to body and make visible
+      document.body.classList.add('content-ready', 'show-homepage', 'loaded');
+      
+      // Hide dashboard-specific elements
+      const dashboardElements = document.querySelectorAll('.dashboard-only');
+      dashboardElements.forEach(el => el.style.display = 'none');
+      
+      // Show homepage content
+      const homepageElements = document.querySelectorAll('.homepage-only');
+      homepageElements.forEach(el => el.style.display = 'block');
+      
+      // Check if user is logged in to show appropriate navigation
+      const isLoggedIn = localStorage.getItem('speakup_logged_in');
+      console.log('Homepage - Login status:', isLoggedIn);
+      
+      if (isLoggedIn === 'true') {
+        console.log('User is logged in, updating navigation to show Logout button');
+        updateNavigationForLoggedInUser();
+      } else {
+        console.log('User is not logged in, showing Login button');
+        updateNavigationForHomepage();
+      }
+    }
+    
+    function showDashboardContent() {
+      // Hide loading state and show content
+      const loadingState = document.getElementById('loadingState');
+      const desktopContainer = document.querySelector('.desktop-container');
+      
+      if (loadingState) loadingState.style.display = 'none';
+      if (desktopContainer) desktopContainer.style.display = 'block';
+      
+      // Add content-ready class to body and make visible
+      document.body.classList.add('content-ready', 'show-dashboard', 'loaded');
+      
+      // Show dashboard-specific elements
+      const dashboardElements = document.querySelectorAll('.dashboard-only');
+      dashboardElements.forEach(el => el.style.display = 'block');
+      
+      // Hide homepage content
+      const homepageElements = document.querySelectorAll('.homepage-only');
+      homepageElements.forEach(el => el.style.display = 'none');
+      
+      // Update navigation to show full dashboard
+      updateNavigationForDashboard();
+    }
+    
+    function updateNavigationForHomepage() {
+      // Show only Home and Login navigation items
+      const navItems = document.querySelectorAll('.desktop-nav .nav-item');
+      navItems.forEach(item => {
+        if (item.textContent.includes('Home') || 
+            item.textContent.includes('Login')) {
+          item.style.display = 'flex';
+        } else {
+          item.style.display = 'none';
+        }
+      });
+      
+      // Reset Login button to original state
+      const signButton = document.getElementById('signButton');
+      if (signButton) {
+        signButton.href = './sign-desktop.html';
+        signButton.onclick = null;
+        signButton.title = 'Login';
+        signButton.innerHTML = `
+          <svg fill="currentColor" viewBox="0 0 20 20">
+            <path fill-rule="evenodd" d="M3 10a1 1 0 011-1h8.586l-3.293-3.293a1 1 0 111.414-1.414l5 5a1 1 0 010 1.414l-5 5a1 1 0 11-1.414-1.414L12.586 11H4a1 1 0 01-1-1z" clip-rule="evenodd"/>
+          </svg>
+          <span>Login</span>
+        `;
+      }
+      
+      // Hide Speak! button
+      const speakButton = document.querySelector('.plus-btn');
+      if (speakButton) {
+        speakButton.style.display = 'none';
+      }
+      
+      // Hide dashboard-only navigation items
+      const dashboardNavItems = document.querySelectorAll('.dashboard-only');
+      dashboardNavItems.forEach(item => {
+        item.style.display = 'none';
+      });
+    }
+    
+    function updateNavigationForLoggedInUser() {
+      console.log('Updating navigation for logged in user...');
+      
+      // Show all navigation items
+      const navItems = document.querySelectorAll('.desktop-nav .nav-item');
+      navItems.forEach(item => {
+        item.style.display = 'flex';
+      });
+      
+      // Check admin status and show/hide admin link
+      checkAdminStatus();
+      
+      // Convert Login button to Logout button
+      const signButton = document.getElementById('signButton');
+      if (signButton) {
+        console.log('Converting Login button to Logout button');
+        console.log('Current button text before:', signButton.textContent);
+        console.log('Current button href before:', signButton.href);
+        
+        signButton.href = 'javascript:void(0)';
+        signButton.onclick = logout;
+        signButton.title = 'Logout';
+        signButton.innerHTML = `
+          <svg fill="currentColor" viewBox="0 0 20 20">
+            <path fill-rule="evenodd" d="M3 3a1 1 0 00-1 1v12a1 1 0 102 0V4a1 1 0 00-1-1zm10.293 9.293a1 1 0 001.414 1.414l3-3a1 1 0 000-1.414l-3-3a1 1 0 10-1.414 1.414L14.586 9H7a1 1 0 100 2h7.586l-1.293 1.293z" clip-rule="evenodd"/>
+          </svg>
+          <span>Logout</span>
+        `;
+        
+        console.log('Button updated. New text after:', signButton.textContent);
+        console.log('Button updated. New href after:', signButton.href);
+      } else {
+        console.error('signButton not found in updateNavigationForLoggedInUser!');
+      }
+      
+      // Show Speak! button
+      const speakButton = document.querySelector('.plus-btn');
+      if (speakButton) {
+        speakButton.style.display = 'flex';
+      }
+      
+      // Handle Profile button click to go to own profile
+      const profileButton = document.querySelector('a[href="./profile-desktop.html"]');
+      if (profileButton) {
+        profileButton.addEventListener('click', function(e) {
+          e.preventDefault();
+          // Navigate to own profile (without URL parameter)
+          window.location.href = 'profile-desktop.html';
+        });
+      }
+      
+      // Show dashboard-only navigation items
+      const dashboardNavItems = document.querySelectorAll('.dashboard-only');
+      dashboardNavItems.forEach(item => {
+        item.style.display = 'flex';
+      });
+
+      // Enable hero CTA "Lihat Cerita Inspiratif" and link to timeline
+      const heroInspireBtn = document.getElementById('heroInspireBtn');
+      if (heroInspireBtn) {
+        heroInspireBtn.disabled = false;
+        heroInspireBtn.style.opacity = '1';
+        heroInspireBtn.style.cursor = 'pointer';
+        heroInspireBtn.addEventListener('click', function(){ window.location.href = './petitions-desktop.html'; });
+      }
+    }
+    
+    // Check if user is admin and show/hide admin navigation
+    async function checkAdminStatus() {
+      try {
+        const isLoggedIn = localStorage.getItem('speakup_logged_in');
+        if (!isLoggedIn) {
+          hideAdminLink();
+          return;
+        }
+
+        // Check if Supabase is available
+        if (typeof window.getSupabase !== 'function') {
+          console.log('Supabase not available yet, will retry...');
+          setTimeout(checkAdminStatus, 1000);
+          return;
+        }
+
+        const supabase = window.getSupabase();
+        if (!supabase) {
+          console.log('Supabase client not ready, will retry...');
+          setTimeout(checkAdminStatus, 1000);
+          return;
+        }
+
+        const { data: { user }, error: userError } = await supabase.auth.getUser();
+        if (userError || !user) {
+          hideAdminLink();
+          return;
+        }
+
+        // Check admin role in profiles table
+        const { data: profile, error: profileError } = await supabase
+          .from('profiles')
+          .select('role')
+          .eq('id', user.id)
+          .single();
+
+        if (profileError || !profile) {
+          console.log('Profile not found or error:', profileError);
+          hideAdminLink();
+          return;
+        }
+
+        if (profile.role === 'admin') {
+          showAdminLink();
+        } else {
+          hideAdminLink();
+        }
+      } catch (error) {
+        console.error('Error checking admin status:', error);
+        hideAdminLink();
+      }
+    }
+
+    function showAdminLink() {
+      const adminLink = document.querySelector('.admin-only');
+      if (adminLink) {
+        adminLink.style.display = 'flex';
+        console.log('Admin link shown');
+      }
+    }
+
+    function hideAdminLink() {
+      const adminLink = document.querySelector('.admin-only');
+      if (adminLink) {
+        adminLink.style.display = 'none';
+        console.log('Admin link hidden');
+      }
+    }
+
+    function updateNavigationForDashboard() {
+      // Show all navigation items
+      const navItems = document.querySelectorAll('.desktop-nav .nav-item');
+      navItems.forEach(item => {
+        item.style.display = 'flex';
+      });
+      
+      // Check admin status and show/hide admin link
+      checkAdminStatus();
+      
+      // Convert Login button to Logout button
+      const signButton = document.getElementById('signButton');
+      if (signButton) {
+        signButton.href = 'javascript:void(0)';
+        signButton.onclick = logout;
+        signButton.title = 'Logout';
+        signButton.innerHTML = `
+          <svg fill="currentColor" viewBox="0 0 20 20">
+            <path fill-rule="evenodd" d="M3 3a1 1 0 00-1 1v12a1 1 0 102 0V4a1 1 0 00-1-1zm10.293 9.293a1 1 0 001.414 1.414l3-3a1 1 0 000-1.414l-3-3a1 1 0 10-1.414 1.414L14.586 9H7a1 1 0 100 2h7.586l-1.293 1.293z" clip-rule="evenodd"/>
+          </svg>
+          <span>Logout</span>
+        `;
+      }
+      
+      // Show Speak! button
+      const speakButton = document.querySelector('.plus-btn');
+      if (speakButton) {
+        speakButton.style.display = 'flex';
+      }
+      
+      // Show dashboard-only navigation items
+      const dashboardNavItems = document.querySelectorAll('.dashboard-only');
+      dashboardNavItems.forEach(item => {
+        item.style.display = 'flex';
+      });
+    }
+    
+    // Debug functions - make them globally available
+    window.debugNavigation = function() {
+      console.log('Manual navigation debug triggered');
+      const isLoggedIn = localStorage.getItem('speakup_logged_in');
+      console.log('Current login status:', isLoggedIn);
+      
+      if (isLoggedIn === 'true') {
+        console.log('Forcing updateNavigationForLoggedInUser...');
+        updateNavigationForLoggedInUser();
+      } else {
+        console.log('Forcing updateNavigationForHomepage...');
+        updateNavigationForHomepage();
+      }
+    };
+    
+    window.forceNavigationUpdate = function() {
+      console.log('Force navigation update triggered');
+      const isLoggedIn = localStorage.getItem('speakup_logged_in');
+      console.log('Current login status:', isLoggedIn);
+      
+      if (isLoggedIn === 'true') {
+        updateNavigationForLoggedInUser();
+      } else {
+        updateNavigationForHomepage();
+      }
+    };
+    
+    window.checkLoginStatus = function() {
+      const isLoggedIn = localStorage.getItem('speakup_logged_in');
+      console.log('Current login status:', isLoggedIn);
+      console.log('All localStorage keys:', Object.keys(localStorage));
+      
+      const signButton = document.getElementById('signButton');
+      if (signButton) {
+        console.log('Current button text:', signButton.textContent);
+        console.log('Current button href:', signButton.href);
+        console.log('Current button title:', signButton.title);
+      } else {
+        console.error('signButton not found!');
+      }
+    };
+    
+    // Logout function - make it globally available
+    // Logout handled globally in assets/js/app.js
+  </script>
+  
+  <!-- Create Post Modal (Desktop) -->
+  <div id="createModal" class="modal" role="dialog">
+    <div class="box">
+      <div class="head">
+        <strong>Buat Post</strong>
+        <button id="closeCreate" class="btn ghost">×</button>
+      </div>
+      <form id="createForm">
+        <div class="mt-12">
+          <label>Konten</label>
+          <div style="position: relative;">
+            <textarea name="content" id="contentText" rows="6" maxlength="5000" required placeholder="Speak! Bagikan pengalamanmu..." style="
+              width: 100%;
+              min-height: 120px;
+              padding: 12px 40px 12px 12px;
+              border: 1px solid #d1d5db;
+              border-radius: 8px;
+              resize: vertical;
+              font-family: inherit;
+              font-size: 14px;
+              outline: none;
+              transition: border-color 0.2s;
+            " onfocus="this.style.borderColor='#38bdf8'" onblur="this.style.borderColor='#d1d5db'"></textarea>
+            <button type="button" onclick="toggleEmojiPicker()" style="
+              position: absolute;
+              right: 8px;
+              bottom: 8px;
+              background: none;
+              border: none;
+              font-size: 18px;
+              cursor: pointer;
+              padding: 4px;
+              border-radius: 4px;
+              transition: background-color 0.2s;
+            " onmouseover="this.style.backgroundColor='#f3f4f6'" onmouseout="this.style.backgroundColor='transparent'" title="Pilih Emoji">
+              😊
+            </button>
+            
+            <!-- Emoji Picker -->
+            <div id="emojiPicker" style="
+              position: absolute;
+              bottom: 10px;
+              left: 10px;
+              right: 50px;
+              background: #ffffff;
+              border: 2px solid #38bdf8;
+              border-radius: 8px;
+              box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+              padding: 12px;
+              z-index: 10;
+              display: none;
+            ">
+            <div style="display: grid; grid-template-columns: repeat(8, 1fr); gap: 8px;">
+              <button type="button" onclick="insertEmoji('😊')" style="background: none; border: none; font-size: 20px; padding: 8px; border-radius: 4px; cursor: pointer; transition: background-color 0.2s ease;" onmouseover="this.style.background='#f3f4f6'" onmouseout="this.style.background='none'">😊</button>
+              <button type="button" onclick="insertEmoji('😢')" style="background: none; border: none; font-size: 20px; padding: 8px; border-radius: 4px; cursor: pointer; transition: background-color 0.2s ease;" onmouseover="this.style.background='#f3f4f6'" onmouseout="this.style.background='none'">😢</button>
+              <button type="button" onclick="insertEmoji('😡')" style="background: none; border: none; font-size: 20px; padding: 8px; border-radius: 4px; cursor: pointer; transition: background-color 0.2s ease;" onmouseover="this.style.background='#f3f4f6'" onmouseout="this.style.background='none'">😡</button>
+              <button type="button" onclick="insertEmoji('😍')" style="background: none; border: none; font-size: 20px; padding: 8px; border-radius: 4px; cursor: pointer; transition: background-color 0.2s ease;" onmouseover="this.style.background='#f3f4f6'" onmouseout="this.style.background='none'">😍</button>
+              <button type="button" onclick="insertEmoji('🤔')" style="background: none; border: none; font-size: 20px; padding: 8px; border-radius: 4px; cursor: pointer; transition: background-color 0.2s ease;" onmouseover="this.style.background='#f3f4f6'" onmouseout="this.style.background='none'">🤔</button>
+              <button type="button" onclick="insertEmoji('😮')" style="background: none; border: none; font-size: 20px; padding: 8px; border-radius: 4px; cursor: pointer; transition: background-color 0.2s ease;" onmouseover="this.style.background='#f3f4f6'" onmouseout="this.style.background='none'">😮</button>
+              <button type="button" onclick="insertEmoji('😭')" style="background: none; border: none; font-size: 20px; padding: 8px; border-radius: 4px; cursor: pointer; transition: background-color 0.2s ease;" onmouseover="this.style.background='#f3f4f6'" onmouseout="this.style.background='none'">😭</button>
+              <button type="button" onclick="insertEmoji('😤')" style="background: none; border: none; font-size: 20px; padding: 8px; border-radius: 4px; cursor: pointer; transition: background-color 0.2s ease;" onmouseover="this.style.background='#f3f4f6'" onmouseout="this.style.background='none'">😤</button>
+              <button type="button" onclick="insertEmoji('🙏')" style="background: none; border: none; font-size: 20px; padding: 8px; border-radius: 4px; cursor: pointer; transition: background-color 0.2s ease;" onmouseover="this.style.background='#f3f4f6'" onmouseout="this.style.background='none'">🙏</button>
+              <button type="button" onclick="insertEmoji('❤️')" style="background: none; border: none; font-size: 20px; padding: 8px; border-radius: 4px; cursor: pointer; transition: background-color 0.2s ease;" onmouseover="this.style.background='#f3f4f6'" onmouseout="this.style.background='none'">❤️</button>
+              <button type="button" onclick="insertEmoji('👍')" style="background: none; border: none; font-size: 20px; padding: 8px; border-radius: 4px; cursor: pointer; transition: background-color 0.2s ease;" onmouseover="this.style.background='#f3f4f6'" onmouseout="this.style.background='none'">👍</button>
+              <button type="button" onclick="insertEmoji('👎')" style="background: none; border: none; font-size: 20px; padding: 8px; border-radius: 4px; cursor: pointer; transition: background-color 0.2s ease;" onmouseover="this.style.background='#f3f4f6'" onmouseout="this.style.background='none'">👎</button>
+              <button type="button" onclick="insertEmoji('🔥')" style="background: none; border: none; font-size: 20px; padding: 8px; border-radius: 4px; cursor: pointer; transition: background-color 0.2s ease;" onmouseover="this.style.background='#f3f4f6'" onmouseout="this.style.background='none'">🔥</button>
+              <button type="button" onclick="insertEmoji('💪')" style="background: none; border: none; font-size: 20px; padding: 8px; border-radius: 4px; cursor: pointer; transition: background-color 0.2s ease;" onmouseover="this.style.background='#f3f4f6'" onmouseout="this.style.background='none'">💪</button>
+              <button type="button" onclick="insertEmoji('🎉')" style="background: none; border: none; font-size: 20px; padding: 8px; border-radius: 4px; cursor: pointer; transition: background-color 0.2s ease;" onmouseover="this.style.background='#f3f4f6'" onmouseout="this.style.background='none'">🎉</button>
+              <button type="button" onclick="insertEmoji('✨')" style="background: none; border: none; font-size: 20px; padding: 8px; border-radius: 4px; cursor: pointer; transition: background-color 0.2s ease;" onmouseover="this.style.background='#f3f4f6'" onmouseout="this.style.background='none'">✨</button>
+              <button type="button" onclick="insertEmoji('😀')" style="background: none; border: none; font-size: 20px; padding: 8px; border-radius: 4px; cursor: pointer; transition: background-color 0.2s ease;" onmouseover="this.style.background='#f3f4f6'" onmouseout="this.style.background='none'">😀</button>
+              <button type="button" onclick="insertEmoji('😃')" style="background: none; border: none; font-size: 20px; padding: 8px; border-radius: 4px; cursor: pointer; transition: background-color 0.2s ease;" onmouseover="this.style.background='#f3f4f6'" onmouseout="this.style.background='none'">😃</button>
+              <button type="button" onclick="insertEmoji('😄')" style="background: none; border: none; font-size: 20px; padding: 8px; border-radius: 4px; cursor: pointer; transition: background-color 0.2s ease;" onmouseover="this.style.background='#f3f4f6'" onmouseout="this.style.background='none'">😄</button>
+              <button type="button" onclick="insertEmoji('😁')" style="background: none; border: none; font-size: 20px; padding: 8px; border-radius: 4px; cursor: pointer; transition: background-color 0.2s ease;" onmouseover="this.style.background='#f3f4f6'" onmouseout="this.style.background='none'">😁</button>
+              <button type="button" onclick="insertEmoji('😆')" style="background: none; border: none; font-size: 20px; padding: 8px; border-radius: 4px; cursor: pointer; transition: background-color 0.2s ease;" onmouseover="this.style.background='#f3f4f6'" onmouseout="this.style.background='none'">😆</button>
+              <button type="button" onclick="insertEmoji('😅')" style="background: none; border: none; font-size: 20px; padding: 8px; border-radius: 4px; cursor: pointer; transition: background-color 0.2s ease;" onmouseover="this.style.background='#f3f4f6'" onmouseout="this.style.background='none'">😅</button>
+              <button type="button" onclick="insertEmoji('🤣')" style="background: none; border: none; font-size: 20px; padding: 8px; border-radius: 4px; cursor: pointer; transition: background-color 0.2s ease;" onmouseover="this.style.background='#f3f4f6'" onmouseout="this.style.background='none'">🤣</button>
+              <button type="button" onclick="insertEmoji('😂')" style="background: none; border: none; font-size: 20px; padding: 8px; border-radius: 4px; cursor: pointer; transition: background-color 0.2s ease;" onmouseover="this.style.background='#f3f4f6'" onmouseout="this.style.background='none'">😂</button>
+              <button type="button" onclick="insertEmoji('🙂')" style="background: none; border: none; font-size: 20px; padding: 8px; border-radius: 4px; cursor: pointer; transition: background-color 0.2s ease;" onmouseover="this.style.background='#f3f4f6'" onmouseout="this.style.background='none'">🙂</button>
+              <button type="button" onclick="insertEmoji('🙃')" style="background: none; border: none; font-size: 20px; padding: 8px; border-radius: 4px; cursor: pointer; transition: background-color 0.2s ease;" onmouseover="this.style.background='#f3f4f6'" onmouseout="this.style.background='none'">🙃</button>
+              <button type="button" onclick="insertEmoji('😉')" style="background: none; border: none; font-size: 20px; padding: 8px; border-radius: 4px; cursor: pointer; transition: background-color 0.2s ease;" onmouseover="this.style.background='#f3f4f6'" onmouseout="this.style.background='none'">😉</button>
+              <button type="button" onclick="insertEmoji('😇')" style="background: none; border: none; font-size: 20px; padding: 8px; border-radius: 4px; cursor: pointer; transition: background-color 0.2s ease;" onmouseover="this.style.background='#f3f4f6'" onmouseout="this.style.background='none'">😇</button>
+              <button type="button" onclick="insertEmoji('🥰')" style="background: none; border: none; font-size: 20px; padding: 8px; border-radius: 4px; cursor: pointer; transition: background-color 0.2s ease;" onmouseover="this.style.background='#f3f4f6'" onmouseout="this.style.background='none'">🥰</button>
+              <button type="button" onclick="insertEmoji('🤩')" style="background: none; border: none; font-size: 20px; padding: 8px; border-radius: 4px; cursor: pointer; transition: background-color 0.2s ease;" onmouseover="this.style.background='#f3f4f6'" onmouseout="this.style.background='none'">🤩</button>
+              <button type="button" onclick="insertEmoji('😘')" style="background: none; border: none; font-size: 20px; padding: 8px; border-radius: 4px; cursor: pointer; transition: background-color 0.2s ease;" onmouseover="this.style.background='#f3f4f6'" onmouseout="this.style.background='none'">😘</button>
+              <button type="button" onclick="insertEmoji('😋')" style="background: none; border: none; font-size: 20px; padding: 8px; border-radius: 4px; cursor: pointer; transition: background-color 0.2s ease;" onmouseover="this.style.background='#f3f4f6'" onmouseout="this.style.background='none'">😋</button>
+            </div>
+          </div>
+        </div>
+        <div class="mt-12">
+          <label>Upload Gambar/Foto (Opsional)</label>
+          <div class="file-upload-container">
+            <input type="file" id="imageUpload" name="image" accept="image/*">
+            <button type="button" class="btn ghost upload-btn" onclick="document.getElementById('imageUpload').click()">
+              <svg fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z" clip-rule="evenodd"/>
+              </svg>
+              Klik untuk Upload Gambar
+            </button>
+            <div id="imagePreview" class="image-preview">
+              <img id="previewImg">
+              <button type="button" onclick="removeImage()" class="btn ghost remove-btn">Hapus Gambar</button>
+            </div>
+          </div>
+        </div>
+        <div class="mt-12">
+          <label>Upload Video (Opsional)</label>
+          <div class="file-upload-container">
+            <input type="file" id="videoUpload" name="video" accept="video/*">
+            <button type="button" class="btn ghost upload-btn" onclick="document.getElementById('videoUpload').click()">
+              <svg fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2V5a2 2 0 00-2-2H4zm9 4l5-3v12l-5-3V7z" clip-rule="evenodd"/>
+              </svg>
+              Klik untuk Upload Video
+            </button>
+            <div id="videoPreview" class="image-preview preview-hidden">
+              <video id="previewVideo" controls class="preview-video"></video>
+              <button type="button" class="btn ghost remove-btn" onclick="document.getElementById('videoUpload').value='';document.getElementById('previewVideo').src='';document.getElementById('videoPreview').style.display='none'">Hapus Video</button>
+            </div>
+          </div>
+        </div>
+        <div class="mt-12">
+          <label>Kategori (Opsional)</label>
+          <select name="category" id="categorySelect" onchange="toggleCustomCategory()">
+            <option value="">Pilih kategori...</option>
+            <option value="bullying">Bullying</option>
+            <option value="mental_health">Mental Health</option>
+            <option value="workplace">Workplace</option>
+            <option value="aspirasi">Aspirasi</option>
+            <option value="other">Other</option>
+          </select>
+          <div id="customCategoryInput" style="display: none; margin-top: 8px;">
+            <input type="text" name="custom_category" placeholder="Tuliskan topik Anda..." style="width: 100%; padding: 8px; border: 1px solid #d1d5db; border-radius: 4px;">
+          </div>
+        </div>
+        <div class="mt-12">
+          <label><input type="checkbox" name="want_solution" value="true" /> Saya ingin solusi</label>
+        </div>
+        <div class="actions-row">
+          <button type="submit" class="btn primary">Kirim</button>
+          <button type="button" id="closeCreate2" class="btn ghost" onclick="document.getElementById('createModal').classList.remove('open')">Batal</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    // Guard: pastikan server dijalankan dari start-server dan root adalah /ui
+    (function(){
+      const isFile = location.protocol === 'file:';
+      const path = location.pathname.replace(/\\/g,'/');
+      const servedFromRoot = !path.startsWith('/');
+      if (isFile) {
+        alert('Jalankan server dari start-server.bat!');
+        location.href = 'http://localhost:8000/sign-desktop.html';
+      }
+    })();
+  </script>
+  <script>
+    (async function(){
+      const supabase = (typeof window.getSupabase==='function') ? window.getSupabase() : null;
+      if (supabase) {
+        const { data: { session } } = await supabase.auth.getSession();
+        const user = session?.user;
+        console.log('desktop session.user:', user || null);
+        if (!user) {
+          console.warn('Session hilang di desktop.');
+        }
+      }
+    })();
+  </script>
+  <script src="assets/js/app.js"></script>
+  <script>
+    // Emoji Picker Functions - Override global functions
+    window.toggleEmojiPicker = function() {
+      const emojiPicker = document.getElementById('emojiPicker');
+      console.log('toggleEmojiPicker called, emojiPicker:', emojiPicker);
+      
+      if (emojiPicker) {
+        if (emojiPicker.style.display === 'none' || emojiPicker.style.display === '') {
+          emojiPicker.style.display = 'block';
+          emojiPicker.classList.add('open');
+          console.log('Emoji picker shown');
+        } else {
+          emojiPicker.style.display = 'none';
+          emojiPicker.classList.remove('open');
+          console.log('Emoji picker hidden');
+        }
+      } else {
+        console.log('Emoji picker not found!');
+      }
+    };
+
+    window.insertEmoji = function(emoji) {
+      const textarea = document.getElementById('contentText');
+      if (textarea) {
+        const currentPos = textarea.selectionStart;
+        const textBefore = textarea.value.substring(0, currentPos);
+        const textAfter = textarea.value.substring(textarea.selectionEnd);
+        
+        textarea.value = textBefore + emoji + textAfter;
+        textarea.focus();
+        textarea.setSelectionRange(currentPos + emoji.length, currentPos + emoji.length);
+        
+        // Hide emoji picker after selection
+        const emojiPicker = document.getElementById('emojiPicker');
+        if (emojiPicker) {
+          emojiPicker.style.display = 'none';
+          emojiPicker.classList.remove('open');
+        }
+      }
+    };
+
+    // Video preview for homepage create form
+    (function(){
+      const vInput = document.getElementById('videoUpload');
+      const vWrap = document.getElementById('videoPreview');
+      const vEl = document.getElementById('previewVideo');
+      if (vInput && vWrap && vEl) {
+        vInput.addEventListener('change', (e) => {
+          const file = e.target.files && e.target.files[0];
+          if (!file) return;
+          if (!file.type.startsWith('video/')) return;
+          const url = URL.createObjectURL(file);
+          vEl.src = url;
+          vEl.style.display = 'block';
+          vWrap.style.display = 'block';
+        });
+      }
+    })();
+
+    // Toggle custom category input
+    function toggleCustomCategory() {
+      const categorySelect = document.getElementById('categorySelect');
+      const customInput = document.getElementById('customCategoryInput');
+      
+      if (categorySelect && customInput) {
+        if (categorySelect.value === 'other') {
+          customInput.style.display = 'block';
+        } else {
+          customInput.style.display = 'none';
+          // Clear custom category input when not needed
+          const customInputField = customInput.querySelector('input');
+          if (customInputField) {
+            customInputField.value = '';
+          }
+        }
+      }
+    }
+
+
+    // Close emoji picker when clicking outside
+    document.addEventListener('click', function(e) {
+      const emojiPicker = document.getElementById('emojiPicker');
+      const emojiBtn = document.querySelector('[onclick="toggleEmojiPicker()"]');
+      
+      if (emojiPicker && emojiBtn && !emojiPicker.contains(e.target) && !emojiBtn.contains(e.target)) {
+        emojiPicker.style.display = 'none';
+        emojiPicker.classList.remove('open');
+      }
+    });
+
+    // Ensure Speak! button works
+    document.addEventListener('DOMContentLoaded', function() {
+      const speakButtons = document.querySelectorAll('[data-open-create]');
+      const createModal = document.getElementById('createModal');
+      const closeButton = document.getElementById('closeCreate');
+      
+      speakButtons.forEach(function(speakButton) {
+        if (speakButton && createModal) {
+          speakButton.addEventListener('click', function(e) {
+            e.preventDefault();
+            console.log('Speak! button clicked');
+            createModal.classList.add('open');
+          });
+        }
+      });
+      
+      // Close modal functionality
+      if (closeButton && createModal) {
+        closeButton.addEventListener('click', function(e) {
+          e.preventDefault();
+          e.stopPropagation();
+          console.log('Close button clicked');
+          createModal.classList.remove('open');
+          // Also hide emoji picker if open
+          const emojiPicker = document.getElementById('emojiPicker');
+          if (emojiPicker) {
+            emojiPicker.style.display = 'none';
+            emojiPicker.classList.remove('open');
+          }
+        });
+      }
+      
+      // Close modal when clicking outside
+      createModal.addEventListener('click', function(e) {
+        if (e.target === createModal) {
+          createModal.classList.remove('open');
+        }
+      });
+      
+      // Close modal with Escape key
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && createModal.classList.contains('open')) {
+          createModal.classList.remove('open');
+        }
+      });
+    });
+  </script>
+</body>
+</html>
