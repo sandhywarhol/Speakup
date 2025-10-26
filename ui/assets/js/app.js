@@ -195,15 +195,34 @@
           }
           console.log('Session found, user ID:', session.user.id);
         
-        // Upload image if exists
+        // Upload image if exists (with compression)
         let imageUrl = null;
         let videoUrl = null;
         if (imageFile) {
-          console.log('Uploading image:', imageFile.name);
-          const imagePath = `posts/${session.user.id}/${Date.now()}_${imageFile.name}`;
+          console.log('Compressing and uploading image:', imageFile.name);
+          
+          // Compress image before upload
+          let compressedImageFile = imageFile;
+          if (window.compressionUtils) {
+            try {
+              console.log('Compressing image...');
+              compressedImageFile = await window.compressionUtils.compressImage(imageFile, {
+                quality: 0.8,
+                maxWidth: 1920,
+                maxHeight: 1080,
+                maxSize: 5 * 1024 * 1024 // 5MB max
+              });
+              console.log(`Image compressed: ${imageFile.size} -> ${compressedImageFile.size} bytes`);
+            } catch (error) {
+              console.warn('Image compression failed, using original:', error);
+              compressedImageFile = imageFile;
+            }
+          }
+          
+          const imagePath = `posts/${session.user.id}/${Date.now()}_${compressedImageFile.name}`;
           const { data: uploadData, error: uploadError } = await supabase.storage
             .from('posts')
-            .upload(imagePath, imageFile);
+            .upload(imagePath, compressedImageFile);
             
           if (uploadError) {
             console.error('Error uploading image:', uploadError);
@@ -218,13 +237,32 @@
           }
         }
         
-        // Upload video if exists
+        // Upload video if exists (with compression)
         if (videoFile) {
-          console.log('Uploading video:', videoFile.name);
-          const videoPath = `posts/${session.user.id}/${Date.now()}_${videoFile.name}`;
+          console.log('Compressing and uploading video:', videoFile.name);
+          
+          // Compress video before upload
+          let compressedVideoFile = videoFile;
+          if (window.compressionUtils) {
+            try {
+              console.log('Compressing video...');
+              compressedVideoFile = await window.compressionUtils.compressVideo(videoFile, {
+                quality: 0.7,
+                maxWidth: 1280,
+                maxHeight: 720,
+                maxSize: 10 * 1024 * 1024 // 10MB max
+              });
+              console.log(`Video compressed: ${videoFile.size} -> ${compressedVideoFile.size} bytes`);
+            } catch (error) {
+              console.warn('Video compression failed, using original:', error);
+              compressedVideoFile = videoFile;
+            }
+          }
+          
+          const videoPath = `posts/${session.user.id}/${Date.now()}_${compressedVideoFile.name}`;
           const { data: vUpload, error: vErr } = await supabase.storage
             .from('posts')
-            .upload(videoPath, videoFile, { contentType: videoFile.type });
+            .upload(videoPath, compressedVideoFile, { contentType: compressedVideoFile.type });
           if (vErr) {
             console.error('Error uploading video:', vErr);
             alert('Gagal mengupload video: ' + vErr.message);

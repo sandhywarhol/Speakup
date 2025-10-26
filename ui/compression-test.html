@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Kompresi File - SpeakUp!</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #f8fafc;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            color: #1e40af;
+            margin-bottom: 30px;
+        }
+        .upload-area {
+            border: 2px dashed #38bdf8;
+            border-radius: 8px;
+            padding: 40px;
+            text-align: center;
+            margin-bottom: 30px;
+            background: #f0f9ff;
+        }
+        .upload-area.dragover {
+            background: #e0f2fe;
+            border-color: #0284c7;
+        }
+        input[type="file"] {
+            margin: 20px 0;
+        }
+        .results {
+            margin-top: 30px;
+        }
+        .file-info {
+            background: #f1f5f9;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 10px 0;
+        }
+        .compression-stats {
+            background: #ecfdf5;
+            border: 1px solid #10b981;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 10px 0;
+        }
+        .error {
+            background: #fef2f2;
+            border: 1px solid #ef4444;
+            color: #dc2626;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 10px 0;
+        }
+        .success {
+            background: #f0fdf4;
+            border: 1px solid #22c55e;
+            color: #16a34a;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 10px 0;
+        }
+        button {
+            background: #38bdf8;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            margin: 10px 5px;
+        }
+        button:hover {
+            background: #0284c7;
+        }
+        button:disabled {
+            background: #94a3b8;
+            cursor: not-allowed;
+        }
+        .preview {
+            max-width: 100%;
+            max-height: 300px;
+            border-radius: 8px;
+            margin: 10px 0;
+        }
+        .progress {
+            width: 100%;
+            height: 8px;
+            background: #e5e7eb;
+            border-radius: 4px;
+            overflow: hidden;
+            margin: 10px 0;
+        }
+        .progress-bar {
+            height: 100%;
+            background: #38bdf8;
+            transition: width 0.3s ease;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🧪 Test Kompresi File - SpeakUp!</h1>
+        <p>Upload foto atau video untuk melihat kompresi otomatis yang akan diterapkan di platform SpeakUp!</p>
+        
+        <div class="upload-area" id="uploadArea">
+            <h3>📁 Drag & Drop atau Klik untuk Upload</h3>
+            <p>Format yang didukung: JPG, PNG, GIF, WebP, MP4, AVI, MOV, WebM</p>
+            <input type="file" id="fileInput" multiple accept="image/*,video/*">
+        </div>
+
+        <div class="results" id="results"></div>
+    </div>
+
+    <script src="assets/js/compression-utils.js"></script>
+    <script>
+        const uploadArea = document.getElementById('uploadArea');
+        const fileInput = document.getElementById('fileInput');
+        const results = document.getElementById('results');
+
+        // Drag and drop handlers
+        uploadArea.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            uploadArea.classList.add('dragover');
+        });
+
+        uploadArea.addEventListener('dragleave', () => {
+            uploadArea.classList.remove('dragover');
+        });
+
+        uploadArea.addEventListener('drop', (e) => {
+            e.preventDefault();
+            uploadArea.classList.remove('dragover');
+            handleFiles(e.dataTransfer.files);
+        });
+
+        uploadArea.addEventListener('click', () => {
+            fileInput.click();
+        });
+
+        fileInput.addEventListener('change', (e) => {
+            handleFiles(e.target.files);
+        });
+
+        async function handleFiles(files) {
+            if (!files || files.length === 0) return;
+
+            results.innerHTML = '<div class="success">🔄 Memproses file...</div>';
+
+            for (let i = 0; i < files.length; i++) {
+                const file = files[i];
+                await processFile(file);
+            }
+        }
+
+        async function processFile(file) {
+            const fileInfo = document.createElement('div');
+            fileInfo.className = 'file-info';
+            fileInfo.innerHTML = `
+                <h4>📄 ${file.name}</h4>
+                <p><strong>Tipe:</strong> ${file.type}</p>
+                <p><strong>Ukuran Asli:</strong> ${formatFileSize(file.size)}</p>
+                <div class="progress">
+                    <div class="progress-bar" style="width: 0%"></div>
+                </div>
+                <p>🔄 Mengkompres file...</p>
+            `;
+            results.appendChild(fileInfo);
+
+            const progressBar = fileInfo.querySelector('.progress-bar');
+
+            try {
+                // Simulate progress
+                let progress = 0;
+                const progressInterval = setInterval(() => {
+                    progress += Math.random() * 20;
+                    if (progress > 90) progress = 90;
+                    progressBar.style.width = progress + '%';
+                }, 100);
+
+                // Compress file
+                const compressedFile = await window.compressionUtils.compressFile(file, {
+                    quality: file.type.startsWith('image/') ? 0.8 : 0.7,
+                    maxWidth: file.type.startsWith('image/') ? 1920 : 1280,
+                    maxHeight: file.type.startsWith('image/') ? 1080 : 720,
+                    maxSize: file.type.startsWith('image/') ? 5 * 1024 * 1024 : 10 * 1024 * 1024
+                });
+
+                clearInterval(progressInterval);
+                progressBar.style.width = '100%';
+
+                // Calculate compression stats
+                const compressionRatio = Math.round((1 - compressedFile.size / file.size) * 100);
+                const sizeReduction = file.size - compressedFile.size;
+
+                // Update file info with results
+                fileInfo.innerHTML = `
+                    <h4>📄 ${file.name}</h4>
+                    <p><strong>Tipe:</strong> ${file.type}</p>
+                    <p><strong>Ukuran Asli:</strong> ${formatFileSize(file.size)}</p>
+                    <p><strong>Ukuran Setelah Kompresi:</strong> ${formatFileSize(compressedFile.size)}</p>
+                    <div class="compression-stats">
+                        <h5>📊 Statistik Kompresi</h5>
+                        <p><strong>Pengurangan Ukuran:</strong> ${formatFileSize(sizeReduction)} (${compressionRatio}%)</p>
+                        <p><strong>Rasio Kompresi:</strong> ${(compressedFile.size / file.size).toFixed(2)}x</p>
+                    </div>
+                `;
+
+                // Add preview for images
+                if (file.type.startsWith('image/')) {
+                    const preview = document.createElement('img');
+                    preview.src = URL.createObjectURL(compressedFile);
+                    preview.className = 'preview';
+                    preview.alt = 'Preview gambar yang dikompres';
+                    fileInfo.appendChild(preview);
+                }
+
+                // Add download link
+                const downloadLink = document.createElement('a');
+                downloadLink.href = URL.createObjectURL(compressedFile);
+                downloadLink.download = `compressed_${file.name}`;
+                downloadLink.textContent = '💾 Download File Terkompres';
+                downloadLink.style.display = 'inline-block';
+                downloadLink.style.marginTop = '10px';
+                downloadLink.style.padding = '8px 16px';
+                downloadLink.style.background = '#38bdf8';
+                downloadLink.style.color = 'white';
+                downloadLink.style.textDecoration = 'none';
+                downloadLink.style.borderRadius = '6px';
+                fileInfo.appendChild(downloadLink);
+
+            } catch (error) {
+                console.error('Error compressing file:', error);
+                fileInfo.innerHTML = `
+                    <h4>❌ ${file.name}</h4>
+                    <div class="error">
+                        <p><strong>Error:</strong> ${error.message}</p>
+                        <p>File tidak dapat dikompres, kemungkinan format tidak didukung atau file rusak.</p>
+                    </div>
+                `;
+            }
+        }
+
+        function formatFileSize(bytes) {
+            if (bytes === 0) return '0 Bytes';
+            
+            const k = 1024;
+            const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+            const i = Math.floor(Math.log(bytes) / Math.log(k));
+            
+            return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+        }
+
+        // Initialize
+        console.log('Compression test page loaded');
+        console.log('CompressionUtils available:', !!window.compressionUtils);
+    </script>
+</body>
+</html>
+

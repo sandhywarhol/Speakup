@@ -628,7 +628,7 @@ class PetitionsAPI {
     // =====================================================
 
     /**
-     * Upload file ke Supabase Storage
+     * Upload file ke Supabase Storage dengan kompresi otomatis
      * @param {File} file - File yang akan diupload
      * @param {string} folder - Folder tujuan
      * @returns {Promise<string>} - URL file yang diupload
@@ -639,14 +639,46 @@ class PetitionsAPI {
 
             console.log(`Starting upload for file: ${file.name}, type: ${file.type}, size: ${file.size}, folder: ${folder}`);
 
+            // Compress file before upload if compression utils available
+            let fileToUpload = file;
+            if (window.compressionUtils) {
+                try {
+                    console.log('Compressing file before upload...');
+                    
+                    // Set compression options based on file type and folder
+                    let compressionOptions = {};
+                    
+                    if (file.type.startsWith('image/')) {
+                        compressionOptions = {
+                            quality: 0.8,
+                            maxWidth: 1920,
+                            maxHeight: 1080,
+                            maxSize: 5 * 1024 * 1024 // 5MB max for images
+                        };
+                    } else if (file.type.startsWith('video/')) {
+                        compressionOptions = {
+                            quality: 0.7,
+                            maxWidth: 1280,
+                            maxHeight: 720,
+                            maxSize: 10 * 1024 * 1024 // 10MB max for videos
+                        };
+                    }
+                    
+                    fileToUpload = await window.compressionUtils.compressFile(file, compressionOptions);
+                    console.log(`File compressed: ${file.size} -> ${fileToUpload.size} bytes (${Math.round((1 - fileToUpload.size / file.size) * 100)}% reduction)`);
+                } catch (error) {
+                    console.warn('File compression failed, using original file:', error);
+                    fileToUpload = file;
+                }
+            }
+
             // Generate unique filename
-            const fileExt = file.name.split('.').pop();
+            const fileExt = fileToUpload.name.split('.').pop();
             const fileName = `${Date.now()}-${Math.random().toString(36).substring(2)}.${fileExt}`;
             const filePath = `petitions/${folder}/${fileName}`;
 
             // Fix MIME type untuk file yang tidak memiliki MIME type yang tepat
-            let fileToUpload = file;
-            if (file.type === 'application/octet-stream' || !file.type) {
+            if (fileToUpload.type === 'application/octet-stream' || !fileToUpload.type) {
                 // Tentukan MIME type berdasarkan ekstensi file
                 const mimeTypes = {
                     'jpg': 'image/jpeg',
@@ -660,7 +692,8 @@ class PetitionsAPI {
                     'mp4': 'video/mp4',
                     'avi': 'video/x-msvideo',
                     'mov': 'video/quicktime',
-                    'wmv': 'video/x-ms-wmv'
+                    'wmv': 'video/x-ms-wmv',
+                    'webm': 'video/webm'
                 };
                 
                 const ext = fileExt.toLowerCase();
@@ -668,18 +701,18 @@ class PetitionsAPI {
                 
                 if (correctMimeType) {
                     // Buat file baru dengan MIME type yang benar
-                    fileToUpload = new File([file], file.name, { type: correctMimeType });
-                    console.log(`Fixed MIME type for ${file.name}: ${file.type} -> ${correctMimeType}`);
+                    fileToUpload = new File([fileToUpload], fileToUpload.name, { type: correctMimeType });
+                    console.log(`Fixed MIME type for ${fileToUpload.name}: ${fileToUpload.type} -> ${correctMimeType}`);
                 } else {
                     // Jika tidak ada mapping yang tepat, coba deteksi dari content
-                    console.warn(`Unknown file extension: ${ext} for file ${file.name}`);
+                    console.warn(`Unknown file extension: ${ext} for file ${fileToUpload.name}`);
                     // Tetap gunakan file asli, tapi dengan MIME type yang lebih umum
                     if (ext.match(/^(jpg|jpeg|png|gif|webp)$/)) {
-                        fileToUpload = new File([file], file.name, { type: 'image/jpeg' });
-                    } else if (ext.match(/^(mp4|avi|mov|wmv)$/)) {
-                        fileToUpload = new File([file], file.name, { type: 'video/mp4' });
+                        fileToUpload = new File([fileToUpload], fileToUpload.name, { type: 'image/jpeg' });
+                    } else if (ext.match(/^(mp4|avi|mov|wmv|webm)$/)) {
+                        fileToUpload = new File([fileToUpload], fileToUpload.name, { type: 'video/mp4' });
                     } else if (ext.match(/^(pdf)$/)) {
-                        fileToUpload = new File([file], file.name, { type: 'application/pdf' });
+                        fileToUpload = new File([fileToUpload], fileToUpload.name, { type: 'application/pdf' });
                     }
                 }
             }
